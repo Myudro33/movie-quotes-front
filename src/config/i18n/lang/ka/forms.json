@@ -1,0 +1,23 @@
+{
+    "create_account":"შექმენი ანგარიში",
+    "start_journey":"დაიწყე მოგზაურობა!",
+    "name":"სახელი",
+    "name_placeholder":"მინიმუმ 3 & მაქს. 15 დაბალი რეგისტრის ასოები",
+    "email":"მეილი",
+    "email_placeholder":"შეიყვანე შენი მეილი",
+    "password":"პაროლი",
+    "password_placeholder":"მინიმუმ 8 & მაქს.15 დაბალი რეგისტრის ასოები",
+    "confirm_password":"გაიმეორეთ პაროლი",
+    "confirm_password_placeholder":"გაიმეორეთ პაროლი",
+    "get_started":"რეგისტრაცია",
+    "google_signup":"გუგლით რეგისტრაცია",
+    "have_account":"უკვე გაქვს ანგარიში?",
+    "log_in":"შესვლა",
+    "login_to_account":"ანგარიშში შესვლა",
+    "welcome_back":"გთხოვთ შეიყვანოთ თქვენი მონაცემები.",
+    "remember_me":"დამახსოვრება",
+    "forgot_password":"დამავიწყდა პაროლი?",
+    "sign_in":"შესვლა",
+    "dont_have_account":"არ გაქვს ანგარიში?",
+    "sign_up":"რეგისტრაცია"
+}
