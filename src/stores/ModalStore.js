@@ -12,6 +12,13 @@ export const useModalStore = defineStore('modalStore',{
         openModal(payload){
             this.inner = payload
             this.modal = true
-        }
+        },
+        scroll(payload){
+            if(payload){
+                document.documentElement.classList.add('modal-open');
+            }else{
+                document.documentElement.classList.remove('modal-open');
+            }
+          },
     }
 })

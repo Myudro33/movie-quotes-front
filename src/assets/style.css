@@ -17,3 +17,6 @@
 body {
   background: #11101a;
 }
+.modal-open {
+  overflow: hidden;
+}
