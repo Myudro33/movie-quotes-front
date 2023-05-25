@@ -47,9 +47,9 @@
     </button>
     <p class="text-center mt-8 text-[#6C757D]">
       {{ $t("forms.dont_have_account") }}
-      <p @click="modalStore.openModal('register')" class="text-[#0D6EFD] underline inline-block">{{
-        $t("forms.sign_up")
-      }}</p>
+      <p @click="modalStore.openModal('register')" class="text-[#0D6EFD] underline inline">
+      {{$t("forms.sign_up")}}
+      </p>
     </p>
   </Form>
 </template>

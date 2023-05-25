@@ -3,19 +3,17 @@
 @tailwind utilities;
 
 @font-face {
-    font-family: "HelveticaNeue";
-    src: url('./fonts/helvetica-neue-lt-geo-55-roman.ttf');
-  }
-
-
-*{
-    font-family: "HelveticaNeue";
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-
+  font-family: 'HelveticaNeue';
+  src: url('./fonts/helvetica-neue-lt-geo-55-roman.ttf');
 }
-body{
-  background: #11101A
 
+* {
+  font-family: 'HelveticaNeue';
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+body {
+  background: #11101a;
 }

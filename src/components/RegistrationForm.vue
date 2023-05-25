@@ -65,10 +65,10 @@
     </button>
     <p class="text-center mt-8 text-[#6C757D]">
       {{ $t("forms.have_account") }}
-
-      <p @click="modalStore.openModal('login')" class="text-[#0D6EFD] underline inline-block">{{
+      <p @click="modalStore.openModal('login')" class="text-[#0D6EFD] underline inline">{{
         $t("forms.log_in")
-      }}</p>
+      }}
+      </p>
     </p>
   </Form>
 </template>
