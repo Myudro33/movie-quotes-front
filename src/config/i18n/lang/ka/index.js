@@ -1,9 +1,11 @@
 import forms from './forms.json'
 import landing from './landing.json'
+import modal from './modal.json'
 
 const translations = {
   forms,
-  landing
+  landing,
+  modal
 }
 
 export default translations

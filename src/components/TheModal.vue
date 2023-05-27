@@ -1,6 +1,5 @@
 <template>
   <div
-    v-scroll-lock
     @click="modalStore.closeModal()"
     name="backDrop"
     class="top-0 backdrop w-full h-screen absolute z-50 bg-[#00000090] flex justify-center items-center"
@@ -12,6 +11,13 @@
     >
       <LoginFormVue v-if="modalStore.inner === 'login'" />
       <RegistrationForm v-else-if="modalStore.inner === 'register'" />
+      <InfoModal
+        v-if="false"
+        image="send"
+        :heading="$t('modal.check_email')"
+        :paragraph="$t('modal.check_email_paragraph')"
+        :button="$t('modal.go_to_email')"
+      />
     </div>
   </div>
 </template>
@@ -21,9 +27,10 @@ import LoginFormVue from "./LoginForm.vue";
 import RegistrationForm from "./RegistrationForm.vue";
 import { useModalStore } from "../stores/ModalStore";
 import { onMounted, onBeforeUnmount } from "vue";
+import InfoModal from "./InfoModal.vue";
 export default {
   props: ["modalActive", "inner"],
-  components: { LoginFormVue, RegistrationForm },
+  components: { LoginFormVue, RegistrationForm, InfoModal },
   setup() {
     const modalStore = useModalStore();
     onMounted(() => {
