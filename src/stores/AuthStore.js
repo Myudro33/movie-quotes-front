@@ -1,8 +1,7 @@
 import { defineStore } from "pinia";
 import { route } from '../main.js'
-import {getUser, login,register} from "../services/index.js";
+import {getUser, login,register,logout} from "../services/index.js";
 import { useModalStore } from "./ModalStore.js";
-import axiosInstance from "../config/axios-config/axios.js";
 
 export const useAuthStore = defineStore('authStore',{
     state:()=>({
@@ -29,15 +28,7 @@ export const useAuthStore = defineStore('authStore',{
                 this.error = error.response.data.message
             }
         },
-        async logout(){
-            try {
-                await axiosInstance.post('/logout')   
-            } catch (error) {
-                console.log(error);
-            }
-        },
-        fetchUser(){
-          getUser()
-        },
+        logout,
+        getUser
     }
 })

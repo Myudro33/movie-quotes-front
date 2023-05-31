@@ -14,3 +14,7 @@ export const getUser=async()=>{
   authStore.$state.user = response.data
   })
 }
+
+export const logout= async()=>{
+    await axiosInstance.post('/logout')   
+}
