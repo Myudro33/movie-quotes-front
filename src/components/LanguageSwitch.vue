@@ -11,7 +11,7 @@
         :key="`locale-${locale}`"
         :value="locale"
       >
-        {{ locale === "en" ? "Eng" : "Geo" }}
+        {{ locale === "en" ? "English" : "ქართული" }}
       </option>
     </select>
   </div>
