@@ -10,6 +10,7 @@
     "confirm_password":"Confirm password",
     "confirm_password_placeholder":"Confirm password",
     "get_started":"Get started",
+    "google_signin":"Sign in with Google",
     "google_signup":"Sign up with Google",
     "have_account":"Already have an acoount?",
     "log_in":"Log in",
