@@ -12,8 +12,9 @@
       <LoginFormVue v-if="modalStore.inner === 'login'" />
       <RegistrationForm v-else-if="modalStore.inner === 'register'" />
       <InfoModal
-        v-if="false"
+        v-if="modalStore.inner === 'registered'"
         image="send"
+        link="https://mailtrap.io/inboxes/2178525/messages/"
         :heading="$t('modal.check_email')"
         :paragraph="$t('modal.check_email_paragraph')"
         :button="$t('modal.go_to_email')"
