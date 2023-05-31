@@ -1,5 +1,5 @@
 <template>
-  <Form  @submit="handleSubmit" v-slot="{ meta, errors }" class="w-full">
+  <Form  @submit="onSubmit" v-slot="{ meta, errors }" class="w-full">
     <h1 class="xs:text-2xl md:text-4xl xs:mt-[70px] h-12 md:mt-2 text-white text-center">
       {{ $t("forms.create_account") }}
     </h1>
@@ -9,7 +9,7 @@
     <div class="mt-4">
       <input-component
         :rules="'required|min:3|max:15|lowercase'"
-        v-model="username"
+        v-model="form.username"
         :error="errors.username"
         id="username"
         :label="$t('forms.name')"
@@ -22,7 +22,7 @@
       <input-component
         :rules="'required|email'"
         :error="errors.email"
-        v-model="email"
+        v-model="form.email"
         type="email"
         id="email"
         :label="$t('forms.email')"
@@ -33,9 +33,9 @@
     <div class="mt-4">
       <input-component
         :rules="'required|min:8|max:15|lowercase'"
-        v-model="password"
+        v-model="form.password"
         :error="errors.password"
-        type="text"
+        type="password"
         id="password"
         :label="$t('forms.password')"
         :required="true"
@@ -45,22 +45,22 @@
     <div class="mt-4">
       <input-component
         :rules="'required|confirmed:password'"
-        v-model="confirmPassword"
+        v-model="form.confirmPassword"
         :error="errors.confirmPassword"
-        type="text"
+        type="password"
         id="confirmPassword"
         :label="$t('forms.confirm_password')"
         :required="true"
         :placeholder="$t('forms.confirm_password_placeholder')"
       />
     </div>
-    <button class="bg-[#E31221] w-full mb-3 h-[38px] text-white mt-6 rounded-[4px]">
+    <button :disabled="form.isSubmitting" class="bg-[#E31221] disabled:cursor-wait w-full mb-3 h-[38px] text-white mt-6 rounded-[4px]">
       {{ $t("forms.get_started") }}
     </button>
       <GoogleButton/>
     <p class="text-center mt-8 text-[#6C757D]">
       {{ $t("forms.have_account") }}
-      <p @click="modalStore.openModal('login')" class="text-[#0D6EFD] underline inline">{{
+      <p @click="modalStore.openModal('login')" class="text-[#0D6EFD] cursor-pointer underline inline">{{
         $t("forms.log_in")
       }}
       </p>
@@ -68,34 +68,27 @@
   </Form>
 </template>
 
-<script>
+<script setup>
 import { Form } from "vee-validate";
 import { useModalStore } from "../stores/ModalStore";
 import { useAuthStore } from "../stores/AuthStore";
 import GoogleButton from "./GoogleButton.vue";
-export default {
-  data() {
-    return {
+import { reactive } from "vue";
+    const authStore = useAuthStore()
+    const modalStore = useModalStore()
+    const form = reactive({
       username: "",
       email: "",
       password: "",
       confirmPassword: "",
-    };
-  },
-  setup(){
-    const authStore = useAuthStore()
-    const modalStore = useModalStore()
-    return {modalStore,authStore}
-  },
-  methods:{
-    handleSubmit(){
-      this.authStore.register({
-        username:this.username,
-        email:this.email,
-        password:this.password
+      isSubmitting:false
+    })
+    const onSubmit=()=>{
+      authStore.register({
+        username:form.username,
+        email:form.email,
+        password:form.password,
       })
+      form.isSubmitting=true
     }
-  },
-  components: { Form ,GoogleButton},
-};
 </script>

@@ -10,7 +10,7 @@
       <input-component
         :rules="'required'"
         :error="errors.email"
-        v-model="email"
+        v-model="form.username"
         type="text"
         id="email"
         :label="$t('forms.name')"
@@ -20,9 +20,9 @@
     <div class="mt-4">
       <input-component
         :rules="'required|min:8|max:15|lowercase'"
-        v-model="password"
+        v-model="form.password"
         :error="errors.password"
-        type="text"
+        type="password"
         id="password"
         :label="$t('forms.password')"
         :placeholder="$t('forms.password_placeholder')"
@@ -35,7 +35,7 @@
           $t("forms.remember_me")
         }}</label>
       </div>
-      <p @click="modalStore.openModal('forgot_password')" class="text-[#0D6EFD] underline inline-block">{{
+      <p @click="modalStore.openModal('forgot_password')" class="text-[#0D6EFD] cursor-pointer underline inline-block">{{
         $t("forms.forgot_password")
       }}</p>
     </div>
@@ -45,7 +45,7 @@
     <GoogleButton type="signin" />
     <p class="text-center mt-8 text-[#6C757D]">
       {{ $t("forms.dont_have_account") }}
-      <p @click="modalStore.openModal('register')" class="text-[#0D6EFD] underline inline">
+      <p @click="modalStore.openModal('register')" class="text-[#0D6EFD] cursor-pointer underline inline">
       {{$t("forms.sign_up")}}
       </p>
     </p>
@@ -53,28 +53,19 @@
    
 </template>
 
-<script>
+<script setup>
 import { Form } from "vee-validate";
 import { useModalStore } from "../stores/ModalStore";
 import {useAuthStore} from '../stores/AuthStore'
 import GoogleButton from '../components/GoogleButton.vue'
-export default {
-  data() {
-    return {
-      email: "",
-      password: "",
-    };
-  },
-  setup(){
+import { reactive } from "vue";
     const modalStore = useModalStore()
     const authStore = useAuthStore()
-    return {modalStore,authStore,}
-  },
-  methods:{
-    submitForm(){
-         this.authStore.login({username:this.email,password:this.password})
-    },
-  },
-  components: { Form,GoogleButton },
-};
+    const form = reactive({
+      username:'',
+      password:''
+    })
+    const submitForm=()=>{
+      authStore.login({username:form.username,password:form.password})
+    }
 </script>

@@ -24,11 +24,8 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import TheSidebar from "../components/TheSidebar.vue";
 import PencilIcon from "../components/icons/PencilIcon.vue";
 import SearchIcon from "../components/icons/SearchIcon.vue";
-export default {
-  components: { TheSidebar, SearchIcon, PencilIcon },
-};
 </script>

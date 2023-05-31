@@ -31,16 +31,10 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import LanguageSwitch from "./LanguageSwitch.vue";
 import { useModalStore } from "../stores/ModalStore";
 import { useAuthStore } from "../stores/AuthStore";
-export default {
-  components: { LanguageSwitch },
-  setup() {
-    const modalStore = useModalStore();
-    const authStore = useAuthStore();
-    return { modalStore, authStore };
-  },
-};
+const modalStore = useModalStore();
+const authStore = useAuthStore();
 </script>

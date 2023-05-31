@@ -22,15 +22,9 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import HouseIcon from "./icons/HouseIcon.vue";
 import CameraIcon from "./icons/CameraIcon.vue";
-export default {
-  components: { HouseIcon, CameraIcon },
-  data() {
-    return {
-      feed: false,
-    };
-  },
-};
+import { reactive } from "vue";
+const feed = reactive(false);
 </script>

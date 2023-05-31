@@ -18,17 +18,14 @@
 </template>
 
 //
-<script>
+<script setup>
 import { setLocale } from "@vee-validate/i18n";
-export default {
-  methods: {
-    changeLocale($event) {
-      setLocale($event.target.value);
-      localStorage.setItem("locale", $event.target.value);
-    },
-  },
-  created() {
-    setLocale(localStorage.getItem("locale"));
-  },
+import { onMounted } from "vue";
+const changeLocale = ($event) => {
+  setLocale($event.target.value);
+  localStorage.setItem("locale", $event.target.value);
 };
+onMounted(() => {
+  setLocale(localStorage.getItem("locale"));
+});
 </script>

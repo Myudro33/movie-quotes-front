@@ -17,14 +17,10 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import TheNavbar from "../components/TheNavbar.vue";
 import TheModal from "../components/TheModal.vue";
 import RegistrationForm from "../components/RegistrationForm.vue";
 import LoginForm from "../components/LoginForm.vue";
 import LandingParallax from "../components/LandingParallax.vue";
-
-export default {
-  components: { TheNavbar, TheModal, RegistrationForm, LoginForm, LandingParallax },
-};
 </script>

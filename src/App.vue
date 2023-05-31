@@ -1,20 +1,15 @@
-<script>
+<script setup>
 import { RouterView } from "vue-router";
 import TheNavbar from "./components/TheNavbar.vue";
 import TheModal from "./components/TheModal.vue";
 import { useModalStore } from "./stores/ModalStore";
 import { useAuthStore } from "./stores/AuthStore";
-export default {
-  components: { TheNavbar, TheModal },
-  setup() {
-    const authStore = useAuthStore();
-    const modalStore = useModalStore();
-    return { modalStore, authStore };
-  },
-  created() {
-    this.authStore.fetchUser();
-  },
-};
+import { onBeforeMount } from "vue";
+const authStore = useAuthStore();
+const modalStore = useModalStore();
+onBeforeMount(() => {
+  authStore.getUser();
+});
 </script>
 
 <template>
