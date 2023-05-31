@@ -1,5 +1,5 @@
 <template>
-  <Form  v-slot="{ meta, errors }" class="w-full">
+  <Form  @submit="handleSubmit" v-slot="{ meta, errors }" class="w-full">
     <h1 class="xs:text-2xl md:text-4xl xs:mt-[70px] h-12 md:mt-2 text-white text-center">
       {{ $t("forms.create_account") }}
     </h1>
@@ -9,9 +9,9 @@
     <div class="mt-4">
       <input-component
         :rules="'required|min:3|max:15|lowercase'"
-        v-model="firstName"
-        :error="errors.firstName"
-        id="firstName"
+        v-model="username"
+        :error="errors.username"
+        id="username"
         :label="$t('forms.name')"
         type="text"
         :required="true"
@@ -54,15 +54,10 @@
         :placeholder="$t('forms.confirm_password_placeholder')"
       />
     </div>
-    <button class="bg-[#E31221] w-full h-[38px] text-white mt-6 rounded-[4px]">
+    <button class="bg-[#E31221] w-full mb-3 h-[38px] text-white mt-6 rounded-[4px]">
       {{ $t("forms.get_started") }}
     </button>
-    <button
-      type="button"
-      class="border border-white w-full h-[38px] text-white mt-6 rounded-[4px]"
-    >
-      {{ $t("forms.google_signup") }}
-    </button>
+      <GoogleButton/>
     <p class="text-center mt-8 text-[#6C757D]">
       {{ $t("forms.have_account") }}
       <p @click="modalStore.openModal('login')" class="text-[#0D6EFD] underline inline">{{
@@ -76,19 +71,31 @@
 <script>
 import { Form } from "vee-validate";
 import { useModalStore } from "../stores/ModalStore";
+import { useAuthStore } from "../stores/AuthStore";
+import GoogleButton from "./GoogleButton.vue";
 export default {
   data() {
     return {
-      firstName: "",
+      username: "",
       email: "",
       password: "",
       confirmPassword: "",
     };
   },
   setup(){
+    const authStore = useAuthStore()
     const modalStore = useModalStore()
-    return {modalStore}
+    return {modalStore,authStore}
   },
-  components: { Form },
+  methods:{
+    handleSubmit(){
+      this.authStore.register({
+        username:this.username,
+        email:this.email,
+        password:this.password
+      })
+    }
+  },
+  components: { Form ,GoogleButton},
 };
 </script>

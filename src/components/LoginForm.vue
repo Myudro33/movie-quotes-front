@@ -1,5 +1,5 @@
 <template>
-  <Form v-slot="{ meta, errors }" class="w-full">
+  <Form @submit="submitForm"  v-slot="{ meta, errors }" class="w-full">
     <h1 class="xs:text-2xl md:text-4xl h-12 xs:mt-[70px] md:mt-2 text-white text-center">
       {{ $t("forms.create_account") }}
     </h1>
@@ -11,7 +11,7 @@
         :rules="'required'"
         :error="errors.email"
         v-model="email"
-        type="email"
+        type="text"
         id="email"
         :label="$t('forms.name')"
         :placeholder="$t('forms.email_placeholder')"
@@ -39,12 +39,10 @@
         $t("forms.forgot_password")
       }}</p>
     </div>
-    <button class="w-full h-[38px] my-4 bg-[#E31221] rounded-[4px] text-white">
+    <button type="submit" class="w-full h-[38px] my-4 bg-[#E31221] rounded-[4px] text-white">
       {{ $t("forms.sign_in") }}
     </button>
-    <button class="w-full h-[38px] rounded-[4px] border border-white text-white">
-      {{ $t("forms.google_signup") }}
-    </button>
+    <GoogleButton type="signin" />
     <p class="text-center mt-8 text-[#6C757D]">
       {{ $t("forms.dont_have_account") }}
       <p @click="modalStore.openModal('register')" class="text-[#0D6EFD] underline inline">
@@ -52,11 +50,14 @@
       </p>
     </p>
   </Form>
+   
 </template>
 
 <script>
 import { Form } from "vee-validate";
 import { useModalStore } from "../stores/ModalStore";
+import {useAuthStore} from '../stores/AuthStore'
+import GoogleButton from '../components/GoogleButton.vue'
 export default {
   data() {
     return {
@@ -66,8 +67,14 @@ export default {
   },
   setup(){
     const modalStore = useModalStore()
-    return {modalStore}
+    const authStore = useAuthStore()
+    return {modalStore,authStore,}
   },
-  components: { Form },
+  methods:{
+    submitForm(){
+         this.authStore.login({username:this.email,password:this.password})
+    },
+  },
+  components: { Form,GoogleButton },
 };
 </script>
