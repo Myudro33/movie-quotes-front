@@ -7,8 +7,8 @@
         alt="avatar"
       />
       <div class="ml-6">
-        <h1 v-if="authStore.user" class="text-2xl text-white font-normal">
-          {{ authStore.user.username }}
+        <h1 v-if="authStore.author" class="text-2xl text-white font-normal">
+          {{ authStore.author.username }}
         </h1>
         <p class="text-[#CED4DA]">{{ $t("feed.edit_profile") }}</p>
       </div>
