@@ -21,5 +21,8 @@
     "sign_in":"Sign in",
     "dont_have_account":"Don't have an account?",
     "sign_up":"Sign up",
-    "log_out":"Log out"
+    "log_out":"Log out",
+    "forgot_password_paragraph":"Enter the email and we’ll send an email with instructions to reset your password",
+    "send_instructions":"Send instructions",
+    "back_to_login":"Back to log in"
 }

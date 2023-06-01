@@ -11,6 +11,7 @@
     >
       <LoginFormVue v-if="modalStore.inner === 'login'" />
       <RegistrationForm v-else-if="modalStore.inner === 'register'" />
+      <PasswordUpdateModal v-else-if="modalStore.inner === 'forgot_password'" />
       <InfoModal
         v-if="modalStore.inner === 'registered'"
         image="send"
@@ -26,12 +27,13 @@
 <script>
 import LoginFormVue from "./LoginForm.vue";
 import RegistrationForm from "./RegistrationForm.vue";
+import PasswordUpdateModal from "./PasswordUpdateModal.vue";
 import { useModalStore } from "../stores/ModalStore";
 import { onMounted, onBeforeUnmount } from "vue";
 import InfoModal from "./InfoModal.vue";
 export default {
   props: ["modalActive", "inner"],
-  components: { LoginFormVue, RegistrationForm, InfoModal },
+  components: { LoginFormVue, RegistrationForm, InfoModal, PasswordUpdateModal },
   setup() {
     const modalStore = useModalStore();
     onMounted(() => {
