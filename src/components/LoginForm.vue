@@ -13,7 +13,7 @@
         v-model="form.username"
         type="text"
         id="email"
-        :label="$t('forms.name')"
+        :label="$t('forms.email')"
         :placeholder="$t('forms.email_placeholder')"
       />
     </div>

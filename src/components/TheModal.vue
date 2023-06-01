@@ -12,6 +12,7 @@
       <LoginFormVue v-if="modalStore.inner === 'login'" />
       <RegistrationForm v-else-if="modalStore.inner === 'register'" />
       <PasswordUpdateModal v-else-if="modalStore.inner === 'forgot_password'" />
+      <PasswordResetModal v-else-if="modalStore.inner === 'password_reset'" />
       <InfoModal
         v-if="modalStore.inner === 'registered'"
         image="send"
@@ -19,6 +20,15 @@
         :heading="$t('modal.check_email')"
         :paragraph="$t('modal.check_email_paragraph')"
         :button="$t('modal.go_to_email')"
+      />
+      <InfoModal
+        v-else-if="modalStore.inner === 'instructions_sent'"
+        image="send"
+        link="https://mailtrap.io/inboxes/2178525/messages/"
+        :heading="$t('modal.check_email')"
+        :paragraph="$t('modal.check_email_paragraph')"
+        :button="$t('modal.go_to_email')"
+        :skip="$t('modal.confirm_later')"
       />
     </div>
   </div>
@@ -31,9 +41,16 @@ import PasswordUpdateModal from "./PasswordUpdateModal.vue";
 import { useModalStore } from "../stores/ModalStore";
 import { onMounted, onBeforeUnmount } from "vue";
 import InfoModal from "./InfoModal.vue";
+import PasswordResetModal from "./PasswordResetModal.vue";
 export default {
   props: ["modalActive", "inner"],
-  components: { LoginFormVue, RegistrationForm, InfoModal, PasswordUpdateModal },
+  components: {
+    LoginFormVue,
+    RegistrationForm,
+    InfoModal,
+    PasswordUpdateModal,
+    PasswordResetModal,
+  },
   setup() {
     const modalStore = useModalStore();
     onMounted(() => {

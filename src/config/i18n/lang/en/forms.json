@@ -24,5 +24,8 @@
     "log_out":"Log out",
     "forgot_password_paragraph":"Enter the email and we’ll send an email with instructions to reset your password",
     "send_instructions":"Send instructions",
-    "back_to_login":"Back to log in"
+    "back_to_login":"Back to log in",
+    "create_new_password":"Create new password",
+    "create_new_password_paragraph":"Your new password must be different from previous used passwords",
+    "reset_password":"Reset password"
 }
