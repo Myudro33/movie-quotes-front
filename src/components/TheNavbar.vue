@@ -23,7 +23,7 @@
             type="submit"
             class="text-white rounded-[4px] border border-white w-24 h-9"
           >
-            Log out
+            {{ $t("forms.log_out") }}
           </button>
         </form>
       </div>

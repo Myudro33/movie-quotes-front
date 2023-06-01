@@ -20,5 +20,6 @@
     "forgot_password":"Forgot password?",
     "sign_in":"Sign in",
     "dont_have_account":"Don't have an account?",
-    "sign_up":"Sign up"
+    "sign_up":"Sign up",
+    "log_out":"Log out"
 }

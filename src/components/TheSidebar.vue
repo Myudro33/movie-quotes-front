@@ -1,5 +1,5 @@
 <template>
-  <div class="ml-[70px] w-72 lg:flex flex-col fixed xs:hidden">
+  <div class="ml-[70px] w-72 lg:flex flex-col xs:hidden fixed">
     <div class="flex">
       <img
         class="w-[60px] h-[60px] border border-black rounded-full"
@@ -7,17 +7,19 @@
         alt="avatar"
       />
       <div class="ml-6">
-        <h1 class="text-2xl text-white font-normal">Nika Kanashvili</h1>
-        <p class="text-[#CED4DA]">Edit your profile</p>
+        <h1 v-if="authStore.user" class="text-2xl text-white font-normal">
+          {{ authStore.user.username }}
+        </h1>
+        <p class="text-[#CED4DA]">{{ $t("feed.edit_profile") }}</p>
       </div>
     </div>
     <div class="mt-10 px-3 flex items-center">
       <HouseIcon :color="feed ? '#fff' : '#E31221'" />
-      <h1 class="ml-11 text-2xl text-white">News feed</h1>
+      <h1 class="ml-11 text-2xl text-white">{{ $t("feed.news_feed") }}</h1>
     </div>
     <div class="mt-10 px-3 flex items-center">
       <CameraIcon :color="!feed ? '#fff' : '#E31221'" />
-      <h1 class="ml-11 text-2xl text-white">List of movies</h1>
+      <h1 class="ml-11 text-2xl text-white">{{ $t("feed.movie_list") }}</h1>
     </div>
   </div>
 </template>
@@ -25,6 +27,8 @@
 <script setup>
 import HouseIcon from "./icons/HouseIcon.vue";
 import CameraIcon from "./icons/CameraIcon.vue";
+import { useAuthStore } from "../stores/AuthStore";
 import { reactive } from "vue";
 const feed = reactive(false);
+const authStore = useAuthStore();
 </script>

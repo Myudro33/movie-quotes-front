@@ -30,7 +30,7 @@
     </div>
     <div class="w-full flex items-center justify-between mt-2">
       <div>
-        <input id="remember" type="checkbox" />
+        <input @change="!form.remember" v-model="form.remember" id="remember" type="checkbox" />
         <label class="text-white ml-2" for="remember">{{
           $t("forms.remember_me")
         }}</label>
@@ -63,9 +63,10 @@ import { reactive } from "vue";
     const authStore = useAuthStore()
     const form = reactive({
       username:'',
-      password:''
+      password:'',
+      remember:false
     })
     const submitForm=()=>{
-      authStore.login({username:form.username,password:form.password})
+      authStore.login(form)
     }
 </script>
