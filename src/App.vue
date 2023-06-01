@@ -4,10 +4,10 @@ import TheNavbar from "./components/TheNavbar.vue";
 import TheModal from "./components/TheModal.vue";
 import { useModalStore } from "./stores/ModalStore";
 import { useAuthStore } from "./stores/AuthStore";
-import { onBeforeMount } from "vue";
+import { onMounted } from "vue";
 const authStore = useAuthStore();
 const modalStore = useModalStore();
-onBeforeMount(() => {
+onMounted(() => {
   authStore.getUser();
 });
 </script>
