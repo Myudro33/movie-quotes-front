@@ -3,7 +3,7 @@
     <h1 class="text-[#DDCCAA] font-medium">MOVIE QUOTES</h1>
     <div class="flex xs:flex-row-reverse md:flex-row">
       <LanguageSwitch />
-      <div v-if="!authStore.$state.user">
+      <div v-if="!authStore.author">
         <button
           @click="modalStore.openModal('register')"
           class="bg-[#E31221] px-4 xs:h-8 md:h-[38px] text-white rounded-[4px] mx-4"
@@ -18,14 +18,13 @@
         </button>
       </div>
       <div v-else class="flex w-44 justify-evenly items-center">
-        <form @submit="authStore.logout()">
-          <button
-            type="submit"
-            class="text-white rounded-[4px] border border-white w-24 h-9"
-          >
-            {{ $t("forms.log_out") }}
-          </button>
-        </form>
+        <button
+          @click="authStore.logout()"
+          type="submit"
+          class="text-white rounded-[4px] border border-white w-24 h-9"
+        >
+          {{ $t("forms.log_out") }}
+        </button>
       </div>
     </div>
   </div>

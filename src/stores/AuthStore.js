@@ -30,7 +30,12 @@ export const useAuthStore = defineStore('authStore', {
             }
         },
         async logout() {
-            await axiosInstance.post('/logout')
+            try {
+                this.user = null
+                await axiosInstance.post('/logout')
+            } catch (error) {
+                alert(error)
+            }
 
         },
         async getToken() {
