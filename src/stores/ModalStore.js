@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import router from "../router";
 
 export const useModalStore = defineStore('modalStore',{
     state:()=>({
@@ -12,6 +13,10 @@ export const useModalStore = defineStore('modalStore',{
         openModal(payload){
             this.inner = payload
             this.modal = true
+        },
+        removeQuery(){
+            router.replace({ query: null })
+            this.modal=false
         },
         scroll(payload){
             if(payload){

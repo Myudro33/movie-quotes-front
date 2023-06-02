@@ -1,6 +1,6 @@
 <template>
   <div
-    @click="modalStore.closeModal()"
+    @click="closeModal"
     name="backDrop"
     class="top-0 backdrop w-full h-screen absolute z-50 bg-[#00000090] flex justify-center items-center"
   >
@@ -41,7 +41,7 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import LoginFormVue from "./LoginForm.vue";
 import RegistrationForm from "./RegistrationForm.vue";
 import PasswordUpdateModal from "./PasswordUpdateModal.vue";
@@ -49,27 +49,20 @@ import { useModalStore } from "../stores/ModalStore";
 import { onMounted, onBeforeUnmount } from "vue";
 import InfoModal from "./InfoModal.vue";
 import PasswordResetModal from "./PasswordResetModal.vue";
-export default {
-  props: ["modalActive", "inner"],
-  components: {
-    LoginFormVue,
-    RegistrationForm,
-    InfoModal,
-    PasswordUpdateModal,
-    PasswordResetModal,
-    InfoModal,
-  },
-  setup() {
-    const modalStore = useModalStore();
-    onMounted(() => {
-      if (modalStore.modal) {
-        modalStore.scroll(true);
-      }
-    });
-    onBeforeUnmount(() => {
-      modalStore.scroll(false);
-    });
-    return { modalStore };
-  },
+import { useRouter } from "vue-router";
+const props = defineProps(["modalActive", "inner"]);
+
+const modalStore = useModalStore();
+const router = useRouter();
+onMounted(() => {
+  if (modalStore.modal) {
+    modalStore.scroll(true);
+  }
+});
+onBeforeUnmount(() => {
+  modalStore.scroll(false);
+});
+const closeModal = () => {
+  modalStore.removeQuery();
 };
 </script>

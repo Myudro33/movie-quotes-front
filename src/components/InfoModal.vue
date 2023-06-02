@@ -28,18 +28,16 @@
 </template>
 
 <script setup>
-import { useRouter } from "vue-router";
 import { useModalStore } from "../stores/ModalStore";
 import DangerIcon from "./icons/DangerIcon.vue";
 import SendIcon from "./icons/SendIcon.vue";
 import SubmitIcon from "./icons/SubmitIcon.vue";
 const props = defineProps(["image", "heading", "paragraph", "button", "skip", "link"]);
-const router = useRouter();
 
 const modalStore = useModalStore();
 const onSubmit = () => {
   if (props.image === "verified") {
-    router.replace("/");
+    modalStore.removeQuery();
   }
   modalStore.closeModal();
 };
