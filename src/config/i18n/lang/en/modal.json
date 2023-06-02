@@ -1,0 +1,15 @@
+{
+    "link_expired":"Link expired!",
+    "link_expired_paragraph":"Login link has expired, because you haven’t used it",
+    "another_link":"Request another link",
+    "confirm_later":"Skip, I’ll confirm later",
+    "thank_you":"Thank you!",
+    "thank_you_paragraph":"Please check your email and follow the instructions to activate your account.",
+    "go_to_email":"Go to my email",
+    "account_activated":"Your account has been activated.",
+    "go_to_news_feed":"Go to my news feed",
+    "check_email":"Check your email",
+    "check_email_paragraph":"We have sent a password recover instructions to your email",
+    "success":"Success!",
+    "success_paragraph":"Your Email changed successfully"
+}

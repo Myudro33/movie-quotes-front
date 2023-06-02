@@ -1,0 +1,8 @@
+{
+    "edit_profile":"Edit your profile",
+    "news_feed":"News Feed",
+    "movie_list":"List of movies",
+    "write_new_quote":"Write new quote",
+    "search_by":"Search by",
+    "search_placeholder":"Enter {'@'} to search movies, Enter # to search quotes"
+}
