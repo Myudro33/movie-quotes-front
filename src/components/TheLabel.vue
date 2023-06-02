@@ -5,8 +5,6 @@
   >
 </template>
 
-<script>
-export default {
-  props: ["label", "title", "required"],
-};
+<script setup>
+const props = defineProps(["label", "title", "required"]);
 </script>

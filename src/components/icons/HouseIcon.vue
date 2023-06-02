@@ -22,8 +22,6 @@
   </svg>
 </template>
 
-<script>
-export default {
-  props: ["color"],
-};
+<script setup>
+const props = defineProps(["color"]);
 </script>

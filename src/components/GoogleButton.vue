@@ -21,10 +21,7 @@
   </button>
 </template>
 
-<script>
+<script setup>
 import GoogleIcon from "./icons/GoogleIcon.vue";
-export default {
-  props: ["type"],
-  components: { GoogleIcon },
-};
+const props = defineProps(["type"]);
 </script>
