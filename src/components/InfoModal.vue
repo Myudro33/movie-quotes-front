@@ -7,17 +7,18 @@
     <SubmitIcon v-else />
     <h1 class="text-[32px] text-white font-medium mt-6">{{ heading }}</h1>
     <p class="text-white text-center mt-8">{{ paragraph }}</p>
-    <button
-      @click="modalStore.closeModal"
+    <a
       v-if="link"
-      class="xs:w-9/12 md:w-full h-10 mt-8 rounded-[4px] bg-[#E31221] text-white"
+      @click="modalStore.closeModal"
+      class="xs:w-9/12 md:w-full flex justify-center items-center h-10 mt-8 rounded-[4px] bg-[#E31221] text-white"
+      target="_blank"
+      :href="link"
+      >{{ button }}</a
     >
-      <a target="_blank" :href="link">{{ button }}</a>
-    </button>
     <button
+      v-else
       @click="onSubmit"
       class="xs:w-9/12 md:w-full h-10 mt-8 rounded-[4px] bg-[#E31221] text-white"
-      v-else
     >
       {{ button }}
     </button>
