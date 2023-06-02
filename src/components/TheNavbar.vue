@@ -1,6 +1,6 @@
 <template>
   <div class="xs:px-4 md:px-[70px] h-20 flex justify-between items-center bg-[#181624]">
-    <h1 class="text-[#DDCCAA] font-medium">MOVIE QUOTES</h1>
+    <h1 class="text-[#DDCCAA] font-medium">{{ $t("landing.logo") }}</h1>
     <div class="flex xs:flex-row-reverse md:flex-row">
       <LanguageSwitch />
       <div v-if="!authStore.author">
