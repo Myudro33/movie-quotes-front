@@ -43,6 +43,12 @@ export const useAuthStore = defineStore('authStore', {
         },
         async getUser() {
             this.getToken()
+            const modalStore = useModalStore()
+            await route.isReady()
+            if (route.currentRoute.value.query.token === "verified") {
+                modalStore.modal = true;
+                modalStore.inner = "verified";
+            }
             const data = await axiosInstance.get('/user')
             this.user = data.data
         }

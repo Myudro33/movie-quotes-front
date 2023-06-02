@@ -30,6 +30,13 @@
         :button="$t('modal.go_to_email')"
         :skip="$t('modal.confirm_later')"
       />
+      <InfoModal
+        v-else-if="modalStore.inner === 'verified'"
+        image="verified"
+        :heading="$t('modal.thank_you')"
+        :paragraph="$t('modal.account_activated')"
+        :button="$t('modal.go_to_news_feed')"
+      />
     </div>
   </div>
 </template>
@@ -50,6 +57,7 @@ export default {
     InfoModal,
     PasswordUpdateModal,
     PasswordResetModal,
+    InfoModal,
   },
   setup() {
     const modalStore = useModalStore();

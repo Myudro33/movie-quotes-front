@@ -15,7 +15,7 @@
       <a target="_blank" :href="link">{{ button }}</a>
     </button>
     <button
-      @click="modalStore.closeModal"
+      @click="onSubmit"
       class="xs:w-9/12 md:w-full h-10 mt-8 rounded-[4px] bg-[#E31221] text-white"
       v-else
     >
@@ -27,18 +27,20 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { useRouter } from "vue-router";
 import { useModalStore } from "../stores/ModalStore";
 import DangerIcon from "./icons/DangerIcon.vue";
 import SendIcon from "./icons/SendIcon.vue";
 import SubmitIcon from "./icons/SubmitIcon.vue";
-export default {
-  props: ["image", "heading", "paragraph", "button", "skip", "link"],
+const props = defineProps(["image", "heading", "paragraph", "button", "skip", "link"]);
+const router = useRouter();
 
-  components: { DangerIcon, SendIcon, SubmitIcon },
-  setup() {
-    const modalStore = useModalStore();
-    return { modalStore };
-  },
+const modalStore = useModalStore();
+const onSubmit = () => {
+  if (props.image === "verified") {
+    router.replace("/");
+  }
+  modalStore.closeModal();
 };
 </script>
