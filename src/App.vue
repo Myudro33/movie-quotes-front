@@ -8,6 +8,7 @@ import { onMounted } from "vue";
 const authStore = useAuthStore();
 const modalStore = useModalStore();
 onMounted(async () => {
+  modalStore.queryBasedModal();
   await authStore.getUser();
 });
 </script>

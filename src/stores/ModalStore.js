@@ -18,6 +18,14 @@ export const useModalStore = defineStore('modalStore',{
             router.replace({ query: null })
             this.modal=false
         },
+       async queryBasedModal(){
+            const modalStore = useModalStore()
+            await router.isReady()
+            if (router.currentRoute.value.query.stage) {
+                modalStore.modal = true;
+                modalStore.inner = router.currentRoute.value.query.stage;
+            }
+        },
         scroll(payload){
             if(payload){
                 document.documentElement.classList.add('modal-open');
