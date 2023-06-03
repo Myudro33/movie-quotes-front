@@ -40,6 +40,11 @@ const onSubmit = () => {
   if (props.image === "verified") {
     modalStore.removeQuery();
   }
-  modalStore.closeModal();
+  if (props.button === "Log in" || props.button === "შესვლა") {
+    modalStore.inner = "login";
+    modalStore.modal = true;
+  } else {
+    modalStore.closeModal();
+  }
 };
 </script>

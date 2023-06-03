@@ -43,14 +43,22 @@ export const useAuthStore = defineStore('authStore', {
         },
         async getUser() {
             this.getToken()
-            const modalStore = useModalStore()
-            await route.isReady()
-            if (route.currentRoute.value.query.token === "verified") {
-                modalStore.modal = true;
-                modalStore.inner = "verified";
-            }
             const data = await axiosInstance.get('/user')
             this.user = data.data
+        },
+        async passwordReset(email) {
+            const modalStore = useModalStore()
+            await axiosInstance.post('/forgot-password', { email: email })
+            modalStore.inner = "instructions_sent";
+        },
+        async passwordUpdate(data){
+            const modalStore = useModalStore()
+            try {
+                await axiosInstance.post(`/password-update/${data.token}`,data)
+                modalStore.inner= "password-changed";
+           } catch (error) {
+                this.error = error.response.data.message           
+           }
         }
     },
     getters: {

@@ -36,11 +36,13 @@ import ArrowIcon from "../components/icons/ArrowIcon.vue";
 import { Form } from "vee-validate";
 import { reactive } from "vue";
 import { useModalStore } from "../stores/ModalStore";
+import { useAuthStore } from "../stores/AuthStore";
 const form = reactive({
   email: "",
 });
 const modalStore = useModalStore();
+const authStore = useAuthStore();
 const onSubmit = async () => {
-  modalStore.inner = "instructions_sent";
+  authStore.passwordReset(form.email);
 };
 </script>

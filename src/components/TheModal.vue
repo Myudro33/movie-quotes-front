@@ -12,7 +12,7 @@
       <LoginFormVue v-if="modalStore.inner === 'login'" />
       <RegistrationForm v-else-if="modalStore.inner === 'register'" />
       <PasswordUpdateModal v-else-if="modalStore.inner === 'forgot_password'" />
-      <PasswordResetModal v-else-if="modalStore.inner === 'password_reset'" />
+      <PasswordResetModal v-else-if="modalStore.inner === 'reset-email-verified'" />
       <InfoModal
         v-if="modalStore.inner === 'registered'"
         image="send"
@@ -37,6 +37,13 @@
         :paragraph="$t('modal.account_activated')"
         :button="$t('modal.go_to_news_feed')"
       />
+      <InfoModal
+        v-else-if="modalStore.inner === 'password-changed'"
+        image="verified"
+        :heading="$t('modal.success')"
+        :paragraph="$t('modal.password_success_paragraph')"
+        :button="$t('modal.log_in')"
+      />
     </div>
   </div>
 </template>
@@ -53,7 +60,6 @@ import { useRouter } from "vue-router";
 const props = defineProps(["modalActive", "inner"]);
 
 const modalStore = useModalStore();
-const router = useRouter();
 onMounted(() => {
   if (modalStore.modal) {
     modalStore.scroll(true);
