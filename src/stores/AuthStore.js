@@ -51,14 +51,57 @@ export const useAuthStore = defineStore('authStore', {
             await axiosInstance.post('/forgot-password', { email: email })
             modalStore.inner = "instructions_sent";
         },
-        async passwordUpdate(data){
+        async passwordUpdate(data) {
             const modalStore = useModalStore()
             try {
-                await axiosInstance.post(`/password-update/${data.token}`,data)
-                modalStore.inner= "password-changed";
-           } catch (error) {
-                this.error = error.response.data.message           
-           }
+                await axiosInstance.post(`/password-update/${data.token}`, data)
+                modalStore.inner = "password-changed";
+            } catch (error) {
+                this.error = error.response.data.message
+            }
+        },
+        async updateUsername(data) {
+            const modalStore = useModalStore()
+            try {
+                await axiosInstance.put('/update-username', {
+                    username: data.username,
+                    newUsername: data.newUsername
+                })
+                modalStore.inner='username-changed'
+                modalStore.modal = true
+            } catch (error) {
+                this.error = error.response.data.message
+            }
+        },
+        async updateEmail(data) {
+            const modalStore = useModalStore()
+            try {
+                if(data.new_email!==""){
+                    await axiosInstance.post('/email-update', {
+                        email: data.email,
+                        new_email: data.new_email
+                    })
+                    modalStore.inner = "update-email-sent";
+                    modalStore.modal = true;
+                }
+                this.error='please provide new email'
+            } catch (error) {
+                this.error = error.response.data.message
+
+            }
+        },
+        async updatePassword(data) {
+            const modalStore = useModalStore()
+            try {
+                await axiosInstance.put("/update-password", {
+                    email: data.email,
+                    newPassword: data.newPassword,
+                });
+                modalStore.inner='password-changed'
+                modalStore.modal = true
+            } catch (error) {
+                this.error = error.response.data.message
+            }
         }
     },
     getters: {
