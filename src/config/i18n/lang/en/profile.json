@@ -6,5 +6,7 @@
     "password_min":"• 8 or more characters",
     "password_max":"• 15 lowercase character",
     "cancel":"Cancel",
-    "save_changes":"Save Changes"
+    "save_changes":"Save Changes",
+    "enter_username":"Enter new username",
+    "enter_email":"Enter new email"
 }

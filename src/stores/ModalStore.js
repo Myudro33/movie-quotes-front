@@ -4,7 +4,8 @@ import router from "../router";
 export const useModalStore = defineStore('modalStore',{
     state:()=>({
         modal:false,
-        inner:''
+        inner:'',
+        mobile:""
     }),
     actions:{
         closeModal(){

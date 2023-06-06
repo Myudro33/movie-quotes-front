@@ -6,5 +6,7 @@
     "password_min":"• 8 ან მეტ სიმბოლოს",
     "password_max":"• 15 დაბალი რეგისტრის სიმბოლოს",
     "cancel":"გაუქმება",
-    "save_changes":"შენახვა"
+    "save_changes":"შენახვა",
+    "enter_username":"შეიყვანეთ ახალი სახელი",
+    "enter_email":"შეიყვანეთ ახალი იმეილი"
 }

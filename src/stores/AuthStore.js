@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { route } from '../main.js'
+import router from "../router/index.js";
 import { useModalStore } from "./ModalStore.js";
 import axiosInstance from "../config/axios-config/index.js";
 
@@ -15,7 +15,7 @@ export const useAuthStore = defineStore('authStore', {
                 await axiosInstance.post('/login', data)
                 window.location.reload()
                 modalStore.closeModal()
-                route.push({ name: 'feed' })
+                router.push({ name: 'feed' })
             } catch (error) {
                 this.error = error.response.data.message
             }

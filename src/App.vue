@@ -14,7 +14,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <TheModal v-if="modalStore.modal" />
+  <TheModal v-if="modalStore.modal && modalStore.inner !== ''" />
   <TheNavbar />
   <RouterView />
 </template>
