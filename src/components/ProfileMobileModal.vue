@@ -49,6 +49,7 @@
             />
           </div>
         </div>
+        <p v-if="AuthStore.error" class="text-red-500">{{ AuthStore.error }}</p>
       </div>
       <div class="w-full flex justify-between px-2">
         <button
