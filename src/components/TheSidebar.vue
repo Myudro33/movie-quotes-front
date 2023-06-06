@@ -10,17 +10,23 @@
         <h1 v-if="authStore.author" class="text-2xl text-white font-normal">
           {{ authStore.author.username }}
         </h1>
-        <p class="text-[#CED4DA]">{{ $t("feed.edit_profile") }}</p>
+        <a href="/feed/edit-profile" class="text-[#CED4DA]">{{
+          $t("feed.edit_profile")
+        }}</a>
       </div>
     </div>
-    <div class="mt-10 px-3 flex items-center">
-      <HouseIcon :color="feed ? '#fff' : '#E31221'" />
-      <h1 class="ml-11 text-2xl text-white">{{ $t("feed.news_feed") }}</h1>
-    </div>
-    <div class="mt-10 px-3 flex items-center">
-      <CameraIcon :color="!feed ? '#fff' : '#E31221'" />
-      <h1 class="ml-11 text-2xl text-white">{{ $t("feed.movie_list") }}</h1>
-    </div>
+    <a href="/feed/news">
+      <div class="mt-10 px-3 flex items-center">
+        <HouseIcon :color="feed.route === '/feed/news' ? '#E31221' : '#fff'" />
+        <h1 class="ml-11 text-2xl text-white">{{ $t("feed.news_feed") }}</h1>
+      </div>
+    </a>
+    <a href="/feed/films">
+      <div class="mt-10 px-3 flex items-center">
+        <CameraIcon :color="feed.route === '/feed/films' ? '#E31221' : '#fff'" />
+        <h1 class="ml-11 text-2xl text-white">{{ $t("feed.movie_list") }}</h1>
+      </div>
+    </a>
   </div>
 </template>
 
@@ -29,6 +35,9 @@ import HouseIcon from "./icons/HouseIcon.vue";
 import CameraIcon from "./icons/CameraIcon.vue";
 import { useAuthStore } from "../stores/AuthStore";
 import { reactive } from "vue";
-const feed = reactive(false);
+import router from "../router";
+const feed = reactive({
+  route: router.currentRoute.value.fullPath,
+});
 const authStore = useAuthStore();
 </script>
