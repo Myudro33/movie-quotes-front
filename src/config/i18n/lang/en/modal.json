@@ -12,6 +12,8 @@
     "check_email_paragraph":"We have sent a password recover instructions to your email",
     "success":"Success!",
     "email_success_paragraph":"Your Email changed successfully",
+    "username_success_paragraph":"Your Username changed successfully",
     "password_success_paragraph":"Your Password changed successfully",
-    "log_in":"Log in"
+    "log_in":"Log in",
+    "email_update_paragraph":"We have sent you instructions to update your email"
 }

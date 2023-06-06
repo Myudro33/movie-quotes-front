@@ -1,0 +1,10 @@
+{
+    "my_profile":"ჩემი პროფილი",
+    "upload_photo":"ახალი ფოტოს ატვირთვა",
+    "edit":"შეცვლა",
+    "password_requirements":"პაროლი უნდა შეიცავდეს:",
+    "password_min":"• 8 ან მეტ სიმბოლოს",
+    "password_max":"• 15 დაბალი რეგისტრის სიმბოლოს",
+    "cancel":"გაუქმება",
+    "save_changes":"შენახვა"
+}
