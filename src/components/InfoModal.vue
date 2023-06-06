@@ -16,7 +16,7 @@
       >{{ button }}</a
     >
     <button
-      v-else
+      v-else-if="!link && !button"
       @click="onSubmit"
       class="xs:w-9/12 md:w-full h-10 mt-8 rounded-[4px] bg-[#E31221] text-white"
     >

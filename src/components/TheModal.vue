@@ -2,7 +2,7 @@
   <div
     @click="closeModal"
     name="backDrop"
-    class="top-0 backdrop w-full h-screen absolute z-50 bg-[#00000090] flex justify-center items-center"
+    class="top-0 backdrop w-full h-[100%] absolute z-50 bg-[#00000090] flex justify-center items-center"
   >
     <div
       @click.stop
@@ -19,6 +19,14 @@
         link="https://mailtrap.io/inboxes/2178525/messages/"
         :heading="$t('modal.check_email')"
         :paragraph="$t('modal.check_email_paragraph')"
+        :button="$t('modal.go_to_email')"
+      />
+      <InfoModal
+        v-if="modalStore.inner === 'update-email-sent'"
+        image="send"
+        link="https://mailtrap.io/inboxes/2178525/messages/"
+        :heading="$t('modal.check_email')"
+        :paragraph="$t('modal.email_update_paragraph')"
         :button="$t('modal.go_to_email')"
       />
       <InfoModal
@@ -42,7 +50,21 @@
         image="verified"
         :heading="$t('modal.success')"
         :paragraph="$t('modal.password_success_paragraph')"
+        :button="$t('modal.go_to_news_feed')"
+      />
+      <InfoModal
+        v-else-if="modalStore.inner === 'email-updated'"
+        image="verified"
+        :heading="$t('modal.success')"
+        :paragraph="$t('modal.email_success_paragraph')"
         :button="$t('modal.log_in')"
+      />
+      <InfoModal
+        v-else-if="modalStore.inner === 'username-changed'"
+        image="verified"
+        :heading="$t('modal.success')"
+        :paragraph="$t('modal.username_success_paragraph')"
+        :button="$t('modal.go_to_news_feed')"
       />
     </div>
   </div>
@@ -56,7 +78,6 @@ import { useModalStore } from "../stores/ModalStore";
 import { onMounted, onBeforeUnmount } from "vue";
 import InfoModal from "./InfoModal.vue";
 import PasswordResetModal from "./PasswordResetModal.vue";
-import { useRouter } from "vue-router";
 const props = defineProps(["modalActive", "inner"]);
 
 const modalStore = useModalStore();
