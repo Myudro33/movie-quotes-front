@@ -1,7 +1,11 @@
 <template>
   <div
-    v-if="modalStore.modal && modalStore.mobile !== ''"
-    class="bg-[#181623] w-full h-full absolute top-[70px]"
+    v-if="
+      modalStore.mobile === 'password' ||
+      modalStore.mobile !== 'updated-succesfully' ||
+      modalStore.mobile !== ''
+    "
+    class="bg-[#181623] w-full h-full absolute top-[70px] z-30"
   >
     <Form v-slot="{ meta, errors }" class="w-full">
       <div
@@ -68,13 +72,21 @@
       </div>
     </Form>
   </div>
+  <div
+    @click="modalStore.modal = false"
+    class="w-full h-screen bg-[#00000050] absolute px-4 py-32 z-30"
+    v-else-if="modalStore.mobile === 'updated-succesfully'"
+  >
+    <MobileSuccessModal />
+  </div>
 </template>
 
 <script setup>
 import { Form } from "vee-validate";
 import { useModalStore } from "../stores/ModalStore";
 import { useAuthStore } from "../stores/AuthStore";
-import { reactive } from "vue";
+import { reactive, onMounted, onBeforeUnmount } from "vue";
+import MobileSuccessModal from "./MobileSuccessModal.vue";
 const props = defineProps(["input"]);
 const modalStore = useModalStore();
 const AuthStore = useAuthStore();
@@ -102,4 +114,12 @@ const onSubmit = () => {
     });
   }
 };
+onMounted(() => {
+  if (modalStore.modal) {
+    modalStore.scroll(true);
+  }
+});
+onBeforeUnmount(() => {
+  modalStore.scroll(false);
+});
 </script>
