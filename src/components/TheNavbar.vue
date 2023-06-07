@@ -21,7 +21,9 @@
     </button>
     <h1 class="text-[#DDCCAA] font-medium xs:hidden md:flex">{{ $t("landing.logo") }}</h1>
     <div class="flex xs:flex-row-reverse md:flex-row">
-      <LanguageSwitch />
+      <div class="xs:hidden md:flex flex items-center">
+        <LanguageSwitch />
+      </div>
       <div v-if="!authStore.author">
         <button
           @click="modalStore.openModal('register')"

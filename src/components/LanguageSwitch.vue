@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-transparent items-center xs:hidden md:flex">
+  <div class="bg-transparent items-center xs:my-3 md:my-0">
     <select
       class="text-white bg-transparent active:outline-none text-xl"
       v-model="$i18n.locale"

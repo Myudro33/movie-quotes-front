@@ -34,6 +34,7 @@
     :hidden="sidebarStore.isHidden"
     class="md:hidden w-full h-full bg-[#11101A] absolute z-[100] p-14"
   >
+    <LanguageSwitch />
     <div class="flex items-center">
       <img
         class="w-10 h-10 rounded-full"
@@ -74,6 +75,7 @@ import { useAuthStore } from "../stores/AuthStore";
 import { reactive } from "vue";
 import router from "../router";
 import { useSidebarStore } from "../stores/SidebarStore";
+import LanguageSwitch from "./LanguageSwitch.vue";
 const sidebarStore = useSidebarStore();
 const feed = reactive({
   route: router.currentRoute.value.fullPath,
