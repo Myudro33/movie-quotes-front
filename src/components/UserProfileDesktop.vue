@@ -1,20 +1,20 @@
 <template>
-  <div class="w-full h-full xs:hidden md:block">
+  <div class="w-full h-full">
     <h1 class="text-2xl text-white ml-6 xs:hidden md:flex">
       {{ $t("profile.my_profile") }}
     </h1>
 
     <div
-      class="w-full min-h-[700px] bg-[#11101A] mt-24 rounded-3xl flex flex-col items-center px-48"
+      class="w-full xs:min-h-screen md:min-h-[700px] xs:bg-[#24222F] md:bg-[#11101A] md:mt-24 md:rounded-3xl flex flex-col items-center xs:px-8 md:px-48"
     >
       <img
-        class="w-48 h-48 border border-black rounded-full top-36 absolute"
+        class="w-48 h-48 rounded-full xs:mt-6 md:mt-0 md:top-36 md:absolute"
         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxazzXBuYA1QspMPnqi7BlvoK8FASFVNRtmQ&usqp=CAU"
         alt="avatar"
       />
       <input id="file" hidden type="file" />
       <input
-        class="mt-32 text-white text-xl cursor-pointer"
+        class="xs:mt-5 md:mt-32 text-white text-xl cursor-pointer"
         type="button"
         id="loadFileXml"
         :value="$t('profile.upload_photo')"
@@ -23,16 +23,17 @@
       <Form @submit="submitForm" v-slot="{ meta, errors }" class="w-full">
         <div class="w-full mt-10 flex relative">
           <input-component
-            class="w-10/12"
+            class="xs:w-full md:w-10/12"
             :error="errors.username"
             v-model="form.username"
             type="text"
             :label="$t('forms.name')"
             id="username"
             :placeholder="$t('forms.name_placeholder')"
+            page="profile"
           />
           <button
-            @click="form.stage = 'username'"
+            @click="editForm('username')"
             type="button"
             class="text-white mx-8 text-xl absolute -right-6 top-8"
           >
@@ -41,7 +42,7 @@
         </div>
         <div class="mt-4 flex relative">
           <input-component
-            class="w-10/12"
+            class="xs:w-full md:w-10/12"
             :rules="'required|email'"
             :error="errors.email"
             v-model="form.email"
@@ -49,10 +50,11 @@
             id="email"
             :label="$t('forms.email')"
             :placeholder="$t('forms.email_placeholder')"
+            page="profile"
           />
           <button
             v-if="googleAuthor"
-            @click="form.stage = 'email'"
+            @click="editForm('email')"
             type="button"
             class="text-white mx-8 text-xl absolute -right-6 top-8"
           >
@@ -61,7 +63,7 @@
         </div>
         <div v-if="googleAuthor" class="w-full mt-4 flex relative">
           <input-component
-            class="w-10/12"
+            class="xs:w-full md:w-10/12"
             :rules="'required|min:8|max:15|lowercase'"
             v-model="form.password"
             :error="errors.password"
@@ -69,9 +71,10 @@
             id="pass"
             :label="$t('forms.password')"
             :placeholder="$t('forms.password_placeholder')"
+            page="profile"
           />
           <button
-            @click="form.stage = 'password'"
+            @click="editForm('password')"
             type="button"
             class="text-white mx-8 text-xl absolute -right-6 top-8"
           >
@@ -96,6 +99,7 @@
               :label="$t('forms.password')"
               :required="true"
               :placeholder="$t('forms.password_placeholder')"
+              page="profile"
             />
           </div>
           <div class="mt-4">
@@ -108,6 +112,7 @@
               :label="$t('forms.confirm_password')"
               :required="true"
               :placeholder="$t('forms.confirm_password_placeholder')"
+              page="profile"
             />
           </div>
         </div>
@@ -130,7 +135,7 @@
 
 <script setup>
 import { Form } from "vee-validate";
-import { computed, reactive } from "vue";
+import { computed, reactive, ref } from "vue";
 import { useAuthStore } from "../stores/AuthStore";
 import { useModalStore } from "../stores/ModalStore";
 import UserProfileMobile from "../components/UserProfileMobile.vue";
@@ -145,6 +150,15 @@ const form = reactive({
   confirmPassword: "",
   stage: "",
 });
+const windowWidth = ref(window.innerWidth);
+const editForm = (value) => {
+  if (windowWidth.value < 960) {
+    modalStore.mobile = value;
+    modalStore.modal = true;
+  } else {
+    form.stage = value;
+  }
+};
 setTimeout(() => {
   username.value = AuthStore.author.username;
   email.value = AuthStore.author.email;

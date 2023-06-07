@@ -2,6 +2,9 @@ import { defineStore } from "pinia";
 import router from "../router/index.js";
 import { useModalStore } from "./ModalStore.js";
 import axiosInstance from "../config/axios-config/index.js";
+import { ref } from "vue";
+const windowWidth = ref(window.innerWidth);
+
 
 export const useAuthStore = defineStore('authStore', {
     state: () => ({
@@ -62,13 +65,19 @@ export const useAuthStore = defineStore('authStore', {
         },
         async updateUsername(data) {
             const modalStore = useModalStore()
+
             try {
                 await axiosInstance.put('/update-username', {
                     username: data.username,
                     newUsername: data.newUsername
                 })
-                modalStore.inner='username-changed'
-                modalStore.modal = true
+                if (windowWidth.value > 960) {
+                    modalStore.inner = 'username-changed'
+                    modalStore.modal = true
+                } else {
+                    modalStore.modal = true
+                    modalStore.mobile = 'updated-succesfully'
+                }
             } catch (error) {
                 this.error = error.response.data.message
             }
@@ -76,15 +85,20 @@ export const useAuthStore = defineStore('authStore', {
         async updateEmail(data) {
             const modalStore = useModalStore()
             try {
-                if(data.new_email!==""){
+                if (data.new_email !== "") {
                     await axiosInstance.post('/email-update', {
                         email: data.email,
                         new_email: data.new_email
                     })
-                    modalStore.inner = "update-email-sent";
-                    modalStore.modal = true;
+                    if (windowWidth.value > 960) {
+                        modalStore.inner = "update-email-sent";
+                        modalStore.modal = true;
+                    } else {
+                        modalStore.modal = true
+                        modalStore.mobile = 'updated-succesfully'
+                    }
                 }
-                this.error='please provide new email'
+                this.error = 'please provide new email'
             } catch (error) {
                 this.error = error.response.data.message
 
@@ -97,8 +111,13 @@ export const useAuthStore = defineStore('authStore', {
                     email: data.email,
                     newPassword: data.newPassword,
                 });
-                modalStore.inner='password-changed'
-                modalStore.modal = true
+                if (windowWidth.value > 960) {
+                    modalStore.inner = 'password-changed'
+                    modalStore.modal = true
+                } else {
+                    modalStore.modal = true
+                    modalStore.mobile = 'updated-succesfully'
+                }
             } catch (error) {
                 this.error = error.response.data.message
             }
