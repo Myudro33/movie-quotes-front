@@ -13,7 +13,7 @@ const router = createRouter({
       name: 'feed',
       component: () => import('../views/FeedPage.vue'),
       children:[
-        { path: 'news', name: 'news', component: () => import('../views/NewsFeed.vue') },
+        { path: '', name: 'news', component: () => import('../views/NewsFeed.vue') },
         { path: 'edit-profile', name: 'editprofile', component: () => import('../views/ProfileEdit.vue') }
       ]
     },

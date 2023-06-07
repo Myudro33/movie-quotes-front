@@ -16,9 +16,9 @@
         }}</a>
       </div>
     </div>
-    <a href="/feed/news">
+    <a href="/feed/">
       <div class="mt-10 px-3 flex items-center">
-        <HouseIcon :color="feed.route === '/feed/news' ? '#E31221' : '#fff'" />
+        <HouseIcon :color="feed.route === '/feed/' ? '#E31221' : '#fff'" />
         <h1 class="ml-11 text-2xl text-white">{{ $t("feed.news_feed") }}</h1>
       </div>
     </a>
@@ -52,9 +52,9 @@
         >
       </div>
     </div>
-    <a @click="sidebarStore.isHidden = true" href="/feed/news">
+    <a @click="sidebarStore.isHidden = true" href="/feed/">
       <div class="mt-10 flex items-center">
-        <HouseIcon :color="feed.route === '/feed/news' ? '#E31221' : '#fff'" />
+        <HouseIcon :color="feed.route === '/feed/' ? '#E31221' : '#fff'" />
         <h1 class="ml-11 text-2xl text-white">{{ $t("feed.news_feed") }}</h1>
       </div>
     </a>
