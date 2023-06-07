@@ -1,13 +1,16 @@
 <template>
   <div
     v-if="
-      modalStore.mobile === 'password' ||
-      modalStore.mobile !== 'updated-succesfully' ||
-      modalStore.mobile !== ''
+      modalStore.modal &&
+      modalStore.mobile !== 'updated-succesfully' &&
+      modalStore.mobile !== 'confirm'
     "
     class="bg-[#181623] w-full h-full absolute top-[70px] z-30"
   >
     <Form v-slot="{ meta, errors }" class="w-full">
+      <div class="w-full h-10 mt-4 px-10 flex items-center md:hidden">
+        <ArrowIcon @click="modalStore.modal = false" />
+      </div>
       <div
         class="bg-[#24222F] px-8 flex flex-col items-center justify-center w-full min-h-[235px] my-5"
       >
@@ -57,17 +60,17 @@
       </div>
       <div class="w-full flex justify-between px-2">
         <button
-          class="mx-6 py-2 px-4 text-xl text-[#CED4DA]"
+          class="py-2 px-4 text-xl text-[#CED4DA]"
           @click="modalStore.modal = false"
         >
           {{ $t("profile.cancel") }}
         </button>
         <button
           type="button"
-          @click="onSubmit()"
+          @click="modalStore.mobile = 'confirm'"
           class="bg-[#E31221] py-2 px-4 text-white text-xl rounded-md disabled:bg-[#E3122140]"
         >
-          {{ $t("profile.save_changes") }}
+          {{ $t("profile.edit") }}
         </button>
       </div>
     </Form>
@@ -79,9 +82,36 @@
   >
     <MobileSuccessModal />
   </div>
+  <div
+    class="mt-16 absolute w-full px-8 z-30 h-screen bg-[#181623]"
+    v-else-if="modalStore.mobile === 'confirm'"
+  >
+    <div
+      class="w-full h-52 mt-14 bg-gradient-to-l rounded-xl from-[#00000060] to-[#00000010]"
+    >
+      <h1 class="text-white text-center mt-16 mb-11">Are you sure to make changes ?</h1>
+      <hr class="w-full border border-[#CED4DA33]" />
+      <div class="w-full mt-4 flex justify-between px-2">
+        <button
+          class="py-2 px-4 text-xl text-[#CED4DA]"
+          @click="modalStore.mobile = form.back"
+        >
+          {{ $t("profile.cancel") }}
+        </button>
+        <button
+          type="button"
+          @click="onSubmit()"
+          class="bg-[#E31221] py-2 px-4 text-white text-xl rounded-md disabled:bg-[#E3122140]"
+        >
+          {{ $t("profile.confirm") }}
+        </button>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup>
+import ArrowIcon from "./icons/ArrowIcon.vue";
 import { Form } from "vee-validate";
 import { useModalStore } from "../stores/ModalStore";
 import { useAuthStore } from "../stores/AuthStore";
@@ -95,14 +125,15 @@ const form = reactive({
   email: "",
   password: "",
   newPassword: "",
+  back: "",
 });
 const onSubmit = () => {
-  if (modalStore.mobile === "username") {
+  if (form.back === "username") {
     AuthStore.updateUsername({
       username: AuthStore.author.username,
       newUsername: form.username,
     });
-  } else if (modalStore.mobile === "email") {
+  } else if (form.back === "email") {
     AuthStore.updateEmail({
       email: AuthStore.author.email,
       new_email: form.email,
@@ -115,6 +146,7 @@ const onSubmit = () => {
   }
 };
 onMounted(() => {
+  form.back = modalStore.mobile;
   if (modalStore.modal) {
     modalStore.scroll(true);
   }

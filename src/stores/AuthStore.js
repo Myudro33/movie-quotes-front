@@ -10,6 +10,7 @@ export const useAuthStore = defineStore('authStore', {
     state: () => ({
         error: '',
         user: null,
+        email:"test@example.com"
     }),
     actions: {
         async login(data) {
@@ -78,8 +79,13 @@ export const useAuthStore = defineStore('authStore', {
                     modalStore.modal = true
                     modalStore.mobile = 'updated-succesfully'
                 }
+                this.error = ""
+
             } catch (error) {
                 this.error = error.response.data.message
+                if (windowWidth.value < 960) {
+                    modalStore.mobile = 'username'
+                }
             }
         },
         async updateEmail(data) {
@@ -98,10 +104,12 @@ export const useAuthStore = defineStore('authStore', {
                         modalStore.mobile = 'updated-succesfully'
                     }
                 }
-                this.error = 'please provide new email'
+                this.error = ""
             } catch (error) {
                 this.error = error.response.data.message
-
+                if (windowWidth.value < 960) {
+                    modalStore.mobile = 'email'
+                }
             }
         },
         async updatePassword(data) {
@@ -118,8 +126,40 @@ export const useAuthStore = defineStore('authStore', {
                     modalStore.modal = true
                     modalStore.mobile = 'updated-succesfully'
                 }
+                this.error = ""
             } catch (error) {
                 this.error = error.response.data.message
+                if (windowWidth.value < 960) {
+                    modalStore.mobile = 'password'
+                }
+            }
+        },
+        async uploadAvatar(event) {
+            const file = event.target.files[0];
+            const formData = new FormData();
+            formData.append("avatar", file);
+            formData.append("email", this.author.email);
+            try {
+                await axiosInstance
+                    .post("/upload-avatar", formData, {
+                        headers: {
+                            "Content-Type": "multipart/form-data",
+                        },
+                    })
+            } catch (error) {
+                this.error = error.response.data.message
+            }
+        },
+        getAvatar(form){
+            try {
+                axiosInstance
+                .get(`/get-avatar?email=${this.author.email}`)
+                .then((response) => {
+                  form.avatar = response.data.avatar;
+                })
+            } catch (error) {
+                this.error = error.response.data.message
+                
             }
         }
     },

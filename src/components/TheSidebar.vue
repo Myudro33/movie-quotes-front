@@ -3,8 +3,8 @@
   <div class="ml-[70px] w-72 lg:flex flex-col xs:hidden fixed">
     <div class="flex">
       <img
-        class="w-[60px] h-[60px] rounded-full"
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxazzXBuYA1QspMPnqi7BlvoK8FASFVNRtmQ&usqp=CAU"
+        class="w-[60px] h-[60px] object-cover rounded-full"
+        :src="feed.avatar"
         alt="avatar"
       />
       <div class="ml-6">
@@ -36,11 +36,7 @@
   >
     <LanguageSwitch />
     <div class="flex items-center">
-      <img
-        class="w-10 h-10 rounded-full"
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxazzXBuYA1QspMPnqi7BlvoK8FASFVNRtmQ&usqp=CAU"
-        alt="avatar"
-      />
+      <img class="w-10 h-10 rounded-full object-cover" :src="feed.avatar" alt="avatar" />
       <div class="ml-6">
         <h1 v-if="authStore.author" class="text-2xl text-white font-normal">
           {{ authStore.author.username }}
@@ -79,6 +75,10 @@ import LanguageSwitch from "./LanguageSwitch.vue";
 const sidebarStore = useSidebarStore();
 const feed = reactive({
   route: router.currentRoute.value.fullPath,
+  avatar: "",
 });
 const authStore = useAuthStore();
+setTimeout(() => {
+  authStore.getAvatar(feed);
+}, 200);
 </script>

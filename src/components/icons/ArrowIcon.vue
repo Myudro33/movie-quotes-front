@@ -3,7 +3,7 @@
     width="13"
     height="13"
     viewBox="0 0 13 10"
-    class="mr-2"
+    class="mr-2 md:w-[13px] xs:w-[20px]"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >

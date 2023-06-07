@@ -3,16 +3,19 @@
     <h1 class="text-2xl text-white ml-6 xs:hidden md:flex">
       {{ $t("profile.my_profile") }}
     </h1>
-
+    <div class="w-full h-12 px-10 flex items-center md:hidden">
+      <ArrowIcon @click="$router.back()" />
+    </div>
     <div
       class="w-full xs:min-h-screen md:min-h-[700px] xs:bg-[#24222F] md:bg-[#11101A] md:mt-24 md:rounded-3xl flex flex-col items-center xs:px-8 md:px-48"
     >
       <img
-        class="w-48 h-48 rounded-full xs:mt-6 md:mt-0 md:top-36 md:absolute"
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxazzXBuYA1QspMPnqi7BlvoK8FASFVNRtmQ&usqp=CAU"
+        class="w-48 h-48 object-cover rounded-full xs:mt-6 md:mt-0 md:top-36 md:absolute"
+        :src="form.avatar"
+        id="avatar"
         alt="avatar"
       />
-      <input id="file" hidden type="file" />
+      <input id="file" hidden type="file" @change="handleFileUpload" />
       <input
         class="xs:mt-5 md:mt-32 text-white text-xl cursor-pointer"
         type="button"
@@ -117,7 +120,9 @@
           </div>
         </div>
       </Form>
-      <p class="text-red-500 text-xl" v-if="AuthStore.error">{{ AuthStore.error }}</p>
+      <p class="text-red-500 text-xl xs:hidden md:flex" v-if="AuthStore.error">
+        {{ AuthStore.error }}
+      </p>
     </div>
     <div v-if="form.stage !== ''" class="flex justify-end my-16">
       <button class="mx-6 py-2 px-4 text-xl text-[#CED4DA]" @click="form.stage = ''">
@@ -135,9 +140,10 @@
 
 <script setup>
 import { Form } from "vee-validate";
-import { computed, reactive, ref } from "vue";
+import { computed, onMounted, reactive, ref } from "vue";
 import { useAuthStore } from "../stores/AuthStore";
 import { useModalStore } from "../stores/ModalStore";
+import ArrowIcon from "../components/icons/ArrowIcon.vue";
 const AuthStore = useAuthStore();
 const modalStore = useModalStore();
 const googleAuthor = computed(() => AuthStore.author?.google_id === null);
@@ -148,6 +154,7 @@ const form = reactive({
   newPassword: "",
   confirmPassword: "",
   stage: "",
+  avatar: "",
 });
 const windowWidth = ref(window.innerWidth);
 const editForm = (value) => {
@@ -159,9 +166,10 @@ const editForm = (value) => {
   }
 };
 setTimeout(() => {
+  AuthStore.getAvatar(form);
   username.value = AuthStore.author.username;
   email.value = AuthStore.author.email;
-}, 100);
+}, 200);
 const onSubmit = (value) => {
   if (value === "username") {
     AuthStore.updateUsername({
@@ -179,5 +187,8 @@ const onSubmit = (value) => {
       newPassword: form.newPassword,
     });
   }
+};
+const handleFileUpload = (event) => {
+  AuthStore.uploadAvatar(event);
 };
 </script>
