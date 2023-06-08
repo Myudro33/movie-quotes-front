@@ -155,16 +155,11 @@ export const useAuthStore = defineStore('authStore', {
             }
         },
         getAvatar(form){
-            try {
                 axiosInstance
                 .get(`/get-avatar?email=${this.author.email}`)
                 .then((response) => {
                   form.avatar = response.data.avatar;
                 })
-            } catch (error) {
-                this.error = error.response.data.message
-                
-            }
         }
     },
     getters: {
