@@ -89,7 +89,7 @@
     <div
       class="w-full h-52 mt-14 bg-gradient-to-l rounded-xl from-[#00000060] to-[#00000010]"
     >
-      <h1 class="text-white text-center mt-16 mb-11">Are you sure to make changes ?</h1>
+      <h1 class="text-white text-center mt-16 mb-11">{{ $t("modal.are_you_sure") }}</h1>
       <hr class="w-full border border-[#CED4DA33]" />
       <div class="w-full mt-4 flex justify-between px-2">
         <button

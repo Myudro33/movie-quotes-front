@@ -15,5 +15,6 @@
     "username_success_paragraph":"Your Username changed successfully",
     "password_success_paragraph":"Your Password changed successfully",
     "log_in":"Log in",
-    "email_update_paragraph":"We have sent you instructions to update your email"
+    "email_update_paragraph":"We have sent you instructions to update your email",
+    "are_you_sure":"Are you sure to make changes ?"
 }
