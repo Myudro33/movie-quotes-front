@@ -42,7 +42,7 @@
         <button
           @click="authStore.logout()"
           type="submit"
-          class="text-white xs:hidden md:flex rounded-[4px] border border-white w-24 h-9"
+          class="text-white xs:hidden md:block rounded-[4px] border border-white w-24 h-9"
         >
           {{ $t("forms.log_out") }}
         </button>

@@ -9,14 +9,14 @@
       {{ $t("feed.write_new_quote") }}
     </button>
     <div
-      :class="`ml-8 xs:hidden md:flex ${
-        size ? 'md:w-8/12 border-b border-[#EFEFEF4D]' : 'md:w-48'
+      :class="`ml-8 xs:hidden  md:flex md:justify-end ${
+        size ? 'md:w-8/12 border-b border-[#EFEFEF4D]' : 'md:w-36'
       } items-center h-[52px] `"
     >
       <SearchIcon />
       <input
         v-if="size"
-        class="w-[493px] h-[30px] bg-transparent text-white px-3"
+        class="w-full h-[30px] bg-transparent text-white px-3"
         :placeholder="$t('feed.search_placeholder')"
         type="text"
       />
