@@ -3,6 +3,7 @@ import router from "../router/index.js";
 import { useModalStore } from "./ModalStore.js";
 import axiosInstance from "../config/axios-config/index.js";
 import { ref } from "vue";
+import axios from "axios";
 const windowWidth = ref(window.innerWidth);
 
 
@@ -16,10 +17,10 @@ export const useAuthStore = defineStore('authStore', {
         async login(data) {
             const modalStore = useModalStore()
             try {
+                await this.getToken()
                 await axiosInstance.post('/login', data)
-                window.location.reload()
+                window.location.replace('/feed/')
                 modalStore.closeModal()
-                router.push({ name: 'feed' })
             } catch (error) {
                 this.error = error.response.data.message
             }
@@ -37,18 +38,21 @@ export const useAuthStore = defineStore('authStore', {
             try {
                 this.user = null
                 await axiosInstance.post('/logout')
+                router.push({name:"landing"})
             } catch (error) {
                 alert(error)
             }
 
         },
         async getToken() {
-            await axiosInstance.get("/sanctum/csrf-cookie")
+            await axios.get("http://localhost:8000/sanctum/csrf-cookie")
         },
         async getUser() {
             this.getToken()
-            const data = await axiosInstance.get('/user')
-            this.user = data.data
+            if(this.user===null){
+                const data = await axiosInstance.get('/user')
+                this.user = data.data
+            }
         },
         async passwordReset(email) {
             const modalStore = useModalStore()
