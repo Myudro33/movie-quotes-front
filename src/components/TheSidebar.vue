@@ -37,16 +37,25 @@
     <LanguageSwitch />
     <div class="flex items-center">
       <img class="w-10 h-10 rounded-full object-cover" :src="feed.avatar" alt="avatar" />
-      <div class="ml-6">
-        <h1 v-if="authStore.author" class="text-2xl text-white font-normal">
-          {{ authStore.author.username }}
-        </h1>
-        <a
-          @click="sidebarStore.isHidden = true"
-          href="/feed/edit-profile"
-          class="text-[#CED4DA]"
-          >{{ $t("feed.edit_profile") }}</a
+      <div class="ml-6 w-full flex justify-between">
+        <div>
+          <h1 v-if="authStore.author" class="text-2xl text-white font-normal">
+            {{ authStore.author.username }}
+          </h1>
+          <a
+            @click="sidebarStore.isHidden = true"
+            href="/feed/edit-profile"
+            class="text-[#CED4DA]"
+            >{{ $t("feed.edit_profile") }}</a
+          >
+        </div>
+        <button
+          @click="authStore.logout()"
+          type="submit"
+          class="text-white rounded-[4px] border border-white w-24 h-9"
         >
+          {{ $t("forms.log_out") }}
+        </button>
       </div>
     </div>
     <a @click="sidebarStore.isHidden = true" href="/feed/">

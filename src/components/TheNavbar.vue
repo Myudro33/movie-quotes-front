@@ -1,5 +1,5 @@
 <template>
-  <div class="xs:px-9 md:px-[70px] h-20 flex justify-between items-center bg-[#181624]">
+  <div class="xs:px-9 md:px-[70px] h-20 flex justify-between items-center bg-[#222030]">
     <button
       @click="sidebarStore.isHidden = !sidebarStore.isHidden"
       class="text-white md:hidden"
@@ -42,10 +42,11 @@
         <button
           @click="authStore.logout()"
           type="submit"
-          class="text-white rounded-[4px] border border-white w-24 h-9"
+          class="text-white xs:hidden md:flex rounded-[4px] border border-white w-24 h-9"
         >
           {{ $t("forms.log_out") }}
         </button>
+        <SearchIcon @click="openSearchModal" />
       </div>
     </div>
   </div>
@@ -53,10 +54,15 @@
 
 <script setup>
 import LanguageSwitch from "./LanguageSwitch.vue";
+import SearchIcon from "./icons/SearchIcon.vue";
 import { useModalStore } from "../stores/ModalStore";
 import { useAuthStore } from "../stores/AuthStore";
 import { useSidebarStore } from "../stores/SidebarStore";
 const modalStore = useModalStore();
 const authStore = useAuthStore();
 const sidebarStore = useSidebarStore();
+const openSearchModal = () => {
+  modalStore.modal = true;
+  modalStore.mobile = "search";
+};
 </script>

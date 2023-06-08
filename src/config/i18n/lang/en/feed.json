@@ -4,5 +4,8 @@
     "movie_list":"List of movies",
     "write_new_quote":"Write new quote",
     "search_by":"Search by",
-    "search_placeholder":"Enter {'@'} to search movies, Enter # to search quotes"
+    "search_mobile_placeholder":"Search",
+    "search_placeholder":"Enter {'@'} to search movies, Enter # to search quotes",
+    "mobile_search_movies":"Enter @ to search movies",
+    "mobile_search_quotes":"Enter # to search quotes "
 }
