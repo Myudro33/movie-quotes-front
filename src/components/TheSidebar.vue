@@ -32,11 +32,15 @@
   <!-- small screen -->
   <div
     :hidden="sidebarStore.isHidden"
-    class="md:hidden w-full h-full bg-[#11101A] absolute z-[100] p-14"
+    class="md:hidden w-full h-full bg-[#11101A] absolute z-30 p-8"
   >
     <LanguageSwitch />
     <div class="flex items-center">
-      <img class="w-10 h-10 rounded-full object-cover" :src="feed.avatar" alt="avatar" />
+      <img
+        class="w-10 h-10 rounded-full object-cover shrink-0"
+        :src="feed.avatar"
+        alt="avatar"
+      />
       <div class="ml-6 w-full flex justify-between">
         <div>
           <h1 v-if="authStore.author" class="text-2xl text-white font-normal">
