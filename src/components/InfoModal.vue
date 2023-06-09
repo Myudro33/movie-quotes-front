@@ -16,7 +16,7 @@
       >{{ button }}</a
     >
     <button
-      v-else-if="!link && !button"
+      v-else-if="!link"
       @click="onSubmit"
       class="xs:w-9/12 md:w-full h-10 mt-8 rounded-[4px] bg-[#E31221] text-white"
     >
@@ -33,6 +33,8 @@ import { useModalStore } from "../stores/ModalStore";
 import DangerIcon from "./icons/DangerIcon.vue";
 import SendIcon from "./icons/SendIcon.vue";
 import SubmitIcon from "./icons/SubmitIcon.vue";
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
 const props = defineProps(["image", "heading", "paragraph", "button", "skip", "link"]);
 
 const modalStore = useModalStore();
@@ -40,7 +42,7 @@ const onSubmit = () => {
   if (props.image === "verified") {
     modalStore.removeQuery();
   }
-  if (props.button === "Log in" || props.button === "შესვლა") {
+  if (props.button === t("modal.log_in")) {
     modalStore.inner = "login";
     modalStore.modal = true;
   } else {
