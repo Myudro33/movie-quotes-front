@@ -160,6 +160,24 @@ export const useAuthStore = defineStore('authStore', {
                 .then((response) => {
                   form.avatar = response.data.avatar;
                 })
+        },
+        submit(back,form){
+            if (back === "username") {
+                this.updateUsername({
+                  username: this.author.username,
+                  newUsername: form.username,
+                });
+              } else if (back === "email") {
+                this.updateEmail({
+                  email: this.author.email,
+                  new_email: form.email,
+                });
+              } else {
+                this.updatePassword({
+                  email: this.author.email,
+                  newPassword: form.password,
+                });
+              }
         }
     },
     getters: {

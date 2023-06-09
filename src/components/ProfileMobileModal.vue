@@ -94,13 +94,13 @@
       <div class="w-full mt-4 flex justify-between px-2">
         <button
           class="py-2 px-4 text-xl text-[#CED4DA]"
-          @click="modalStore.mobile = form.back"
+          @click="modalStore.mobile = back"
         >
           {{ $t("profile.cancel") }}
         </button>
         <button
           type="button"
-          @click="onSubmit()"
+          @click="AuthStore.submit(back, form)"
           class="bg-[#E31221] py-2 px-4 text-white text-xl rounded-md disabled:bg-[#E3122140]"
         >
           {{ $t("profile.confirm") }}
@@ -115,38 +115,20 @@ import ArrowIcon from "./icons/ArrowIcon.vue";
 import { Form } from "vee-validate";
 import { useModalStore } from "../stores/ModalStore";
 import { useAuthStore } from "../stores/AuthStore";
-import { reactive, onMounted, onBeforeUnmount } from "vue";
+import { reactive, onMounted, onBeforeUnmount, ref } from "vue";
 import MobileSuccessModal from "./MobileSuccessModal.vue";
 const props = defineProps(["input"]);
 const modalStore = useModalStore();
 const AuthStore = useAuthStore();
+const back = ref("");
 const form = reactive({
   username: "",
   email: "",
   password: "",
   newPassword: "",
-  back: "",
 });
-const onSubmit = () => {
-  if (form.back === "username") {
-    AuthStore.updateUsername({
-      username: AuthStore.author.username,
-      newUsername: form.username,
-    });
-  } else if (form.back === "email") {
-    AuthStore.updateEmail({
-      email: AuthStore.author.email,
-      new_email: form.email,
-    });
-  } else {
-    AuthStore.updatePassword({
-      email: AuthStore.author.email,
-      newPassword: form.newPassword,
-    });
-  }
-};
 onMounted(() => {
-  form.back = modalStore.mobile;
+  back.value = modalStore.mobile;
   if (modalStore.modal) {
     modalStore.scroll(true);
   }

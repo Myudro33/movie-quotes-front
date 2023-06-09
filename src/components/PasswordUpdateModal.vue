@@ -42,7 +42,7 @@ const form = reactive({
 });
 const modalStore = useModalStore();
 const authStore = useAuthStore();
-const onSubmit = async () => {
+const onSubmit = () => {
   authStore.passwordReset(form.email);
 };
 </script>
