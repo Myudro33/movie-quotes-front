@@ -58,8 +58,7 @@ const form = reactive({
   password: "",
   confirmPassword: "",
 });
-const onSubmit = async () => {
-  await router.isReady();
+const onSubmit = () => {
   authStore.passwordUpdate({
     token: router.currentRoute.value.query.token,
     email: router.currentRoute.value.query.email,
