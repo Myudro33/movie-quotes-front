@@ -9,7 +9,7 @@
       <div class="flex">
         <img
           class="w-[60px] h-[60px] object-cover rounded-full"
-          :src="feed.avatar"
+          :src="authStore.author.avatar"
           alt="avatar"
         />
         <div class="ml-6">
@@ -48,17 +48,13 @@
 import HouseIcon from "./icons/HouseIcon.vue";
 import CameraIcon from "./icons/CameraIcon.vue";
 import { useAuthStore } from "../stores/AuthStore";
-import { reactive, onMounted } from "vue";
+import { reactive } from "vue";
 import router from "../router";
 import { useSidebarStore } from "../stores/SidebarStore";
 import LanguageSwitch from "./LanguageSwitch.vue";
 const sidebarStore = useSidebarStore();
 const feed = reactive({
   route: router.currentRoute.value.fullPath,
-  avatar: "",
 });
 const authStore = useAuthStore();
-onMounted(() => {
-  authStore.getAvatar(feed);
-});
 </script>

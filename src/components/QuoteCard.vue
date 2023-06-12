@@ -46,7 +46,7 @@ import CommentIcon from './icons/CommentIcon.vue';
     <div class="flex xs:flex-col md:flex-row mt-6 pb-6 border-b border-b-[#EFEFEF4D]">
       <img
         class="xs:w-10 xs:h-10 md:w-[52px] md:h-[52px] object-cover shrink-0 rounded-full"
-        :src="store.avatar"
+        :src="authStore.author.avatar"
         alt="avatar"
       />
       <div class="md:ml-6">
@@ -58,12 +58,12 @@ import CommentIcon from './icons/CommentIcon.vue';
     </div>
     <div class="flex items-center mt-6">
       <img
-        class="xs:w-10 xs:h-10 md:w-[52px] md:h-[52px] object-cover shrink-0 rounded-full"
-        :src="store.avatar"
+        class="xs:w-10 xs:h-10 md:w-[52px] md:h-[52px] object-cover text-white shrink-0 rounded-full"
+        :src="authStore.author.avatar"
         alt="avatar"
       />
       <input
-        class="w-full xs:h-10 md:h-[52px] ml-6 pl-6 text-white outline-none bg-[#24222F] text-xl rounded-[10px]"
+        class="w-full xs:h-10 md:h-[52px] ml-6 pl-6 outline-none bg-[#24222F] text-xl rounded-[10px]"
         type="text"
         placeholder="Write a comment"
       />
@@ -72,15 +72,8 @@ import CommentIcon from './icons/CommentIcon.vue';
 </template>
 
 <script setup>
-import { reactive, onMounted } from "vue";
 import { useAuthStore } from "../stores/AuthStore";
 import CommentIcon from "./icons/CommentIcon.vue";
 import HeartIcon from "./icons/HeartIcon.vue";
 const authStore = useAuthStore();
-const store = reactive({
-  avatar: "",
-});
-onMounted(() => {
-  authStore.getAvatar(store);
-});
 </script>
