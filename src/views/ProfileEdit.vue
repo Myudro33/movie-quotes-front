@@ -11,7 +11,7 @@
     >
       <img
         class="w-48 h-48 object-cover rounded-full xs:mt-6 md:mt-0 md:top-36 md:absolute"
-        :src="form.avatar"
+        :src="AuthStore.author.avatar"
         id="avatar"
         alt="avatar"
       />
@@ -129,7 +129,7 @@
         {{ $t("profile.cancel") }}
       </button>
       <button
-        @click="onSubmit(form.stage)"
+        @click="AuthStore.updateUser(form)"
         class="bg-[#E31221] py-2 px-4 text-white text-xl rounded-md disabled:bg-[#E3122140]"
       >
         {{ $t("profile.save_changes") }}
@@ -166,28 +166,9 @@ const editForm = (value) => {
   }
 };
 onMounted(() => {
-  AuthStore.getAvatar(form);
   username.value = AuthStore.author.username;
   email.value = AuthStore.author.email;
 });
-const onSubmit = (value) => {
-  if (value === "username") {
-    AuthStore.updateUsername({
-      username: AuthStore.author.username,
-      newUsername: form.username,
-    });
-  } else if (value === "email") {
-    AuthStore.updateEmail({
-      email: AuthStore.author.email,
-      new_email: form.email,
-    });
-  } else {
-    AuthStore.updatePassword({
-      email: AuthStore.author.email,
-      newPassword: form.newPassword,
-    });
-  }
-};
 const handleFileUpload = (event) => {
   AuthStore.uploadAvatar(event);
 };
