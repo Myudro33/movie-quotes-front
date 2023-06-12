@@ -16,7 +16,7 @@
       <InfoModal
         v-if="modalStore.inner === 'registered'"
         image="send"
-        :link="import.meta.env.VITE_API_GMAIL_URL"
+        :link="mailLink"
         :heading="$t('modal.check_email')"
         :paragraph="$t('modal.check_email_paragraph')"
         :button="$t('modal.go_to_email')"
@@ -24,7 +24,7 @@
       <InfoModal
         v-if="modalStore.inner === 'update-email-sent'"
         image="send"
-        :link="import.meta.env.VITE_API_GMAIL_URL"
+        :link="mailLink"
         :heading="$t('modal.check_email')"
         :paragraph="$t('modal.email_update_paragraph')"
         :button="$t('modal.go_to_email')"
@@ -32,7 +32,7 @@
       <InfoModal
         v-else-if="modalStore.inner === 'instructions_sent'"
         image="send"
-        :link="import.meta.env.VITE_API_GMAIL_URL"
+        :link="mailLink"
         :heading="$t('modal.check_email')"
         :paragraph="$t('modal.check_email_paragraph')"
         :button="$t('modal.go_to_email')"
@@ -46,24 +46,10 @@
         :button="$t('modal.go_to_news_feed')"
       />
       <InfoModal
-        v-else-if="modalStore.inner === 'password-changed'"
+        v-else-if="modalStore.inner === 'user-updated'"
         image="verified"
         :heading="$t('modal.success')"
-        :paragraph="$t('modal.password_success_paragraph')"
-        :button="$t('modal.go_to_news_feed')"
-      />
-      <InfoModal
-        v-else-if="modalStore.inner === 'email-updated'"
-        image="verified"
-        :heading="$t('modal.success')"
-        :paragraph="$t('modal.email_success_paragraph')"
-        :button="$t('modal.log_in')"
-      />
-      <InfoModal
-        v-else-if="modalStore.inner === 'username-changed'"
-        image="verified"
-        :heading="$t('modal.success')"
-        :paragraph="$t('modal.username_success_paragraph')"
+        :paragraph="$t('modal.changes_updated_successfully')"
         :button="$t('modal.go_to_news_feed')"
       />
     </div>
@@ -79,6 +65,7 @@ import { onMounted, onBeforeUnmount } from "vue";
 import InfoModal from "./InfoModal.vue";
 import PasswordResetModal from "./PasswordResetModal.vue";
 const props = defineProps(["modalActive", "inner"]);
+const mailLink = import.meta.env.VITE_API_GMAIL_URL;
 
 const modalStore = useModalStore();
 onMounted(() => {

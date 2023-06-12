@@ -9,14 +9,13 @@
     <p class="text-white text-center mt-8">{{ paragraph }}</p>
     <a
       v-if="link"
-      @click="modalStore.closeModal"
       class="xs:w-9/12 md:w-full flex justify-center items-center h-10 mt-8 rounded-[4px] bg-[#E31221] text-white"
       target="_blank"
       :href="link"
       >{{ button }}</a
     >
     <button
-      v-else-if="!link"
+      v-else
       @click="onSubmit"
       class="xs:w-9/12 md:w-full h-10 mt-8 rounded-[4px] bg-[#E31221] text-white"
     >
@@ -29,6 +28,7 @@
 </template>
 
 <script setup>
+import router from "../router";
 import { useModalStore } from "../stores/ModalStore";
 import DangerIcon from "./icons/DangerIcon.vue";
 import SendIcon from "./icons/SendIcon.vue";
@@ -39,10 +39,12 @@ const props = defineProps(["image", "heading", "paragraph", "button", "skip", "l
 
 const modalStore = useModalStore();
 const onSubmit = () => {
-  if (props.image === "verified") {
+  if (props.button === t("modal.go_to_news_feed")) {
+    modalStore.closeModal();
+    router.push({ name: "news" });
+  } else if (props.image === "verified") {
     modalStore.removeQuery();
-  }
-  if (props.button === t("modal.log_in")) {
+  } else if (props.button === t("modal.log_in")) {
     modalStore.inner = "login";
     modalStore.modal = true;
   } else {

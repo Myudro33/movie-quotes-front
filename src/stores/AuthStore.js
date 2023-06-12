@@ -97,9 +97,18 @@ export const useAuthStore = defineStore('authStore', {
             }
         },
         async updateUser(form) {
+            const modalStore = useModalStore()
             try {
                 const response = await axiosInstance.put(`/update-user/${this.author.id}`, form)
                 this.user = response.data.user
+                if(window.innerWidth<960){
+                    modalStore.mobile='updated-succesfully'
+                    modalStore.modal = true
+                }else{
+                    modalStore.inner='user-updated'
+                    modalStore.modal = true
+                }
+                
             } catch (error) {
                 this.error = error.response.data.message
             }
