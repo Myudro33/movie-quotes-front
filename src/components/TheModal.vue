@@ -16,7 +16,7 @@
       <InfoModal
         v-if="modalStore.inner === 'registered'"
         image="send"
-        link="https://mailtrap.io/inboxes/2178525/messages/"
+        :link="import.meta.env.VITE_API_GMAIL_URL"
         :heading="$t('modal.check_email')"
         :paragraph="$t('modal.check_email_paragraph')"
         :button="$t('modal.go_to_email')"
@@ -24,7 +24,7 @@
       <InfoModal
         v-if="modalStore.inner === 'update-email-sent'"
         image="send"
-        link="https://mailtrap.io/inboxes/2178525/messages/"
+        :link="import.meta.env.VITE_API_GMAIL_URL"
         :heading="$t('modal.check_email')"
         :paragraph="$t('modal.email_update_paragraph')"
         :button="$t('modal.go_to_email')"
@@ -32,7 +32,7 @@
       <InfoModal
         v-else-if="modalStore.inner === 'instructions_sent'"
         image="send"
-        link="https://mailtrap.io/inboxes/2178525/messages/"
+        :link="import.meta.env.VITE_API_GMAIL_URL"
         :heading="$t('modal.check_email')"
         :paragraph="$t('modal.check_email_paragraph')"
         :button="$t('modal.go_to_email')"
