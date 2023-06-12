@@ -33,7 +33,7 @@
             :label="$t('forms.name')"
             id="username"
             :placeholder="$t('forms.name_placeholder')"
-            page="profile"
+            :style="true"
           />
           <button
             @click="editForm('username')"
@@ -53,7 +53,7 @@
             id="email"
             :label="$t('forms.email')"
             :placeholder="$t('forms.email_placeholder')"
-            page="profile"
+            :style="true"
           />
           <button
             v-if="googleAuthor"
@@ -74,7 +74,7 @@
             id="pass"
             :label="$t('forms.password')"
             :placeholder="$t('forms.password_placeholder')"
-            page="profile"
+            :style="true"
           />
           <button
             @click="editForm('password')"
@@ -102,7 +102,7 @@
               :label="$t('forms.password')"
               :required="true"
               :placeholder="$t('forms.password_placeholder')"
-              page="profile"
+              :style="true"
             />
           </div>
           <div class="mt-4">
@@ -115,7 +115,7 @@
               :label="$t('forms.confirm_password')"
               :required="true"
               :placeholder="$t('forms.confirm_password_placeholder')"
-              page="profile"
+              :style="true"
             />
           </div>
         </div>

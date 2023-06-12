@@ -45,19 +45,31 @@ export const useAuthStore = defineStore('authStore', {
 
         },
         async getToken() {
-            await axios.get("http://localhost:8000/sanctum/csrf-cookie")
+            try {
+                await axios.get(import.meta.env.VITE_API_SANCTUM_URL)
+            } catch (error) {
+                this.error=error
+            }
         },
         async getUser() {
-            this.getToken()
-            if(this.user===null){
-                const data = await axiosInstance.get('/user')
-                this.user = data.data
+            try {
+                this.getToken()
+                if(!this.user){
+                    const data = await axiosInstance.get('/user')
+                    this.user = data.data
+                }
+            } catch (error) {
+                this.error = error.response.data.message
             }
         },
         async passwordReset(email) {
-            const modalStore = useModalStore()
-            await axiosInstance.post('/forgot-password', { email: email })
-            modalStore.inner = "instructions_sent";
+            try {
+                const modalStore = useModalStore()
+                await axiosInstance.post('/forgot-password', { email: email })
+                modalStore.inner = "instructions_sent";
+            } catch (error) {
+                this.error = error.response.data.message
+            }
         },
         async passwordUpdate(data) {
             const modalStore = useModalStore()
@@ -70,7 +82,6 @@ export const useAuthStore = defineStore('authStore', {
         },
         async updateUsername(data) {
             const modalStore = useModalStore()
-
             try {
                 await axiosInstance.put('/update-username', {
                     username: data.username,
