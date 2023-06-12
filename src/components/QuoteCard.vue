@@ -72,7 +72,7 @@ import CommentIcon from './icons/CommentIcon.vue';
 </template>
 
 <script setup>
-import { reactive } from "vue";
+import { reactive, onMounted } from "vue";
 import { useAuthStore } from "../stores/AuthStore";
 import CommentIcon from "./icons/CommentIcon.vue";
 import HeartIcon from "./icons/HeartIcon.vue";
@@ -80,7 +80,7 @@ const authStore = useAuthStore();
 const store = reactive({
   avatar: "",
 });
-setTimeout(() => {
+onMounted(() => {
   authStore.getAvatar(store);
-}, 200);
+});
 </script>

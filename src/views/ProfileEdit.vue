@@ -165,11 +165,11 @@ const editForm = (value) => {
     form.stage = value;
   }
 };
-setTimeout(() => {
+onMounted(() => {
   AuthStore.getAvatar(form);
   username.value = AuthStore.author.username;
   email.value = AuthStore.author.email;
-}, 200);
+});
 const onSubmit = (value) => {
   if (value === "username") {
     AuthStore.updateUsername({

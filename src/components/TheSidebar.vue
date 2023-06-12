@@ -48,7 +48,7 @@
 import HouseIcon from "./icons/HouseIcon.vue";
 import CameraIcon from "./icons/CameraIcon.vue";
 import { useAuthStore } from "../stores/AuthStore";
-import { reactive } from "vue";
+import { reactive, onMounted } from "vue";
 import router from "../router";
 import { useSidebarStore } from "../stores/SidebarStore";
 import LanguageSwitch from "./LanguageSwitch.vue";
@@ -58,7 +58,7 @@ const feed = reactive({
   avatar: "",
 });
 const authStore = useAuthStore();
-setTimeout(() => {
+onMounted(() => {
   authStore.getAvatar(feed);
-}, 200);
+});
 </script>

@@ -18,8 +18,9 @@ export const useAuthStore = defineStore('authStore', {
             const modalStore = useModalStore()
             try {
                 await this.getToken()
-                await axiosInstance.post('/login', data)
-                window.location.replace('/feed/')
+                const response = await axiosInstance.post('/login', data)
+                this.user = response.data.user
+                router.push({name:"feed"})
                 modalStore.closeModal()
             } catch (error) {
                 this.error = error.response.data.message
