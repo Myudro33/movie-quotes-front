@@ -73,7 +73,7 @@ export const useAuthStore = defineStore('authStore', {
         async passwordUpdate(data) {
             const modalStore = useModalStore()
             try {
-                await axiosInstance.post(`/password-update/${data.token}`, data)
+                await axiosInstance.put(`/password-update/${data.token}`, data)
                 modalStore.inner = "password-changed";
             } catch (error) {
                 this.error = error.response.data.message
