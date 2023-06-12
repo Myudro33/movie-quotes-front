@@ -103,10 +103,8 @@ export const useAuthStore = defineStore('authStore', {
                 this.user = response.data.user
                 if(window.innerWidth<960){
                     modalStore.mobile='updated-succesfully'
-                    modalStore.modal = true
                 }else{
                     modalStore.inner='user-updated'
-                    modalStore.modal = true
                 }
                 
             } catch (error) {

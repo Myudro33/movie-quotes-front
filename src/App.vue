@@ -15,10 +15,8 @@ onMounted(async () => {
 </script>
 
 <template>
-  <TheModal v-if="modalStore.modal && modalStore.inner !== ''" />
-  <ProfileMobileModal
-    v-if="modalStore.modal && modalStore.inner === '' && modalStore.mobile !== ''"
-  />
+  <TheModal v-if="modalStore.inner !== ''" />
+  <ProfileMobileModal v-if="modalStore.inner === '' && modalStore.mobile !== ''" />
   <TheNavbar />
   <RouterView />
 </template>

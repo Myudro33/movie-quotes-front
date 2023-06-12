@@ -34,11 +34,11 @@
     </button>
   </div>
   <div
-    v-if="modalStore.modal && modalStore.mobile === 'search'"
+    v-if="modalStore.mobile === 'search'"
     class="md:hidden w-full h-[80vh] bg-[#12101A] z-[100] top-0 absolute"
   >
     <div class="flex items-center h-16 px-8 border-b border-b-[#EFEFEF4D]">
-      <ArrowIcon class="w-10 h-10" @click="modalStore.modal = false" />
+      <ArrowIcon class="w-10 h-10" @click="modalStore.closeModal" />
       <input
         class="w-full h-10 mx-2 bg-transparent text-white placeholder:text-white outline-none px-3"
         type="text"

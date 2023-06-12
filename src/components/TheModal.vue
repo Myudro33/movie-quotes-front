@@ -69,7 +69,7 @@ const mailLink = import.meta.env.VITE_API_GMAIL_URL;
 
 const modalStore = useModalStore();
 onMounted(() => {
-  if (modalStore.modal) {
+  if (modalStore.inner !== "" || modalStore.mobile !== "") {
     modalStore.scroll(true);
   }
 });
@@ -77,6 +77,7 @@ onBeforeUnmount(() => {
   modalStore.scroll(false);
 });
 const closeModal = () => {
+  modalStore.closeModal();
   modalStore.removeQuery();
 };
 </script>

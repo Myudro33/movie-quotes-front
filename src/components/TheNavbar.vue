@@ -62,7 +62,6 @@ const modalStore = useModalStore();
 const authStore = useAuthStore();
 const sidebarStore = useSidebarStore();
 const openSearchModal = () => {
-  modalStore.modal = true;
   modalStore.mobile = "search";
 };
 </script>

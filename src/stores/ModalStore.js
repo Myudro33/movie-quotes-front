@@ -3,13 +3,13 @@ import router from "../router";
 
 export const useModalStore = defineStore('modalStore',{
     state:()=>({
-        modal:false,
         inner:'',
         mobile:""
     }),
     actions:{
         closeModal(){
-            this.modal = false
+            this.inner=''
+            this.mobile=''
         },
         openModal(payload){
             this.inner = payload
@@ -23,7 +23,6 @@ export const useModalStore = defineStore('modalStore',{
             const modalStore = useModalStore()
             await router.isReady()
             if (router.currentRoute.value.query.stage) {
-                modalStore.modal = true;
                 modalStore.inner = router.currentRoute.value.query.stage;
             }
         },

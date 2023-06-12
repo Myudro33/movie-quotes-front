@@ -1,15 +1,11 @@
 <template>
   <div
-    v-if="
-      modalStore.modal &&
-      modalStore.mobile !== 'updated-succesfully' &&
-      modalStore.mobile !== 'confirm'
-    "
+    v-if="modalStore.mobile !== 'updated-succesfully' && modalStore.mobile !== 'confirm'"
     class="bg-[#181623] w-full h-full absolute top-[70px] z-30"
   >
     <Form v-slot="{ meta, errors }" class="w-full">
       <div class="w-full h-10 mt-4 px-10 flex items-center md:hidden">
-        <ArrowIcon @click="modalStore.modal = false" />
+        <ArrowIcon @click="modalStore.closeModal" />
       </div>
       <div
         class="bg-[#24222F] px-8 flex flex-col items-center justify-center w-full min-h-[235px] my-5"
@@ -59,10 +55,7 @@
         <p v-if="AuthStore.error" class="text-red-500">{{ AuthStore.error }}</p>
       </div>
       <div class="w-full flex justify-between px-2">
-        <button
-          class="py-2 px-4 text-xl text-[#CED4DA]"
-          @click="modalStore.modal = false"
-        >
+        <button class="py-2 px-4 text-xl text-[#CED4DA]" @click="modalStore.closeModal">
           {{ $t("profile.cancel") }}
         </button>
         <button
@@ -76,7 +69,7 @@
     </Form>
   </div>
   <div
-    @click="modalStore.modal = false"
+    @click="modalStore.closeModal()"
     class="w-full h-screen bg-[#00000050] absolute px-4 py-32 z-30"
     v-else-if="modalStore.mobile === 'updated-succesfully'"
   >
@@ -129,7 +122,7 @@ const form = reactive({
 });
 onMounted(() => {
   back.value = modalStore.mobile;
-  if (modalStore.modal) {
+  if (modalStore.mobile !== "" || modalStore.inner !== "") {
     modalStore.scroll(true);
   }
 });

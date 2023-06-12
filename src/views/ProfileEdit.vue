@@ -160,7 +160,6 @@ const windowWidth = ref(window.innerWidth);
 const editForm = (value) => {
   if (windowWidth.value < 960) {
     modalStore.mobile = value;
-    modalStore.modal = true;
   } else {
     form.stage = value;
   }

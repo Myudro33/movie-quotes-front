@@ -46,7 +46,6 @@ const onSubmit = () => {
     modalStore.removeQuery();
   } else if (props.button === t("modal.log_in")) {
     modalStore.inner = "login";
-    modalStore.modal = true;
   } else {
     modalStore.closeModal();
   }
