@@ -28,6 +28,7 @@
         :placeholder="$t('forms.password_placeholder')"
       />
     </div>
+    <p v-if="authStore.error&&authStore.error!=='Unauthenticated.'" class="text-red-500 mt-2">{{ authStore.error }}</p>
     <div class="w-full flex items-center justify-between mt-2">
       <div>
         <input @change="!form.remember" v-model="form.remember" id="remember" type="checkbox" />

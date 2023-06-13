@@ -28,7 +28,7 @@ export const useAuthStore = defineStore('authStore', {
         },
         async register(data) {
             try {
-                await axiosInstance.post('/api/register', data)
+                await axiosInstance.post('/register', data)
                 const modalStore = useModalStore()
                 modalStore.openModal('registered')
                 this.error = ''

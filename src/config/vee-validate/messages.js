@@ -30,7 +30,7 @@ configure({
         confirmed:'{field} არ ემთხვევა პაროლს'
       },
       names: {
-        firstName: 'სახელი',
+        username: 'სახელი',
         email: 'მეილი',
         password:'პაროლი',
         confirmPassword:'გაიმეორეთ პაროლი'
