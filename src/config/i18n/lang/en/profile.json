@@ -9,5 +9,7 @@
     "save_changes":"Save Changes",
     "enter_username":"Enter new username",
     "enter_email":"Enter new email",
-    "confirm":"Confirm"
+    "confirm":"Confirm",
+    "min_8":"Password must be min 8 characters",
+    "max_15":"Password must be max 15 characters"
 }

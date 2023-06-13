@@ -20,6 +20,8 @@ export const useAuthStore = defineStore('authStore', {
                 this.user = response.data.user
                 router.push({ name: "news" })
                 modalStore.closeModal()
+                this.error = ''
+
             } catch (error) {
                 this.error = error.response.data.message
             }
@@ -29,6 +31,8 @@ export const useAuthStore = defineStore('authStore', {
                 await axiosInstance.post('/api/register', data)
                 const modalStore = useModalStore()
                 modalStore.openModal('registered')
+                this.error = ''
+
             } catch (error) {
                 this.error = error.response.data.message
             }
@@ -38,6 +42,8 @@ export const useAuthStore = defineStore('authStore', {
                 this.user = null
                 await axiosInstance.post('/logout')
                 router.push({ name: "landing" })
+                this.error = ''
+
             } catch (error) {
                 alert(error)
             }
@@ -46,6 +52,8 @@ export const useAuthStore = defineStore('authStore', {
         async getToken() {
             try {
                 await axios.get(import.meta.env.VITE_API_SANCTUM_URL)
+                this.error = ''
+
             } catch (error) {
                 this.error = error
             }
@@ -56,6 +64,7 @@ export const useAuthStore = defineStore('authStore', {
                 if (!this.user) {
                     const data = await axiosInstance.get('/user')
                     this.user = data.data
+                    this.error = ''
                 }
             } catch (error) {
                 this.error = error.response.data.message
@@ -66,6 +75,8 @@ export const useAuthStore = defineStore('authStore', {
                 const modalStore = useModalStore()
                 await axiosInstance.post('/forgot-password', { email: email })
                 modalStore.inner = "instructions_sent";
+                this.error = ''
+
             } catch (error) {
                 this.error = error.response.data.message
             }
@@ -75,6 +86,8 @@ export const useAuthStore = defineStore('authStore', {
             try {
                 await axiosInstance.put(`/password-update/${data.token}`, data)
                 modalStore.inner = "password-changed";
+                this.error = ''
+
             } catch (error) {
                 this.error = error.response.data.message
             }
@@ -92,6 +105,8 @@ export const useAuthStore = defineStore('authStore', {
                         },
                     })
                 this.author.avatar = response.data.avatar
+                this.error = ''
+
             } catch (error) {
                 this.error = error.response.data.message
             }
@@ -101,12 +116,12 @@ export const useAuthStore = defineStore('authStore', {
             try {
                 const response = await axiosInstance.put(`/update-user/${this.author.id}`, form)
                 this.user = response.data.user
-                if(window.innerWidth<960){
-                    modalStore.mobile='updated-succesfully'
-                }else{
-                    modalStore.inner='user-updated'
+                if (window.innerWidth < 960) {
+                    modalStore.mobile = 'updated-succesfully'
+                } else {
+                    modalStore.inner = 'user-updated'
                 }
-                
+                this.error = ''
             } catch (error) {
                 this.error = error.response.data.message
             }
