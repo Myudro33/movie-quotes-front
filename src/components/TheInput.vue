@@ -2,6 +2,7 @@
   <div>
     <label-component :required="required" :label="id" :title="label" />
     <Field
+      :validateOnInput="true"
       class="w-full h-[38px] text-lg mt-2"
       :class="
         style
@@ -26,28 +27,23 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { useField } from "vee-validate";
 import { Field, ErrorMessage } from "vee-validate";
-export default {
-  props: [
-    "modelValue",
-    "id",
-    "placeholder",
-    "label",
-    "rules",
-    "required",
-    "type",
-    "error",
-    "style",
-  ],
-  components: {
-    Field,
-    ErrorMessage,
-  },
-  methods: {
-    changeValue($event) {
-      this.$emit("update:modelValue", $event.target.value);
-    },
-  },
+const props = defineProps([
+  "modelValue",
+  "id",
+  "placeholder",
+  "label",
+  "rules",
+  "required",
+  "type",
+  "error",
+  "style",
+]);
+const { errorMessage } = useField(() => props.id);
+const emit = defineEmits(["update:modelValue"]);
+const changeValue = ($event) => {
+  emit("update:modelValue", $event.target.value, errorMessage.value);
 };
 </script>

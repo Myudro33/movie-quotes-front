@@ -10,7 +10,7 @@
       class="w-full xs:min-h-screen md:min-h-[700px] xs:bg-[#24222F] md:bg-[#11101A] md:mt-24 md:rounded-3xl flex flex-col items-center xs:px-8 md:px-48"
     >
       <img
-        class="w-48 h-48 object-cover rounded-full xs:mt-6 md:mt-0 md:top-36 md:absolute"
+        class="w-48 h-48 object-cover rounded-full xs:mt-6 md:mt-0 md:top-36 z-10 md:absolute"
         :src="AuthStore.author.avatar"
         id="avatar"
         alt="avatar"
@@ -23,7 +23,7 @@
         :value="$t('profile.upload_photo')"
         onclick="document.getElementById('file').click();"
       />
-      <Form @submit="submitForm" v-slot="{ meta, errors }" class="w-full">
+      <Form v-slot="{ meta, errors }" class="w-full">
         <div class="w-full mt-10 flex relative">
           <input-component
             class="xs:w-full md:w-10/12"
@@ -88,8 +88,10 @@
           <div class="border border-white rounded-[4px] p-6 text-white">
             <h1>{{ $t("profile.password_requirements") }}</h1>
             <ul>
-              <li>{{ $t("profile.password_min") }}</li>
-              <li>{{ $t("profile.password_max") }}</li>
+              <li :class="color_min">
+                {{ $t("profile.password_min") }}
+              </li>
+              <li :class="color_max">{{ $t("profile.password_max") }}</li>
             </ul>
           </div>
           <div class="mt-4">
@@ -99,6 +101,7 @@
               :error="errors.password"
               type="password"
               id="password"
+              @update:modelValue="test"
               :label="$t('forms.password')"
               :required="true"
               :placeholder="$t('forms.password_placeholder')"
@@ -144,17 +147,47 @@ import { computed, onMounted, reactive, ref } from "vue";
 import { useAuthStore } from "../stores/AuthStore";
 import { useModalStore } from "../stores/ModalStore";
 import ArrowIcon from "../components/icons/ArrowIcon.vue";
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
 const AuthStore = useAuthStore();
 const modalStore = useModalStore();
 const googleAuthor = computed(() => AuthStore.author?.google_id === null);
 const form = reactive({
-  username: "",
-  email: "",
+  username: AuthStore.author.username,
+  email: AuthStore.author.email,
   password: "dummy_password",
   newPassword: "",
   confirmPassword: "",
   stage: "",
-  avatar: "",
+});
+const passwordValidation = ref(undefined);
+const test = (_, errorMessage) => {
+  console.log(errorMessage);
+  if (errorMessage === t("profile.min_8")) {
+    passwordValidation.value = "min";
+  } else if (errorMessage === t("profile.max_15")) {
+    passwordValidation.value = "max";
+  } else if (errorMessage === undefined) {
+    passwordValidation.value = null;
+  }
+};
+const color_min = computed(() => {
+  if (passwordValidation.value === "min") {
+    return "text-red-500";
+  } else if (passwordValidation.value === null) {
+    return "text-green-500";
+  } else {
+    return "text-white";
+  }
+});
+const color_max = computed(() => {
+  if (passwordValidation.value === "max") {
+    return "text-red-500";
+  } else if (passwordValidation.value === null) {
+    return "text-green-500";
+  } else {
+    return "text-white";
+  }
 });
 const windowWidth = ref(window.innerWidth);
 const editForm = (value) => {
@@ -164,10 +197,6 @@ const editForm = (value) => {
     form.stage = value;
   }
 };
-onMounted(() => {
-  username.value = AuthStore.author.username;
-  email.value = AuthStore.author.email;
-});
 const handleFileUpload = (event) => {
   AuthStore.uploadAvatar(event);
 };
