@@ -1,5 +1,7 @@
 <template>
-  <div class="xs:px-9 md:px-[70px] h-20 flex justify-between items-center bg-[#222030]">
+  <div
+    class="xs:px-9 w-full fixed md:px-[70px] h-20 flex justify-between z-[100] items-center bg-[#222030]"
+  >
     <button
       @click="sidebarStore.isHidden = !sidebarStore.isHidden"
       class="text-white md:hidden"
@@ -46,10 +48,11 @@
         >
           {{ $t("forms.log_out") }}
         </button>
-        <SearchIcon @click="openSearchModal" />
+        <SearchIcon class="md:hidden" @click="openSearchModal" />
       </div>
     </div>
   </div>
+  <div class="w-full h-20"></div>
 </template>
 
 <script setup>
