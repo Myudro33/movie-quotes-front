@@ -16,9 +16,9 @@
           <h1 v-if="authStore.author" class="text-2xl text-white font-normal">
             {{ authStore.author.username }}
           </h1>
-          <a href="/feed/edit-profile" class="text-[#CED4DA]">{{
+          <RouterLink to="/feed/edit-profile" class="text-[#CED4DA]">{{
             $t("feed.edit_profile")
-          }}</a>
+          }}</RouterLink>
         </div>
       </div>
       <button
@@ -29,18 +29,18 @@
         {{ $t("forms.log_out") }}
       </button>
     </div>
-    <a href="/feed">
+    <RouterLink to="/feed">
       <div class="mt-10 px-3 flex items-center">
-        <HouseIcon :color="feed.route === '/feed' ? '#E31221' : '#fff'" />
+        <HouseIcon :color="route.path === '/feed' ? '#E31221' : '#fff'" />
         <h1 class="ml-11 text-2xl text-white">{{ $t("feed.news_feed") }}</h1>
       </div>
-    </a>
-    <a href="/feed/films">
+    </RouterLink>
+    <RouterLink to="/feed/films">
       <div class="mt-10 px-3 flex items-center">
-        <CameraIcon :color="feed.route === '/feed/films' ? '#E31221' : '#fff'" />
+        <CameraIcon :color="route.path === '/feed/films' ? '#E31221' : '#fff'" />
         <h1 class="ml-11 text-2xl text-white">{{ $t("feed.movie_list") }}</h1>
       </div>
-    </a>
+    </RouterLink>
   </div>
 </template>
 
@@ -48,13 +48,10 @@
 import HouseIcon from "./icons/HouseIcon.vue";
 import CameraIcon from "./icons/CameraIcon.vue";
 import { useAuthStore } from "../stores/AuthStore";
-import { reactive } from "vue";
-import router from "../router";
 import { useSidebarStore } from "../stores/SidebarStore";
 import LanguageSwitch from "./LanguageSwitch.vue";
+import { useRoute } from "vue-router";
 const sidebarStore = useSidebarStore();
-const feed = reactive({
-  route: router.currentRoute.value.fullPath,
-});
+const route = useRoute()
 const authStore = useAuthStore();
 </script>
