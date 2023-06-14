@@ -115,6 +115,9 @@ export const useAuthStore = defineStore('authStore', {
             const modalStore = useModalStore()
             try {
                 const response = await axiosInstance.put(`/update-user/${this.author.id}`, form)
+                if(form.email!==this.author.email){
+                   return modalStore.inner='update-email-sent'
+                }
                 this.user = response.data.user
                 if (window.innerWidth < 960) {
                     modalStore.mobile = 'updated-succesfully'

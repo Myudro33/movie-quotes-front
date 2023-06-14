@@ -52,6 +52,13 @@
         :paragraph="$t('modal.changes_updated_successfully')"
         :button="$t('modal.go_to_news_feed')"
       />
+      <InfoModal
+        v-else-if="modalStore.inner === 'email-updated'"
+        image="verified"
+        :heading="$t('modal.success')"
+        :paragraph="$t('modal.email_success_paragraph')"
+        :button="$t('modal.log_in')"
+      />
     </div>
   </div>
 </template>
