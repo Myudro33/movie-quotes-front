@@ -2,7 +2,7 @@
   <div
     @click="closeModal"
     name="backDrop"
-    class="top-0 backdrop w-full h-screen absolute z-50 bg-[#00000090] flex justify-center items-center"
+    class="top-0 backdrop w-full h-[100%] absolute z-50 bg-[#00000090] flex justify-center items-center"
   >
     <div
       @click.stop
@@ -12,19 +12,27 @@
       <LoginFormVue v-if="modalStore.inner === 'login'" />
       <RegistrationForm v-else-if="modalStore.inner === 'register'" />
       <PasswordUpdateModal v-else-if="modalStore.inner === 'forgot_password'" />
-      <PasswordResetModal v-else-if="modalStore.inner === 'password_reset'" />
+      <PasswordResetModal v-else-if="modalStore.inner === 'reset-email-verified'" />
       <InfoModal
         v-if="modalStore.inner === 'registered'"
         image="send"
-        link="https://mailtrap.io/inboxes/2178525/messages/"
+        :link="mailLink"
         :heading="$t('modal.check_email')"
         :paragraph="$t('modal.check_email_paragraph')"
         :button="$t('modal.go_to_email')"
       />
       <InfoModal
+        v-if="modalStore.inner === 'update-email-sent'"
+        image="send"
+        :link="mailLink"
+        :heading="$t('modal.check_email')"
+        :paragraph="$t('modal.email_update_paragraph')"
+        :button="$t('modal.go_to_email')"
+      />
+      <InfoModal
         v-else-if="modalStore.inner === 'instructions_sent'"
         image="send"
-        link="https://mailtrap.io/inboxes/2178525/messages/"
+        :link="mailLink"
         :heading="$t('modal.check_email')"
         :paragraph="$t('modal.check_email_paragraph')"
         :button="$t('modal.go_to_email')"
@@ -36,6 +44,20 @@
         :heading="$t('modal.thank_you')"
         :paragraph="$t('modal.account_activated')"
         :button="$t('modal.go_to_news_feed')"
+      />
+      <InfoModal
+        v-else-if="modalStore.inner === 'user-updated'"
+        image="verified"
+        :heading="$t('modal.success')"
+        :paragraph="$t('modal.changes_updated_successfully')"
+        :button="$t('modal.go_to_news_feed')"
+      />
+      <InfoModal
+        v-else-if="modalStore.inner === 'email-updated'"
+        image="verified"
+        :heading="$t('modal.success')"
+        :paragraph="$t('modal.email_success_paragraph')"
+        :button="$t('modal.log_in')"
       />
     </div>
   </div>
@@ -49,13 +71,12 @@ import { useModalStore } from "../stores/ModalStore";
 import { onMounted, onBeforeUnmount } from "vue";
 import InfoModal from "./InfoModal.vue";
 import PasswordResetModal from "./PasswordResetModal.vue";
-import { useRouter } from "vue-router";
 const props = defineProps(["modalActive", "inner"]);
+const mailLink = import.meta.env.VITE_API_GMAIL_URL;
 
 const modalStore = useModalStore();
-const router = useRouter();
 onMounted(() => {
-  if (modalStore.modal) {
+  if (modalStore.inner !== "" || modalStore.mobile !== "") {
     modalStore.scroll(true);
   }
 });
@@ -63,6 +84,7 @@ onBeforeUnmount(() => {
   modalStore.scroll(false);
 });
 const closeModal = () => {
+  modalStore.closeModal();
   modalStore.removeQuery();
 };
 </script>

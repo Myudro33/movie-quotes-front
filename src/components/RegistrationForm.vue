@@ -54,6 +54,7 @@
         :placeholder="$t('forms.confirm_password_placeholder')"
       />
     </div>
+    <p class="text-red-500 my2" v-if="authStore.error&&authStore.error!=='Unauthenticated.'">{{ authStore.error }}</p>
     <button :disabled="form.isSubmitting" class="bg-[#E31221] disabled:cursor-wait w-full mb-3 h-[38px] text-white mt-6 rounded-[4px]">
       {{ $t("forms.get_started") }}
     </button>

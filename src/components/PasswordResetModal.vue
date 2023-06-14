@@ -32,6 +32,7 @@
         :placeholder="$t('forms.confirm_password_placeholder')"
       />
     </div>
+    <p class="text-red-500" v-if="authStore.error">{{ authStore.error }}</p>
     <button class="w-full h-[38px] my-5 bg-[#E31221] rounded-[4px] text-white">
       {{ $t("forms.reset_password") }}
     </button>
@@ -49,9 +50,19 @@ import ArrowIcon from "../components/icons/ArrowIcon.vue";
 import { Form } from "vee-validate";
 import { reactive } from "vue";
 import { useModalStore } from "../stores/ModalStore";
+import { useAuthStore } from "../stores/AuthStore";
+import router from "../router";
 const modalStore = useModalStore();
+const authStore = useAuthStore();
 const form = reactive({
   password: "",
   confirmPassword: "",
 });
+const onSubmit = () => {
+  authStore.passwordUpdate({
+    token: router.currentRoute.value.query.token,
+    email: router.currentRoute.value.query.email,
+    password: form.password,
+  });
+};
 </script>

@@ -5,15 +5,18 @@ import TheModal from "./components/TheModal.vue";
 import { useModalStore } from "./stores/ModalStore";
 import { useAuthStore } from "./stores/AuthStore";
 import { onMounted } from "vue";
+import ProfileMobileModal from "./components/ProfileMobileModal.vue";
 const authStore = useAuthStore();
 const modalStore = useModalStore();
 onMounted(async () => {
+  modalStore.queryBasedModal();
   await authStore.getUser();
 });
 </script>
 
 <template>
-  <TheModal v-if="modalStore.modal" />
+  <TheModal v-if="modalStore.inner !== ''" />
+  <ProfileMobileModal v-if="modalStore.inner === '' && modalStore.mobile !== ''" />
   <TheNavbar />
   <RouterView />
 </template>

@@ -7,6 +7,7 @@
           class="text-[#DDCCAA] xs:text-2xl md:text-6xl text-center h-32 font-bold tracking-wider leading-10"
         ></h1>
         <button
+          @click="modalStore.inner = 'register'"
           class="xs:w-28 md:w-36 h-12 text-white rounded-[4px] bg-[#E31221] text-xl mt-6"
         >
           {{ $t("landing.get_started") }}
@@ -18,9 +19,7 @@
 </template>
 
 <script setup>
-import TheNavbar from "../components/TheNavbar.vue";
-import TheModal from "../components/TheModal.vue";
-import RegistrationForm from "../components/RegistrationForm.vue";
-import LoginForm from "../components/LoginForm.vue";
 import LandingParallax from "../components/LandingParallax.vue";
+import { useModalStore } from "../stores/ModalStore";
+const modalStore = useModalStore();
 </script>

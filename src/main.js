@@ -23,6 +23,5 @@ app.component('input-component', TheInput)
 app.component('modal-component', TheModal)
 app.component('label-component', TheLabel)
 
-export const route = router
 
 app.mount('#app')

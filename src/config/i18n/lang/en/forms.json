@@ -1,7 +1,7 @@
 {
     "create_account":"Create an account",
     "start_journey":"Start your journey!",
-    "name":"Name",
+    "name":"Username",
     "name_placeholder":"At least 3 & max.15 lower case characters",
     "email":"Email",
     "email_placeholder":"Enter your email",

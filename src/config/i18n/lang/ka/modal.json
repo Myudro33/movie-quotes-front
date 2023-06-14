@@ -11,5 +11,12 @@
     "check_email":"შეამოწმეთ მეილი",
     "check_email_paragraph":"ჩვენ გამოგიგზავნეთ პაროლის აღდგენის ინსტრუქციები იმეილზე",
     "success":"წარმატებული!",
-    "success_paragraph":"თქვენი მეილი წარმატებით შეიცვალა"
+    "email_success_paragraph":"თქვენი მეილი წარმატებით შეიცვალა",
+    "password_success_paragraph":"თქვენი პაროლი წარმატებით შეიცვალა",
+    "username_success_paragraph":"თქვენი სახელი წარმატებით შეიცვალა",
+    "changes_updated_successfully":"ცვლილებები წარმატებით განახლდა", 
+    "log_in":"შესვლა",
+    "email_update_paragraph":"ჩვენ გამოგიგზავნეთ ინსტრუქციები მეილის გასანახლებლად",
+    "are_you_sure":"დარწმუნებული ხართ ?"
+
 }
