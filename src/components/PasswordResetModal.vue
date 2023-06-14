@@ -32,7 +32,12 @@
         :placeholder="$t('forms.confirm_password_placeholder')"
       />
     </div>
-    <p class="text-red-500" v-if="authStore.error">{{ authStore.error }}</p>
+    <p
+      class="text-red-500"
+      v-if="authStore.error && authStore.error !== 'Unauthenticated.'"
+    >
+      {{ authStore.error }}
+    </p>
     <button class="w-full h-[38px] my-5 bg-[#E31221] rounded-[4px] text-white">
       {{ $t("forms.reset_password") }}
     </button>
