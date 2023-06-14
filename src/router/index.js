@@ -8,31 +8,32 @@ const router = createRouter({
       path: '/',
       name: 'landing',
       component: () => import('../views/LandingPage.vue'),
-      meta:{auth:false}
+      meta: { auth: false }
     },
     {
-      path:"/feed",
+      path: "/feed",
       name: 'feed',
-      meta:{auth:true},
+      meta: { auth: true },
       component: () => import('../views/FeedPage.vue'),
-      children:[
-        { path: '', name: 'news', component: () => import('../views/NewsFeed.vue') },
-        { path: 'edit-profile', name: 'editprofile', component: () => import('../views/ProfileEdit.vue') }
+      children: [
+        { path: '', name: 'news', meta: { auth: true }, component: () => import('../views/NewsFeed.vue') },
+        { path: 'edit-profile', name: 'editprofile', meta: { auth: true }, component: () => import('../views/ProfileEdit.vue') }
       ]
     },
 
   ]
 })
 
-router.beforeEach((to, _, next) => {
+router.beforeEach(async (to, _, next) => {
   const authStore = useAuthStore();
-  setTimeout(() => {
-  if(to.meta.auth&&!authStore.author){
-    router.push({name:"landing"})
-  }else{
+  await authStore.getUser()
+  if (to.meta.auth && !authStore.author) {
+    router.push({ name: "landing" })
+  } else if (authStore.author && !to.meta.auth) {
+    router.back()
+  }
+  else {
     next()
   }
-  }, 300);
-  
 })
 export default router
