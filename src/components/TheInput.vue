@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="relative">
     <label-component :required="required" :label="id" :title="label" />
     <Field
-    :readonly="readonly"
+      :readonly="readonly"
       validateOnInput
       class="w-full h-[38px] text-lg mt-2"
       :class="
@@ -24,14 +24,19 @@
       :value="modelValue"
       @input="changeValue"
     />
+    <EyeIcon
+      @click="type === 'password' ? (type = 'text') : (type = 'password')"
+      class="absolute z-30 right-2 cursor-pointer top-11"
+      v-if="id === 'password' || id === 'confirmPassword'"
+    />
     <ErrorMessage class="text-[#F15524] xs:text-sm md:text-base" :name="id" />
   </div>
 </template>
 
 <script setup>
-import { useField } from "vee-validate";
-import { Field, ErrorMessage } from "vee-validate";
+import { Field, ErrorMessage, useField } from "vee-validate";
 import { watch } from "vue";
+import EyeIcon from "./icons/EyeIcon.vue";
 const props = defineProps([
   "modelValue",
   "id",
@@ -42,14 +47,14 @@ const props = defineProps([
   "type",
   "error",
   "style",
-  'readonly'
+  "readonly",
 ]);
 const { errorMessage } = useField(() => props.id);
 const emit = defineEmits(["update:modelValue,'update:errorMessage'"]);
 const changeValue = ($event) => {
   emit("update:modelValue", $event.target.value, errorMessage.value);
 };
-watch(errorMessage,(error)=>{
-  emit("update:errorMessage",error);
-})
+watch(errorMessage, (error) => {
+  emit("update:errorMessage", error);
+});
 </script>

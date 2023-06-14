@@ -55,7 +55,7 @@
       />
     </div>
     <p class="text-red-500 my2" v-if="authStore.error&&authStore.error!=='Unauthenticated.'">{{ authStore.error }}</p>
-    <button :disabled="form.isSubmitting" class="bg-[#E31221] disabled:cursor-wait w-full mb-3 h-[38px] text-white mt-6 rounded-[4px]">
+    <button  class="bg-[#E31221]  w-full mb-3 h-[38px] text-white mt-6 rounded-[4px]">
       {{ $t("forms.get_started") }}
     </button>
       <GoogleButton/>
@@ -82,7 +82,6 @@ import { reactive } from "vue";
       email: "",
       password: "",
       confirmPassword: "",
-      isSubmitting:false
     })
     const onSubmit=()=>{
       authStore.register({
@@ -90,6 +89,5 @@ import { reactive } from "vue";
         email:form.email,
         password:form.password,
       })
-      form.isSubmitting=true
     }
 </script>

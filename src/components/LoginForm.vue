@@ -1,5 +1,5 @@
 <template>
-  <Form @submit="submitForm"  v-slot="{ meta, errors }" class="w-full">
+  <Form @submit="submitForm"  v-slot="{ meta, errors,validate }" class="w-full">
     <h1 class="xs:text-2xl md:text-4xl h-12 xs:mt-[70px] md:mt-2 text-white text-center">
       {{ $t("forms.create_account") }}
     </h1>
@@ -9,10 +9,10 @@
     <div class="mt-4">
       <input-component
         :rules="'required'"
-        :error="errors.email"
+        :error="errors.username"
         v-model="form.username"
         type="text"
-        id="email"
+        id="username"
         :label="$t('forms.email')"
         :placeholder="$t('forms.email_placeholder')"
       />
@@ -40,7 +40,7 @@
         $t("forms.forgot_password")
       }}</p>
     </div>
-    <button type="submit" class="w-full h-[38px] my-4 bg-[#E31221] rounded-[4px] text-white">
+    <button type="submit" :disabled="!meta.valid" class="w-full h-[38px] my-4 bg-[#E31221] disabled:bg-[#e31220a7] rounded-[4px] text-white">
       {{ $t("forms.sign_in") }}
     </button>
     <GoogleButton type="signin" />
