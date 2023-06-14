@@ -59,6 +59,13 @@
         :paragraph="$t('modal.email_success_paragraph')"
         :button="$t('modal.log_in')"
       />
+      <InfoModal
+        v-else-if="modalStore.inner === 'password-changed'"
+        image="verified"
+        :heading="$t('modal.success')"
+        :paragraph="$t('modal.password_success_paragraph')"
+        :button="$t('modal.go_to_news_feed')"
+      />
     </div>
   </div>
 </template>
