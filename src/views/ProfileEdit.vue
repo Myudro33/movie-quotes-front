@@ -54,6 +54,7 @@
             :label="$t('forms.email')"
             :placeholder="$t('forms.email_placeholder')"
             :style="true"
+            :readonly="!googleAuthor"
           />
           <button
             v-if="googleAuthor"
@@ -88,9 +89,7 @@
           <div class="border border-white rounded-[4px] p-6 text-white">
             <h1>{{ $t("profile.password_requirements") }}</h1>
             <ul>
-              <li :class="color_min">
-                {{ $t("profile.password_min") }}
-              </li>
+              <li :class="color_min">{{ $t("profile.password_min") }}</li>
               <li :class="color_max">{{ $t("profile.password_max") }}</li>
             </ul>
           </div>
@@ -143,7 +142,7 @@
 
 <script setup>
 import { Form } from "vee-validate";
-import { computed, onMounted, reactive, ref } from "vue";
+import { computed, reactive, ref } from "vue";
 import { useAuthStore } from "../stores/AuthStore";
 import { useModalStore } from "../stores/ModalStore";
 import ArrowIcon from "../components/icons/ArrowIcon.vue";
@@ -155,14 +154,14 @@ const googleAuthor = computed(() => AuthStore.author?.google_id === null);
 const form = reactive({
   username: AuthStore.author.username,
   email: AuthStore.author.email,
-  password: "dummy_password",
+  password: "password",
   newPassword: "",
   confirmPassword: "",
   stage: "",
 });
 const passwordValidation = ref(undefined);
 const test = (_, errorMessage) => {
-  console.log(errorMessage);
+  // console.log(errorMessage);
   if (errorMessage === t("profile.min_8")) {
     passwordValidation.value = "min";
   } else if (errorMessage === t("profile.max_15")) {

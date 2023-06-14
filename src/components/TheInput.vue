@@ -2,7 +2,8 @@
   <div>
     <label-component :required="required" :label="id" :title="label" />
     <Field
-      :validateOnInput="true"
+    :readonly="readonly"
+      validateOnInput
       class="w-full h-[38px] text-lg mt-2"
       :class="
         style
@@ -40,6 +41,7 @@ const props = defineProps([
   "type",
   "error",
   "style",
+  'readonly'
 ]);
 const { errorMessage } = useField(() => props.id);
 const emit = defineEmits(["update:modelValue"]);
