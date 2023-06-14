@@ -89,8 +89,14 @@
           <div class="border border-white rounded-[4px] p-6 text-white">
             <h1>{{ $t("profile.password_requirements") }}</h1>
             <ul>
-              <li :class="color_min">{{ $t("profile.password_min") }}</li>
-              <li :class="color_max">{{ $t("profile.password_max") }}</li>
+              <li class="flex">
+                <p class="mr-2" :class="passwordValidation.min">•</p>
+                {{ $t("profile.password_min") }}
+              </li>
+              <li class="flex">
+                <p class="mr-2" :class="passwordValidation.max">•</p>
+                {{ $t("profile.password_max") }}
+              </li>
             </ul>
           </div>
           <div class="mt-4">
@@ -100,7 +106,7 @@
               :error="errors.password"
               type="password"
               id="password"
-              @update:modelValue="test"
+              @update:errorMessage="test"
               :label="$t('forms.password')"
               :required="true"
               :placeholder="$t('forms.password_placeholder')"
@@ -159,35 +165,24 @@ const form = reactive({
   confirmPassword: "",
   stage: "",
 });
-const passwordValidation = ref(undefined);
-const test = (_, errorMessage) => {
-  // console.log(errorMessage);
-  if (errorMessage === t("profile.min_8")) {
-    passwordValidation.value = "min";
-  } else if (errorMessage === t("profile.max_15")) {
-    passwordValidation.value = "max";
-  } else if (errorMessage === undefined) {
-    passwordValidation.value = null;
+const passwordValidation = reactive({
+  min: "",
+  max: "",
+});
+const test = (errorMessage) => {
+  if (errorMessage) {
+    if (errorMessage.includes("8")) {
+      passwordValidation.min = "text-red-500";
+    } else if (errorMessage.includes("15")) {
+      passwordValidation.max = "text-red-500";
+    }
+  }
+  if (errorMessage === undefined) {
+    passwordValidation.min = "text-green-500";
+    passwordValidation.max = "text-green-500";
   }
 };
-const color_min = computed(() => {
-  if (passwordValidation.value === "min") {
-    return "text-red-500";
-  } else if (passwordValidation.value === null) {
-    return "text-green-500";
-  } else {
-    return "text-white";
-  }
-});
-const color_max = computed(() => {
-  if (passwordValidation.value === "max") {
-    return "text-red-500";
-  } else if (passwordValidation.value === null) {
-    return "text-green-500";
-  } else {
-    return "text-white";
-  }
-});
+
 const windowWidth = ref(window.innerWidth);
 const editForm = (value) => {
   if (windowWidth.value < 960) {

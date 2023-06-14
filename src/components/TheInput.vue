@@ -31,6 +31,7 @@
 <script setup>
 import { useField } from "vee-validate";
 import { Field, ErrorMessage } from "vee-validate";
+import { watch } from "vue";
 const props = defineProps([
   "modelValue",
   "id",
@@ -44,8 +45,11 @@ const props = defineProps([
   'readonly'
 ]);
 const { errorMessage } = useField(() => props.id);
-const emit = defineEmits(["update:modelValue"]);
+const emit = defineEmits(["update:modelValue,'update:errorMessage'"]);
 const changeValue = ($event) => {
   emit("update:modelValue", $event.target.value, errorMessage.value);
 };
+watch(errorMessage,(error)=>{
+  emit("update:errorMessage",error);
+})
 </script>
