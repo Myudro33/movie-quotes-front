@@ -9,8 +9,8 @@
       <h1 class="text-white md:text-xl ml-3">{{ quote.user?.username }}</h1>
     </div>
     <p class="text-white md:text-xl mt-4">
-      “{{ quote.title?.en }}”
-      <span class="text-[#DDCCAA] cursor-pointer">{{ quote.movie?.name.en }}</span> ({{
+      “{{ quoteTitle }}”
+      <span class="text-[#DDCCAA] cursor-pointer">{{ movieTitle }}</span> ({{
         quote.movie?.year
       }})
     </p>
@@ -53,6 +53,7 @@ import HeartIcon from "./icons/HeartIcon.vue";
 import TheComment from "./TheComment.vue";
 import { useNewsStore } from "../stores/NewsStore";
 import { computed, ref } from "vue";
+import { useI18n } from "vue-i18n";
 const props = defineProps(["quote"]);
 const authStore = useAuthStore();
 const NewsStore = useNewsStore();
@@ -60,7 +61,20 @@ const title = ref("");
 const liked = computed(() => {
   return props.quote.likes.some((like) => like.author.id === authStore.author.id);
 });
-
+const quoteTitle = computed(() => {
+  if (useI18n().locale.value === "en") {
+    return props.quote?.title.en;
+  } else {
+    return props.quote?.title.ka;
+  }
+});
+const movieTitle = computed(() => {
+  if (useI18n().locale.value === "en") {
+    return props.quote.movie.name.en;
+  } else {
+    return props.quote.movie.name.ka;
+  }
+});
 const addComment = () => {
   NewsStore.comment({
     user_id: authStore.author.id,
