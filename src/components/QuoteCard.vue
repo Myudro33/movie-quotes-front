@@ -17,12 +17,14 @@
     <img class="w-full md:h-[500px] xs:h-48 mt-7" :src="quote.image" alt="quote" />
     <div class="flex xs:h-16 md:h-20 items-center border-b border-b-[#EFEFEF4D]">
       <div class="flex">
-        <p class="text-white text-xl mr-2">{{ quote?.comments.length }}</p>
+        <p class="text-white text-xl mr-2">{{ quote.comments?.length }}</p>
         <CommentIcon />
       </div>
       <div class="flex ml-6">
-        <p class="text-white text-xl mr-2">10</p>
-        <HeartIcon />
+        <p class="text-xl text-white mr-2">
+          {{ quote.likes?.length }}
+        </p>
+        <HeartIcon :color="liked" @click="addLike" />
       </div>
     </div>
     <TheComment v-for="(item, index) in quote?.comments" :comment="item" :key="index" />
@@ -46,6 +48,19 @@ import { useAuthStore } from "../stores/AuthStore";
 import CommentIcon from "./icons/CommentIcon.vue";
 import HeartIcon from "./icons/HeartIcon.vue";
 import TheComment from "./TheComment.vue";
+import { useNewsStore } from "../stores/NewsStore";
+import { computed } from "vue";
 const props = defineProps(["quote"]);
 const authStore = useAuthStore();
+const NewsStore = useNewsStore();
+
+const liked = computed(() => {
+  return props.quote.likes.some((like) => like.author.id === authStore.author.id);
+});
+const addLike = () => {
+  NewsStore.like({
+    user_id: authStore.author.id,
+    quote_id: props.quote.id,
+  });
+};
 </script>

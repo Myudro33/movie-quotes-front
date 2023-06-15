@@ -13,6 +13,14 @@ export const useNewsStore = defineStore('newsStore',{
             } catch (error) {
                 alert(error)
             }
+    },
+    async like(data){
+        try {
+            await axiosInstance.post('/addLike',data)
+            this.getQuotes()
+        } catch (error) {
+         alert(error)   
         }
+    }
     }
 })
