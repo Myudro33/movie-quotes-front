@@ -21,6 +21,14 @@ export const useNewsStore = defineStore('newsStore',{
         } catch (error) {
          alert(error)   
         }
+    },
+    async comment(data){
+        try {
+            await axiosInstance.post('/add-comment',data)
+            this.getQuotes()
+        } catch (error) {
+            alert(error)
+        }
     }
-    }
+    },
 })

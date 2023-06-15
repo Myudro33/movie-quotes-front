@@ -28,18 +28,21 @@
       </div>
     </div>
     <TheComment v-for="(item, index) in quote?.comments" :comment="item" :key="index" />
-    <div class="flex items-center mt-6">
-      <img
-        class="xs:w-10 xs:h-10 md:w-[52px] md:h-[52px] object-cover text-white shrink-0 rounded-full"
-        :src="authStore.author.avatar"
-        alt="avatar"
-      />
-      <input
-        class="w-full xs:h-10 md:h-[52px] ml-6 pl-6 outline-none bg-[#24222F] text-xl rounded-[10px]"
-        type="text"
-        placeholder="Write a comment"
-      />
-    </div>
+    <form @submit.prevent="addComment">
+      <div class="flex items-center mt-6">
+        <img
+          class="xs:w-10 xs:h-10 md:w-[52px] md:h-[52px] object-cover text-white shrink-0 rounded-full"
+          :src="authStore.author.avatar"
+          alt="avatar"
+        />
+        <input
+          v-model="title"
+          class="w-full text-white xs:h-10 md:h-[52px] ml-6 pl-6 outline-none bg-[#24222F] text-xl rounded-[10px]"
+          type="text"
+          placeholder="Write a comment"
+        />
+      </div>
+    </form>
   </div>
 </template>
 
@@ -49,14 +52,23 @@ import CommentIcon from "./icons/CommentIcon.vue";
 import HeartIcon from "./icons/HeartIcon.vue";
 import TheComment from "./TheComment.vue";
 import { useNewsStore } from "../stores/NewsStore";
-import { computed } from "vue";
+import { computed, ref } from "vue";
 const props = defineProps(["quote"]);
 const authStore = useAuthStore();
 const NewsStore = useNewsStore();
-
+const title = ref("");
 const liked = computed(() => {
   return props.quote.likes.some((like) => like.author.id === authStore.author.id);
 });
+
+const addComment = () => {
+  NewsStore.comment({
+    user_id: authStore.author.id,
+    quote_id: props.quote.id,
+    title: title.value,
+  });
+  title.value = "";
+};
 const addLike = () => {
   NewsStore.like({
     user_id: authStore.author.id,

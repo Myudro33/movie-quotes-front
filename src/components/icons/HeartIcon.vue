@@ -3,7 +3,7 @@
     width="32"
     height="30"
     viewBox="0 0 32 30"
-    class="md:w-8 xs:w-6"
+    class="md:w-8 xs:w-6 cursor-pointer"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
