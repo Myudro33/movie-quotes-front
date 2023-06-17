@@ -57,8 +57,9 @@ export const useNewsStore = defineStore('newsStore', {
         },
         async comment(data) {
             try {
-               const response = await axiosInstance.post('/add-comment', data)
-               this.quotes[response.data.comment.quote.id-1].comments.push(response.data.comment)
+                const response = await axiosInstance.post('/add-comment', data)
+                const quote = this.quotes.find(quote=> quote.id===response.data.comment.quote.id)
+                return quote.comments.push(response.data.comment)
             } catch (error) {
                 alert(error)
             }
