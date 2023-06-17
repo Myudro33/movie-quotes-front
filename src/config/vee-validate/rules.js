@@ -7,7 +7,18 @@ defineRule('min', min)
 defineRule('max', max)
 defineRule('number',numeric)
 
-
+defineRule('ka', (value) => {
+  if (/[\u10A0-\u10FF]/.test(value)) {
+    return true
+  }
+  return false
+})
+defineRule('en',(value)=>{
+  if(/^[a-zA-Z]+$/.test(value)){
+    return true
+  }
+  return false
+})
 
 defineRule('confirmed', (value, [target], ctx) => {
   if (value === ctx.form[target]) {

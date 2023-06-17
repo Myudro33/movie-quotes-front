@@ -10,13 +10,17 @@ configure({
         max: '{field} must be max 0:{max} characters',
         number:'{field} must be number',
         lowercase:'{field} must be lowercase',
-        confirmed:"{field} doesn't match"
+        confirmed:"{field} doesn't match",
+        ka:'{field} must contain only Georgian characters',
+        en:'{field} must contain only English characters'
       },
       names: {
         firstName: 'Name',
         email: 'Email',
         password:'Password',
-        confirmPassword:'Confirm password'
+        confirmPassword:'Confirm password',
+        title_en:'Quote',
+        title_ka:'Quote'
       }
     },
     ka: {
@@ -27,13 +31,17 @@ configure({
         max: '{field} უნდა შედგებოდეს მაქსიმუმ 0:{min} სიმბოლოსგან',
         number:'{field} უნდა იყოს რიცხვი',
         lowercase:'{field} უნდა იყოს დაბალ რეგისტრში',
-        confirmed:'{field} არ ემთხვევა პაროლს'
+        confirmed:'{field} არ ემთხვევა პაროლს',
+        ka:'{field} უნდა შეიცავლდეს მხოლოდ ქართულ სიმბოლოებს',
+        en:'{field} უნდა შეიცავლდეს მხოლოდ ინგლისურ სიმბოლოებს'
       },
       names: {
         username: 'სახელი',
         email: 'მეილი',
         password:'პაროლი',
-        confirmPassword:'გაიმეორეთ პაროლი'
+        confirmPassword:'გაიმეორეთ პაროლი',
+        title_en:'ციტატა',
+        title_ka:'ციტატა'
       }
     }
   })
