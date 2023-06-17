@@ -9,11 +9,14 @@ export const useNewsStore = defineStore('newsStore', {
     }),
     actions: {
         async getQuotes() {
-            try {
-                const response = await axiosInstance.get('/quotes')
-                this.quotes = response.data.data
-            } catch (error) {
-                alert(error)
+            if (this.quotes.length < 1) {
+
+                try {
+                    const response = await axiosInstance.get('/quotes')
+                    this.quotes = response.data.data
+                } catch (error) {
+                    alert(error)
+                }
             }
         },
         async addQuote(data) {
@@ -33,28 +36,30 @@ export const useNewsStore = defineStore('newsStore', {
             }
         },
         async getMovies() {
-            try {
-                const response = await axiosInstance.get('/movies')
-                this.movies = response.data.data
-            } catch (error) {
-                alert(error)
+            if (this.movies.length < 1) {
+                try {
+                    const response = await axiosInstance.get('/movies')
+                    this.movies = response.data.data
+                } catch (error) {
+                    alert(error)
+                }
             }
         },
         async like(data) {
-                const response = await axiosInstance.post('/addLike', data)
-                if (response.status === 201) {
-                    const quote = this.quotes.find(quote=> quote.id===response.data.like.quote.id)
-                    return quote.likes.push(response.data.like)
-                } else {
-                    const quote = this.quotes.find(quote=> quote.id===response.data.like.quote.id)
-                    const filtered= quote.likes.filter(like=>like.author.id!==response.data.like.author.id)
-                    return quote.likes = filtered
-                }
+            const response = await axiosInstance.post('/addLike', data)
+            if (response.status === 201) {
+                const quote = this.quotes.find(quote => quote.id === response.data.like.quote.id)
+                return quote.likes.push(response.data.like)
+            } else {
+                const quote = this.quotes.find(quote => quote.id === response.data.like.quote.id)
+                const filtered = quote.likes.filter(like => like.author.id !== response.data.like.author.id)
+                return quote.likes = filtered
+            }
         },
         async comment(data) {
-                const response = await axiosInstance.post('/add-comment', data)
-                const quote = this.quotes.find(quote=> quote.id===response.data.comment.quote.id)
-                return quote.comments.push(response.data.comment)
+            const response = await axiosInstance.post('/add-comment', data)
+            const quote = this.quotes.find(quote => quote.id === response.data.comment.quote.id)
+            return quote.comments.push(response.data.comment)
         }
     },
 })
