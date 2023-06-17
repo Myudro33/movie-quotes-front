@@ -5,13 +5,16 @@
     @dragover.prevent
     @drop.prevent="toggleActive"
     :class="active ? 'active-dropzone' : 'notactive-dropzone'"
-    class="dropzone"
+    class="dropzone xs:justify-between md:justify-start"
   >
-    <PhotoIcon class="mr-3" />
-    <span>Drag & drop your image here or</span>
-    <label for="dropzoneFile">Choose file</label>
+    <div class="flex items-center">
+      <PhotoIcon class="mr-3" />
+      <span class="xs:hidden md:flex">Drag & drop your image here or</span>
+      <span class="md:hidden">Upload image</span>
+    </div>
+    <label class="xs:text-base md:text-xl" for="dropzoneFile">Choose file</label>
     <input @input="selectedFile" class="hidden" type="file" id="dropzoneFile" />
-    <p class="text-white ml-2">{{ dropzoneFile?.name }}</p>
+    <p v-if="dropzoneFile.name" class="text-white ml-2">{{ dropzoneFile.name }}</p>
   </div>
 </template>
 
@@ -44,7 +47,6 @@ label {
   padding: 8px;
   color: #fff;
   background-color: #9747ff66;
-  font-size: 20px;
   border-radius: 4px;
   transition: 0.3s ease all;
   margin-left: 8px;
