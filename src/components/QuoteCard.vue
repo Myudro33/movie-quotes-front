@@ -3,31 +3,30 @@
     <div class="flex items-center">
       <img
         class="xs:w-10 xs:h-10 md:w-[52px] md:h-[52px] object-cover rounded-full"
-        :src="quote.user?.avatar"
+        :src="quote.user.avatar"
         alt="avatar"
       />
-      <h1 class="text-white md:text-xl ml-3">{{ quote.user?.username }}</h1>
+      <h1 class="text-white md:text-xl ml-3">{{ quote.user.username }}</h1>
     </div>
     <p class="text-white md:text-xl mt-4">
-      “{{ quoteTitle }}”
-      <span class="text-[#DDCCAA] cursor-pointer">{{ movieTitle }}</span> ({{
-        quote.movie?.year
-      }})
+      “{{ quote.title[locale] }}”
+      <span class="text-[#DDCCAA] cursor-pointer">{{ quote.movie.name[locale] }}</span>
+      ({{ quote.movie.year }})
     </p>
     <img class="w-full md:h-[500px] xs:h-48 mt-7" :src="quote.image" alt="quote" />
     <div class="flex xs:h-16 md:h-20 items-center border-b border-b-[#EFEFEF4D]">
       <div class="flex">
-        <p class="text-white text-xl mr-2">{{ quote.comments?.length }}</p>
+        <p class="text-white text-xl mr-2">{{ quote.comments.length }}</p>
         <CommentIcon />
       </div>
       <div class="flex ml-6">
         <p class="text-xl text-white mr-2">
-          {{ quote.likes?.length }}
+          {{ quote.likes.length }}
         </p>
         <HeartIcon :color="liked" @click="addLike" />
       </div>
     </div>
-    <TheComment v-for="(item, index) in quote?.comments" :comment="item" :key="index" />
+    <TheComment v-for="(item, index) in quote.comments" :comment="item" :key="index" />
     <form @submit.prevent="addComment">
       <div class="flex items-center mt-6">
         <img
@@ -57,23 +56,12 @@ import { useI18n } from "vue-i18n";
 const props = defineProps(["quote"]);
 const authStore = useAuthStore();
 const NewsStore = useNewsStore();
+const locale = computed(() => {
+  return useI18n().locale.value;
+});
 const title = ref("");
 const liked = computed(() => {
-  return props.quote.likes.some((like) => like.author.id === authStore.author.id);
-});
-const quoteTitle = computed(() => {
-  if (useI18n().locale.value === "en") {
-    return props.quote?.title.en;
-  } else {
-    return props.quote?.title.ka;
-  }
-});
-const movieTitle = computed(() => {
-  if (useI18n().locale.value === "en") {
-    return props.quote.movie.name.en;
-  } else {
-    return props.quote.movie.name.ka;
-  }
+  return props.quote?.likes.some((like) => like.author.id === authStore.author.id);
 });
 const addComment = () => {
   NewsStore.comment({
