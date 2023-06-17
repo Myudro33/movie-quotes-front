@@ -41,7 +41,6 @@ export const useNewsStore = defineStore('newsStore', {
             }
         },
         async like(data) {
-            try {
                 const response = await axiosInstance.post('/addLike', data)
                 if (response.status === 201) {
                     const quote = this.quotes.find(quote=> quote.id===response.data.like.quote.id)
@@ -51,18 +50,11 @@ export const useNewsStore = defineStore('newsStore', {
                     const filtered= quote.likes.filter(like=>like.author.id!==response.data.like.author.id)
                     return quote.likes = filtered
                 }
-            } catch (error) {
-                alert(error)
-            }
         },
         async comment(data) {
-            try {
                 const response = await axiosInstance.post('/add-comment', data)
                 const quote = this.quotes.find(quote=> quote.id===response.data.comment.quote.id)
                 return quote.comments.push(response.data.comment)
-            } catch (error) {
-                alert(error)
-            }
         }
     },
 })

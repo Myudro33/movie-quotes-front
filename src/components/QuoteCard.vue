@@ -27,25 +27,29 @@
       </div>
     </div>
     <TheComment v-for="(item, index) in quote.comments" :comment="item" :key="index" />
-    <form @submit.prevent="addComment">
-      <div class="flex items-center mt-6">
+    <Form v-slot="{ errors }" @submit="addComment" class="flex flex-col mt-6">
+      <div class="w-full flex">
         <img
           class="xs:w-10 xs:h-10 md:w-[52px] md:h-[52px] object-cover text-white shrink-0 rounded-full"
           :src="authStore.author.avatar"
           alt="avatar"
         />
-        <input
-          v-model="title"
-          class="w-full text-white xs:h-10 md:h-[52px] ml-6 pl-6 outline-none bg-[#24222F] text-xl rounded-[10px]"
-          type="text"
-          placeholder="Write a comment"
-        />
+        <Field rules="required" name="title" v-model="title" v-slot="{ field }">
+          <input
+            v-bind="field"
+            class="w-full text-white xs:h-10 md:h-[52px] ml-6 pl-6 outline-none bg-[#24222F] text-xl rounded-[10px]"
+            type="text"
+            placeholder="Write a comment"
+          />
+        </Field>
       </div>
-    </form>
+      <ErrorMessage class="text-red-500 ml-20" name="title" />
+    </Form>
   </div>
 </template>
 
 <script setup>
+import { Form, Field, ErrorMessage } from "vee-validate";
 import { useAuthStore } from "../stores/AuthStore";
 import CommentIcon from "./icons/CommentIcon.vue";
 import HeartIcon from "./icons/HeartIcon.vue";
