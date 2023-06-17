@@ -8,7 +8,7 @@
     <div class="flex justify-between">
       <div class="flex">
         <img
-          class="w-[60px] h-[60px] object-cover rounded-full"
+          class="w-[60px] h-[60px] shrink-0 object-cover rounded-full"
           :src="authStore.author.avatar"
           alt="avatar"
         />
@@ -52,6 +52,6 @@ import { useSidebarStore } from "../stores/SidebarStore";
 import LanguageSwitch from "./LanguageSwitch.vue";
 import { useRoute } from "vue-router";
 const sidebarStore = useSidebarStore();
-const route = useRoute()
+const route = useRoute();
 const authStore = useAuthStore();
 </script>

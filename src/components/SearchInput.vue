@@ -1,6 +1,7 @@
 <template>
   <div class="md:flex justify-between xs:hidden">
     <button
+      @click="NewsStore.modal = true"
       :class="`bg-[#24222F] text-white rounded-[10px]  md:h-[52px] ${
         size ? 'md:w-64' : 'md:w-10/12'
       } xs:h-[86px] text-xl font-normal flex items-center px-3`"
@@ -27,6 +28,7 @@
   </div>
   <div class="md:hidden w-full h-[86px]">
     <button
+      @click="NewsStore.modal = true"
       :class="`bg-[#24222F] w-full text-white h-[86px] text-xl font-normal flex items-center px-3`"
     >
       <PencilIcon />
@@ -57,7 +59,9 @@ import SearchIcon from "./icons/SearchIcon.vue";
 import PencilIcon from "./icons/PencilIcon.vue";
 import ArrowIcon from "./icons/ArrowIcon.vue";
 import { useModalStore } from "../stores/ModalStore";
+import { useNewsStore } from "../stores/NewsStore";
 import { ref } from "vue";
 const modalStore = useModalStore();
+const NewsStore = useNewsStore();
 const size = ref(false);
 </script>
