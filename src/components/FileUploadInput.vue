@@ -9,10 +9,12 @@
   >
     <div class="flex items-center">
       <PhotoIcon class="mr-3" />
-      <span class="xs:hidden md:flex">Drag & drop your image here or</span>
-      <span class="md:hidden">Upload image</span>
+      <span class="xs:hidden md:flex md:text-xl">{{ $t("addquote.drag_drop") }}</span>
+      <span class="md:hidden">{{ $t("addquote.upload_image") }}</span>
     </div>
-    <label class="xs:text-base md:text-xl" for="dropzoneFile">Choose file</label>
+    <label class="xs:text-base md:text-xl" for="dropzoneFile">{{
+      $t("addquote.choose_file")
+    }}</label>
     <input @input="selectedFile" class="hidden" type="file" id="dropzoneFile" />
     <p v-if="dropzoneFile.name" class="text-white ml-2">{{ dropzoneFile.name }}</p>
   </div>

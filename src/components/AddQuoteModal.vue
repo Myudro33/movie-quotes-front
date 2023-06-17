@@ -71,7 +71,9 @@
               name="field"
               as="select"
             >
-              <option selected disabled value="">Choose movie</option>
+              <option selected disabled value="">
+                {{ $t("addquote.choose_movie") }}
+              </option>
               <option
                 v-for="(item, index) in NewsStore.movies"
                 :key="index"
