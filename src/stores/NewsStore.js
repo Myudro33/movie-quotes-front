@@ -1,34 +1,65 @@
 import { defineStore } from "pinia";
 import axiosInstance from "../config/axios-config";
 
-export const useNewsStore = defineStore('newsStore',{
+export const useNewsStore = defineStore('newsStore', {
     state: () => ({
-        quotes:[]
+        modal: false,
+        quotes: [],
+        movies: []
     }),
-    actions:{
-       async getQuotes(){
+    actions: {
+        async getQuotes() {
             try {
                 const response = await axiosInstance.get('/quotes')
-                this.quotes=response.data.data
+                this.quotes = response.data.data
             } catch (error) {
                 alert(error)
             }
-    },
-    async like(data){
-        try {
-            await axiosInstance.post('/addLike',data)
-            this.getQuotes()
-        } catch (error) {
-         alert(error)   
+        },
+        async addQuote(data) {
+            const formData = new FormData();
+            formData.append("user_id", data.user_id);
+            formData.append("movie_id", data.movie_id);
+            formData.append("title", JSON.stringify({ en: data.title.en, ka: data.title.ka }));
+            formData.append("image", data.image);
+            try {
+                await axiosInstance.post('/add-quote', formData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                })
+            } catch (error) {
+                alert(error)
+            }
+        },
+        async getMovies() {
+            try {
+                const response = await axiosInstance.get('/movies')
+                this.movies = response.data.data
+            } catch (error) {
+                alert(error)
+            }
+        },
+        async like(data) {
+            try {
+                const response = await axiosInstance.post('/addLike', data)
+                if (response.status === 201) {
+                    this.quotes[response.data.like.quote.id - 1].likes.push(response.data.like)
+                } else {
+                    const likes = this.quotes[response.data.like.quote.id - 1].likes.filter(like => like.author.id !== response.data.like.author.id)
+                    return this.quotes[response.data.like.quote.id - 1].likes = likes
+                }
+            } catch (error) {
+                alert(error)
+            }
+        },
+        async comment(data) {
+            try {
+               const response = await axiosInstance.post('/add-comment', data)
+               this.quotes[response.data.comment.quote.id-1].comments.push(response.data.comment)
+            } catch (error) {
+                alert(error)
+            }
         }
-    },
-    async comment(data){
-        try {
-            await axiosInstance.post('/add-comment',data)
-            this.getQuotes()
-        } catch (error) {
-            alert(error)
-        }
-    }
     },
 })
