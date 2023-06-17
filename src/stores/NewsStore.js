@@ -44,10 +44,12 @@ export const useNewsStore = defineStore('newsStore', {
             try {
                 const response = await axiosInstance.post('/addLike', data)
                 if (response.status === 201) {
-                    this.quotes[response.data.like.quote.id - 1].likes.push(response.data.like)
+                    const quote = this.quotes.find(quote=> quote.id===response.data.like.quote.id)
+                    return quote.likes.push(response.data.like)
                 } else {
-                    const likes = this.quotes[response.data.like.quote.id - 1].likes.filter(like => like.author.id !== response.data.like.author.id)
-                    return this.quotes[response.data.like.quote.id - 1].likes = likes
+                    const quote = this.quotes.find(quote=> quote.id===response.data.like.quote.id)
+                    const filtered= quote.likes.filter(like=>like.author.id!==response.data.like.author.id)
+                    return quote.likes = filtered
                 }
             } catch (error) {
                 alert(error)
