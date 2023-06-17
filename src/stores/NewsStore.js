@@ -26,11 +26,12 @@ export const useNewsStore = defineStore('newsStore', {
             formData.append("title", JSON.stringify({ en: data.title.en, ka: data.title.ka }));
             formData.append("image", data.image);
             try {
-                await axiosInstance.post('/add-quote', formData, {
+             const response =  await axiosInstance.post('/add-quote', formData, {
                     headers: {
                         "Content-Type": "multipart/form-data",
                     },
                 })
+               return this.quotes.push(response.data.quote)
             } catch (error) {
                 alert(error)
             }

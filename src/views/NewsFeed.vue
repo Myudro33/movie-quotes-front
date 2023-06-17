@@ -2,7 +2,7 @@
   <div>
     <AddQuoteModal />
     <SearchInput />
-    <QuoteCard v-for="(item, index) of NewsStore.quotes" :quote="item" :key="item.id" />
+    <QuoteCard v-for="item of NewsStore.quotes" :quote="item" :key="item.id" />
   </div>
 </template>
 
