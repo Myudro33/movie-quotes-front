@@ -73,7 +73,7 @@ export const useAuthStore = defineStore('authStore', {
         async passwordReset(email) {
             try {
                 const modalStore = useModalStore()
-                await axiosInstance.post('/forgot-password', { email: email })
+                await axiosInstance.post(`/forgot-password/${email}`)
                 modalStore.inner = "instructions_sent";
                 this.error = ''
 
@@ -92,31 +92,16 @@ export const useAuthStore = defineStore('authStore', {
                 this.error = error.response.data.message
             }
         },
-        async uploadAvatar(event) {
-            const file = event.target.files[0];
-            const formData = new FormData();
-            formData.append("avatar", file);
-            formData.append("email", this.author.email);
-            try {
-                const response = await axiosInstance
-                    .post("/upload-avatar", formData, {
-                        headers: {
-                            "Content-Type": "multipart/form-data",
-                        },
-                    })
-                this.author.avatar = response.data.avatar
-                this.error = ''
-
-            } catch (error) {
-                this.error = error.response.data.message
-            }
-        },
         async updateUser(form) {
+            if(form.avatar!==''){
+                this.uploadAvatar(form.avatar)
+        }
+        else{
             const modalStore = useModalStore()
             try {
-                const response = await axiosInstance.put(`/update-user/${this.author.id}`, form)
+                const response = await axiosInstance.post(`/update-user/${this.author.email}`, form)
                 if(form.email!==this.author.email){
-                   return modalStore.inner='update-email-sent'
+                    return modalStore.inner='update-email-sent'
                 }
                 this.user = response.data.user
                 if (window.innerWidth < 960) {
@@ -129,6 +114,28 @@ export const useAuthStore = defineStore('authStore', {
                 this.error = error.response.data.message
             }
         }
+    },
+    async uploadAvatar(event) {
+        const file = event.target.files[0];
+        const formData = new FormData();
+        formData.append("avatar", file);
+        formData.append("email", this.author.email);
+        try {
+            const response = await axiosInstance
+                .post(`/update-user/${this.author.email}`, formData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                })
+            this.author.avatar = response.data.avatar
+            this.error = ''
+
+        } catch (error) {
+            this.error = error.response.data.message
+        }
+    },
+
+
     },
     getters: {
         author: (state) => state.user

@@ -69,10 +69,10 @@
           <input-component
             class="xs:w-full md:w-10/12"
             :rules="'required|min:8|max:15|lowercase'"
-            v-model="form.password"
-            :error="errors.password"
+            v-model="form.fake_password"
+            :error="errors.fake_password"
             type="password"
-            id="pass"
+            id="fake_password"
             :label="$t('forms.password')"
             :placeholder="$t('forms.password_placeholder')"
             :style="true"
@@ -102,7 +102,7 @@
           <div class="mt-4">
             <input-component
               :rules="'required|min:8|max:15|lowercase'"
-              v-model="form.newPassword"
+              v-model="form.password"
               :error="errors.password"
               type="password"
               id="password"
@@ -116,10 +116,10 @@
           <div class="mt-4">
             <input-component
               :rules="'required|confirmed:password'"
-              v-model="form.confirmPassword"
-              :error="errors.confirmPassword"
+              v-model="form.password_confirmation"
+              :error="errors.password_confirmation"
               type="password"
-              id="confirmPassword"
+              id="password_confirmation"
               :label="$t('forms.confirm_password')"
               :required="true"
               :placeholder="$t('forms.confirm_password_placeholder')"
@@ -152,18 +152,17 @@ import { computed, reactive, ref } from "vue";
 import { useAuthStore } from "../stores/AuthStore";
 import { useModalStore } from "../stores/ModalStore";
 import ArrowIcon from "../components/icons/ArrowIcon.vue";
-import { useI18n } from "vue-i18n";
-const { t } = useI18n();
 const AuthStore = useAuthStore();
 const modalStore = useModalStore();
 const googleAuthor = computed(() => AuthStore.author?.google_id === null);
 const form = reactive({
   username: AuthStore.author.username,
   email: AuthStore.author.email,
-  password: "password",
-  newPassword: "",
-  confirmPassword: "",
+  fake_password: "password",
+  password: "",
+  password_confirmation: "",
   stage: "",
+  avatar: "",
 });
 const passwordValidation = reactive({
   min: "",
@@ -192,6 +191,8 @@ const editForm = (value) => {
   }
 };
 const handleFileUpload = (event) => {
-  AuthStore.uploadAvatar(event);
+  form.avatar = event;
+  AuthStore.updateUser(form);
+  form.avatar = "";
 };
 </script>
