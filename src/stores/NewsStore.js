@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import axiosInstance from "../config/axios-config";
+import {useAuthStore} from '../stores/AuthStore'
 
 export const useNewsStore = defineStore('newsStore', {
     state: () => ({
@@ -10,10 +11,9 @@ export const useNewsStore = defineStore('newsStore', {
     actions: {
         async getQuotes() {
             if (this.quotes.length < 1) {
-
                 try {
                     const response = await axiosInstance.get('/quotes')
-                    this.quotes = response.data.data
+                    this.quotes = response.data.quotes
                 } catch (error) {
                     alert(error)
                 }
@@ -47,14 +47,18 @@ export const useNewsStore = defineStore('newsStore', {
             }
         },
         async like(data) {
-            const response = await axiosInstance.post('/addLike', data)
-            if (response.status === 201) {
-                const quote = this.quotes.find(quote => quote.id === response.data.like.quote.id)
-                return quote.likes.push(response.data.like)
-            } else {
+            const AuthStore = useAuthStore()
+            const quote = this.quotes.find(quote=>quote.id===data.quote_id)
+            const exists = quote.likes.some(like=>like.author.id===AuthStore.author.id)
+            if(exists){
+                const response = await axiosInstance.post('/deleteLike', data)
                 const quote = this.quotes.find(quote => quote.id === response.data.like.quote.id)
                 const filtered = quote.likes.filter(like => like.author.id !== response.data.like.author.id)
                 return quote.likes = filtered
+            }else{
+                const response = await axiosInstance.post('/addLike', data)
+                const quote = this.quotes.find(quote => quote.id === response.data.like.quote.id)
+                return quote.likes.push(response.data.like)
             }
         },
         async comment(data) {
