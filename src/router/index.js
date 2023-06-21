@@ -8,8 +8,9 @@ const router = createRouter({
       path: '/',
       name: 'landing',
       component: () => import('../views/LandingPage.vue'),
-      meta: { auth: false }
+      meta: { auth: false },
     },
+    {path:'/:token', meta:{auth:false}, name:'verify',component:()=>import('../views/TokenVerify.vue')},
     {
       path: "/feed",
       name: 'feed',
@@ -29,8 +30,6 @@ router.beforeEach(async (to, _, next) => {
   await authStore.getUser()
   if (to.meta.auth && !authStore.author) {
     router.push({ name: "landing" })
-  } else if (authStore.author && !to.meta.auth) {
-    router.back()
   }
   else {
     next()

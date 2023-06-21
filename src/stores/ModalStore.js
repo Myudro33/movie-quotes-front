@@ -17,7 +17,7 @@ export const useModalStore = defineStore('modalStore',{
         },
         removeQuery(){
             router.replace({ query: null })
-            this.modal=false
+            this.inner=''
         },
        async queryBasedModal(){
             const modalStore = useModalStore()
