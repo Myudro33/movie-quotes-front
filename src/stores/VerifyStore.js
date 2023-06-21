@@ -17,7 +17,7 @@ export const useVerifyStore = defineStore('verifyStore',{
                     })
                 }else if(url.query.email==='reset-password'){
                     await axiosInstance.get(`/password-update/${url.params.token}`).then(response=>{
-                        router.push({name:'landing'})
+                        router.push(`?email=${response.data.email}&token=${response.data.token}`)
                         modalStore.inner=response.data.stage;
                     })
                 }else if(url.query.email==='email-update'){
