@@ -9,7 +9,7 @@
       <div
         class="relative xs:my-5 md:my-0 w-full flex flex-col items-center justify-center"
       >
-        <h1 class="text-2xl text-white">Write new quote</h1>
+        <h1 class="text-2xl text-white">{{ $t("addquote.create_quote") }}</h1>
         <hr class="border border-[#EFEFEF33] mt-6 w-full" />
         <ExitIcon
           @click="NewsStore.modal = false"
@@ -23,7 +23,7 @@
             :src="AuthStore.author.avatar"
             alt="avatar"
           />
-          <h1 class="text-white text-lg ml-4">{{ AuthStore?.author.username }}</h1>
+          <h1 class="text-white text-lg ml-4">{{ AuthStore.author.username }}</h1>
         </div>
         <Form @submit="addQuote" enctype="multipart/form-data" class="flex flex-col">
           <div class="relative w-full flex flex-col">
@@ -35,7 +35,7 @@
             >
               <textarea
                 placeholder="Start create new quote"
-                class="textarea xs:text-base md:text-[1.5rem]"
+                class="mt-[1.5rem] rounded-[.25rem] border border-[#6c757d] outline-none py-[.3rem] px-[.5rem] bg-transparent h-[5.3rem] text-white xs:text-base md:text-[1.5rem]"
                 v-bind="field"
               >
               </textarea>
@@ -52,7 +52,7 @@
             >
               <textarea
                 placeholder="ახალი ციტატა"
-                class="textarea xs:text-base md:text-[1.5rem]"
+                class="mt-[1.5rem] rounded-[.25rem] border border-[#6c757d] outline-none py-[.3rem] px-[.5rem] bg-transparent h-[5.3rem] text-white xs:text-base md:text-[1.5rem]"
                 v-bind="field"
               ></textarea>
               <p class="text-white absolute right-5 top-8 md:text-xl">ქარ</p>
@@ -67,7 +67,7 @@
             <Field
               rules="required"
               v-model="data.movie_id"
-              class="text-white bg-transparent h-full w-full text-2xl outline-none"
+              class="text-white bg-[#000000] h-full w-full text-2xl outline-none"
               name="field"
               as="select"
             >
@@ -79,7 +79,7 @@
                 :key="index"
                 :value="item.id"
               >
-                {{ getMovieName(item.name) }}
+                {{ useI18n().locale.value === "en" ? item.name.en : item.name.ka }}
               </option>
             </Field>
           </div>
@@ -113,13 +113,6 @@ const data = reactive({
   title: { en: "", ka: "" },
   image: null,
 });
-const getMovieName = (name) => {
-  if (useI18n().locale.value === "en") {
-    return name.en;
-  } else {
-    return name.ka;
-  }
-};
 const getFile = (img) => {
   data.image = img.value;
 };
@@ -131,19 +124,3 @@ const addQuote = () => {
   NewsStore.modal = false;
 };
 </script>
-
-<style scoped>
-select {
-  background-color: black;
-}
-.textarea {
-  margin-top: 1.5rem;
-  border-radius: 0.25rem;
-  border: 1px solid #6c757d;
-  outline: none;
-  padding: 0.3rem 0.5rem;
-  background-color: transparent;
-  height: 5.3rem;
-  color: white;
-}
-</style>
