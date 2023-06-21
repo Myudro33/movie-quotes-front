@@ -11,6 +11,7 @@ const router = createRouter({
       meta: { auth: false },
     },
     {path:'/:token', meta:{auth:false}, name:'verify',component:()=>import('../views/TokenVerify.vue')},
+    {path:'/auth/google/callback', meta:{auth:false}, name:'verify',component:()=>import('../views/Google.vue')},
     {
       path: "/feed",
       name: 'feed',
