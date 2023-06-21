@@ -6,17 +6,13 @@ export const useNewsStore = defineStore('newsStore', {
     state: () => ({
         modal: false,
         quotes: [],
-        movies: []
+        movies: [],
     }),
     actions: {
         async getQuotes() {
             if (this.quotes.length < 1) {
-                try {
                     const response = await axiosInstance.get('/quotes')
                     this.quotes = response.data.quotes
-                } catch (error) {
-                    alert(error)
-                }
             }
         },
         async addQuote(data) {
@@ -25,25 +21,17 @@ export const useNewsStore = defineStore('newsStore', {
             formData.append("movie_id", data.movie_id);
             formData.append("title", JSON.stringify({ en: data.title.en, ka: data.title.ka }));
             formData.append("image", data.image);
-            try {
              const response =  await axiosInstance.post('/add-quote', formData, {
                     headers: {
                         "Content-Type": "multipart/form-data",
                     },
                 })
                return this.quotes.push(response.data.quote)
-            } catch (error) {
-                alert(error)
-            }
         },
         async getMovies() {
             if (this.movies.length < 1) {
-                try {
                     const response = await axiosInstance.get('/movies')
                     this.movies = response.data.data
-                } catch (error) {
-                    alert(error)
-                }
             }
         },
         async like(data) {
