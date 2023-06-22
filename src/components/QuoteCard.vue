@@ -65,7 +65,7 @@ const locale = computed(() => {
 });
 const title = ref("");
 const liked = computed(() => {
-  return props.quote?.likes.some((like) => like.author.id === authStore.author.id);
+  return props.quote?.likes.some((like) => like.user_id === authStore.author.id);
 });
 const addComment = () => {
   NewsStore.comment({
