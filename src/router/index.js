@@ -11,7 +11,7 @@ const router = createRouter({
       meta: { auth: false },
     },
     {path:'/:token', meta:{auth:false}, name:'verify',component:()=>import('../views/TokenVerify.vue')},
-    {path:'/auth/google/callback', meta:{auth:false}, name:'verify',component:()=>import('../views/Google.vue')},
+    {path:'/auth/google/callback', meta:{auth:false}, name:'google',component:()=>import('../views/Google.vue')},
     {
       path: "/feed",
       name: 'feed',
@@ -19,7 +19,8 @@ const router = createRouter({
       component: () => import('../views/FeedPage.vue'),
       children: [
         { path: '', name: 'news', meta: { auth: true }, component: () => import('../views/NewsFeed.vue') },
-        { path: 'edit-profile', name: 'editprofile', meta: { auth: true }, component: () => import('../views/ProfileEdit.vue') }
+        { path: 'edit-profile', name: 'editprofile', meta: { auth: true }, component: () => import('../views/ProfileEdit.vue') },
+        {path:"films",name:'films',meta:{auth:true},component:()=>import('../views/MoviesList.vue')}
       ]
     },
 
