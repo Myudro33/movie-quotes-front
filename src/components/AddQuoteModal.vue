@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="NewsStore.modal"
-    class="absolute w-full h-full flex justify-center bg-[#18162380] left-0 top-0 z-[100]"
-  >
+  <ModalWrapper v-if="NewsStore.modal === 'add-quote'">
     <div
       class="w-[60rem] xs:py-2 md:py-10 xs:h-screen md:h-auto bg-[#11101A] md:rounded-xl md:mt-28"
     >
@@ -12,7 +9,7 @@
         <h1 class="text-2xl text-white">{{ $t("addquote.create_quote") }}</h1>
         <hr class="border border-[#EFEFEF33] mt-6 w-full" />
         <ExitIcon
-          @click="NewsStore.modal = false"
+          @click="NewsStore.modal = ''"
           class="absolute cursor-pointer right-10 top-2"
         />
       </div>
@@ -93,10 +90,11 @@
         </Form>
       </div>
     </div>
-  </div>
+  </ModalWrapper>
 </template>
 
 <script setup>
+import ModalWrapper from "./ModalWrapper.vue";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import { reactive, onMounted } from "vue";
 import { useAuthStore } from "../stores/AuthStore.js";
