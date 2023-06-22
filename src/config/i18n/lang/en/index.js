@@ -4,6 +4,7 @@ import modal from './modal.json'
 import feed from './feed.json'
 import profile from './profile.json'
 import addquote from './addquote.json'
+import addmovie from './addmovie.json'
 
 
 const translations = {
@@ -12,7 +13,8 @@ const translations = {
   modal,
   feed,
   profile,
-  addquote
+  addquote,
+  addmovie
 }
 
 export default translations

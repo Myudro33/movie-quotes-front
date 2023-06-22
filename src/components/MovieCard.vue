@@ -11,7 +11,7 @@
         <p class="ml-2">({{ movie.year }})</p>
       </h1>
       <div class="flex items-center">
-        <h1 class="text-xl">{{ movie.quotes.length }}</h1>
+        <h1 class="text-xl">{{ movie.quotes?.length }}</h1>
         <QuotesIcon class="ml-3" />
       </div>
     </RouterLink>
