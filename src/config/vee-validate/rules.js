@@ -8,13 +8,13 @@ defineRule('max', max)
 defineRule('number',numeric)
 
 defineRule('ka', (value) => {
-  if (/[\u10A0-\u10FF]/.test(value)) {
+  if (/^[\u10A0-\u10FF\s]+$/.test(value)) {
     return true
   }
   return false
 })
 defineRule('en',(value)=>{
-  if(/^[a-zA-Z]+$/.test(value)){
+  if(/^[a-zA-Z\s]+$/.test(value)){
     return true
   }
   return false
