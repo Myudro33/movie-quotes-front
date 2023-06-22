@@ -14,46 +14,49 @@
         />
       </div>
       <div class="w-full px-8 flex flex-col">
-        <div class="flex md:mt-7 items-center">
-          <img
-            class="xs:w-10 xs:h-10 md:w-16 md:h-16 rounded-full object-cover"
-            :src="AuthStore.author.avatar"
-            alt="avatar"
-          />
-          <h1 class="text-white text-lg ml-4">{{ AuthStore.author.username }}</h1>
-        </div>
+        <AuthorTag />
         <Form @submit="addQuote" enctype="multipart/form-data" class="flex flex-col">
           <div class="relative w-full flex flex-col">
             <Field
               rules="required|en"
               v-model="data.title.en"
-              v-slot="{ field }"
+              v-slot="{ field, meta }"
               name="title_en"
             >
               <textarea
                 placeholder="Start create new quote"
-                class="mt-[1.5rem] rounded-[.25rem] border border-[#6c757d] outline-none py-[.3rem] px-[.5rem] bg-transparent h-[5.3rem] text-white xs:text-base md:text-[1.5rem]"
+                class="mt-[1.5rem] rounded-[.25rem] border outline-none py-[.3rem] px-[.5rem] bg-transparent h-[5.3rem] text-white xs:text-base md:text-[1.5rem]"
+                :class="[
+                  !meta.valid && meta.touched
+                    ? 'border-1 border-[#DC3545]'
+                    : 'border-[#6c757d]',
+                  meta.valid && meta.touched ? 'border-1  border-[#198754]' : '',
+                ]"
                 v-bind="field"
               >
               </textarea>
               <p class="text-white absolute right-5 top-8 md:text-xl">Eng</p>
-              <ErrorMessage class="text-red-500" name="title_en" />
             </Field>
           </div>
           <div class="relative w-full flex flex-col">
             <Field
               rules="required|ka"
               v-model="data.title.ka"
-              v-slot="{ field }"
+              v-slot="{ field, meta }"
               name="title_ka"
             >
               <textarea
                 placeholder="ახალი ციტატა"
-                class="mt-[1.5rem] rounded-[.25rem] border border-[#6c757d] outline-none py-[.3rem] px-[.5rem] bg-transparent h-[5.3rem] text-white xs:text-base md:text-[1.5rem]"
+                class="mt-[1.5rem] rounded-[.25rem] border outline-none py-[.3rem] px-[.5rem] bg-transparent h-[5.3rem] text-white xs:text-base md:text-[1.5rem]"
+                :class="[
+                  !meta.valid && meta.touched
+                    ? 'border-1 border-[#DC3545]'
+                    : 'border-[#6c757d]',
+                  meta.valid && meta.touched ? 'border-1  border-[#198754]' : '',
+                ]"
                 v-bind="field"
               ></textarea>
               <p class="text-white absolute right-5 top-8 md:text-xl">ქარ</p>
-              <ErrorMessage class="text-red-500" name="title_ka" />
             </Field>
           </div>
           <FileUploadInput @selectFile="getFile" @drop.prevent="drop" />
@@ -103,6 +106,7 @@ import { useI18n } from "vue-i18n";
 import ExitIcon from "./icons/ExitIcon.vue";
 import FileUploadInput from "./FileUploadInput.vue";
 import CameraIcon from "./icons/CameraIcon.vue";
+import AuthorTag from "./AuthorTag.vue";
 const AuthStore = useAuthStore();
 const NewsStore = useNewsStore();
 const data = reactive({
