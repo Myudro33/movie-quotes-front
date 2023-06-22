@@ -1,5 +1,5 @@
 <template>
-  <Form @submit="onSubmit" v-slot="{ meta, errors }" class="w-full">
+  <Form @submit="onSubmit" v-slot="{ errors }" class="w-full">
     <h1
       class="xs:text-2xl md:text-4xl h-auto xs:mt-[70px] md:mt-2 text-white text-center"
     >

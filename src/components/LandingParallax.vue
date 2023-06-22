@@ -1,5 +1,5 @@
 <template>
-  <div v-for="image in images" :class="image.class">
+  <div v-for="(image, index) in images" :key="index" :class="image.class">
     <div class="flex absolute top-1/2 xs:left-6 md:left-24">
       <hr class="xs:w-4 md:w-14 border-2 border-white xs:m-2 md:m-8" />
       <div class="flex flex-col">

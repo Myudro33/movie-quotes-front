@@ -1,5 +1,5 @@
 <template>
-  <Form  @submit="onSubmit" v-slot="{ meta, errors }" class="w-full">
+  <Form @submit="onSubmit" v-slot="{ errors }" class="w-full">
     <h1 class="xs:text-2xl md:text-4xl xs:mt-[70px] h-12 md:mt-2 text-white text-center">
       {{ $t("forms.create_account") }}
     </h1>
@@ -54,17 +54,23 @@
         :placeholder="$t('forms.confirm_password_placeholder')"
       />
     </div>
-    <p class="text-red-500 my2" v-if="authStore.error&&authStore.error!=='Unauthenticated.'">{{ authStore.error }}</p>
-    <button  class="bg-[#E31221]  w-full mb-3 h-[38px] text-white mt-6 rounded-[4px]">
+    <p
+      class="text-red-500 my2"
+      v-if="authStore.error && authStore.error !== 'Unauthenticated.'"
+    >
+      {{ authStore.error }}
+    </p>
+    <button class="bg-[#E31221] w-full mb-3 h-[38px] text-white mt-6 rounded-[4px]">
       {{ $t("forms.get_started") }}
     </button>
-      <GoogleButton/>
+    <GoogleButton />
     <p class="text-center mt-8 text-[#6C757D]">
       {{ $t("forms.have_account") }}
-      <p @click="modalStore.openModal('login')" class="text-[#0D6EFD] cursor-pointer underline inline">{{
-        $t("forms.log_in")
-      }}
-      </p>
+      <span
+        @click="modalStore.openModal('login')"
+        class="text-[#0D6EFD] cursor-pointer underline inline"
+        >{{ $t("forms.log_in") }}
+      </span>
     </p>
   </Form>
 </template>
@@ -75,19 +81,19 @@ import { useModalStore } from "../stores/ModalStore";
 import { useAuthStore } from "../stores/AuthStore";
 import GoogleButton from "./GoogleButton.vue";
 import { reactive } from "vue";
-    const authStore = useAuthStore()
-    const modalStore = useModalStore()
-    const form = reactive({
-      username: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-    })
-    const onSubmit=()=>{
-      authStore.register({
-        username:form.username,
-        email:form.email,
-        password:form.password,
-      })
-    }
+const authStore = useAuthStore();
+const modalStore = useModalStore();
+const form = reactive({
+  username: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+});
+const onSubmit = () => {
+  authStore.register({
+    username: form.username,
+    email: form.email,
+    password: form.password,
+  });
+};
 </script>

@@ -5,7 +5,7 @@
     class="w-full h-[38px] flex justify-center items-center rounded-[4px] border border-white text-white"
   >
     <GoogleIcon />
-    {{ type === "signin" ? $t("forms.google_signin") : $t("forms.google_signup") }}
+    {{ props.type === "signin" ? $t("forms.google_signin") : $t("forms.google_signup") }}
   </button>
 </template>
 
@@ -14,13 +14,8 @@ import axiosInstance from "../config/axios-config";
 import GoogleIcon from "./icons/GoogleIcon.vue";
 const props = defineProps(["type"]);
 const loginwithGoogle = () => {
-  axiosInstance
-    .get("/auth/redirect")
-    .then((response) => {
-      window.location.href = response.data.url;
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+  axiosInstance.get("/auth/redirect").then((response) => {
+    window.location.href = response.data.url;
+  });
 };
 </script>

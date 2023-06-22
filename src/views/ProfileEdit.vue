@@ -23,7 +23,7 @@
         :value="$t('profile.upload_photo')"
         onclick="document.getElementById('file').click();"
       />
-      <Form v-slot="{ meta, errors }" class="w-full">
+      <Form v-slot="{ errors }" class="w-full">
         <div class="w-full mt-10 flex relative">
           <input-component
             class="xs:w-full md:w-10/12"
@@ -192,7 +192,9 @@ const editForm = (value) => {
 };
 const handleFileUpload = (event) => {
   form.avatar = event;
-  AuthStore.updateUser(form);
+  AuthStore.updateUser({
+    avatar: form.avatar,
+  });
   form.avatar = "";
 };
 </script>

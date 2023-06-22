@@ -27,7 +27,7 @@
       </div>
     </div>
     <TheComment v-for="(item, index) in quote.comments" :comment="item" :key="index" />
-    <Form v-slot="{ errors }" @submit="addComment" class="flex flex-col mt-6">
+    <Form @submit="addComment" class="flex flex-col mt-6">
       <div class="w-full flex">
         <img
           class="xs:w-10 xs:h-10 md:w-[52px] md:h-[52px] object-cover text-white shrink-0 rounded-full"

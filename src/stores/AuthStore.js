@@ -98,7 +98,7 @@ export const useAuthStore = defineStore('authStore', {
         else{
             const modalStore = useModalStore()
             try {
-                const response = await axiosInstance.put(`/update-user/${this.author.email}`, form)
+                const response = await axiosInstance.post(`/update-user/${this.author.email}`, form)
                 if(form.email!==this.author.email){
                     return modalStore.inner='update-email-sent'
                 }
@@ -116,9 +116,9 @@ export const useAuthStore = defineStore('authStore', {
     },
     async uploadAvatar(event) {
         const file = event.target.files[0];
+        console.log(file);
         const formData = new FormData();
         formData.append("avatar", file);
-        formData.append("email", this.author.email);
         try {
             const response = await axiosInstance
                 .post(`/update-user/${this.author.email}`, formData, {

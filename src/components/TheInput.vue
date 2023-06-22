@@ -18,14 +18,14 @@
       "
       :id="id"
       :name="id"
-      :type="type"
+      :type="localType"
       :rules="rules"
       :placeholder="placeholder"
       :value="modelValue"
       @input="changeValue"
     />
     <EyeIcon
-      @click="type === 'password' ? (type = 'text') : (type = 'password')"
+      @click="changeInputType"
       class="absolute z-30 right-2 cursor-pointer top-11"
       v-if="id === 'password' || id === 'confirmPassword'"
     />
@@ -35,7 +35,7 @@
 
 <script setup>
 import { Field, ErrorMessage, useField } from "vee-validate";
-import { watch } from "vue";
+import { watch, ref } from "vue";
 import EyeIcon from "./icons/EyeIcon.vue";
 const props = defineProps([
   "modelValue",
@@ -49,10 +49,18 @@ const props = defineProps([
   "style",
   "readonly",
 ]);
+const localType = ref(props.type);
 const { errorMessage } = useField(() => props.id);
-const emit = defineEmits(["update:modelValue,'update:errorMessage'"]);
+const emit = defineEmits(["update:modelValue", "update:errorMessage"]);
 const changeValue = ($event) => {
   emit("update:modelValue", $event.target.value, errorMessage.value);
+};
+const changeInputType = () => {
+  if (localType.value === "password") {
+    return (localType.value = "text");
+  } else {
+    return (localType.value = "password");
+  }
 };
 watch(errorMessage, (error) => {
   emit("update:errorMessage", error);

@@ -3,7 +3,7 @@
     v-if="modalStore.mobile !== 'updated-succesfully' && modalStore.mobile !== 'confirm'"
     class="bg-[#181623] w-full h-full absolute top-[70px] z-30"
   >
-    <Form v-slot="{ meta, errors }" class="w-full">
+    <Form v-slot="{ errors }" class="w-full">
       <div class="w-full h-10 mt-4 px-10 flex items-center md:hidden">
         <ArrowIcon @click="modalStore.closeModal" />
       </div>
@@ -110,15 +110,15 @@ import { useModalStore } from "../stores/ModalStore";
 import { useAuthStore } from "../stores/AuthStore";
 import { reactive, onMounted, onBeforeUnmount, ref } from "vue";
 import MobileSuccessModal from "./MobileSuccessModal.vue";
-const props = defineProps(["input"]);
 const modalStore = useModalStore();
 const AuthStore = useAuthStore();
 const back = ref("");
 const form = reactive({
   username: "",
-  email: "",
+  email: AuthStore.author.email,
   password: "",
   newPassword: "",
+  avatar: "",
 });
 onMounted(() => {
   back.value = modalStore.mobile;

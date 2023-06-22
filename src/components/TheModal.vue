@@ -78,7 +78,6 @@ import { useModalStore } from "../stores/ModalStore";
 import { onMounted, onBeforeUnmount } from "vue";
 import InfoModal from "./InfoModal.vue";
 import PasswordResetModal from "./PasswordResetModal.vue";
-const props = defineProps(["modalActive", "inner"]);
 const mailLink = import.meta.env.VITE_API_GMAIL_URL;
 
 const modalStore = useModalStore();

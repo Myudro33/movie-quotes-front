@@ -1,14 +1,14 @@
 <template>
   <div class="xs:w-full md:w-[27.5rem] xs:mt-14 text-white">
-    <RouterLink :to="`/feed/films/${movie.id}`">
+    <RouterLink :to="`/feed/films/${props.movie.id}`">
       <img
         class="rounded-xl w-full xs:h-[18.875rem] md:h-[23.188rem] object-cover"
-        :src="movie.image"
+        :src="props.movie.image"
         alt="movie"
       />
       <h1 class="text-2xl my-4 flex">
-        {{ useI18n().locale.value === "en" ? movie.name.en : movie.name.ka }}
-        <p class="ml-2">({{ movie.year }})</p>
+        {{ useI18n().locale.value === "en" ? props.movie.name.en : props.movie.name.ka }}
+        <p class="ml-2">({{ props.movie.year }})</p>
       </h1>
       <div class="flex items-center">
         <h1 class="text-xl">{{ movie.quotes?.length }}</h1>
