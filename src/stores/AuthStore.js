@@ -9,7 +9,6 @@ export const useAuthStore = defineStore('authStore', {
     state: () => ({
         error: '',
         user: null,
-        email: "test@example.com"
     }),
     actions: {
         async login(data) {
@@ -99,7 +98,7 @@ export const useAuthStore = defineStore('authStore', {
         else{
             const modalStore = useModalStore()
             try {
-                const response = await axiosInstance.post(`/update-user/${this.author.email}`, form)
+                const response = await axiosInstance.put(`/update-user/${this.author.email}`, form)
                 if(form.email!==this.author.email){
                     return modalStore.inner='update-email-sent'
                 }
