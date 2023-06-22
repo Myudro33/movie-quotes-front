@@ -4,15 +4,15 @@
     @dragleave.prevent="toggleActive"
     @dragover.prevent
     @drop.prevent="toggleActive"
-    :class="active ? 'active-dropzone' : 'notactive-dropzone'"
-    class="dropzone xs:justify-between md:justify-start"
+    :class="active ? 'border-2 border-dashed bg-[#41b88380]' : 'border border-[#6c757d]'"
+    class="w-full flex items-center py-[1.313rem] px-[1.125rem] mt-[1.375rem] text-white rounded-sm xs:justify-between md:justify-start"
   >
     <div class="flex items-center">
       <PhotoIcon class="mr-3" />
       <span class="xs:hidden md:flex md:text-xl">{{ $t("addquote.drag_drop") }}</span>
       <span class="md:hidden">{{ $t("addquote.upload_image") }}</span>
     </div>
-    <label class="xs:text-base md:text-xl" for="dropzoneFile">{{
+    <label class="xs:text-base md:text-xl p-2 text-white bg-[#9747ff66] rounded-[4px] ml-2" for="dropzoneFile">{{
       $t("addquote.choose_file")
     }}</label>
     <input @input="selectedFile" class="hidden" type="file" id="dropzoneFile" />
@@ -37,30 +37,3 @@ const selectedFile = (e) => {
 };
 </script>
 
-<style scoped>
-.active-dropzone {
-  border: 2px dashed green;
-  background-color: #41b88380;
-}
-.notactive-dropzone {
-  border: 1px solid #6c757d;
-}
-label {
-  padding: 8px;
-  color: #fff;
-  background-color: #9747ff66;
-  border-radius: 4px;
-  transition: 0.3s ease all;
-  margin-left: 8px;
-}
-.dropzone {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  padding: 21px 18px;
-  transition: 0.3 ease all;
-  margin-top: 22px;
-  color: white;
-  border-radius: 4px;
-}
-</style>
