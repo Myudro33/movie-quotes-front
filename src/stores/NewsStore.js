@@ -4,7 +4,7 @@ import {useAuthStore} from '../stores/AuthStore'
 
 export const useNewsStore = defineStore('newsStore', {
     state: () => ({
-        modal: false,
+        modal: "",
         quotes: [],
         movies: [],
     }),
@@ -26,26 +26,28 @@ export const useNewsStore = defineStore('newsStore', {
                         "Content-Type": "multipart/form-data",
                     },
                 })
+                const movie = this.movies.find(movie=>movie.id===response.data.quote.movie.id)
+                movie.quotes.push(response.data.quote)
                return this.quotes.push(response.data.quote)
         },
         async getMovies() {
-            if (this.movies.length < 1) {
+            const authStore = useAuthStore()
                     const response = await axiosInstance.get('/movies')
-                    this.movies = response.data.data
-            }
+                    this.movies = response.data.data.filter(movie=>movie.author.id===authStore.author.id)
         },
         async like(data) {
             const AuthStore = useAuthStore()
             const quote = this.quotes.find(quote=>quote.id===data.quote_id)
-            const exists = quote.likes.some(like=>like.author.id===AuthStore.author.id)
+            const exists = quote.likes.some(like=>like.user_id===AuthStore.author.id)
+            const like = quote.likes.find(like=>like.user_id===AuthStore.author.id)
             if(exists){
-                const response = await axiosInstance.post('/deleteLike', data)
-                const quote = this.quotes.find(quote => quote.id === response.data.like.quote.id)
-                const filtered = quote.likes.filter(like => like.author.id !== response.data.like.author.id)
+                const response = await axiosInstance.delete(`/deleteLike/${like.id}`)
+                const quote = this.quotes.find(quote => quote.id === response.data.like.quote_id)
+                const filtered = quote.likes.filter(like => like.user_id !== response.data.like.user_id)
                 return quote.likes = filtered
             }else{
                 const response = await axiosInstance.post('/addLike', data)
-                const quote = this.quotes.find(quote => quote.id === response.data.like.quote.id)
+                const quote = this.quotes.find(quote => quote.id === response.data.like.quote_id)
                 return quote.likes.push(response.data.like)
             }
         },
