@@ -26,7 +26,14 @@
         <HeartIcon :color="liked" @click="addLike" />
       </div>
     </div>
-    <TheComment v-for="(item, index) in quote.comments" :comment="item" :key="index" />
+    <TheComment v-for="(item, index) in limitedComments" :comment="item" :key="index" />
+    <button
+      v-if="comments.length > 2"
+      @click="toggleComments"
+      class="text-white my-2 font-bold"
+    >
+      {{ showMoreButton ? $t("addquote.show_more") : $t("addquote.show_less") }}
+    </button>
     <Form @submit="addComment" class="flex flex-col mt-6">
       <div class="w-full flex">
         <img
@@ -64,8 +71,23 @@ const locale = computed(() => {
   return useI18n().locale.value;
 });
 const title = ref("");
+const comments = ref(props.quote.comments);
+const commentsToShow = ref(2);
+const showMoreButton = computed(() => {
+  return comments.value.length > commentsToShow.value;
+});
+const limitedComments = computed(() => {
+  return comments.value.slice(0, commentsToShow.value);
+});
+const toggleComments = () => {
+  if (showMoreButton.value) {
+    commentsToShow.value = comments.value.length;
+  } else {
+    commentsToShow.value = 2;
+  }
+};
 const liked = computed(() => {
-  return props.quote?.likes.some((like) => like.user_id === authStore.author.id);
+  return props.quote?.likes.some((like) => like.author.id === authStore.author.id);
 });
 const addComment = () => {
   NewsStore.comment({

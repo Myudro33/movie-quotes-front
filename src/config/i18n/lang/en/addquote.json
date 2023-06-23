@@ -5,5 +5,7 @@
     "upload_image":"Upload image",
     "choose_file":"Choose file",
     "choose_movie":"Choose movie",
-    "post":"Post"
+    "post":"Post",
+    "show_more":"Show more comments",
+    "show_less":"Show less comments"
 }
