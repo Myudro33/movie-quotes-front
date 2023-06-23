@@ -9,11 +9,4 @@
 
 <script setup>
 import TheSidebar from "../components/TheSidebar.vue";
-import { useNewsStore } from "../stores/NewsStore";
-import { onMounted } from "vue";
-const NewsStore = useNewsStore();
-onMounted(() => {
-  NewsStore.getQuotes();
-  NewsStore.getMovies();
-});
 </script>

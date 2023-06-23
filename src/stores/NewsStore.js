@@ -1,12 +1,14 @@
 import { defineStore } from "pinia";
 import axiosInstance from "../config/axios-config";
 import { useAuthStore } from '../stores/AuthStore'
+import router from "../router";
 
 export const useNewsStore = defineStore('newsStore', {
   state: () => ({
     modal: "",
     quotes: [],
     movies: [],
+    movie:"",
     genres: [
       {
         en: "Thriller", ka: 'თრილერი'
@@ -33,7 +35,7 @@ export const useNewsStore = defineStore('newsStore', {
         en: "Animated", ka: 'ანიმაცია'
       },
       {
-        en: "Crime", ka: 'კრიმინალურლი'
+        en: "Crime", ka: 'კრიმინალური'
       },
       {
         en: "Documentary", ka: 'დოკუმენტური'
@@ -61,11 +63,6 @@ export const useNewsStore = defineStore('newsStore', {
       const movie = this.movies.find(movie => movie.id === response.data.quote.movie.id)
       movie.quotes.push(response.data.quote)
       return this.quotes.push(response.data.quote)
-    },
-    async getMovies() {
-      const authStore = useAuthStore()
-      const response = await axiosInstance.get('/movies')
-      this.movies = response.data.data.filter(movie => movie.author.id === authStore.author.id)
     },
     async like(data) {
       const AuthStore = useAuthStore()
@@ -101,6 +98,11 @@ export const useNewsStore = defineStore('newsStore', {
         chips.value.push(value);
       }
     },
+    async getMovies() {
+        const authStore = useAuthStore()
+        const response = await axiosInstance.get('/movies')
+        this.movies = response.data.data.filter(movie => movie.author.id === authStore.author.id)
+    },
     async addMovie(data) {
       const formData = new FormData();
       formData.append("user_id", data.user_id);
@@ -117,5 +119,10 @@ export const useNewsStore = defineStore('newsStore', {
       })
       return this.movies.push(response.data.movie)
     },
+    async getMovie(){
+      const id = router.currentRoute.value.params.id
+       const response = await axiosInstance.get(`/movies/${id}`)
+       this.movie = response.data.movie
+    }
   },
 })

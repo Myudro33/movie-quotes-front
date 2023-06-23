@@ -15,5 +15,6 @@ import AddQuoteModal from "../components/AddQuoteModal.vue";
 const NewsStore = useNewsStore();
 onMounted(() => {
   NewsStore.getQuotes();
+  NewsStore.getMovies();
 });
 </script>
