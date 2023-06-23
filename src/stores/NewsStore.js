@@ -67,17 +67,32 @@ export const useNewsStore = defineStore('newsStore', {
     async like(data) {
       const AuthStore = useAuthStore()
       const quote = this.quotes.find(quote => quote.id === data.quote_id)
-      const exists = quote.likes.some(like => like.user_id === AuthStore.author.id)
-      const like = quote.likes.find(like => like.user_id === AuthStore.author.id)
+      const exists = quote.likes.some(like => like.author.id === AuthStore.author.id)
+      const like = quote.likes.find(like => like.author.id === AuthStore.author.id)
       if (exists) {
         const response = await axiosInstance.delete(`/deleteLike/${like.id}`)
-        const quote = this.quotes.find(quote => quote.id === response.data.like.quote_id)
-        const filtered = quote.likes.filter(like => like.user_id !== response.data.like.user_id)
+        const filtered = quote.likes.filter(like => like.author.id !== response.data.like.author.id)
         return quote.likes = filtered
       } else {
         const response = await axiosInstance.post('/addLike', data)
         const quote = this.quotes.find(quote => quote.id === response.data.like.quote_id)
         return quote.likes.push(response.data.like)
+      }
+    },
+    async addMovieQuoteLike(data){
+      const AuthStore = useAuthStore()
+      const quote = this.movie.quotes.find(quote => quote.id === data.quote_id)
+      const newsPageQuote = this.quotes.find(quote=>quote.id ===data.quote_id)
+      const exists = quote.likes.some(like => like.author.id === AuthStore.author.id)
+      const like = quote.likes.find(like => like.author.id === AuthStore.author.id)
+      if (exists) {
+        const response = await axiosInstance.delete(`/deleteLike/${like.id}`)
+        quote.likes=  quote.likes.filter(like=>like.author.id!==response.data.like.author.id)
+        newsPageQuote.likes = newsPageQuote.likes.filter(like=>like.author.id!==response.data.like.author.id)
+      }else{
+        const response = await axiosInstance.post('/addLike', data)
+        quote.likes.push(response.data.like)
+        newsPageQuote.likes.push(response.data.like)
       }
     },
     async comment(data) {
