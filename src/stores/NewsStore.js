@@ -67,11 +67,11 @@ export const useNewsStore = defineStore('newsStore', {
     async like(data) {
       const AuthStore = useAuthStore()
       const quote = this.quotes.find(quote => quote.id === data.quote_id)
-      const exists = quote.likes.some(like => like.author.id === AuthStore.author.id)
-      const like = quote.likes.find(like => like.author.id === AuthStore.author.id)
+      const exists = quote.likes.some(like => like.author_id === AuthStore.author.id)
+      const like = quote.likes.find(like => like.author_id === AuthStore.author.id)
       if (exists) {
         const response = await axiosInstance.delete(`/deleteLike/${like.id}`)
-        const filtered = quote.likes.filter(like => like.author.id !== response.data.like.author.id)
+        const filtered = quote.likes.filter(like => like.author_id !== response.data.like.author_id)
         return quote.likes = filtered
       } else {
         const response = await axiosInstance.post('/addLike', data)
@@ -83,12 +83,12 @@ export const useNewsStore = defineStore('newsStore', {
       const AuthStore = useAuthStore()
       const quote = this.movie.quotes.find(quote => quote.id === data.quote_id)
       const newsPageQuote = this.quotes.find(quote=>quote.id ===data.quote_id)
-      const exists = quote.likes.some(like => like.author.id === AuthStore.author.id)
-      const like = quote.likes.find(like => like.author.id === AuthStore.author.id)
+      const exists = quote.likes.some(like => like.author_id === AuthStore.author.id)
+      const like = quote.likes.find(like => like.author_id === AuthStore.author.id)
       if (exists) {
         const response = await axiosInstance.delete(`/deleteLike/${like.id}`)
-        quote.likes=  quote.likes.filter(like=>like.author.id!==response.data.like.author.id)
-        newsPageQuote.likes = newsPageQuote.likes.filter(like=>like.author.id!==response.data.like.author.id)
+        quote.likes=  quote.likes.filter(like=>like.author_id!==response.data.like.author_id)
+        newsPageQuote.likes = newsPageQuote.likes.filter(like=>like.author_id!==response.data.like.author_id)
       }else{
         const response = await axiosInstance.post('/addLike', data)
         quote.likes.push(response.data.like)

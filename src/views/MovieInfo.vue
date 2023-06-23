@@ -102,7 +102,7 @@ import HeartIcon from "../components/icons/HeartIcon.vue";
 import { useAuthStore } from "../stores/AuthStore";
 const authStore = useAuthStore();
 const liked = (item) => {
-  return item?.likes.some((like) => like.author.id === authStore.author.id);
+  return item?.likes.some((like) => like.author_id === authStore.author.id);
 };
 const loading = ref(true);
 const locale = computed(() => {
