@@ -1,6 +1,6 @@
 <template>
   <div class="xs:w-full md:w-[27.5rem] xs:mt-14 text-white">
-    <RouterLink :to="`/feed/films/${props.movie.id}`">
+    <RouterLink :to="{ name: 'film', params: { id: props.movie.id } }">
       <img
         class="rounded-xl w-full xs:h-[18.875rem] md:h-[23.188rem] object-cover"
         :src="props.movie.image"
