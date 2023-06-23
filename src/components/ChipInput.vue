@@ -33,7 +33,7 @@
         class="hidden"
       />
       <ul
-        class="absolute bottom-[21rem] px-10 bg-[#11101A] z-[100] rounded-md flex flex-col justify-around py-3"
+        class="absolute xs:bottom-0 md:bottom-[21rem] px-10 bg-[#11101A] z-[100] rounded-md flex flex-col justify-around py-3"
         v-if="items"
       >
         <li
