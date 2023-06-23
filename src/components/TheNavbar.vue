@@ -1,6 +1,6 @@
 <template>
   <div
-    class="xs:px-9 w-full fixed md:px-[70px] h-20 flex justify-between z-[100] items-center bg-[#222030]"
+    class="xs:px-9 w-full fixed md:px-[70px] h-20 flex justify-between z-30 items-center bg-[#222030]"
   >
     <button
       @click="sidebarStore.isHidden = !sidebarStore.isHidden"

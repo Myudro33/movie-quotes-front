@@ -29,7 +29,7 @@
   </div>
   <div class="md:hidden w-full h-[86px]">
     <button
-      @click="NewsStore.modal = true"
+      @click="NewsStore.modal = 'add-quote'"
       :class="`bg-[#24222F] w-full text-white h-[86px] text-xl font-normal flex items-center px-3`"
     >
       <PencilIcon />
