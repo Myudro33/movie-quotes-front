@@ -74,7 +74,15 @@
               <option selected disabled value="">
                 {{ $t("addquote.choose_movie") }}
               </option>
+              <option selected v-if="props.inner" :value="props.movie.id">
+                {{
+                  useI18n().locale.value === "en"
+                    ? props.movie.name.en
+                    : props.movie.name.ka
+                }}
+              </option>
               <option
+                v-else
                 v-for="(item, index) in NewsStore.movies"
                 :key="index"
                 :value="item.id"
@@ -109,9 +117,10 @@ import CameraIcon from "./icons/CameraIcon.vue";
 import AuthorTag from "./AuthorTag.vue";
 const AuthStore = useAuthStore();
 const NewsStore = useNewsStore();
+const props = defineProps(["inner", "movie"]);
 const data = reactive({
   user_id: AuthStore.author.id,
-  movie_id: "",
+  movie_id: props.inner ? props.movie.id : "",
   title: { en: "", ka: "" },
   image: null,
 });
