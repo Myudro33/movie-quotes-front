@@ -5,5 +5,6 @@
     "movie_list":"My list of movies",
     "movie_description":"Movie Descripiton",
     "quotes":"Quotes",
-    "total":"total"
+    "total":"total",
+    "director":"Director:"
 }

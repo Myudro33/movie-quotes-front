@@ -1,7 +1,7 @@
 {
     "create_quote":"Write new quote",
-    "create_movie":"Add movie",
     "drag_drop":"Drag & drop your image here or",
+    "add_quote":"Add quote",
     "upload_image":"Upload image",
     "choose_file":"Choose file",
     "choose_movie":"Choose movie",

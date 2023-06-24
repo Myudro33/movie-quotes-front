@@ -6,7 +6,7 @@
       <div
         class="relative xs:my-5 md:my-0 w-full flex flex-col items-center justify-center"
       >
-        <h1 class="text-2xl text-white">{{ $t("addquote.create_movie") }}</h1>
+        <h1 class="text-2xl text-white">{{ $t("addmovie.add_movie") }}</h1>
         <hr class="border border-[#EFEFEF33] mt-6 w-full" />
         <ExitIcon
           @click="NewsStore.modal = ''"

@@ -1,4 +1,5 @@
 <template>
+  <div class="xs:hidden md:flex md:w-96 h-full"></div>
   <div
     :class="`md:ml-[70px] xs:h-full md:h-auto xs:w-full md:w-72 xs:bg-[#11101A] md:bg-transparent xs:p-6 md:p-0  z-30 md:flex flex-col xs:${
       sidebarStore.isHidden ? 'hidden' : 'flex'
