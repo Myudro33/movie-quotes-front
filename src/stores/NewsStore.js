@@ -44,10 +44,14 @@ export const useNewsStore = defineStore('newsStore', {
   }),
   actions: {
     async getQuotes() {
-      if (this.quotes.length < 1) {
         const response = await axiosInstance.get('/quotes')
         this.quotes = response.data.quotes
-      }
+        this.sortQuotes()
+    },
+    sortQuotes(){
+      this.quotes.sort((a, b) => {
+        return new Date(b.created_at) - new Date(a.created_at);
+      });
     },
     async addQuote(data) {
       const formData = new FormData();
@@ -61,8 +65,8 @@ export const useNewsStore = defineStore('newsStore', {
         },
       })
       const movie = this.movies.find(movie => movie.id === response.data.quote.movie.id)
-      movie.quotes.push(response.data.quote)
-      return this.quotes.push(response.data.quote)
+      movie.quotes.unshift(response.data.quote)
+      return this.quotes.unshift(response.data.quote)
     },
     async like(data) {
       const AuthStore = useAuthStore()
