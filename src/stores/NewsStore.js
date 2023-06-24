@@ -9,6 +9,10 @@ export const useNewsStore = defineStore('newsStore', {
     quotes: [],
     movies: [],
     movie:"",
+    currentPage: 1,
+    perPage: 10,
+    isLoading: true,
+    isLastPage: false,
     genres: [
       {
         en: "Thriller", ka: 'თრილერი'
@@ -44,9 +48,38 @@ export const useNewsStore = defineStore('newsStore', {
   }),
   actions: {
     async getQuotes() {
-        const response = await axiosInstance.get('/quotes')
-        this.quotes = response.data.quotes
-        this.sortQuotes()
+      if (this.isLastPage) {
+        this.isLastPage = true;
+        return;
+      }
+      this.isLoading =true
+      await axiosInstance.get('/quotes',{
+        params:{
+          page:this.currentPage,
+          perPage:this.perPage
+        }
+      }).then(response=>{
+        this.quotes = this.quotes.concat(response.data.quotes.data)
+        this.currentPage = response.data.quotes.meta.pagination.current_page+1
+        this.isLoading=false
+        if (
+          response.data.quotes.meta.pagination.current_page >=
+          response.data.quotes.meta.pagination.last_page
+          ) {
+            this.isLastPage = true;
+          }
+          this.sortQuotes()
+        })
+
+    },
+    handleScroll(){
+      const scrollThreshold = 50;
+      const windowBottom = window.innerHeight + window.pageYOffset;
+      const documentHeight = document.documentElement.scrollHeight;
+    
+      if (documentHeight - windowBottom < scrollThreshold && !this.isLoading) {
+        this.getQuotes();
+      }
     },
     sortQuotes(){
       this.quotes.sort((a, b) => {

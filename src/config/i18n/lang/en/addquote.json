@@ -7,5 +7,7 @@
     "choose_movie":"Choose movie",
     "post":"Post",
     "show_more":"Show more comments",
-    "show_less":"Show less comments"
+    "show_less":"Show less comments",
+    "loading":"Loading...",
+    "all_posts_loaded":"All posts have been loaded."
 }

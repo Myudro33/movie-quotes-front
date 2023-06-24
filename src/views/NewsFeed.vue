@@ -3,18 +3,28 @@
     <AddQuoteModal />
     <SearchInput />
     <QuoteCard v-for="item of NewsStore.quotes" :quote="item" :key="item.id" />
+    <h1 class="text-white md:text-4xl text-center my-5 h-12" v-if="NewsStore.isLoading">
+      {{ $t("addquote.loading") }}
+    </h1>
+    <h1 class="text-white md:text-4xl text-center my-5 h-12" v-if="NewsStore.isLastPage">
+      {{ $t("addquote.all_posts_loaded") }}
+    </h1>
   </div>
 </template>
 
 <script setup>
-import { onMounted } from "vue";
+import { onMounted, onBeforeUnmount } from "vue";
 import QuoteCard from "../components/QuoteCard.vue";
 import SearchInput from "../components/SearchInput.vue";
 import { useNewsStore } from "../stores/NewsStore";
 import AddQuoteModal from "../components/AddQuoteModal.vue";
 const NewsStore = useNewsStore();
 onMounted(() => {
-  NewsStore.getQuotes();
   NewsStore.getMovies();
+  NewsStore.getQuotes();
+  window.addEventListener("scroll", NewsStore.handleScroll);
+});
+onBeforeUnmount(() => {
+  window.removeEventListener("scroll", NewsStore.handleScroll);
 });
 </script>
