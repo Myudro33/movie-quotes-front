@@ -11,7 +11,7 @@
     >
       <img
         class="w-48 h-48 object-cover rounded-full xs:mt-6 md:mt-0 md:top-36 z-10 md:absolute"
-        :src="AuthStore.author.avatar"
+        :src="avatar"
         id="avatar"
         alt="avatar"
       />
@@ -106,7 +106,7 @@
               :error="errors.password"
               type="password"
               id="password"
-              @update:errorMessage="test"
+              @update:errorMessage="errorDots"
               :label="$t('forms.password')"
               :required="true"
               :placeholder="$t('forms.password_placeholder')"
@@ -152,6 +152,7 @@ import { computed, reactive, ref } from "vue";
 import { useAuthStore } from "../stores/AuthStore";
 import { useModalStore } from "../stores/ModalStore";
 import ArrowIcon from "../components/icons/ArrowIcon.vue";
+import { avatar } from "../services/index.js";
 const AuthStore = useAuthStore();
 const modalStore = useModalStore();
 const googleAuthor = computed(() => AuthStore.author?.google_id === null);
@@ -168,7 +169,7 @@ const passwordValidation = reactive({
   min: "",
   max: "",
 });
-const test = (errorMessage) => {
+const errorDots = (errorMessage) => {
   if (errorMessage) {
     if (errorMessage.includes("8")) {
       passwordValidation.min = "text-red-500";

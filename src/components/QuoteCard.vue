@@ -38,7 +38,7 @@
       <div class="w-full flex">
         <img
           class="xs:w-10 xs:h-10 md:w-[52px] md:h-[52px] object-cover text-white shrink-0 rounded-full"
-          :src="authStore.author.avatar"
+          :src="avatar"
           alt="avatar"
         />
         <Field rules="required" name="title" v-model="title" v-slot="{ field }">
@@ -67,6 +67,7 @@ import { useI18n } from "vue-i18n";
 const props = defineProps(["quote"]);
 const authStore = useAuthStore();
 const NewsStore = useNewsStore();
+import { avatar } from "../services/index.js";
 const locale = computed(() => {
   return useI18n().locale.value;
 });
