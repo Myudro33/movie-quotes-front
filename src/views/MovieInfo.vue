@@ -22,7 +22,7 @@
           >
             <PenIcon />
             <hr class="border border-[#6C757D] h-5" />
-            <TrashIcon />
+            <TrashIcon @click="NewsStore.deleteMovie()" />
           </div>
         </div>
         <div class="w-full flex mt-6 flex-wrap gap-2">

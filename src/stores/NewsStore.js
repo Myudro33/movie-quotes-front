@@ -175,6 +175,10 @@ export const useNewsStore = defineStore('newsStore', {
       const id = router.currentRoute.value.params.id
        const response = await axiosInstance.get(`/movies/${id}`)
        this.movie = response.data.movie
+    },
+    async deleteMovie(){
+      await axiosInstance.delete(`/deleteMovie/${this.movie.id}`)
+      router.back()
     }
   },
 })
