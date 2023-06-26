@@ -2,7 +2,12 @@
   <div>
     <AddQuoteModal />
     <SearchInput />
-    <QuoteCard v-for="item of NewsStore.quotes" :quote="item" :key="item.id" />
+    <QuoteCard
+      v-if="NewsStore.quotes.length > 0"
+      v-for="item of NewsStore.quotes"
+      :quote="item"
+      :key="item.id"
+    />
     <h1 class="text-white md:text-4xl text-center my-5 h-12" v-if="NewsStore.isLoading">
       {{ $t("addquote.loading") }}
     </h1>

@@ -17,7 +17,9 @@
     >
       <SearchIcon />
       <input
+        @keydown.enter="search"
         v-if="size"
+        v-model="input"
         class="w-full h-[30px] bg-transparent text-white px-3"
         :placeholder="$t('feed.search_placeholder')"
         type="text"
@@ -43,6 +45,7 @@
     <div class="flex items-center h-16 px-8 border-b border-b-[#EFEFEF4D]">
       <ArrowIcon class="w-10 h-10" @click="modalStore.closeModal" />
       <input
+        v-model="input"
         class="w-full h-10 mx-2 bg-transparent text-white placeholder:text-white outline-none px-3"
         type="text"
         :placeholder="$t('feed.search_mobile_placeholder')"
@@ -61,8 +64,23 @@ import PencilIcon from "./icons/PencilIcon.vue";
 import ArrowIcon from "./icons/ArrowIcon.vue";
 import { useModalStore } from "../stores/ModalStore";
 import { useNewsStore } from "../stores/NewsStore";
-import { ref } from "vue";
+import { ref, watch } from "vue";
+import axiosInstance from "../config/axios-config";
+const input = ref("");
+const emit = defineEmits(["input"]);
 const modalStore = useModalStore();
 const NewsStore = useNewsStore();
 const size = ref(false);
+const search = async () => {
+  try {
+    const response = await axiosInstance.get("/searchQuotes", {
+      params: {
+        query: input.value,
+      },
+    });
+    NewsStore.quotes = response.data.quotes;
+  } catch (error) {
+    console.error(error);
+  }
+};
 </script>

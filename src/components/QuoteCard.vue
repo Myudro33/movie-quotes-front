@@ -3,7 +3,7 @@
     <div class="flex items-center">
       <img
         class="xs:w-10 xs:h-10 md:w-[52px] md:h-[52px] object-cover rounded-full"
-        :src="quote.user.avatar"
+        :src="quoteAuthorAvatar"
         alt="avatar"
       />
       <h1 class="text-white md:text-xl ml-3">{{ quote.user.username }}</h1>
@@ -16,7 +16,7 @@
     <img class="w-full md:h-[500px] xs:h-48 mt-7" :src="quote.image" alt="quote" />
     <div class="flex xs:h-16 md:h-20 items-center border-b border-b-[#EFEFEF4D]">
       <div class="flex">
-        <p class="text-white text-xl mr-2">{{ quote.comments.length }}</p>
+        <p class="text-white text-xl mr-2">{{ quote?.comments?.length }}</p>
         <CommentIcon />
       </div>
       <div class="flex ml-6">
@@ -64,12 +64,15 @@ import TheComment from "./TheComment.vue";
 import { useNewsStore } from "../stores/NewsStore";
 import { computed, ref } from "vue";
 import { useI18n } from "vue-i18n";
+import { avatar } from "../services/index.js";
 const props = defineProps(["quote"]);
 const authStore = useAuthStore();
 const NewsStore = useNewsStore();
-import { avatar } from "../services/index.js";
 const locale = computed(() => {
   return useI18n().locale.value;
+});
+const quoteAuthorAvatar = computed(() => {
+  return import.meta.env.VITE_API_IMAGE_ENDPOINT + props.quote.user.avatar;
 });
 const title = ref("");
 const comments = ref(props.quote.comments);

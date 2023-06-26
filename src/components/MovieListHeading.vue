@@ -4,7 +4,7 @@
       {{ $t("addmovie.movie_list") }}
       <p class="xs:px-0 md:pl-3 xs:mt-2 md:mt-0">({{ NewsStore.movies?.length }})</p>
     </h1>
-    <div class="flex justify-end items-center md:w-[20rem]">
+    <div class="flex justify-end items-center md:w-[40rem]">
       <button
         :class="`xs:hidden  md:flex ${
           size ? 'mr-8 border-b border-[#EFEFEF4D] ' : 'md:w-44'
