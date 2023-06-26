@@ -1,5 +1,6 @@
 <template>
   <AddQuoteModal :inner="true" :movie="NewsStore.movie" />
+  <AddMovieModal :edit="true" v-if="NewsStore.modal === 'add-movie'" />
   <h1 v-if="loading"></h1>
   <div v-else class="flex flex-col absolute xs:py-10 md:py-0">
     <h1 class="text-2xl text-white xs:hidden md:flex">
@@ -20,7 +21,7 @@
           <div
             class="bg-[#24222F] xs:hidden md:flex justify-between w-36 h-10 rounded-lg items-center px-5"
           >
-            <PenIcon />
+            <PenIcon class="cursor-pointer" @click="NewsStore.modal = 'add-movie'" />
             <hr class="border border-[#6C757D] h-5" />
             <TrashIcon @click="NewsStore.deleteMovie()" />
           </div>
@@ -113,6 +114,7 @@ import AddQuoteModal from "../components/AddQuoteModal.vue";
 import CommentIcon from "../components/icons/CommentIcon.vue";
 import HeartIcon from "../components/icons/HeartIcon.vue";
 import { useAuthStore } from "../stores/AuthStore";
+import AddMovieModal from "../components/AddMovieModal.vue";
 const authStore = useAuthStore();
 const liked = (item) => {
   return item?.likes.some((like) => like.author_id === authStore.author.id);

@@ -60,7 +60,11 @@
             </Field>
             <p class="text-white absolute right-5 top-8 md:text-xl">ქარ</p>
           </div>
-          <ChipInput @chip-update="addChips" />
+          <ChipInput
+            :edit="props.edit"
+            @chip-update="addChips"
+            @remove-genre="removeGenre"
+          />
           <div class="relative w-full flex flex-col">
             <Field
               v-model="data.year"
@@ -172,7 +176,12 @@
               <p class="text-white absolute right-5 top-8 md:text-xl">ქარ</p>
             </Field>
           </div>
-          <FileUploadInput @selectFile="getFile" @drop.prevent="drop" />
+          <FileUploadInput
+            :edit="props.edit"
+            :image="NewsStore.movie.image"
+            @selectFile="getFile"
+            @drop.prevent="drop"
+          />
           <button
             @click="post"
             type="submit"
@@ -190,34 +199,58 @@
 import ModalWrapper from "./ModalWrapper.vue";
 import AuthorTag from "./AuthorTag.vue";
 import { Form, Field } from "vee-validate";
-import { reactive, onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import { useAuthStore } from "../stores/AuthStore.js";
 import { useNewsStore } from "../stores/NewsStore.js";
 import ExitIcon from "./icons/ExitIcon.vue";
 import FileUploadInput from "./FileUploadInput.vue";
 import ChipInput from "./ChipInput.vue";
+const props = defineProps(["edit"]);
 const AuthStore = useAuthStore();
 const NewsStore = useNewsStore();
-const data = reactive({
+const data = ref({
   user_id: AuthStore.author.id,
   movie_name: { en: "", ka: "" },
-  genre: "",
+  genre: [],
   year: "",
   director: { en: "", ka: "" },
   movie_description: { en: "", ka: "" },
   image: null,
 });
 const getFile = (img) => {
-  data.image = img.value;
+  data.value.image = img.value;
 };
+
 onMounted(() => {
-  NewsStore.getMovies();
+  const movie = NewsStore.movie;
+  if (props.edit && movie !== "") {
+    data.value.movie_name = movie.name;
+    data.value.director = movie.director;
+    data.value.genre = movie.genre;
+    data.value.year = movie.year;
+    data.value.movie_description = movie.description;
+    data.value.image = movie.image;
+  }
 });
+
 const addChips = (event) => {
-  data.genre = event;
+  if (props.edit) {
+    data.value.genre = event.value;
+  } else {
+    data.value.genre = event;
+  }
+};
+const removeGenre = (event) => {
+  data.value.genre.splice(event, 1);
 };
 const post = () => {
-  NewsStore.addMovie(data);
-  NewsStore.modal = false;
+  if (data.value.genre.length > 0) {
+    if (!props.edit) {
+      NewsStore.addMovie(data.value);
+    } else {
+      NewsStore.updateMovie(data.value);
+    }
+    NewsStore.modal = false;
+  }
 };
 </script>

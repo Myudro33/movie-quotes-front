@@ -68,7 +68,6 @@ export const useNewsStore = defineStore('newsStore', {
           ) {
             this.isLastPage = true;
           }
-          this.sortQuotes()
         })
 
     },
@@ -80,11 +79,6 @@ export const useNewsStore = defineStore('newsStore', {
       if (documentHeight - windowBottom < scrollThreshold && !this.isLoading) {
         this.getQuotes();
       }
-    },
-    sortQuotes(){
-      this.quotes.sort((a, b) => {
-        return new Date(b.created_at) - new Date(a.created_at);
-      });
     },
     async addQuote(data) {
       const formData = new FormData();
@@ -134,21 +128,8 @@ export const useNewsStore = defineStore('newsStore', {
     },
     async comment(data) {
       const response = await axiosInstance.post('/comment', data)
-      const quote = this.quotes.find(quote => quote.id === response.data.comment.quote.id)
+      const quote = this.quotes.find(quote => quote.id === response.data.comment.quote_id)
       return quote.comments.push(response.data.comment)
-    },
-    requiredGenre(chips) {
-      if (chips.value.length < 1) {
-        return false;
-      }
-      return true;
-    },
-    setGenre(chips, value) {
-      if (chips.value.includes(value)) {
-        return;
-      } else {
-        chips.value.push(value);
-      }
     },
     async getMovies() {
         const authStore = useAuthStore()
@@ -165,6 +146,26 @@ export const useNewsStore = defineStore('newsStore', {
       formData.append("description", JSON.stringify({ en: data.movie_description.en, ka: data.movie_description.ka }));
       formData.append("director", JSON.stringify({ en: data.director.en, ka: data.director.ka }));
       const response = await axiosInstance.post('/movie', formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      return this.movies.push(response.data.movie)
+    },
+    async updateMovie(data) {
+      const formData = new FormData();
+      formData.append("user_id", data.user_id);
+      formData.append("name", JSON.stringify({ en: data.movie_name.en, ka: data.movie_name.ka }));
+      formData.append("year", data.year);
+      if(data.image!==this.movie.image){
+        formData.append("image",data.image); 
+      }else{
+        formData.append("image",null);
+      }
+      formData.append("genre", JSON.stringify(data.genre));
+      formData.append("description", JSON.stringify({ en: data.movie_description.en, ka: data.movie_description.ka }));
+      formData.append("director", JSON.stringify({ en: data.director.en, ka: data.director.ka }));
+      const response = await axiosInstance.post(`/movieUpdate/${this.movie.id}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
