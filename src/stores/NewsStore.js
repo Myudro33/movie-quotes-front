@@ -13,38 +13,7 @@ export const useNewsStore = defineStore('newsStore', {
     perPage: 10,
     isLoading: true,
     isLastPage: false,
-    genres: [
-      {
-        en: "Thriller", ka: 'თრილერი'
-      }
-      , {
-        en: "Drama", ka: 'დრამა'
-      },
-      {
-        en: "Action", ka: 'ექშენი'
-      },
-      {
-        en: "Fantasy", ka: 'ფანტაზია'
-      },
-      {
-        en: "Fiction", ka: 'ფიქცია'
-      },
-      {
-        en: "Comedy", ka: 'კომედია'
-      },
-      {
-        en: "Horror", ka: 'საშიში'
-      },
-      {
-        en: "Animated", ka: 'ანიმაცია'
-      },
-      {
-        en: "Crime", ka: 'კრიმინალური'
-      },
-      {
-        en: "Documentary", ka: 'დოკუმენტური'
-      }
-    ]
+    genres: []
   }),
   actions: {
     async getQuotes() {
@@ -101,11 +70,11 @@ export const useNewsStore = defineStore('newsStore', {
       const exists = quote.likes.some(like => like.author_id === AuthStore.author.id)
       const like = quote.likes.find(like => like.author_id === AuthStore.author.id)
       if (exists) {
-        const response = await axiosInstance.delete(`/deleteLike/${like.id}`)
-        const filtered = quote.likes.filter(like => like.author_id !== response.data.like.author_id)
+        await axiosInstance.delete(`/delete-like/${like.id}`)
+        const filtered = quote.likes.filter(like => like.author_id !== like.id)
         return quote.likes = filtered
       } else {
-        const response = await axiosInstance.post('/addLike', data)
+        const response = await axiosInstance.post('/add-like', data)
         const quote = this.quotes.find(quote => quote.id === response.data.like.quote_id)
         return quote.likes.push(response.data.like)
       }
@@ -117,11 +86,11 @@ export const useNewsStore = defineStore('newsStore', {
       const exists = quote.likes.some(like => like.author_id === AuthStore.author.id)
       const like = quote.likes.find(like => like.author_id === AuthStore.author.id)
       if (exists) {
-        const response = await axiosInstance.delete(`/deleteLike/${like.id}`)
-        quote.likes=  quote.likes.filter(like=>like.author_id!==response.data.like.author_id)
-        newsPageQuote.likes = newsPageQuote.likes.filter(like=>like.author_id!==response.data.like.author_id)
+        await axiosInstance.delete(`/delete-like/${like.id}`)
+        quote.likes=  quote.likes.filter(like=>like.author_id!==like.author_id)
+        newsPageQuote.likes = newsPageQuote.likes.filter(like=>like.author_id!==like.author_id)
       }else{
-        const response = await axiosInstance.post('/addLike', data)
+        const response = await axiosInstance.post('/add-like', data)
         quote.likes.push(response.data.like)
         newsPageQuote.likes.push(response.data.like)
       }
@@ -134,7 +103,7 @@ export const useNewsStore = defineStore('newsStore', {
     async getMovies() {
         const authStore = useAuthStore()
         const response = await axiosInstance.get('/movies')
-        this.movies = response.data.data.filter(movie => movie.author.id === authStore.author.id)
+        this.movies = response.data.movies.filter(movie => movie.author.id === authStore.author.id)
     },
     async addMovie(data) {
       const formData = new FormData();
@@ -165,7 +134,7 @@ export const useNewsStore = defineStore('newsStore', {
       formData.append("genre", JSON.stringify(data.genre));
       formData.append("description", JSON.stringify({ en: data.movie_description.en, ka: data.movie_description.ka }));
       formData.append("director", JSON.stringify({ en: data.director.en, ka: data.director.ka }));
-      const response = await axiosInstance.post(`/movieUpdate/${this.movie.id}`, formData, {
+      const response = await axiosInstance.post(`/movie-update/${this.movie.id}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -177,8 +146,12 @@ export const useNewsStore = defineStore('newsStore', {
        const response = await axiosInstance.get(`/movies/${id}`)
        this.movie = response.data.movie
     },
+    async getGenres(){
+      const response = await axiosInstance.get('/genres')
+      this.genres = response.data.genres
+    },
     async deleteMovie(){
-      await axiosInstance.delete(`/deleteMovie/${this.movie.id}`)
+      await axiosInstance.delete(`/delete-movie/${this.movie.id}`)
       router.back()
     }
   },
