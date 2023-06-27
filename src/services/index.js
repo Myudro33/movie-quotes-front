@@ -1,5 +1,5 @@
 import { computed } from "vue";
-import { useModalStore } from "../stores/ModalStore";
+import { ModalStore } from "../stores/index.js";
 import router from "../router";
 import axiosInstance from "../config/axios-config";
 export const avatar = computed(() => {
@@ -17,29 +17,24 @@ export const newGenre = (chips, value, props, editChips) => {
             chips.value.push(value);
         }
     } else {
-        if (editChips.value.includes(value)) {
+        const exists = editChips.value.find(item=>item.id===value.id) !==undefined
+        if (exists) {
             return;
         } else {
-            if (chips.value.includes(value)) {
-                return;
-            } else {
-                chips.value.push(value);
-            }
             editChips.value.push(value);
         }
     }
 }
 export const verify = async (url) => {
-    const modalStore = useModalStore()
         if (url.query.email === 'email') {
             await axiosInstance.get(`/verify-email/${url.params.token}`).then(response => {
                 router.push({ name: 'landing' })
-                modalStore.inner = response.data.stage;
+                ModalStore.inner = response.data.stage;
             })
         } else if (url.query.email === 'reset-password') {
             await axiosInstance.get(`/password-update/${url.params.token}`).then(response => {
                 router.push(`?email=${response.data.email}&token=${response.data.token}`)
-                modalStore.inner = response.data.stage;
+                ModalStore.inner = response.data.stage;
             })
         } else if (url.query.email === 'email-update') {
             await axiosInstance.post(`/update-email/${url.params.token}`,
@@ -47,7 +42,7 @@ export const verify = async (url) => {
                     new_email: url.query.new
                 }
             ).then(response => {
-                modalStore.inner = response.data.stage;
+                ModalStore.inner = response.data.stage;
                 router.push({ name: 'news' })
             })
         }

@@ -29,10 +29,10 @@
       />
     </div>
     <p
-      v-if="authStore.error && authStore.error !== 'Unauthenticated.'"
+      v-if="AuthStore.error && AuthStore.error !== 'Unauthenticated.'"
       class="text-red-500 mt-2"
     >
-      {{ authStore.error }}
+      {{ AuthStore.error }}
     </p>
     <div class="w-full flex items-center justify-between mt-2">
       <div>
@@ -47,7 +47,7 @@
         }}</label>
       </div>
       <p
-        @click="modalStore.openModal('forgot_password')"
+        @click="ModalStore.openModal('forgot_password')"
         class="text-[#0D6EFD] cursor-pointer underline inline-block"
       >
         {{ $t("forms.forgot_password") }}
@@ -64,7 +64,7 @@
     <p class="text-center mt-8 text-[#6C757D]">
       {{ $t("forms.dont_have_account") }}
       <span
-        @click="modalStore.openModal('register')"
+        @click="ModalStore.openModal('register')"
         class="text-[#0D6EFD] cursor-pointer underline inline"
       >
         {{ $t("forms.sign_up") }}
@@ -75,18 +75,15 @@
 
 <script setup>
 import { Form } from "vee-validate";
-import { useModalStore } from "../stores/ModalStore";
-import { useAuthStore } from "../stores/AuthStore";
+import { ModalStore, AuthStore } from "../stores/index.js";
 import GoogleButton from "../components/GoogleButton.vue";
 import { reactive } from "vue";
-const modalStore = useModalStore();
-const authStore = useAuthStore();
 const form = reactive({
   username: "",
   password: "",
   remember: false,
 });
 const submitForm = () => {
-  authStore.login(form);
+  AuthStore.login(form);
 };
 </script>

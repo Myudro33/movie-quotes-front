@@ -3,7 +3,7 @@
     class="xs:px-9 w-full fixed md:px-[70px] h-20 flex justify-between z-30 items-center bg-[#222030]"
   >
     <button
-      @click="sidebarStore.isHidden = !sidebarStore.isHidden"
+      @click="SidebarStore.isHidden = !SidebarStore.isHidden"
       class="text-white md:hidden"
     >
       <svg
@@ -26,15 +26,15 @@
       <div class="xs:hidden md:flex flex items-center">
         <LanguageSwitch />
       </div>
-      <div v-if="!authStore.author">
+      <div v-if="!AuthStore.author">
         <button
-          @click="modalStore.openModal('register')"
+          @click="ModalStore.openModal('register')"
           class="bg-[#E31221] px-4 xs:h-8 md:h-[38px] text-white rounded-[4px] mx-4"
         >
           {{ $t("forms.sign_up") }}
         </button>
         <button
-          @click="modalStore.openModal('login')"
+          @click="ModalStore.openModal('login')"
           class="xs:w-[72px] xs:h-8 md:w-24 md:h-[38px] border border-[#fff] text-white rounded-[4px]"
         >
           {{ $t("forms.log_in") }}
@@ -42,7 +42,7 @@
       </div>
       <div v-else class="flex xs:w-auto md:w-44 justify-evenly items-center">
         <button
-          @click="authStore.logout()"
+          @click="AuthStore.logout()"
           type="submit"
           class="text-white xs:hidden md:block rounded-[4px] border border-white w-24 h-9"
         >
@@ -58,13 +58,8 @@
 <script setup>
 import LanguageSwitch from "./LanguageSwitch.vue";
 import SearchIcon from "./icons/SearchIcon.vue";
-import { useModalStore } from "../stores/ModalStore";
-import { useAuthStore } from "../stores/AuthStore";
-import { useSidebarStore } from "../stores/SidebarStore";
-const modalStore = useModalStore();
-const authStore = useAuthStore();
-const sidebarStore = useSidebarStore();
+import { ModalStore, AuthStore, SidebarStore } from "../stores/index.js";
 const openSearchModal = () => {
-  modalStore.mobile = "search";
+  ModalStore.mobile = "search";
 };
 </script>

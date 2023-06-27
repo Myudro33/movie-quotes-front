@@ -10,7 +10,6 @@
 </template>
 
 <script setup>
-import { useAuthStore } from "../stores/AuthStore";
+import { AuthStore } from "../stores/index.js";
 import { avatar } from "../services/index.js";
-const AuthStore = useAuthStore();
 </script>

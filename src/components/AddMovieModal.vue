@@ -1,5 +1,5 @@
 <template>
-  <ModalWrapper v-if="MoviesStore.modal === 'add-movie'">
+  <ModalWrapper v-if="MovieStore.modal === 'add-movie'">
     <div
       class="xs:w-screen md:w-[60rem] xs:pt-2 xs:pb-10 md:py-10 xs:h-screen md:h-auto bg-[#11101A] md:rounded-xl md:mt-28"
     >
@@ -9,7 +9,7 @@
         <h1 class="text-2xl text-white">{{ $t("add_movie.add_movie") }}</h1>
         <hr class="border border-[#EFEFEF33] mt-6 w-full" />
         <ExitIcon
-          @click="MoviesStore.modal = ''"
+          @click="MovieStore.modal = ''"
           class="absolute cursor-pointer right-10 top-2"
         />
       </div>
@@ -77,7 +77,7 @@
                 v-bind="field"
                 type="text"
                 class="bg-transparent mt-[1.5rem] border placeholder:text-white outline-none h-[48px] text-white text-[16px] md:text-[20px] px-2 rounded-md"
-                :placeholder="$t('addmovie.year')"
+                :placeholder="$t('add_movie.year')"
                 :class="[
                   !meta.valid && meta.touched
                     ? 'border-1 border-[#DC3545]'
@@ -178,7 +178,7 @@
           </div>
           <FileUploadInput
             :edit="props.edit"
-            :image="MoviesStore.movie.image"
+            :image="MovieStore.movie.image"
             @selectFile="getFile"
             @drop.prevent="drop"
           />
@@ -196,20 +196,15 @@
 </template>
 
 <script setup>
+import { MovieStore, AuthStore } from "../stores/index.js";
 import ModalWrapper from "./ModalWrapper.vue";
 import AuthorTag from "./AuthorTag.vue";
 import { Form, Field } from "vee-validate";
 import { onMounted, ref } from "vue";
-import { useAuthStore } from "../stores/AuthStore.js";
-import { useNewsStore } from "../stores/NewsStore.js";
-import { useMovieStore } from "../stores/MoviesStore";
-const MoviesStore = useMovieStore();
 import ExitIcon from "./icons/ExitIcon.vue";
 import FileUploadInput from "./FileUploadInput.vue";
 import ChipInput from "./ChipInput.vue";
 const props = defineProps(["edit"]);
-const AuthStore = useAuthStore();
-const NewsStore = useNewsStore();
 const data = ref({
   user_id: AuthStore.author.id,
   movie_name: { en: "", ka: "" },
@@ -224,7 +219,7 @@ const getFile = (img) => {
 };
 
 onMounted(() => {
-  const movie = MoviesStore.movie;
+  const movie = MovieStore.movie;
   if (props.edit && movie !== "") {
     data.value.movie_name = movie.name;
     data.value.director = movie.director;
@@ -248,11 +243,11 @@ const removeGenre = (event) => {
 const post = () => {
   if (data.value.genre.length > 0) {
     if (!props.edit) {
-      MoviesStore.addMovie(data.value);
+      MovieStore.addMovie(data.value);
     } else {
-      MoviesStore.updateMovie(data.value);
+      MovieStore.updateMovie(data.value);
     }
-    MoviesStore.modal = "";
+    MovieStore.modal = "";
   }
 };
 </script>

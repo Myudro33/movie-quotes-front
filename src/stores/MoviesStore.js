@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { useAuthStore } from "./AuthStore";
+import { AuthStore } from "./index.js";
 import axiosInstance from "../config/axios-config";
 import router from "../router";
 
@@ -12,9 +12,8 @@ export const useMovieStore = defineStore('MoviesStore',{
     }),
     actions:{
         async getMovies() {
-            const authStore = useAuthStore()
             const response = await axiosInstance.get('/movies')
-            this.movies = response.data.movies.filter(movie => movie.author.id === authStore.author.id)
+            this.movies = response.data.movies.filter(movie => movie.author.id === AuthStore.author.id)
         },
         async addMovie(data) {
             const formData = new FormData();
@@ -53,7 +52,6 @@ export const useMovieStore = defineStore('MoviesStore',{
             return this.movies.push(response.data.movie)
           },
         async addMovieQuoteLike(data){
-            const AuthStore = useAuthStore()
             const quote = this.movie.quotes.find(quote => quote.id === data.quote_id)
             const newsPageQuote = this.quotes.find(quote=>quote.id ===data.quote_id)
             const exists = quote.likes.some(like => like.author_id === AuthStore.author.id)

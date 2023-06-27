@@ -149,13 +149,10 @@
 <script setup>
 import { Form } from "vee-validate";
 import { computed, reactive, ref } from "vue";
-import { useAuthStore } from "../stores/AuthStore";
-import { useModalStore } from "../stores/ModalStore";
+import { AuthStore, ModalStore } from "../stores/index.js";
 import ArrowIcon from "../components/icons/ArrowIcon.vue";
 import { avatar } from "../services/index.js";
 import { useI18n } from "vue-i18n";
-const AuthStore = useAuthStore();
-const modalStore = useModalStore();
 const googleAuthor = computed(() => AuthStore.author?.google_id === null);
 const form = reactive({
   username: AuthStore.author.username,
@@ -187,7 +184,7 @@ const locale = useI18n().locale.value === "en" ? "en" : "ka";
 const windowWidth = ref(window.innerWidth);
 const editForm = (value) => {
   if (windowWidth.value < 960) {
-    modalStore.mobile = value;
+    ModalStore.mobile = value;
   } else {
     form.stage = value;
   }

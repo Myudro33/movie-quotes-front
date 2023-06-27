@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import router from "../router/index.js";
-import { useModalStore } from "./ModalStore.js";
+import { ModalStore } from "./index.js";
 import axiosInstance from "../config/axios-config/index.js";
 import axios from "axios";
 import { useI18n } from "vue-i18n";
@@ -13,13 +13,12 @@ export const useAuthStore = defineStore('authStore', {
     }),
     actions: {
         async login(data) {
-            const modalStore = useModalStore()
             try {
                 await this.getToken()
                 const response = await axiosInstance.post('/login', data)
                 this.user = response.data.user
                 router.push({ name: "news" })
-                modalStore.closeModal()
+                ModalStore.closeModal()
                 this.error = ''
 
             } catch (error) {
@@ -33,8 +32,7 @@ export const useAuthStore = defineStore('authStore', {
                         locale:useI18n().locale.value
                     }
                 })
-                const modalStore = useModalStore()
-                modalStore.openModal('registered')
+                ModalStore.openModal('registered')
                 this.error = ''
 
             } catch (error) {
@@ -76,13 +74,12 @@ export const useAuthStore = defineStore('authStore', {
         },
         async passwordReset(email) {
             try {
-                const modalStore = useModalStore()
                 await axiosInstance.post(`/forgot-password/${email}`,{
                     params:{
                         locale:useI18n().locale.value
                     }
                 })
-                modalStore.inner = "instructions_sent";
+                ModalStore.inner = "instructions_sent";
                 this.error = ''
 
             } catch (error) {
@@ -90,10 +87,9 @@ export const useAuthStore = defineStore('authStore', {
             }
         },
         async passwordUpdate(data) {
-            const modalStore = useModalStore()
             try {
                 await axiosInstance.put(`/password-update/${data.token}`, data)
-                modalStore.inner = "password-changed";
+                ModalStore.inner = "password-changed";
                 this.error = ''
 
             } catch (error) {
@@ -105,7 +101,6 @@ export const useAuthStore = defineStore('authStore', {
                 this.uploadAvatar(form.avatar)
         }
         else{
-            const modalStore = useModalStore()
             try {
                 const response = await axiosInstance.post(`/update-user/${this.author.email}`,form,{
                     params:{
@@ -113,13 +108,13 @@ export const useAuthStore = defineStore('authStore', {
                     }
                 })
                 if(form.email!==this.author.email){
-                    return modalStore.inner='update-email-sent'
+                    return ModalStore.inner='update-email-sent'
                 }
                 this.user = response.data.user
                 if (window.innerWidth < 960) {
-                    modalStore.mobile = 'updated-succesfully'
+                    ModalStore.mobile = 'updated-succesfully'
                 } else {
-                    modalStore.inner = 'user-updated'
+                    ModalStore.inner = 'user-updated'
                 }
                 this.error = ''
             } catch (error) {

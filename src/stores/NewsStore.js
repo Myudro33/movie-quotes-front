@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import axiosInstance from "../config/axios-config";
-import { useAuthStore } from '../stores/AuthStore'
+import { AuthStore } from '../stores/index.js'
 
 export const useNewsStore = defineStore('newsStore', {
   state: () => ({
@@ -61,7 +61,6 @@ export const useNewsStore = defineStore('newsStore', {
       return this.quotes.unshift(response.data.quote)
     },
     async like(data) {
-      const AuthStore = useAuthStore()
       const quote = this.quotes.find(quote => quote.id === data.quote_id)
       const exists = quote.likes.some(like => like.author_id === AuthStore.author.id)
       const like = quote.likes.find(like => like.author_id === AuthStore.author.id)

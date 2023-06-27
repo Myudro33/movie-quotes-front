@@ -18,7 +18,7 @@
         v-if="props.edit"
         class="text-[#DDCCAA] font-semibold my-2 xs:text-xs md:text-xl"
       >
-        {{ $t("addmovie.replace_photo") }}
+        {{ $t("add_movie.replace_photo") }}
       </h1>
       <div class="flex items-center">
         <PhotoIcon

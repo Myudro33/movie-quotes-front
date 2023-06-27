@@ -2,21 +2,20 @@
 import { RouterView } from "vue-router";
 import TheNavbar from "./components/TheNavbar.vue";
 import TheModal from "./components/TheModal.vue";
-import { useModalStore } from "./stores/ModalStore";
+import { ModalStore } from "./stores/index.js";
 import { useAuthStore } from "./stores/AuthStore";
 import { onMounted } from "vue";
 import ProfileMobileModal from "./components/ProfileMobileModal.vue";
 const authStore = useAuthStore();
-const modalStore = useModalStore();
 onMounted(async () => {
-  modalStore.queryBasedModal();
+  ModalStore.queryBasedModal();
   await authStore.getUser();
 });
 </script>
 
 <template>
-  <TheModal v-if="modalStore.inner !== ''" />
-  <ProfileMobileModal v-if="modalStore.inner === '' && modalStore.mobile !== ''" />
+  <TheModal v-if="ModalStore.inner !== ''" />
+  <ProfileMobileModal v-if="ModalStore.inner === '' && ModalStore.mobile !== ''" />
   <TheNavbar />
   <RouterView />
 </template>

@@ -21,7 +21,7 @@
     >
       {{ button }}
     </button>
-    <button @click="modalStore.closeModal" class="text-[#6C757D] md:mt-8" v-if="skip">
+    <button @click="ModalStore.closeModal" class="text-[#6C757D] md:mt-8" v-if="skip">
       {{ skip }}
     </button>
   </div>
@@ -29,7 +29,7 @@
 
 <script setup>
 import router from "../router";
-import { useModalStore } from "../stores/ModalStore";
+import { ModalStore } from "../stores/index.js";
 import DangerIcon from "./icons/DangerIcon.vue";
 import SendIcon from "./icons/SendIcon.vue";
 import SubmitIcon from "./icons/SubmitIcon.vue";
@@ -37,17 +37,16 @@ import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 const props = defineProps(["image", "heading", "paragraph", "button", "skip", "link"]);
 
-const modalStore = useModalStore();
 const onSubmit = () => {
   if (props.button === t("modal.go_to_news_feed")) {
-    modalStore.closeModal();
+    ModalStore.closeModal();
     router.push({ name: "news" });
   } else if (props.image === "verified") {
-    modalStore.removeQuery();
+    ModalStore.removeQuery();
   } else if (props.button === t("modal.log_in")) {
-    modalStore.inner = "login";
+    ModalStore.inner = "login";
   } else {
-    modalStore.closeModal();
+    ModalStore.closeModal();
   }
 };
 </script>

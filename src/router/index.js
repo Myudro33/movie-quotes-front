@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { useAuthStore } from '../stores/AuthStore';
+import { AuthStore } from '../stores/index.js';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -29,9 +29,8 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, _, next) => {
-  const authStore = useAuthStore();
-  await authStore.getUser()
-  if (to.meta.auth && !authStore.author) {
+  await AuthStore.getUser()
+  if (to.meta.auth && !AuthStore.author) {
     router.push({ name: "landing" })
   }
   else {

@@ -42,7 +42,7 @@
       <div class="w-full flex">
         <img
           class="xs:w-10 xs:h-10 md:w-[52px] md:h-[52px] object-cover text-white shrink-0 rounded-full"
-          :src="avatar + authStore.author.avatar"
+          :src="avatar + AuthStore.author.avatar"
           alt="avatar"
         />
         <Field rules="required" name="title" v-model="title" v-slot="{ field }">
@@ -61,17 +61,14 @@
 
 <script setup>
 import { Form, Field, ErrorMessage } from "vee-validate";
-import { useAuthStore } from "../stores/AuthStore";
+import { AuthStore, NewsStore } from "../stores/index.js";
 import CommentIcon from "./icons/CommentIcon.vue";
 import HeartIcon from "./icons/HeartIcon.vue";
 import TheComment from "./TheComment.vue";
-import { useNewsStore } from "../stores/NewsStore";
 import { computed, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { avatar, image } from "../services/index.js";
 const props = defineProps(["quote"]);
-const authStore = useAuthStore();
-const NewsStore = useNewsStore();
 const locale = computed(() => {
   return useI18n().locale.value;
 });
@@ -92,11 +89,11 @@ const toggleComments = () => {
   }
 };
 const liked = computed(() => {
-  return props.quote?.likes.some((like) => like.author_id === authStore.author.id);
+  return props.quote?.likes.some((like) => like.author_id === AuthStore.author.id);
 });
 const addComment = () => {
   NewsStore.comment({
-    user_id: authStore.author.id,
+    user_id: AuthStore.author.id,
     quote_id: props.quote.id,
     title: title.value,
   });
@@ -104,7 +101,7 @@ const addComment = () => {
 };
 const addLike = () => {
   NewsStore.like({
-    user_id: authStore.author.id,
+    user_id: AuthStore.author.id,
     quote_id: props.quote.id,
   });
 };

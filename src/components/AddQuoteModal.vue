@@ -105,20 +105,15 @@
 </template>
 
 <script setup>
+import { MovieStore, AuthStore, NewsStore } from "../stores/index.js";
 import ModalWrapper from "./ModalWrapper.vue";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import { reactive, onMounted } from "vue";
-import { useAuthStore } from "../stores/AuthStore.js";
-import { useNewsStore } from "../stores/NewsStore.js";
-import { useMovieStore } from "../stores/MoviesStore";
-const MoviesStore = useMovieStore();
 import { useI18n } from "vue-i18n";
 import ExitIcon from "./icons/ExitIcon.vue";
 import FileUploadInput from "./FileUploadInput.vue";
 import CameraIcon from "./icons/CameraIcon.vue";
 import AuthorTag from "./AuthorTag.vue";
-const AuthStore = useAuthStore();
-const NewsStore = useNewsStore();
 const props = defineProps(["inner", "movie"]);
 const data = reactive({
   user_id: AuthStore.author.id,
@@ -130,7 +125,7 @@ const getFile = (img) => {
   data.image = img.value;
 };
 onMounted(() => {
-  MoviesStore.getMovies();
+  MovieStore.getMovies();
 });
 const addQuote = () => {
   NewsStore.addQuote(data);

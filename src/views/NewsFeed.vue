@@ -2,12 +2,7 @@
   <div>
     <AddQuoteModal />
     <SearchInput />
-    <QuoteCard
-      v-if="NewsStore.quotes.length > 0"
-      v-for="item of NewsStore.quotes"
-      :quote="item"
-      :key="item.id"
-    />
+    <QuoteCard v-for="item of NewsStore.quotes" :quote="item" :key="item.id" />
     <h1 class="text-white md:text-4xl text-center my-5 h-12" v-if="NewsStore.isLoading">
       {{ $t("add_quote.loading") }}
     </h1>
@@ -18,16 +13,13 @@
 </template>
 
 <script setup>
+import { MovieStore, NewsStore } from "../stores/index.js";
 import { onMounted, onBeforeUnmount } from "vue";
 import QuoteCard from "../components/QuoteCard.vue";
 import SearchInput from "../components/SearchInput.vue";
-import { useNewsStore } from "../stores/NewsStore";
 import AddQuoteModal from "../components/AddQuoteModal.vue";
-import { useMovieStore } from "../stores/MoviesStore";
-const NewsStore = useNewsStore();
-const MoviesStore = useMovieStore();
 onMounted(() => {
-  MoviesStore.getMovies();
+  MovieStore.getMovies();
   NewsStore.getQuotes();
   window.addEventListener("scroll", NewsStore.handleScroll);
 });

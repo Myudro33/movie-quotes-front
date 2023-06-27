@@ -12,11 +12,10 @@
 import AddMovieModal from "../components/AddMovieModal.vue";
 import MovieCard from "../components/MovieCard.vue";
 import MovieListHeading from "../components/MovieListHeading.vue";
-import { useMovieStore } from "../stores/MoviesStore";
+import { MovieStore } from "../stores/index.js";
 import { onMounted } from "vue";
-const MoviesStore = useMovieStore();
 onMounted(() => {
-  MoviesStore.getMovies();
-  MoviesStore.getGenres();
+  MovieStore.getMovies();
+  MovieStore.getGenres();
 });
 </script>

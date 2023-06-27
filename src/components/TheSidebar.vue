@@ -2,7 +2,7 @@
   <div class="xs:hidden md:flex md:w-96 h-full"></div>
   <div
     :class="`md:ml-[70px] xs:h-full md:h-auto xs:w-full md:w-72 xs:bg-[#11101A] md:bg-transparent xs:p-6 md:p-0  z-30 md:flex flex-col xs:${
-      sidebarStore.isHidden ? 'hidden' : 'flex'
+      SidebarStore.isHidden ? 'hidden' : 'flex'
     } xs:absolute md:fixed`"
   >
     <LanguageSwitch class="md:hidden" />
@@ -10,12 +10,12 @@
       <div class="flex">
         <img
           class="w-[60px] h-[60px] shrink-0 object-cover rounded-full"
-          :src="avatar + authStore.author.avatar"
+          :src="avatar + AuthStore.author.avatar"
           alt="avatar"
         />
         <div class="ml-6">
-          <h1 v-if="authStore.author" class="text-2xl text-white font-normal">
-            {{ authStore.author.username }}
+          <h1 v-if="AuthStore.author" class="text-2xl text-white font-normal">
+            {{ AuthStore.author.username }}
           </h1>
           <RouterLink to="/feed/edit-profile" class="text-[#CED4DA]">{{
             $t("feed.edit_profile")
@@ -23,7 +23,7 @@
         </div>
       </div>
       <button
-        @click="authStore.logout()"
+        @click="AuthStore.logout()"
         type="submit"
         class="text-white md:hidden rounded-[4px] border border-white w-24 h-9"
       >
@@ -48,12 +48,9 @@
 <script setup>
 import HouseIcon from "./icons/HouseIcon.vue";
 import CameraIcon from "./icons/CameraIcon.vue";
-import { useAuthStore } from "../stores/AuthStore";
-import { useSidebarStore } from "../stores/SidebarStore";
+import { AuthStore, SidebarStore } from "../stores/index.js";
 import LanguageSwitch from "./LanguageSwitch.vue";
 import { useRoute } from "vue-router";
 import { avatar } from "../services/index.js";
-const sidebarStore = useSidebarStore();
 const route = useRoute();
-const authStore = useAuthStore();
 </script>

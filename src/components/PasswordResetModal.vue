@@ -34,15 +34,15 @@
     </div>
     <p
       class="text-red-500"
-      v-if="authStore.error && authStore.error !== 'Unauthenticated.'"
+      v-if="AuthStore.error && AuthStore.error !== 'Unauthenticated.'"
     >
-      {{ authStore.error }}
+      {{ AuthStore.error }}
     </p>
     <button class="w-full h-[38px] my-5 bg-[#E31221] rounded-[4px] text-white">
       {{ $t("forms.reset_password") }}
     </button>
     <p
-      @click="modalStore.inner = 'login'"
+      @click="ModalStore.inner = 'login'"
       class="flex justify-center items-center cursor-pointer text-[#6C757D] font-normal"
     >
       <ArrowIcon /> {{ $t("forms.back_to_login") }}
@@ -54,17 +54,14 @@
 import ArrowIcon from "../components/icons/ArrowIcon.vue";
 import { Form } from "vee-validate";
 import { reactive } from "vue";
-import { useModalStore } from "../stores/ModalStore";
-import { useAuthStore } from "../stores/AuthStore";
+import { ModalStore, AuthStore } from "../stores/index.js";
 import router from "../router";
-const modalStore = useModalStore();
-const authStore = useAuthStore();
 const form = reactive({
   password: "",
   confirmPassword: "",
 });
 const onSubmit = () => {
-  authStore.passwordUpdate({
+  AuthStore.passwordUpdate({
     token: router.currentRoute.value.query.token,
     email: router.currentRoute.value.query.email,
     password: form.password,

@@ -23,7 +23,7 @@
       {{ $t("forms.send_instructions") }}
     </button>
     <p
-      @click="modalStore.inner = 'login'"
+      @click="ModalStore.inner = 'login'"
       class="flex justify-center items-center cursor-pointer text-[#6C757D] font-normal"
     >
       <ArrowIcon /> {{ $t("forms.back_to_login") }}
@@ -35,14 +35,11 @@
 import ArrowIcon from "../components/icons/ArrowIcon.vue";
 import { Form } from "vee-validate";
 import { reactive } from "vue";
-import { useModalStore } from "../stores/ModalStore";
-import { useAuthStore } from "../stores/AuthStore";
+import { ModalStore, AuthStore } from "../stores/index.js";
 const form = reactive({
   email: "",
 });
-const modalStore = useModalStore();
-const authStore = useAuthStore();
 const onSubmit = () => {
-  authStore.passwordReset(form.email);
+  AuthStore.passwordReset(form.email);
 };
 </script>

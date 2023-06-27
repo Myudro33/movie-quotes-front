@@ -39,11 +39,11 @@
     </button>
   </div>
   <div
-    v-if="modalStore.mobile === 'search'"
+    v-if="ModalStore.mobile === 'search'"
     class="md:hidden w-full h-[80vh] bg-[#12101A] z-[100] top-0 absolute"
   >
     <div class="flex items-center h-16 px-8 border-b border-b-[#EFEFEF4D]">
-      <ArrowIcon class="w-10 h-10" @click="modalStore.closeModal" />
+      <ArrowIcon class="w-10 h-10" @click="ModalStore.closeModal" />
       <input
         v-model="input"
         class="w-full h-10 mx-2 bg-transparent text-white placeholder:text-white outline-none px-3"
@@ -62,14 +62,10 @@
 import SearchIcon from "./icons/SearchIcon.vue";
 import PencilIcon from "./icons/PencilIcon.vue";
 import ArrowIcon from "./icons/ArrowIcon.vue";
-import { useModalStore } from "../stores/ModalStore";
-import { useNewsStore } from "../stores/NewsStore";
-import { ref, watch } from "vue";
+import { ModalStore, NewsStore } from "../stores/index.js";
+import { ref } from "vue";
 import axiosInstance from "../config/axios-config";
 const input = ref("");
-const emit = defineEmits(["input"]);
-const modalStore = useModalStore();
-const NewsStore = useNewsStore();
 const size = ref(false);
 const search = async () => {
   try {

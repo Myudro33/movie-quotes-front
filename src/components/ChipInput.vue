@@ -9,19 +9,17 @@
       v-bind="field"
       class="w-full flex flex-wrap items-center gap-2 bg-[#11101A] border border-[#6C757D]-1 min-h-[48px] rounded-md"
     >
-      <div
-        v-if="!props.edit"
-        v-for="(chip, i) of chips"
-        :key="i"
-        class="h-auto px-1 py-2"
-      >
-        <span
-          class="text-white text-[14px] ml-2 bg-[#6C757D] px-2 py-2 flex justify-between items-center min-w-[70px]"
-          >{{ useI18n().locale.value === "en" ? chip.name.en : chip.name.ka }}
-          <button @click="removeGenre(i)">
-            <ExitIcon /></button
-        ></span>
+      <div class="flex" v-if="!props.edit">
+        <div v-for="(chip, i) of chips" :key="i" class="h-auto px-1 py-2">
+          <span
+            class="text-white text-[14px] ml-2 bg-[#6C757D] px-2 py-2 flex justify-between items-center min-w-[70px]"
+            >{{ useI18n().locale.value === "en" ? chip.name.en : chip.name.ka }}
+            <button @click="removeGenre(i)">
+              <ExitIcon /></button
+          ></span>
+        </div>
       </div>
+
       <div v-else v-for="(chip, b) of editChips" :key="b" class="h-auto px-1 py-2">
         <span
           class="text-white text-[14px] ml-2 bg-[#6C757D] px-2 py-2 flex justify-between items-center min-w-[70px]"
@@ -34,7 +32,7 @@
         for="genre"
         class="text-white text-[20px] pl-2"
         v-if="chips.length < 1 && editChips.length < 1"
-        >{{ $t("addmovie.genre") }}</label
+        >{{ $t("add_movie.genre") }}</label
       >
       <input
         v-bind="field"
@@ -52,19 +50,21 @@
         class="absolute xs:bottom-0 md:bottom-[21rem] px-10 bg-[#11101A] z-[100] rounded-md flex flex-col justify-around py-3"
         v-if="items"
       >
-        <li
-          v-if="!props.edit"
-          @click="setGenre(genre)"
-          v-for="(genre, i) of NewsStore.genres"
-          :key="i"
-          class="text-white text-[20px] cursor-pointer"
-        >
-          {{ useI18n().locale.value === "en" ? genre.name.en : genre.name.ka }}
-        </li>
+        <div v-if="!props.edit">
+          <li
+            @click="setGenre(genre)"
+            v-for="(genre, i) of MovieStore.genres"
+            :key="i"
+            class="text-white text-[20px] cursor-pointer"
+          >
+            {{ useI18n().locale.value === "en" ? genre.name.en : genre.name.ka }}
+          </li>
+        </div>
+
         <li
           v-else
           @click="setGenre(genre)"
-          v-for="(genre, b) of NewsStore.genres"
+          v-for="(genre, b) of MovieStore.genres"
           :key="b"
           class="text-white text-[20px] cursor-pointer"
         >
@@ -76,13 +76,12 @@
 </template>
 
 <script setup>
+import { MovieStore } from "../stores/index.js";
 import { newGenre } from "../services";
 import ExitIcon from "./icons/ExitIcon.vue";
 import { Field } from "vee-validate";
 import { useI18n } from "vue-i18n";
 import { onMounted, ref, watch } from "vue";
-import { useNewsStore } from "../stores/NewsStore";
-const NewsStore = useNewsStore();
 const props = defineProps(["edit"]);
 const items = ref(false);
 const emit = defineEmits(["chip-update", "remove-genre"]);
@@ -101,7 +100,7 @@ watch(chips.value, (chip) => {
 });
 onMounted(() => {
   if (props.edit) {
-    editChips.value = [...NewsStore.movie.genre];
+    editChips.value = MovieStore.movie.genre;
   }
 });
 const setGenre = (value) => {
@@ -110,9 +109,9 @@ const setGenre = (value) => {
 const removeGenre = (value) => {
   emit("remove-genre", value);
   if (!props.edit) {
-    chips.value.splice(value, 1);
+    chips.value.splice(value, 0);
   } else {
-    editChips.value.splice(value, 1);
+    editChips.value.splice(value, 0);
   }
 };
 </script>

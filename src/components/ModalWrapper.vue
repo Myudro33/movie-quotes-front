@@ -10,12 +10,9 @@
 </template>
 
 <script setup>
-import { useMovieStore } from "../stores/MoviesStore";
-import { useNewsStore } from "../stores/NewsStore";
-const NewsStore = useNewsStore();
-const MoviesStore = useMovieStore();
+import { MovieStore, NewsStore } from "../stores/index.js";
 const closeModal = () => {
   NewsStore.modal = "";
-  MoviesStore.modal = "";
+  MovieStore.modal = "";
 };
 </script>
