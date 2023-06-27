@@ -9,10 +9,10 @@
       :key="item.id"
     />
     <h1 class="text-white md:text-4xl text-center my-5 h-12" v-if="NewsStore.isLoading">
-      {{ $t("addquote.loading") }}
+      {{ $t("add_quote.loading") }}
     </h1>
     <h1 class="text-white md:text-4xl text-center my-5 h-12" v-if="NewsStore.isLastPage">
-      {{ $t("addquote.all_posts_loaded") }}
+      {{ $t("add_quote.all_posts_loaded") }}
     </h1>
   </div>
 </template>

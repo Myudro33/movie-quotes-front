@@ -18,23 +18,23 @@
         v-if="props.edit"
         class="text-[#DDCCAA] font-semibold my-2 xs:text-xs md:text-xl"
       >
-        Replace photo
+        {{ $t("addmovie.replace_photo") }}
       </h1>
       <div class="flex items-center">
         <PhotoIcon
           :class="props.edit && 'xs:hidden md:flex'"
           class="mr-3 xs:w-6 md:w-auto"
         />
-        <span class="xs:hidden md:flex md:text-xl">{{ $t("addquote.drag_drop") }}</span>
+        <span class="xs:hidden md:flex md:text-xl">{{ $t("add_quote.drag_drop") }}</span>
         <span :class="props.edit && 'xs:hidden'" class="md:hidden">{{
-          $t("addquote.upload_image")
+          $t("add_quote.upload_image")
         }}</span>
       </div>
       <label
         :class="props.edit && 'mt-2 ml-0'"
         class="xs:text-xs md:text-xl p-2 text-white bg-[#9747ff66] rounded-[4px] ml-2"
         for="dropzoneFile"
-        >{{ $t("addquote.choose_file") }}</label
+        >{{ $t("add_quote.choose_file") }}</label
       >
       <input @input="selectedFile" class="hidden" type="file" id="dropzoneFile" />
       <p v-if="dropzoneFile.name" class="text-white ml-2">{{ dropzoneFile.name }}</p>

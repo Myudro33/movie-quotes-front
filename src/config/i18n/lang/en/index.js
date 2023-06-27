@@ -3,8 +3,8 @@ import landing from './landing.json'
 import modal from './modal.json'
 import feed from './feed.json'
 import profile from './profile.json'
-import addquote from './addquote.json'
-import addmovie from './addmovie.json'
+import add_quote from './add_quote.json'
+import add_movie from './add_movie.json'
 
 
 const translations = {
@@ -13,8 +13,8 @@ const translations = {
   modal,
   feed,
   profile,
-  addquote,
-  addmovie
+  add_quote,
+  add_movie
 }
 
 export default translations

@@ -6,5 +6,6 @@
     "movie_description":"Movie Descripiton",
     "quotes":"Quotes",
     "total":"total",
-    "director":"Director:"
+    "director":"Director:",
+    "replace_photo":"Replace photo"
 }

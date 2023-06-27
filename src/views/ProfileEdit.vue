@@ -137,7 +137,7 @@
         {{ $t("profile.cancel") }}
       </button>
       <button
-        @click="AuthStore.updateUser(form)"
+        @click="AuthStore.updateUser(form, locale)"
         class="bg-[#E31221] py-2 px-4 text-white text-xl rounded-md disabled:bg-[#E3122140]"
       >
         {{ $t("profile.save_changes") }}
@@ -153,6 +153,7 @@ import { useAuthStore } from "../stores/AuthStore";
 import { useModalStore } from "../stores/ModalStore";
 import ArrowIcon from "../components/icons/ArrowIcon.vue";
 import { avatar } from "../services/index.js";
+import { useI18n } from "vue-i18n";
 const AuthStore = useAuthStore();
 const modalStore = useModalStore();
 const googleAuthor = computed(() => AuthStore.author?.google_id === null);
@@ -182,7 +183,7 @@ const errorDots = (errorMessage) => {
     passwordValidation.max = "text-green-500";
   }
 };
-
+const locale = useI18n().locale.value === "en" ? "en" : "ka";
 const windowWidth = ref(window.innerWidth);
 const editForm = (value) => {
   if (windowWidth.value < 960) {

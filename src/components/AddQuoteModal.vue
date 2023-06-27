@@ -6,7 +6,7 @@
       <div
         class="relative xs:my-5 md:my-0 w-full flex flex-col items-center justify-center"
       >
-        <h1 class="text-2xl text-white">{{ $t("addquote.create_quote") }}</h1>
+        <h1 class="text-2xl text-white">{{ $t("add_quote.create_quote") }}</h1>
         <hr class="border border-[#EFEFEF33] mt-6 w-full" />
         <ExitIcon
           @click="NewsStore.modal = ''"
@@ -72,7 +72,7 @@
               as="select"
             >
               <option selected disabled value="">
-                {{ $t("addquote.choose_movie") }}
+                {{ $t("add_quote.choose_movie") }}
               </option>
               <option selected v-if="props.inner" :value="props.movie.id">
                 {{

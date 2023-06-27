@@ -3,7 +3,7 @@
     <div class="flex items-center">
       <img
         class="xs:w-10 xs:h-10 md:w-[52px] md:h-[52px] object-cover rounded-full"
-        :src="quoteAuthorAvatar"
+        :src="avatar + quote.user.avatar"
         alt="avatar"
       />
       <h1 class="text-white md:text-xl ml-3">{{ quote.user.username }}</h1>
@@ -13,7 +13,11 @@
       <span class="text-[#DDCCAA] cursor-pointer">{{ quote.movie.name[locale] }}</span>
       ({{ quote.movie.year }})
     </p>
-    <img class="w-full md:h-[500px] xs:h-48 mt-7" :src="quote.image" alt="quote" />
+    <img
+      class="w-full md:h-[500px] xs:h-48 mt-7"
+      :src="image + quote.image"
+      alt="quote"
+    />
     <div class="flex xs:h-16 md:h-20 items-center border-b border-b-[#EFEFEF4D]">
       <div class="flex">
         <p class="text-white text-xl mr-2">{{ quote?.comments?.length }}</p>
@@ -38,7 +42,7 @@
       <div class="w-full flex">
         <img
           class="xs:w-10 xs:h-10 md:w-[52px] md:h-[52px] object-cover text-white shrink-0 rounded-full"
-          :src="avatar"
+          :src="avatar + authStore.author.avatar"
           alt="avatar"
         />
         <Field rules="required" name="title" v-model="title" v-slot="{ field }">
@@ -64,7 +68,7 @@ import TheComment from "./TheComment.vue";
 import { useNewsStore } from "../stores/NewsStore";
 import { computed, ref } from "vue";
 import { useI18n } from "vue-i18n";
-import { avatar } from "../services/index.js";
+import { avatar, image } from "../services/index.js";
 const props = defineProps(["quote"]);
 const authStore = useAuthStore();
 const NewsStore = useNewsStore();

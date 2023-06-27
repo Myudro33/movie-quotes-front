@@ -4,12 +4,12 @@
   <h1 v-if="loading"></h1>
   <div v-else class="flex flex-col absolute xs:py-10 md:py-0">
     <h1 class="text-2xl text-white xs:hidden md:flex">
-      {{ $t("addmovie.movie_description") }}
+      {{ $t("add_movie.movie_description") }}
     </h1>
     <div class="flex mt-8 xs:flex-col md:flex-row xs:px-9 md:px-0">
       <img
         class="xs:w-full xs:h-72 md:w-[50rem] md:h-[27rem] rounded-xl shrink-0"
-        :src="NewsStore.movie.image"
+        :src="image + NewsStore.movie.image"
         alt="movie"
       />
       <div class="flex flex-col md:w-[32rem] md:ml-5">
@@ -32,11 +32,11 @@
             v-for="(item, index) in NewsStore.movie.genre"
             :key="index"
           >
-            {{ item[locale] }}
+            {{ item.name[locale] }}
           </div>
         </div>
         <h1 class="text-lg text-[#CED4DA] font-bold mt-5">
-          {{ $t("addmovie.director") }}
+          {{ $t("add_movie.director") }}
           {{
             locale === "en" ? NewsStore.movie.director?.en : NewsStore.movie.director?.ka
           }}
@@ -54,7 +54,7 @@
       class="mt-11 flex xs:flex-col-reverse xs:items-start md:flex-row md:items-center xs:px-9 md:px-0"
     >
       <h1 class="xs:text-xl md:text-2xl text-white font-bold">
-        {{ $t("addmovie.quotes") }} ({{ $t("addmovie.total") }}
+        {{ $t("add_movie.quotes") }} ({{ $t("add_movie.total") }}
         {{ NewsStore.movie.quotes?.length }})
       </h1>
       <hr
@@ -64,7 +64,7 @@
         @click="NewsStore.modal = 'add-quote'"
         class="bg-[#E31221] rounded-md text-white md:text-xl flex items-center justify-between px-2 h-12"
       >
-        <PlusSquareIcon class="mx-2" /> {{ $t("addquote.add_quote") }}
+        <PlusSquareIcon class="mx-2" /> {{ $t("add_quote.add_quote") }}
       </button>
     </div>
     <div
@@ -75,7 +75,7 @@
       <div class="flex xs:flex-col md:flex-row md:justify-between md:items-center">
         <img
           class="shrink-0 xs:w-full md:w-56 h-36 rounded-sm"
-          :src="item.image"
+          :src="image + item.image"
           alt="quote"
         />
         <h1 class="text-[#CED4DA] xs:my-3 md:my-0 text-2xl">
@@ -102,6 +102,7 @@
 </template>
 
 <script setup>
+import { image } from "../services";
 import { useI18n } from "vue-i18n";
 import { useNewsStore } from "../stores/NewsStore";
 const NewsStore = useNewsStore();

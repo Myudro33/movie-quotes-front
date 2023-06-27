@@ -17,7 +17,7 @@
       >
         <span
           class="text-white text-[14px] ml-2 bg-[#6C757D] px-2 py-2 flex justify-between items-center min-w-[70px]"
-          >{{ useI18n().locale.value === "en" ? chip.en : chip.ka }}
+          >{{ useI18n().locale.value === "en" ? chip.name.en : chip.name.ka }}
           <button @click="removeGenre(i)">
             <ExitIcon /></button
         ></span>
@@ -25,7 +25,7 @@
       <div v-else v-for="(chip, b) of editChips" :key="b" class="h-auto px-1 py-2">
         <span
           class="text-white text-[14px] ml-2 bg-[#6C757D] px-2 py-2 flex justify-between items-center min-w-[70px]"
-          >{{ useI18n().locale.value === "en" ? chip.en : chip.ka }}
+          >{{ useI18n().locale.value === "en" ? chip.name.en : chip.name.ka }}
           <button @click="removeGenre(b)">
             <ExitIcon /></button
         ></span>
@@ -59,7 +59,7 @@
           :key="i"
           class="text-white text-[20px] cursor-pointer"
         >
-          {{ useI18n().locale.value === "en" ? genre.en : genre.ka }}
+          {{ useI18n().locale.value === "en" ? genre.name.en : genre.name.ka }}
         </li>
         <li
           v-else
@@ -68,7 +68,7 @@
           :key="b"
           class="text-white text-[20px] cursor-pointer"
         >
-          {{ useI18n().locale.value === "en" ? genre.en : genre.ka }}
+          {{ useI18n().locale.value === "en" ? genre.name.en : genre.name.ka }}
         </li>
       </ul>
     </div>

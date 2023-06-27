@@ -10,7 +10,7 @@
       <div class="flex">
         <img
           class="w-[60px] h-[60px] shrink-0 object-cover rounded-full"
-          :src="avatar"
+          :src="avatar + authStore.author.avatar"
           alt="avatar"
         />
         <div class="ml-6">

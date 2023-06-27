@@ -3,7 +3,7 @@
     <RouterLink :to="{ name: 'film', params: { id: props.movie.id } }">
       <img
         class="rounded-xl w-full xs:h-[18.875rem] md:h-[23.188rem] object-cover"
-        :src="props.movie.image"
+        :src="image + props.movie.image"
         alt="movie"
       />
       <h1 class="text-2xl my-4 flex">
@@ -19,6 +19,7 @@
 </template>
 
 <script setup>
+import { image } from "../services";
 import QuotesIcon from "../components/icons/QuotesIcon.vue";
 import { useI18n } from "vue-i18n";
 const props = defineProps(["movie"]);

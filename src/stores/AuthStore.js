@@ -3,6 +3,7 @@ import router from "../router/index.js";
 import { useModalStore } from "./ModalStore.js";
 import axiosInstance from "../config/axios-config/index.js";
 import axios from "axios";
+import { useI18n } from "vue-i18n";
 
 
 export const useAuthStore = defineStore('authStore', {
@@ -27,7 +28,11 @@ export const useAuthStore = defineStore('authStore', {
         },
         async register(data) {
             try {
-                await axiosInstance.post('/register', data)
+                await axiosInstance.post('/register', data,{
+                    params:{
+                        locale:useI18n().locale.value
+                    }
+                })
                 const modalStore = useModalStore()
                 modalStore.openModal('registered')
                 this.error = ''
@@ -72,7 +77,11 @@ export const useAuthStore = defineStore('authStore', {
         async passwordReset(email) {
             try {
                 const modalStore = useModalStore()
-                await axiosInstance.post(`/forgot-password/${email}`)
+                await axiosInstance.post(`/forgot-password/${email}`,{
+                    params:{
+                        locale:useI18n().locale.value
+                    }
+                })
                 modalStore.inner = "instructions_sent";
                 this.error = ''
 
@@ -91,14 +100,18 @@ export const useAuthStore = defineStore('authStore', {
                 this.error = error.response.data.message
             }
         },
-        async updateUser(form) {
+        async updateUser(form,locale) {
             if(form.avatar!==''){
                 this.uploadAvatar(form.avatar)
         }
         else{
             const modalStore = useModalStore()
             try {
-                const response = await axiosInstance.post(`/update-user/${this.author.email}`, form)
+                const response = await axiosInstance.post(`/update-user/${this.author.email}`,form,{
+                    params:{
+                        locale
+                    }
+                })
                 if(form.email!==this.author.email){
                     return modalStore.inner='update-email-sent'
                 }
@@ -110,7 +123,7 @@ export const useAuthStore = defineStore('authStore', {
                 }
                 this.error = ''
             } catch (error) {
-                this.error = error.response.data.message
+                this.error = error.response?.data.message
             }
         }
     },

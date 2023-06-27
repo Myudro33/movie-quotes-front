@@ -1,5 +1,5 @@
 <template>
-  <AddMovieModal v-if="NewsStore.modal==='add-movie'" />
+  <AddMovieModal v-if="NewsStore.modal === 'add-movie'" />
   <div class="absolute md:right-20 xs:w-full xs:py-4 xs:px-8 md:p-0 lg:w-[88.75rem]">
     <MovieListHeading />
     <div class="flex xs:flex-col md:gap-12 md:flex-row md:flex-wrap">
@@ -17,5 +17,6 @@ import { onMounted } from "vue";
 const NewsStore = useNewsStore();
 onMounted(() => {
   NewsStore.getMovies();
+  NewsStore.getGenres();
 });
 </script>

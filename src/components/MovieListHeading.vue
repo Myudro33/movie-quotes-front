@@ -1,7 +1,7 @@
 <template>
   <div class="w-full flex items-center justify-between">
     <h1 class="text-white font-bold xs:text-lg md:text-2xl flex xs:flex-col md:flex-row">
-      {{ $t("addmovie.movie_list") }}
+      {{ $t("add_movie.movie_list") }}
       <p class="xs:px-0 md:pl-3 xs:mt-2 md:mt-0">({{ NewsStore.movies?.length }})</p>
     </h1>
     <div class="flex justify-end items-center md:w-[40rem]">

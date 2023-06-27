@@ -73,12 +73,16 @@ const NewsStore = useNewsStore();
 const size = ref(false);
 const search = async () => {
   try {
-    const response = await axiosInstance.get("/searchQuotes", {
+    const response = await axiosInstance.get("/quotes", {
       params: {
         query: input.value,
       },
     });
-    NewsStore.quotes = response.data.quotes;
+    if (input.value === "") {
+      NewsStore.quotes = response.data.quotes.data;
+    } else {
+      NewsStore.quotes = response.data.quotes;
+    }
   } catch (error) {
     console.error(error);
   }
