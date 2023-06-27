@@ -1,6 +1,6 @@
 <template>
-  <AddQuoteModal :inner="true" :movie="NewsStore.movie" />
-  <AddMovieModal :edit="true" v-if="NewsStore.modal === 'add-movie'" />
+  <AddQuoteModal :inner="true" :movie="MoviesStore.movie" />
+  <AddMovieModal :edit="true" v-if="MoviesStore.modal === 'add-movie'" />
   <h1 v-if="loading"></h1>
   <div v-else class="flex flex-col absolute xs:py-10 md:py-0">
     <h1 class="text-2xl text-white xs:hidden md:flex">
@@ -9,27 +9,29 @@
     <div class="flex mt-8 xs:flex-col md:flex-row xs:px-9 md:px-0">
       <img
         class="xs:w-full xs:h-72 md:w-[50rem] md:h-[27rem] rounded-xl shrink-0"
-        :src="image + NewsStore.movie.image"
+        :src="image + MoviesStore.movie.image"
         alt="movie"
       />
       <div class="flex flex-col md:w-[32rem] md:ml-5">
         <div class="flex justify-between items-center">
           <h1 class="text-[#DCA] text-2xl xs:my-3 md:my-0">
-            {{ locale === "en" ? NewsStore.movie.name?.en : NewsStore.movie.name?.ka }}
-            ({{ NewsStore.movie.year }})
+            {{
+              locale === "en" ? MoviesStore.movie.name?.en : MoviesStore.movie.name?.ka
+            }}
+            ({{ MoviesStore.movie.year }})
           </h1>
           <div
             class="bg-[#24222F] xs:hidden md:flex justify-between w-36 h-10 rounded-lg items-center px-5"
           >
-            <PenIcon class="cursor-pointer" @click="NewsStore.modal = 'add-movie'" />
+            <PenIcon class="cursor-pointer" @click="MoviesStore.modal = 'add-movie'" />
             <hr class="border border-[#6C757D] h-5" />
-            <TrashIcon @click="NewsStore.deleteMovie()" />
+            <TrashIcon @click="MoviesStore.deleteMovie()" />
           </div>
         </div>
         <div class="w-full flex mt-6 flex-wrap gap-2">
           <div
             class="px-3 py-2 bg-[#6C757D] text-white first:ml-0 rounded-sm font-bold"
-            v-for="(item, index) in NewsStore.movie.genre"
+            v-for="(item, index) in MoviesStore.movie.genre"
             :key="index"
           >
             {{ item.name[locale] }}
@@ -38,14 +40,16 @@
         <h1 class="text-lg text-[#CED4DA] font-bold mt-5">
           {{ $t("add_movie.director") }}
           {{
-            locale === "en" ? NewsStore.movie.director?.en : NewsStore.movie.director?.ka
+            locale === "en"
+              ? MoviesStore.movie.director?.en
+              : MoviesStore.movie.director?.ka
           }}
         </h1>
         <p class="text-lg text-[#CED4DA] text-left mt-5">
           {{
             locale === "en"
-              ? NewsStore.movie.description?.en
-              : NewsStore.movie.description?.ka
+              ? MoviesStore.movie.description?.en
+              : MoviesStore.movie.description?.ka
           }}
         </p>
       </div>
@@ -55,7 +59,7 @@
     >
       <h1 class="xs:text-xl md:text-2xl text-white font-bold">
         {{ $t("add_movie.quotes") }} ({{ $t("add_movie.total") }}
-        {{ NewsStore.movie.quotes?.length }})
+        {{ MoviesStore.movie.quotes?.length }})
       </h1>
       <hr
         class="border xs:w-full md:w-0 md:h-8 xs:my-4 md:my-0 md:mx-4 border-[#6C757D] xs:rotate-180 md:rotate-0"
@@ -69,7 +73,7 @@
     </div>
     <div
       class="md:w-[50rem] md:h-[17rem] bg-[#11101A] mt-10 py-6 px-8 flex flex-col md:rounded-xl"
-      v-for="(item, index) in NewsStore.movie.quotes"
+      v-for="(item, index) in MoviesStore.movie.quotes"
       :key="index"
     >
       <div class="flex xs:flex-col md:flex-row md:justify-between md:items-center">
@@ -105,6 +109,8 @@
 import { image } from "../services";
 import { useI18n } from "vue-i18n";
 import { useNewsStore } from "../stores/NewsStore";
+import { useMovieStore } from "../stores/MoviesStore";
+const MoviesStore = useMovieStore();
 const NewsStore = useNewsStore();
 import { onMounted, computed, ref } from "vue";
 import PenIcon from "../components/icons/PenIcon.vue";
@@ -125,15 +131,15 @@ const locale = computed(() => {
   return useI18n().locale.value;
 });
 const addLike = (item) => {
-  NewsStore.addMovieQuoteLike({
+  MoviesStore.addMovieQuoteLike({
     user_id: authStore.author.id,
     quote_id: item.id,
   });
   liked(item);
 };
 onMounted(async () => {
-  await NewsStore.getMovie();
-  await NewsStore.getQuotes();
+  await MoviesStore.getMovie();
+  await MoviesStore.getQuotes();
   loading.value = false;
 });
 </script>

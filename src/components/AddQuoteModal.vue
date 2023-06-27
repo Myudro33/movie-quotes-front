@@ -96,7 +96,7 @@
             type="submit"
             class="w-full h-12 bg-[#E31221] text-white mt-10 text-xl rounded-[.3rem]"
           >
-            Post
+            {{ $t("add_quote.post") }}
           </button>
         </Form>
       </div>
@@ -110,6 +110,8 @@ import { Form, Field, ErrorMessage } from "vee-validate";
 import { reactive, onMounted } from "vue";
 import { useAuthStore } from "../stores/AuthStore.js";
 import { useNewsStore } from "../stores/NewsStore.js";
+import { useMovieStore } from "../stores/MoviesStore";
+const MoviesStore = useMovieStore();
 import { useI18n } from "vue-i18n";
 import ExitIcon from "./icons/ExitIcon.vue";
 import FileUploadInput from "./FileUploadInput.vue";
@@ -128,10 +130,10 @@ const getFile = (img) => {
   data.image = img.value;
 };
 onMounted(() => {
-  NewsStore.getMovies();
+  MoviesStore.getMovies();
 });
 const addQuote = () => {
   NewsStore.addQuote(data);
-  NewsStore.modal = false;
+  NewsStore.modal = "";
 };
 </script>

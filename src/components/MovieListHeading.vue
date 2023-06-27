@@ -2,7 +2,7 @@
   <div class="w-full flex items-center justify-between">
     <h1 class="text-white font-bold xs:text-lg md:text-2xl flex xs:flex-col md:flex-row">
       {{ $t("add_movie.movie_list") }}
-      <p class="xs:px-0 md:pl-3 xs:mt-2 md:mt-0">({{ NewsStore.movies?.length }})</p>
+      <p class="xs:px-0 md:pl-3 xs:mt-2 md:mt-0">({{ MoviesStore.movies?.length }})</p>
     </h1>
     <div class="flex justify-end items-center md:w-[40rem]">
       <button
@@ -26,10 +26,10 @@
         </button>
       </button>
       <button
-        @click="NewsStore.modal = 'add-movie'"
+        @click="MoviesStore.modal = 'add-movie'"
         class="bg-[#E31221] text-white h-[2.375rem] flex px-3 items-center rounded-[.25rem]"
       >
-        <PlusSquareIcon class="mr-2" /> Add movie
+        <PlusSquareIcon class="mr-2" /> {{ $t("add_movie.add_movie") }}
       </button>
     </div>
   </div>
@@ -38,8 +38,8 @@
 <script setup>
 import PlusSquareIcon from "../components/icons/PlusSquareIcon.vue";
 import SearchIcon from "../components/icons/SearchIcon.vue";
-import { useNewsStore } from "../stores/NewsStore";
-const NewsStore = useNewsStore();
+import { useMovieStore } from "../stores/MoviesStore";
+const MoviesStore = useMovieStore();
 import { ref } from "vue";
 const size = ref(false);
 </script>

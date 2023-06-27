@@ -23,9 +23,11 @@ import QuoteCard from "../components/QuoteCard.vue";
 import SearchInput from "../components/SearchInput.vue";
 import { useNewsStore } from "../stores/NewsStore";
 import AddQuoteModal from "../components/AddQuoteModal.vue";
+import { useMovieStore } from "../stores/MoviesStore";
 const NewsStore = useNewsStore();
+const MoviesStore = useMovieStore();
 onMounted(() => {
-  NewsStore.getMovies();
+  MoviesStore.getMovies();
   NewsStore.getQuotes();
   window.addEventListener("scroll", NewsStore.handleScroll);
 });

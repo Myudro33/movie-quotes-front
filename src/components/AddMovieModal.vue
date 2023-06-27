@@ -1,15 +1,15 @@
 <template>
-  <ModalWrapper v-if="NewsStore.modal === 'add-movie'">
+  <ModalWrapper v-if="MoviesStore.modal === 'add-movie'">
     <div
       class="xs:w-screen md:w-[60rem] xs:pt-2 xs:pb-10 md:py-10 xs:h-screen md:h-auto bg-[#11101A] md:rounded-xl md:mt-28"
     >
       <div
         class="relative xs:my-5 md:my-0 w-full flex flex-col items-center justify-center"
       >
-        <h1 class="text-2xl text-white">{{ $t("addmovie.add_movie") }}</h1>
+        <h1 class="text-2xl text-white">{{ $t("add_movie.add_movie") }}</h1>
         <hr class="border border-[#EFEFEF33] mt-6 w-full" />
         <ExitIcon
-          @click="NewsStore.modal = ''"
+          @click="MoviesStore.modal = ''"
           class="absolute cursor-pointer right-10 top-2"
         />
       </div>
@@ -178,7 +178,7 @@
           </div>
           <FileUploadInput
             :edit="props.edit"
-            :image="NewsStore.movie.image"
+            :image="MoviesStore.movie.image"
             @selectFile="getFile"
             @drop.prevent="drop"
           />
@@ -187,7 +187,7 @@
             type="submit"
             class="w-full h-12 bg-[#E31221] text-white mt-10 text-xl rounded-[.3rem]"
           >
-            {{ $t("addmovie.add_movie") }}
+            {{ $t("add_movie.add_movie") }}
           </button>
         </Form>
       </div>
@@ -202,6 +202,8 @@ import { Form, Field } from "vee-validate";
 import { onMounted, ref } from "vue";
 import { useAuthStore } from "../stores/AuthStore.js";
 import { useNewsStore } from "../stores/NewsStore.js";
+import { useMovieStore } from "../stores/MoviesStore";
+const MoviesStore = useMovieStore();
 import ExitIcon from "./icons/ExitIcon.vue";
 import FileUploadInput from "./FileUploadInput.vue";
 import ChipInput from "./ChipInput.vue";
@@ -222,7 +224,7 @@ const getFile = (img) => {
 };
 
 onMounted(() => {
-  const movie = NewsStore.movie;
+  const movie = MoviesStore.movie;
   if (props.edit && movie !== "") {
     data.value.movie_name = movie.name;
     data.value.director = movie.director;
@@ -246,11 +248,11 @@ const removeGenre = (event) => {
 const post = () => {
   if (data.value.genre.length > 0) {
     if (!props.edit) {
-      NewsStore.addMovie(data.value);
+      MoviesStore.addMovie(data.value);
     } else {
-      NewsStore.updateMovie(data.value);
+      MoviesStore.updateMovie(data.value);
     }
-    NewsStore.modal = false;
+    MoviesStore.modal = "";
   }
 };
 </script>

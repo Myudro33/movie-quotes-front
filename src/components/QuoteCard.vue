@@ -75,9 +75,6 @@ const NewsStore = useNewsStore();
 const locale = computed(() => {
   return useI18n().locale.value;
 });
-const quoteAuthorAvatar = computed(() => {
-  return import.meta.env.VITE_API_IMAGE_ENDPOINT + props.quote.user.avatar;
-});
 const title = ref("");
 const comments = ref(props.quote.comments);
 const commentsToShow = ref(2);
