@@ -69,7 +69,7 @@ import TheComment from "./TheComment.vue";
 import { computed, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { avatar, image } from "../services/index.js";
-import { likeService } from "../services/likeService.js";
+import { deleteLike, createLike } from "../services/likeService.js";
 const AuthStore = useAuthStore();
 const NewsStore = useNewsStore();
 const props = defineProps(["quote"]);
@@ -104,12 +104,7 @@ const addComment = () => {
   title.value = "";
 };
 const addLike = async () => {
-  likeService(
-    {
-      quote_id: props.quote.id,
-      user_id: AuthStore.author.id,
-    },
-    liked
-  );
+  const data = { quote_id: props.quote.id, user_id: AuthStore.author.id };
+  liked.value ? deleteLike(data) : createLike(data);
 };
 </script>
