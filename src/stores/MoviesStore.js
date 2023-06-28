@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { useAuthStore } from './AuthStore.js'
 import axiosInstance from '../config/axios-config'
 import router from '../router'
+import { useNewsStore } from './NewsStore.js'
 
 export const useMovieStore = defineStore('MoviesStore', {
   state: () => ({
@@ -28,7 +29,7 @@ export const useMovieStore = defineStore('MoviesStore', {
         JSON.stringify({ en: data.movie_description.en, ka: data.movie_description.ka })
       )
       formData.append('director', JSON.stringify({ en: data.director.en, ka: data.director.ka }))
-      const response = await axiosInstance.post('/movie', formData, {
+      const response = await axiosInstance.post('/movies', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -59,19 +60,20 @@ export const useMovieStore = defineStore('MoviesStore', {
       return this.movies.push(response.data.movie)
     },
     async addMovieQuoteLike(data) {
+      const NewsStore = useNewsStore()
       const AuthStore = useAuthStore()
       const quote = this.movie.quotes.find((quote) => quote.id === data.quote_id)
-      const newsPageQuote = this.quotes.find((quote) => quote.id === data.quote_id)
+      const newsPageQuote = NewsStore.quotes.find((quote) => quote.id === data.quote_id)
       const exists = quote.likes.some((like) => like.author_id === AuthStore.author.id)
       const like = quote.likes.find((like) => like.author_id === AuthStore.author.id)
       if (exists) {
-        await axiosInstance.delete(`/delete-like/${like.id}`)
+        await axiosInstance.delete(`/likes/${like.id}`)
         quote.likes = quote.likes.filter((like) => like.author_id !== like.author_id)
         newsPageQuote.likes = newsPageQuote.likes.filter(
           (like) => like.author_id !== like.author_id
         )
       } else {
-        const response = await axiosInstance.post('/add-like', data)
+        const response = await axiosInstance.post('/likes', data)
         quote.likes.push(response.data.like)
         newsPageQuote.likes.push(response.data.like)
       }

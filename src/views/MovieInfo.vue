@@ -4,7 +4,7 @@
   <h1 v-if="loading"></h1>
   <div v-else class="flex flex-col absolute xs:py-10 md:py-0">
     <h1 class="text-2xl text-white xs:hidden md:flex">
-      {{ $t('add_movie.movie_description') }}
+      {{ $t("add_movie.movie_description") }}
     </h1>
     <div class="flex mt-8 xs:flex-col md:flex-row xs:px-9 md:px-0">
       <img
@@ -15,7 +15,7 @@
       <div class="flex flex-col md:w-[32rem] md:ml-5">
         <div class="flex justify-between items-center">
           <h1 class="text-[#DCA] text-2xl xs:my-3 md:my-0">
-            {{ locale === 'en' ? MovieStore.movie.name?.en : MovieStore.movie.name?.ka }}
+            {{ locale === "en" ? MovieStore.movie.name?.en : MovieStore.movie.name?.ka }}
             ({{ MovieStore.movie.year }})
           </h1>
           <div
@@ -36,12 +36,18 @@
           </div>
         </div>
         <h1 class="text-lg text-[#CED4DA] font-bold mt-5">
-          {{ $t('add_movie.director') }}
-          {{ locale === 'en' ? MovieStore.movie.director?.en : MovieStore.movie.director?.ka }}
+          {{ $t("add_movie.director") }}
+          {{
+            locale === "en"
+              ? MovieStore.movie.director?.en
+              : MovieStore.movie.director?.ka
+          }}
         </h1>
         <p class="text-lg text-[#CED4DA] text-left mt-5">
           {{
-            locale === 'en' ? MovieStore.movie.description?.en : MovieStore.movie.description?.ka
+            locale === "en"
+              ? MovieStore.movie.description?.en
+              : MovieStore.movie.description?.ka
           }}
         </p>
       </div>
@@ -50,7 +56,7 @@
       class="mt-11 flex xs:flex-col-reverse xs:items-start md:flex-row md:items-center xs:px-9 md:px-0"
     >
       <h1 class="xs:text-xl md:text-2xl text-white font-bold">
-        {{ $t('add_movie.quotes') }} ({{ $t('add_movie.total') }}
+        {{ $t("add_movie.quotes") }} ({{ $t("add_movie.total") }}
         {{ MovieStore.movie.quotes?.length }})
       </h1>
       <hr
@@ -60,7 +66,7 @@
         @click="NewsStore.modal = 'add-quote'"
         class="bg-[#E31221] rounded-md text-white md:text-xl flex items-center justify-between px-2 h-12"
       >
-        <PlusSquareIcon class="mx-2" /> {{ $t('add_quote.add_quote') }}
+        <PlusSquareIcon class="mx-2" /> {{ $t("add_quote.add_quote") }}
       </button>
     </div>
     <div
@@ -75,7 +81,7 @@
           alt="quote"
         />
         <h1 class="text-[#CED4DA] xs:my-3 md:my-0 text-2xl">
-          "{{ locale === 'en' ? item.title.en : item.title.ka }}"
+          "{{ locale === "en" ? item.title.en : item.title.ka }}"
         </h1>
         <DotsIcon class="md:-translate-y-16 xs:hidden md:flex" />
       </div>
@@ -98,41 +104,41 @@
 </template>
 
 <script setup>
-import { image } from '../services'
-import { useI18n } from 'vue-i18n'
-import { useNewsStore } from '../stores/NewsStore'
-import { useAuthStore } from '../stores/AuthStore'
-import { useMovieStore } from '../stores/MoviesStore'
-import { onMounted, computed, ref } from 'vue'
-import PenIcon from '../components/icons/PenIcon.vue'
-import TrashIcon from '../components/icons/TrashIcon.vue'
-import DotsIcon from '../components/icons/DotsIcon.vue'
-import PlusSquareIcon from '../components/icons/PlusSquareIcon.vue'
-import AddQuoteModal from '../components/AddQuoteModal.vue'
-import CommentIcon from '../components/icons/CommentIcon.vue'
-import HeartIcon from '../components/icons/HeartIcon.vue'
-import AddMovieModal from '../components/AddMovieModal.vue'
-const MovieStore = useMovieStore()
-const NewsStore = useNewsStore()
-const AuthStore = useAuthStore()
+import { image } from "../services";
+import { useI18n } from "vue-i18n";
+import { useNewsStore } from "../stores/NewsStore";
+import { useAuthStore } from "../stores/AuthStore";
+import { useMovieStore } from "../stores/MoviesStore";
+import { onMounted, computed, ref } from "vue";
+import PenIcon from "../components/icons/PenIcon.vue";
+import TrashIcon from "../components/icons/TrashIcon.vue";
+import DotsIcon from "../components/icons/DotsIcon.vue";
+import PlusSquareIcon from "../components/icons/PlusSquareIcon.vue";
+import AddQuoteModal from "../components/AddQuoteModal.vue";
+import CommentIcon from "../components/icons/CommentIcon.vue";
+import HeartIcon from "../components/icons/HeartIcon.vue";
+import AddMovieModal from "../components/AddMovieModal.vue";
+const MovieStore = useMovieStore();
+const NewsStore = useNewsStore();
+const AuthStore = useAuthStore();
 const liked = (item) => {
-  return item?.likes.some((like) => like.author_id === AuthStore.author.id)
-}
-const loading = ref(true)
+  return item?.likes.some((like) => like.author_id === AuthStore.author.id);
+};
+const loading = ref(true);
 const locale = computed(() => {
-  return useI18n().locale.value
-})
+  return useI18n().locale.value;
+});
 const addLike = (item) => {
   MovieStore.addMovieQuoteLike({
+    quote_id: item.id,
     user_id: AuthStore.author.id,
-    quote_id: item.id
-  })
-  liked(item)
-}
+  });
+  liked(item);
+};
 onMounted(async () => {
-  await MovieStore.getMovie()
-  await MovieStore.getGenres()
-  await NewsStore.getQuotes()
-  loading.value = false
-})
+  await MovieStore.getMovie();
+  await MovieStore.getGenres();
+  await NewsStore.getQuotes();
+  loading.value = false;
+});
 </script>
