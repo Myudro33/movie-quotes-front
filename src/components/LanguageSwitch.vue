@@ -11,7 +11,7 @@
         :key="`locale-${locale}`"
         :value="locale"
       >
-        {{ locale === "en" ? "Eng" : "ქარ" }}
+        {{ locale === 'en' ? 'Eng' : 'ქარ' }}
       </option>
     </select>
   </div>
@@ -19,13 +19,13 @@
 
 //
 <script setup>
-import { setLocale } from "@vee-validate/i18n";
-import { onMounted } from "vue";
+import { setLocale } from '@vee-validate/i18n'
+import { onMounted } from 'vue'
 const changeLocale = ($event) => {
-  setLocale($event.target.value);
-  localStorage.setItem("locale", $event.target.value);
-};
+  setLocale($event.target.value)
+  localStorage.setItem('locale', $event.target.value)
+}
 onMounted(() => {
-  setLocale(localStorage.getItem("locale"));
-});
+  setLocale(localStorage.getItem('locale'))
+})
 </script>

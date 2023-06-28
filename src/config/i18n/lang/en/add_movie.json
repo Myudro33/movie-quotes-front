@@ -1,11 +1,11 @@
 {
-    "year":"Year",
-    "genre":"Choose genres",
-    "add_movie":"Add movie",
-    "movie_list":"My list of movies",
-    "movie_description":"Movie Descripiton",
-    "quotes":"Quotes",
-    "total":"total",
-    "director":"Director:",
-    "replace_photo":"Replace photo"
+  "year": "Year",
+  "genre": "Choose genres",
+  "add_movie": "Add movie",
+  "movie_list": "My list of movies",
+  "movie_description": "Movie Descripiton",
+  "quotes": "Quotes",
+  "total": "total",
+  "director": "Director:",
+  "replace_photo": "Replace photo"
 }

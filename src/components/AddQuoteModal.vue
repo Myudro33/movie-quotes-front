@@ -3,15 +3,10 @@
     <div
       class="xs:w-screen md:w-[60rem] xs:z-40 xs:pt-2 xs:pb-10 md:py-10 md:h-auto bg-[#11101A] md:rounded-xl md:mt-28"
     >
-      <div
-        class="relative xs:my-5 md:my-0 w-full flex flex-col items-center justify-center"
-      >
-        <h1 class="text-2xl text-white">{{ $t("add_quote.create_quote") }}</h1>
+      <div class="relative xs:my-5 md:my-0 w-full flex flex-col items-center justify-center">
+        <h1 class="text-2xl text-white">{{ $t('add_quote.create_quote') }}</h1>
         <hr class="border border-[#EFEFEF33] mt-6 w-full" />
-        <ExitIcon
-          @click="NewsStore.modal = ''"
-          class="absolute cursor-pointer right-10 top-2"
-        />
+        <ExitIcon @click="NewsStore.modal = ''" class="absolute cursor-pointer right-10 top-2" />
       </div>
       <div class="w-full px-8 flex flex-col">
         <AuthorTag />
@@ -27,10 +22,8 @@
                 placeholder="Start create new quote"
                 class="mt-[1.5rem] rounded-[.25rem] border outline-none py-[.3rem] px-[.5rem] bg-transparent h-[5.3rem] text-white xs:text-base md:text-[1.5rem]"
                 :class="[
-                  !meta.valid && meta.touched
-                    ? 'border-1 border-[#DC3545]'
-                    : 'border-[#6c757d]',
-                  meta.valid && meta.touched ? 'border-1  border-[#198754]' : '',
+                  !meta.valid && meta.touched ? 'border-1 border-[#DC3545]' : 'border-[#6c757d]',
+                  meta.valid && meta.touched ? 'border-1  border-[#198754]' : ''
                 ]"
                 v-bind="field"
               >
@@ -49,10 +42,8 @@
                 placeholder="ახალი ციტატა"
                 class="mt-[1.5rem] rounded-[.25rem] border outline-none py-[.3rem] px-[.5rem] bg-transparent h-[5.3rem] text-white xs:text-base md:text-[1.5rem]"
                 :class="[
-                  !meta.valid && meta.touched
-                    ? 'border-1 border-[#DC3545]'
-                    : 'border-[#6c757d]',
-                  meta.valid && meta.touched ? 'border-1  border-[#198754]' : '',
+                  !meta.valid && meta.touched ? 'border-1 border-[#DC3545]' : 'border-[#6c757d]',
+                  meta.valid && meta.touched ? 'border-1  border-[#198754]' : ''
                 ]"
                 v-bind="field"
               ></textarea>
@@ -72,14 +63,10 @@
               as="select"
             >
               <option selected disabled value="">
-                {{ $t("add_quote.choose_movie") }}
+                {{ $t('add_quote.choose_movie') }}
               </option>
               <option selected v-if="props.inner" :value="props.movie.id">
-                {{
-                  useI18n().locale.value === "en"
-                    ? props.movie.name.en
-                    : props.movie.name.ka
-                }}
+                {{ useI18n().locale.value === 'en' ? props.movie.name.en : props.movie.name.ka }}
               </option>
               <option
                 v-else
@@ -87,7 +74,7 @@
                 :key="index"
                 :value="item.id"
               >
-                {{ useI18n().locale.value === "en" ? item.name.en : item.name.ka }}
+                {{ useI18n().locale.value === 'en' ? item.name.en : item.name.ka }}
               </option>
             </Field>
           </div>
@@ -96,7 +83,7 @@
             type="submit"
             class="w-full h-12 bg-[#E31221] text-white mt-10 text-xl rounded-[.3rem]"
           >
-            {{ $t("add_quote.post") }}
+            {{ $t('add_quote.post') }}
           </button>
         </Form>
       </div>
@@ -105,30 +92,35 @@
 </template>
 
 <script setup>
-import { MovieStore, AuthStore, NewsStore } from "../stores/index.js";
-import ModalWrapper from "./ModalWrapper.vue";
-import { Form, Field, ErrorMessage } from "vee-validate";
-import { reactive, onMounted } from "vue";
-import { useI18n } from "vue-i18n";
-import ExitIcon from "./icons/ExitIcon.vue";
-import FileUploadInput from "./FileUploadInput.vue";
-import CameraIcon from "./icons/CameraIcon.vue";
-import AuthorTag from "./AuthorTag.vue";
-const props = defineProps(["inner", "movie"]);
+import { useMovieStore } from '../stores/MoviesStore'
+import { useAuthStore } from '../stores/AuthStore'
+import { useNewsStore } from '../stores/NewsStore'
+import ModalWrapper from './ModalWrapper.vue'
+import { Form, Field, ErrorMessage } from 'vee-validate'
+import { reactive, onMounted } from 'vue'
+import { useI18n } from 'vue-i18n'
+import ExitIcon from './icons/ExitIcon.vue'
+import FileUploadInput from './FileUploadInput.vue'
+import CameraIcon from './icons/CameraIcon.vue'
+import AuthorTag from './AuthorTag.vue'
+const MovieStore = useMovieStore()
+const AuthStore = useAuthStore()
+const NewsStore = useNewsStore()
+const props = defineProps(['inner', 'movie'])
 const data = reactive({
   user_id: AuthStore.author.id,
-  movie_id: props.inner ? props.movie.id : "",
-  title: { en: "", ka: "" },
-  image: null,
-});
+  movie_id: props.inner ? props.movie.id : '',
+  title: { en: '', ka: '' },
+  image: null
+})
 const getFile = (img) => {
-  data.image = img.value;
-};
+  data.image = img.value
+}
 onMounted(() => {
-  MovieStore.getMovies();
-});
+  MovieStore.getMovies()
+})
 const addQuote = () => {
-  NewsStore.addQuote(data);
-  NewsStore.modal = "";
-};
+  NewsStore.addQuote(data)
+  NewsStore.modal = ''
+}
 </script>

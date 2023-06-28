@@ -7,7 +7,7 @@
       } xs:h-[86px] text-xl font-normal flex items-center px-3`"
     >
       <PencilIcon />
-      {{ $t("feed.write_new_quote") }}
+      {{ $t('feed.write_new_quote') }}
     </button>
     <button
       @click="size = true"
@@ -25,7 +25,7 @@
         type="text"
       />
       <button class="text-[#CED4DA] w-42 p-2 mx-3" v-else>
-        {{ $t("feed.search_by") }}
+        {{ $t('feed.search_by') }}
       </button>
     </button>
   </div>
@@ -35,7 +35,7 @@
       :class="`bg-[#24222F] w-full text-white h-[86px] text-xl font-normal flex items-center px-3`"
     >
       <PencilIcon />
-      {{ $t("feed.write_new_quote") }}
+      {{ $t('feed.write_new_quote') }}
     </button>
   </div>
   <div
@@ -52,35 +52,38 @@
       />
     </div>
     <ul class="text-[#CED4DA] px-20 mt-5">
-      <li>{{ $t("feed.mobile_search_movies") }}</li>
-      <li class="mt-6">{{ $t("feed.mobile_search_quotes") }}</li>
+      <li>{{ $t('feed.mobile_search_movies') }}</li>
+      <li class="mt-6">{{ $t('feed.mobile_search_quotes') }}</li>
     </ul>
   </div>
 </template>
 
 <script setup>
-import SearchIcon from "./icons/SearchIcon.vue";
-import PencilIcon from "./icons/PencilIcon.vue";
-import ArrowIcon from "./icons/ArrowIcon.vue";
-import { ModalStore, NewsStore } from "../stores/index.js";
-import { ref } from "vue";
-import axiosInstance from "../config/axios-config";
-const input = ref("");
-const size = ref(false);
+import SearchIcon from './icons/SearchIcon.vue'
+import PencilIcon from './icons/PencilIcon.vue'
+import ArrowIcon from './icons/ArrowIcon.vue'
+import { useModalStore } from '../stores/ModalStore'
+import { useNewsStore } from '../stores/NewsStore'
+import { ref } from 'vue'
+import axiosInstance from '../config/axios-config'
+const ModalStore = useModalStore()
+const NewsStore = useNewsStore()
+const input = ref('')
+const size = ref(false)
 const search = async () => {
   try {
-    const response = await axiosInstance.get("/quotes", {
+    const response = await axiosInstance.get('/quotes', {
       params: {
-        query: input.value,
-      },
-    });
-    if (input.value === "") {
-      NewsStore.quotes = response.data.quotes.data;
+        query: input.value
+      }
+    })
+    if (input.value === '') {
+      NewsStore.quotes = response.data.quotes.data
     } else {
-      NewsStore.quotes = response.data.quotes;
+      NewsStore.quotes = response.data.quotes
     }
   } catch (error) {
-    console.error(error);
+    console.error(error)
   }
-};
+}
 </script>

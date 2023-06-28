@@ -15,7 +15,7 @@
           fill="#0F5132"
         />
       </svg>
-      <h1 class="text-[#0F5132] mx-2">{{ $t("modal.changes_updated_successfully") }}</h1>
+      <h1 class="text-[#0F5132] mx-2">{{ $t('modal.changes_updated_successfully') }}</h1>
     </div>
     <svg
       @click="ModalStore.closeModal"
@@ -53,5 +53,6 @@
 </template>
 
 <script setup>
-import { ModalStore } from "../stores/index.js";
+import { useModalStore } from '../stores/ModalStore'
+const ModalStore = useModalStore()
 </script>

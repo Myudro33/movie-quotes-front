@@ -1,13 +1,13 @@
 {
-    "my_profile":"My profile",
-    "upload_photo":"Upload new photo",
-    "edit":"Edit",
-    "password_requirements":"Passwords should contain:",
-    "password_min":"8 or more characters",
-    "password_max":"15 lowercase character",
-    "cancel":"Cancel",
-    "save_changes":"Save Changes",
-    "enter_username":"Enter new username",
-    "enter_email":"Enter new email",
-    "confirm":"Confirm"
+  "my_profile": "My profile",
+  "upload_photo": "Upload new photo",
+  "edit": "Edit",
+  "password_requirements": "Passwords should contain:",
+  "password_min": "8 or more characters",
+  "password_max": "15 lowercase character",
+  "cancel": "Cancel",
+  "save_changes": "Save Changes",
+  "enter_username": "Enter new username",
+  "enter_email": "Enter new email",
+  "confirm": "Confirm"
 }

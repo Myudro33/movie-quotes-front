@@ -23,36 +23,36 @@
   background-blend-mode: multiply;
 }
 .parallax1 {
-  background-image: url("../assets/landing/landing-image-1.png");
+  background-image: url('../assets/landing/landing-image-1.png');
 }
 .parallax2 {
-  background-image: url("../assets/landing/landing-image-2.png");
+  background-image: url('../assets/landing/landing-image-2.png');
 }
 .parallax3 {
-  background-image: url("../assets/landing/landing-image-3.png");
+  background-image: url('../assets/landing/landing-image-3.png');
 }
 </style>
 <script setup>
 const images = [
   {
-    class: "parallax parallax1",
+    class: 'parallax parallax1',
     text1: `“You have to leave somethig <br/>
 behind to go forward”`,
-    text2: "Interstellar, 2014",
+    text2: 'Interstellar, 2014'
   },
   {
-    class: "parallax parallax2",
+    class: 'parallax parallax2',
     text1: `“I think we’re just gonna have <br/>
 to be secretly in love with earch other <br/>
 and leave it that”`,
-    text2: "The Royal Tenenbaums,2001 ",
+    text2: 'The Royal Tenenbaums,2001 '
   },
   {
-    class: "parallax parallax3",
+    class: 'parallax parallax3',
     text1: `“I think we’re just gonna have <br />
             to be secretly in love with earch other <br />
             and leave it that”`,
-    text2: "The Royal Tenenbaums,2001",
-  },
-];
+    text2: 'The Royal Tenenbaums,2001'
+  }
+]
 </script>

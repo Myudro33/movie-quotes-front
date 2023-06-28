@@ -71,25 +71,25 @@
 </template>
 
 <script setup>
-import LoginFormVue from "./LoginForm.vue";
-import RegistrationForm from "./RegistrationForm.vue";
-import PasswordUpdateModal from "./PasswordUpdateModal.vue";
-import { ModalStore } from "../stores/index.js";
-import { onMounted, onBeforeUnmount } from "vue";
-import InfoModal from "./InfoModal.vue";
-import PasswordResetModal from "./PasswordResetModal.vue";
-const mailLink = import.meta.env.VITE_API_GMAIL_URL;
-
+import LoginFormVue from './LoginForm.vue'
+import RegistrationForm from './RegistrationForm.vue'
+import PasswordUpdateModal from './PasswordUpdateModal.vue'
+import { useModalStore } from '../stores/ModalStore'
+import { onMounted, onBeforeUnmount } from 'vue'
+import InfoModal from './InfoModal.vue'
+import PasswordResetModal from './PasswordResetModal.vue'
+const mailLink = import.meta.env.VITE_API_GMAIL_URL
+const ModalStore = useModalStore()
 onMounted(() => {
-  if (ModalStore.inner !== "" || ModalStore.mobile !== "") {
-    ModalStore.scroll(true);
+  if (ModalStore.inner !== '' || ModalStore.mobile !== '') {
+    ModalStore.scroll(true)
   }
-});
+})
 onBeforeUnmount(() => {
-  ModalStore.scroll(false);
-});
+  ModalStore.scroll(false)
+})
 const closeModal = () => {
-  ModalStore.closeModal();
-  ModalStore.removeQuery();
-};
+  ModalStore.closeModal()
+  ModalStore.removeQuery()
+}
 </script>

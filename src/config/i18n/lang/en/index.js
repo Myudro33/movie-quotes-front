@@ -6,7 +6,6 @@ import profile from './profile.json'
 import add_quote from './add_quote.json'
 import add_movie from './add_movie.json'
 
-
 const translations = {
   forms,
   landing,

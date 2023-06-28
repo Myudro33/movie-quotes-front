@@ -1,11 +1,11 @@
 {
-    "year":"წელი",
-    "genre":"აირჩიეთ ჟანრი",
-    "add_movie":"ფილმის დამატება",
-    "movie_list":"ჩემი ფილმების სია",
-    "movie_description":"ფილმის აღწერა",
-    "quotes":"ციტატები",
-    "total":"სულ",
-    "director":"რეჟისორი:",
-    "replace_photo":"შეცვალეთ ფოტო"
+  "year": "წელი",
+  "genre": "აირჩიეთ ჟანრი",
+  "add_movie": "ფილმის დამატება",
+  "movie_list": "ჩემი ფილმების სია",
+  "movie_description": "ფილმის აღწერა",
+  "quotes": "ციტატები",
+  "total": "სულ",
+  "director": "რეჟისორი:",
+  "replace_photo": "შეცვალეთ ფოტო"
 }

@@ -28,25 +28,26 @@
 </template>
 
 <script setup>
-import router from "../router";
-import { ModalStore } from "../stores/index.js";
-import DangerIcon from "./icons/DangerIcon.vue";
-import SendIcon from "./icons/SendIcon.vue";
-import SubmitIcon from "./icons/SubmitIcon.vue";
-import { useI18n } from "vue-i18n";
-const { t } = useI18n();
-const props = defineProps(["image", "heading", "paragraph", "button", "skip", "link"]);
+import router from '../router'
+import { useModalStore } from '../stores/ModalStore'
+import DangerIcon from './icons/DangerIcon.vue'
+import SendIcon from './icons/SendIcon.vue'
+import SubmitIcon from './icons/SubmitIcon.vue'
+import { useI18n } from 'vue-i18n'
+const ModalStore = useModalStore()
+const { t } = useI18n()
+const props = defineProps(['image', 'heading', 'paragraph', 'button', 'skip', 'link'])
 
 const onSubmit = () => {
-  if (props.button === t("modal.go_to_news_feed")) {
-    ModalStore.closeModal();
-    router.push({ name: "news" });
-  } else if (props.image === "verified") {
-    ModalStore.removeQuery();
-  } else if (props.button === t("modal.log_in")) {
-    ModalStore.inner = "login";
+  if (props.button === t('modal.go_to_news_feed')) {
+    ModalStore.closeModal()
+    router.push({ name: 'news' })
+  } else if (props.image === 'verified') {
+    ModalStore.removeQuery()
+  } else if (props.button === t('modal.log_in')) {
+    ModalStore.inner = 'login'
   } else {
-    ModalStore.closeModal();
+    ModalStore.closeModal()
   }
-};
+}
 </script>

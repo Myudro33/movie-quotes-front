@@ -1,11 +1,5 @@
 <template>
-  <svg
-    width="76"
-    height="76"
-    viewBox="0 0 76 76"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg width="76" height="76" viewBox="0 0 76 76" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
       d="M26.9167 49.0833C39.159 49.0833 49.0833 39.159 49.0833 26.9167C49.0833 14.6744 39.159 4.75 26.9167 4.75C14.6744 4.75 4.75 14.6744 4.75 26.9167C4.75 39.159 14.6744 49.0833 26.9167 49.0833Z"
       fill="#302B63"

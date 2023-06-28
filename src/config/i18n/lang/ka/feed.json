@@ -1,11 +1,11 @@
 {
-    "edit_profile":"პროფილის შეცვლა",
-    "news_feed":"სიახლეები",
-    "movie_list":"ფილმები",
-    "write_new_quote":"ციტატის დამატება",
-    "search_by":"ძებნა",
-    "search_mobile_placeholder":"ძებნა",
-    "search_placeholder":"შეიყვანეთ {'@'} ფილმების მოსაძებნად, შეიყვანეთ # ციტატების მოსაძებნად",
-    "mobile_search_movies":"შეიყვანეთ {'@'} ფილმების მოსაძებნად",
-    "mobile_search_quotes":"შეიყვანეთ # ციტატების მოსაძებნად"
+  "edit_profile": "პროფილის შეცვლა",
+  "news_feed": "სიახლეები",
+  "movie_list": "ფილმები",
+  "write_new_quote": "ციტატის დამატება",
+  "search_by": "ძებნა",
+  "search_mobile_placeholder": "ძებნა",
+  "search_placeholder": "შეიყვანეთ {'@'} ფილმების მოსაძებნად, შეიყვანეთ # ციტატების მოსაძებნად",
+  "mobile_search_movies": "შეიყვანეთ {'@'} ფილმების მოსაძებნად",
+  "mobile_search_quotes": "შეიყვანეთ # ციტატების მოსაძებნად"
 }

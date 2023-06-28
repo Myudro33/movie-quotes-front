@@ -6,5 +6,5 @@
 </template>
 
 <script setup>
-const props = defineProps(["label", "title", "required"]);
+const props = defineProps(['label', 'title', 'required'])
 </script>

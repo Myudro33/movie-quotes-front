@@ -1,11 +1,5 @@
 <template>
-  <svg
-    width="57"
-    height="57"
-    viewBox="0 0 57 57"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg width="57" height="57" viewBox="0 0 57 57" fill="none" xmlns="http://www.w3.org/2000/svg">
     <g clip-path="url(#clip0_369_31039)">
       <path
         fill-rule="evenodd"

@@ -17,9 +17,9 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
-const props = defineProps(["comment"]);
+import { computed } from 'vue'
+const props = defineProps(['comment'])
 const commentAuthorAvatar = computed(() => {
-  return import.meta.env.VITE_API_IMAGE_ENDPOINT + props.comment.author.avatar;
-});
+  return import.meta.env.VITE_API_IMAGE_ENDPOINT + props.comment.author.avatar
+})
 </script>
