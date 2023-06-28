@@ -1,17 +1,17 @@
 <template>
   <div
-    v-if="modalStore.mobile !== 'updated-succesfully' && modalStore.mobile !== 'confirm'"
+    v-if="ModalStore.mobile !== 'updated-succesfully' && ModalStore.mobile !== 'confirm'"
     class="bg-[#181623] w-full h-full absolute top-[70px] z-30"
   >
-    <Form v-slot="{ meta, errors }" class="w-full">
+    <Form v-slot="{ errors }" class="w-full">
       <div class="w-full h-10 mt-4 px-10 flex items-center md:hidden">
-        <ArrowIcon @click="modalStore.closeModal" />
+        <ArrowIcon @click="ModalStore.closeModal" />
       </div>
       <div
         class="bg-[#24222F] px-8 flex flex-col items-center justify-center w-full min-h-[235px] my-5"
       >
         <input-component
-          v-if="modalStore.mobile === 'username'"
+          v-if="ModalStore.mobile === 'username'"
           class="w-full"
           :rules="'required'"
           :error="errors.username"
@@ -21,7 +21,7 @@
           :label="$t('forms.name')"
         />
         <input-component
-          v-else-if="modalStore.mobile === 'email'"
+          v-else-if="ModalStore.mobile === 'email'"
           class="w-full"
           :rules="'required|email'"
           :error="errors.email"
@@ -30,7 +30,7 @@
           id="email"
           :label="$t('forms.email')"
         />
-        <div class="w-full" v-else-if="modalStore.mobile === 'password'">
+        <div class="w-full" v-else-if="ModalStore.mobile === 'password'">
           <div class="mt-4">
             <input-component
               :rules="'required|min:8|max:15|lowercase'"
@@ -55,48 +55,43 @@
         <p v-if="AuthStore.error" class="text-red-500">{{ AuthStore.error }}</p>
       </div>
       <div class="w-full flex justify-between px-2">
-        <button class="py-2 px-4 text-xl text-[#CED4DA]" @click="modalStore.closeModal">
-          {{ $t("profile.cancel") }}
+        <button class="py-2 px-4 text-xl text-[#CED4DA]" @click="ModalStore.closeModal">
+          {{ $t('profile.cancel') }}
         </button>
         <button
           type="button"
-          @click="modalStore.mobile = 'confirm'"
+          @click="ModalStore.mobile = 'confirm'"
           class="bg-[#E31221] py-2 px-4 text-white text-xl rounded-md disabled:bg-[#E3122140]"
         >
-          {{ $t("profile.edit") }}
+          {{ $t('profile.edit') }}
         </button>
       </div>
     </Form>
   </div>
   <div
-    @click="modalStore.closeModal()"
+    @click="ModalStore.closeModal()"
     class="w-full h-screen bg-[#00000050] absolute px-4 py-32 z-30"
-    v-else-if="modalStore.mobile === 'updated-succesfully'"
+    v-else-if="ModalStore.mobile === 'updated-succesfully'"
   >
     <MobileSuccessModal />
   </div>
   <div
     class="mt-16 absolute w-full px-8 z-30 h-screen bg-[#181623]"
-    v-else-if="modalStore.mobile === 'confirm'"
+    v-else-if="ModalStore.mobile === 'confirm'"
   >
-    <div
-      class="w-full h-52 mt-14 bg-gradient-to-l rounded-xl from-[#00000060] to-[#00000010]"
-    >
-      <h1 class="text-white text-center mt-16 mb-11">{{ $t("modal.are_you_sure") }}</h1>
+    <div class="w-full h-52 mt-14 bg-gradient-to-l rounded-xl from-[#00000060] to-[#00000010]">
+      <h1 class="text-white text-center mt-16 mb-11">{{ $t('modal.are_you_sure') }}</h1>
       <hr class="w-full border border-[#CED4DA33]" />
       <div class="w-full mt-4 flex justify-between px-2">
-        <button
-          class="py-2 px-4 text-xl text-[#CED4DA]"
-          @click="modalStore.mobile = back"
-        >
-          {{ $t("profile.cancel") }}
+        <button class="py-2 px-4 text-xl text-[#CED4DA]" @click="ModalStore.mobile = back">
+          {{ $t('profile.cancel') }}
         </button>
         <button
           type="button"
           @click="AuthStore.updateUser(form)"
           class="bg-[#E31221] py-2 px-4 text-white text-xl rounded-md disabled:bg-[#E3122140]"
         >
-          {{ $t("profile.confirm") }}
+          {{ $t('profile.confirm') }}
         </button>
       </div>
     </div>
@@ -104,29 +99,29 @@
 </template>
 
 <script setup>
-import ArrowIcon from "./icons/ArrowIcon.vue";
-import { Form } from "vee-validate";
-import { useModalStore } from "../stores/ModalStore";
-import { useAuthStore } from "../stores/AuthStore";
-import { reactive, onMounted, onBeforeUnmount, ref } from "vue";
-import MobileSuccessModal from "./MobileSuccessModal.vue";
-const props = defineProps(["input"]);
-const modalStore = useModalStore();
-const AuthStore = useAuthStore();
-const back = ref("");
+import ArrowIcon from './icons/ArrowIcon.vue'
+import { Form } from 'vee-validate'
+import { useModalStore } from '../stores/ModalStore'
+import { useAuthStore } from '../stores/AuthStore'
+import { reactive, onMounted, onBeforeUnmount, ref } from 'vue'
+import MobileSuccessModal from './MobileSuccessModal.vue'
+const ModalStore = useModalStore()
+const AuthStore = useAuthStore()
+const back = ref('')
 const form = reactive({
-  username: "",
-  email: "",
-  password: "",
-  newPassword: "",
-});
+  username: '',
+  email: AuthStore.author.email,
+  password: '',
+  newPassword: '',
+  avatar: ''
+})
 onMounted(() => {
-  back.value = modalStore.mobile;
-  if (modalStore.mobile !== "" || modalStore.inner !== "") {
-    modalStore.scroll(true);
+  back.value = ModalStore.mobile
+  if (ModalStore.mobile !== '' || ModalStore.inner !== '') {
+    ModalStore.scroll(true)
   }
-});
+})
 onBeforeUnmount(() => {
-  modalStore.scroll(false);
-});
+  ModalStore.scroll(false)
+})
 </script>

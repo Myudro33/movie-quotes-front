@@ -1,12 +1,10 @@
 <template>
-  <Form @submit="onSubmit" v-slot="{ meta, errors }" class="w-full">
-    <h1
-      class="xs:text-2xl md:text-4xl h-auto xs:mt-[70px] md:mt-2 text-white text-center"
-    >
-      {{ $t("forms.create_new_password") }}
+  <Form @submit="onSubmit" v-slot="{ errors }" class="w-full">
+    <h1 class="xs:text-2xl md:text-4xl h-auto xs:mt-[70px] md:mt-2 text-white text-center">
+      {{ $t('forms.create_new_password') }}
     </h1>
     <p class="text-[#6C757D] mt-3 text-center">
-      {{ $t("forms.create_new_password_paragraph") }}
+      {{ $t('forms.create_new_password_paragraph') }}
     </p>
     <div class="mt-4">
       <input-component
@@ -32,37 +30,39 @@
         :placeholder="$t('forms.confirm_password_placeholder')"
       />
     </div>
-    <p class="text-red-500" v-if="authStore.error">{{ authStore.error }}</p>
+    <p class="text-red-500" v-if="AuthStore.error && AuthStore.error !== 'Unauthenticated.'">
+      {{ AuthStore.error }}
+    </p>
     <button class="w-full h-[38px] my-5 bg-[#E31221] rounded-[4px] text-white">
-      {{ $t("forms.reset_password") }}
+      {{ $t('forms.reset_password') }}
     </button>
     <p
-      @click="modalStore.inner = 'login'"
+      @click="ModalStore.inner = 'login'"
       class="flex justify-center items-center cursor-pointer text-[#6C757D] font-normal"
     >
-      <ArrowIcon /> {{ $t("forms.back_to_login") }}
+      <ArrowIcon /> {{ $t('forms.back_to_login') }}
     </p>
   </Form>
 </template>
 
 <script setup>
-import ArrowIcon from "../components/icons/ArrowIcon.vue";
-import { Form } from "vee-validate";
-import { reactive } from "vue";
-import { useModalStore } from "../stores/ModalStore";
-import { useAuthStore } from "../stores/AuthStore";
-import router from "../router";
-const modalStore = useModalStore();
-const authStore = useAuthStore();
+import ArrowIcon from '../components/icons/ArrowIcon.vue'
+import { Form } from 'vee-validate'
+import { reactive } from 'vue'
+import { useAuthStore } from '../stores/AuthStore'
+import { useModalStore } from '../stores/ModalStore'
+import router from '../router'
+const AuthStore = useAuthStore()
+const ModalStore = useModalStore()
 const form = reactive({
-  password: "",
-  confirmPassword: "",
-});
+  password: '',
+  confirmPassword: ''
+})
 const onSubmit = () => {
-  authStore.passwordUpdate({
+  AuthStore.passwordUpdate({
     token: router.currentRoute.value.query.token,
     email: router.currentRoute.value.query.email,
-    password: form.password,
-  });
-};
+    password: form.password
+  })
+}
 </script>

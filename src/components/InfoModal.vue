@@ -21,33 +21,33 @@
     >
       {{ button }}
     </button>
-    <button @click="modalStore.closeModal" class="text-[#6C757D] md:mt-8" v-if="skip">
+    <button @click="ModalStore.closeModal" class="text-[#6C757D] md:mt-8" v-if="skip">
       {{ skip }}
     </button>
   </div>
 </template>
 
 <script setup>
-import router from "../router";
-import { useModalStore } from "../stores/ModalStore";
-import DangerIcon from "./icons/DangerIcon.vue";
-import SendIcon from "./icons/SendIcon.vue";
-import SubmitIcon from "./icons/SubmitIcon.vue";
-import { useI18n } from "vue-i18n";
-const { t } = useI18n();
-const props = defineProps(["image", "heading", "paragraph", "button", "skip", "link"]);
+import router from '../router'
+import { useModalStore } from '../stores/ModalStore'
+import DangerIcon from './icons/DangerIcon.vue'
+import SendIcon from './icons/SendIcon.vue'
+import SubmitIcon from './icons/SubmitIcon.vue'
+import { useI18n } from 'vue-i18n'
+const ModalStore = useModalStore()
+const { t } = useI18n()
+const props = defineProps(['image', 'heading', 'paragraph', 'button', 'skip', 'link'])
 
-const modalStore = useModalStore();
 const onSubmit = () => {
-  if (props.button === t("modal.go_to_news_feed")) {
-    modalStore.closeModal();
-    router.push({ name: "news" });
-  } else if (props.image === "verified") {
-    modalStore.removeQuery();
-  } else if (props.button === t("modal.log_in")) {
-    modalStore.inner = "login";
+  if (props.button === t('modal.go_to_news_feed')) {
+    ModalStore.closeModal()
+    router.push({ name: 'news' })
+  } else if (props.image === 'verified') {
+    ModalStore.removeQuery()
+  } else if (props.button === t('modal.log_in')) {
+    ModalStore.inner = 'login'
   } else {
-    modalStore.closeModal();
+    ModalStore.closeModal()
   }
-};
+}
 </script>

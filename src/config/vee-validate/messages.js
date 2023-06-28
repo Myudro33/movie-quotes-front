@@ -8,15 +8,19 @@ configure({
         email: 'This field must be email',
         min: '{field} must be min 0:{min} characters',
         max: '{field} must be max 0:{max} characters',
-        number:'{field} must be number',
-        lowercase:'{field} must be lowercase',
-        confirmed:"{field} doesn't match"
+        number: '{field} must be number',
+        lowercase: '{field} must be lowercase',
+        confirmed: "{field} doesn't match",
+        ka: '{field} must contain only Georgian characters',
+        en: '{field} must contain only English characters'
       },
       names: {
         firstName: 'Name',
         email: 'Email',
-        password:'Password',
-        confirmPassword:'Confirm password'
+        password: 'Password',
+        password_confirmation: 'Confirm password',
+        title_en: 'Quote',
+        title_ka: 'Quote'
       }
     },
     ka: {
@@ -25,15 +29,19 @@ configure({
         email: 'ეს ველი უნდა იყოს მეილის ფორმატში',
         min: '{field} უნდა შედგებოდეს მინიმუმ 0:{min} სიმბოლოსგან',
         max: '{field} უნდა შედგებოდეს მაქსიმუმ 0:{min} სიმბოლოსგან',
-        number:'{field} უნდა იყოს რიცხვი',
-        lowercase:'{field} უნდა იყოს დაბალ რეგისტრში',
-        confirmed:'{field} არ ემთხვევა პაროლს'
+        number: '{field} უნდა იყოს რიცხვი',
+        lowercase: '{field} უნდა იყოს დაბალ რეგისტრში',
+        confirmed: '{field} არ ემთხვევა პაროლს',
+        ka: '{field} უნდა შეიცავლდეს მხოლოდ ქართულ სიმბოლოებს',
+        en: '{field} უნდა შეიცავლდეს მხოლოდ ინგლისურ სიმბოლოებს'
       },
       names: {
         username: 'სახელი',
         email: 'მეილი',
-        password:'პაროლი',
-        confirmPassword:'გაიმეორეთ პაროლი'
+        password: 'პაროლი',
+        password_confirmation: 'გაიმეორეთ პაროლი',
+        title_en: 'ციტატა',
+        title_ka: 'ციტატა'
       }
     }
   })

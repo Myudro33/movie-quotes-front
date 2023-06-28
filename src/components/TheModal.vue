@@ -9,12 +9,12 @@
       name="inner"
       class="xs:w-screen xs:h-screen md:w-[601px] md:h-auto flex flex-col md:px-[120px] xs:px-[34px] md:py-10 bg-[#222030] items-center rounded-[10px]"
     >
-      <LoginFormVue v-if="modalStore.inner === 'login'" />
-      <RegistrationForm v-else-if="modalStore.inner === 'register'" />
-      <PasswordUpdateModal v-else-if="modalStore.inner === 'forgot_password'" />
-      <PasswordResetModal v-else-if="modalStore.inner === 'reset-email-verified'" />
+      <LoginFormVue v-if="ModalStore.inner === 'login'" />
+      <RegistrationForm v-else-if="ModalStore.inner === 'register'" />
+      <PasswordUpdateModal v-else-if="ModalStore.inner === 'forgot_password'" />
+      <PasswordResetModal v-else-if="ModalStore.inner === 'reset-email-verified'" />
       <InfoModal
-        v-if="modalStore.inner === 'registered'"
+        v-if="ModalStore.inner === 'registered'"
         image="send"
         :link="mailLink"
         :heading="$t('modal.check_email')"
@@ -22,7 +22,7 @@
         :button="$t('modal.go_to_email')"
       />
       <InfoModal
-        v-if="modalStore.inner === 'update-email-sent'"
+        v-if="ModalStore.inner === 'update-email-sent'"
         image="send"
         :link="mailLink"
         :heading="$t('modal.check_email')"
@@ -30,7 +30,7 @@
         :button="$t('modal.go_to_email')"
       />
       <InfoModal
-        v-else-if="modalStore.inner === 'instructions_sent'"
+        v-else-if="ModalStore.inner === 'instructions_sent'"
         image="send"
         :link="mailLink"
         :heading="$t('modal.check_email')"
@@ -39,52 +39,57 @@
         :skip="$t('modal.confirm_later')"
       />
       <InfoModal
-        v-else-if="modalStore.inner === 'verified'"
+        v-else-if="ModalStore.inner === 'verified'"
         image="verified"
         :heading="$t('modal.thank_you')"
         :paragraph="$t('modal.account_activated')"
         :button="$t('modal.go_to_news_feed')"
       />
       <InfoModal
-        v-else-if="modalStore.inner === 'user-updated'"
+        v-else-if="ModalStore.inner === 'user-updated'"
         image="verified"
         :heading="$t('modal.success')"
         :paragraph="$t('modal.changes_updated_successfully')"
         :button="$t('modal.go_to_news_feed')"
       />
       <InfoModal
-        v-else-if="modalStore.inner === 'email-updated'"
+        v-else-if="ModalStore.inner === 'email-updated'"
         image="verified"
         :heading="$t('modal.success')"
         :paragraph="$t('modal.email_success_paragraph')"
         :button="$t('modal.log_in')"
+      />
+      <InfoModal
+        v-else-if="ModalStore.inner === 'password-changed'"
+        image="verified"
+        :heading="$t('modal.success')"
+        :paragraph="$t('modal.password_success_paragraph')"
+        :button="$t('modal.go_to_news_feed')"
       />
     </div>
   </div>
 </template>
 
 <script setup>
-import LoginFormVue from "./LoginForm.vue";
-import RegistrationForm from "./RegistrationForm.vue";
-import PasswordUpdateModal from "./PasswordUpdateModal.vue";
-import { useModalStore } from "../stores/ModalStore";
-import { onMounted, onBeforeUnmount } from "vue";
-import InfoModal from "./InfoModal.vue";
-import PasswordResetModal from "./PasswordResetModal.vue";
-const props = defineProps(["modalActive", "inner"]);
-const mailLink = import.meta.env.VITE_API_GMAIL_URL;
-
-const modalStore = useModalStore();
+import LoginFormVue from './LoginForm.vue'
+import RegistrationForm from './RegistrationForm.vue'
+import PasswordUpdateModal from './PasswordUpdateModal.vue'
+import { useModalStore } from '../stores/ModalStore'
+import { onMounted, onBeforeUnmount } from 'vue'
+import InfoModal from './InfoModal.vue'
+import PasswordResetModal from './PasswordResetModal.vue'
+const mailLink = import.meta.env.VITE_API_GMAIL_URL
+const ModalStore = useModalStore()
 onMounted(() => {
-  if (modalStore.inner !== "" || modalStore.mobile !== "") {
-    modalStore.scroll(true);
+  if (ModalStore.inner !== '' || ModalStore.mobile !== '') {
+    ModalStore.scroll(true)
   }
-});
+})
 onBeforeUnmount(() => {
-  modalStore.scroll(false);
-});
+  ModalStore.scroll(false)
+})
 const closeModal = () => {
-  modalStore.closeModal();
-  modalStore.removeQuery();
-};
+  ModalStore.closeModal()
+  ModalStore.removeQuery()
+}
 </script>

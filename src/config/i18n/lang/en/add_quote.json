@@ -1,0 +1,13 @@
+{
+  "create_quote": "Write new quote",
+  "drag_drop": "Drag & drop your image here or",
+  "add_quote": "Add quote",
+  "upload_image": "Upload image",
+  "choose_file": "Choose file",
+  "choose_movie": "Choose movie",
+  "post": "Post",
+  "show_more": "Show more comments",
+  "show_less": "Show less comments",
+  "loading": "Loading...",
+  "all_posts_loaded": "All posts have been loaded."
+}
