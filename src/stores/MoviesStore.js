@@ -52,7 +52,7 @@ export const useMovieStore = defineStore('MoviesStore', {
         JSON.stringify({ en: data.movie_description.en, ka: data.movie_description.ka })
       )
       formData.append('director', JSON.stringify({ en: data.director.en, ka: data.director.ka }))
-      const response = await axiosInstance.post(`/movie-update/${this.movie.id}`, formData, {
+      const response = await axiosInstance.post(`/movies/${this.movie.id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -88,7 +88,7 @@ export const useMovieStore = defineStore('MoviesStore', {
       this.genres = response.data.genres
     },
     async deleteMovie() {
-      await axiosInstance.delete(`/delete-movie/${this.movie.id}`)
+      await axiosInstance.delete(`/movies/${this.movie.id}`)
       router.back()
     }
   }
