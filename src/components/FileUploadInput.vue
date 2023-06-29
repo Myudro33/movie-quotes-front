@@ -1,5 +1,5 @@
 <template>
-  <div
+  <div v-if="!props.stage"
     @dragenter.prevent="toggleActive"
     @dragleave.prevent="toggleActive"
     @dragover.prevent
@@ -29,6 +29,18 @@
       <p v-if="dropzoneFile.name" class="text-white ml-2">{{ dropzoneFile.name }}</p>
     </div>
   </div>
+  <div v-else class="flex justify-center items-center">
+  <div  class="text-white text-2xl absolute bottom-64   w-[8.4rem] h-[5.25rem] bg-black opacity-80 rounded-lg flex flex-col justify-center items-center" >
+  <PhotoIcon/>
+  <label
+        :class="props.edit && 'mt-2 ml-0'"
+        class="xs:text-xs md:text-xl p-2 text-white rounded-[4px] ml-2"
+        for="dropzoneFile"
+        >{{ $t('add_quote.choose_file') }}</label
+      >
+      <input @input="selectedFile" class="hidden" type="file" id="dropzoneFile" />
+  </div>
+  </div>
 </template>
 
 <script setup>
@@ -37,7 +49,7 @@ import PhotoIcon from './icons/PhotoIcon.vue'
 const active = ref(false)
 const dropzoneFile = ref('')
 const emit = defineEmits(['selectFile'])
-const props = defineProps(['edit', 'image'])
+const props = defineProps(['edit', 'image','stage'])
 const toggleActive = (e) => {
   active.value = !active.value
   dropzoneFile.value = e.dataTransfer.files[0]

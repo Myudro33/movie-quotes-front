@@ -12,5 +12,6 @@
   "all_posts_loaded": "ყველა პოსტი ჩატვირთულია.",
   "view_quote":"ციტატის დათვალიერება",
   "edit_quote":"შეცვლა",
-  "delete_quote":"წაშლა"
+  "delete_quote":"წაშლა",
+  "save_changes":"შენახვა"
 }

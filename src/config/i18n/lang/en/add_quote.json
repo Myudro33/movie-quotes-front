@@ -12,5 +12,6 @@
   "all_posts_loaded": "All posts have been loaded.",
   "view_quote":"View Quote",
   "edit_quote":"Edit",
-  "delete_quote":"Delete"
+  "delete_quote":"Delete",
+  "save_changes":"Save Changes"
 }

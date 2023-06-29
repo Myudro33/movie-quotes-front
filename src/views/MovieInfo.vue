@@ -2,7 +2,7 @@
   <AddQuoteModal
     v-if="NewsStore.modal === 'add-quote'"
     :inner="true"
-    :stage="quoteModalStage"
+    :stage="MovieStore.quoteModal"
     :movie="MovieStore.movie"
   />
   <AddMovieModal :edit="true" v-if="MovieStore.modal === 'add-movie'" />
@@ -68,7 +68,7 @@
         class="border xs:w-full md:w-0 md:h-8 xs:my-4 md:my-0 md:mx-4 border-[#6C757D] xs:rotate-180 md:rotate-0"
       />
       <button
-        @click="NewsStore.modal = 'add-quote'"
+        @click="openAddQuoteModal"
         class="bg-[#E31221] rounded-md text-white md:text-xl flex items-center justify-between px-2 h-12"
       >
         <PlusSquareIcon class="mx-2" /> {{ $t("add_quote.add_quote") }}
@@ -140,7 +140,6 @@
 
 <script setup>
 import { image, openQuoteModal } from "../services";
-import { modalStage } from "../services/quotesService";
 import { useI18n } from "vue-i18n";
 import { useNewsStore } from "../stores/NewsStore";
 import { useAuthStore } from "../stores/AuthStore";
@@ -157,7 +156,6 @@ import CommentIcon from "../components/icons/CommentIcon.vue";
 import HeartIcon from "../components/icons/HeartIcon.vue";
 import AddMovieModal from "../components/AddMovieModal.vue";
 const quoteModal = ref("");
-const quoteModalStage = ref("");
 const MovieStore = useMovieStore();
 const NewsStore = useNewsStore();
 const AuthStore = useAuthStore();
@@ -184,8 +182,12 @@ onMounted(async () => {
 const modal = (num) => {
   openQuoteModal(num, quoteModal);
 };
+const openAddQuoteModal = () => {
+  NewsStore.modal = "add-quote";
+  MovieStore.quoteModal = "";
+};
 const setStage = (val, index) => {
-  modalStage(val, quoteModalStage);
+  MovieStore.quoteModal = val;
   MovieStore.quote = MovieStore.movie.quotes.find((quote) => quote.id === index);
   NewsStore.modal = "add-quote";
 };
