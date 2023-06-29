@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import axiosInstance from '../config/axios-config'
+import { update } from '../services/quoteServices'
 
 export const useNewsStore = defineStore('newsStore', {
   state: () => ({
@@ -51,7 +52,7 @@ export const useNewsStore = defineStore('newsStore', {
       formData.append('movie_id', data.movie_id)
       formData.append('title', JSON.stringify({ en: data.title.en, ka: data.title.ka }))
       formData.append('image', data.image)
-      const response = await axiosInstance.post('/quote', formData, {
+      const response = await axiosInstance.post('/quotes', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -60,5 +61,9 @@ export const useNewsStore = defineStore('newsStore', {
       movie.quotes.unshift(response.data.quote)
       return this.quotes.unshift(response.data.quote)
     },
+    async updateQuote(data,quote){
+    const file  = data.image===quote.image?null:quote.image
+     update(data,file,quote.id)
+    }
   }
 })
