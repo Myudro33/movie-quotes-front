@@ -60,10 +60,5 @@ export const useNewsStore = defineStore('newsStore', {
       movie.quotes.unshift(response.data.quote)
       return this.quotes.unshift(response.data.quote)
     },
-    async comment(data) {
-      const response = await axiosInstance.post('/comments', data)
-      const quote = this.quotes.find((quote) => quote.id === response.data.comment.quote_id)
-      return quote.comments.push(response.data.comment)
-    }
   }
 })

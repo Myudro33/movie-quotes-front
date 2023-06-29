@@ -66,6 +66,7 @@ import { useNewsStore } from "../stores/NewsStore";
 import CommentIcon from "./icons/CommentIcon.vue";
 import HeartIcon from "./icons/HeartIcon.vue";
 import TheComment from "./TheComment.vue";
+import {createComment} from '../services/commentService'
 import { computed, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { avatar, image } from "../services/index.js";
@@ -96,15 +97,17 @@ const liked = computed(() => {
   return props.quote?.likes.some((like) => like.author_id === AuthStore.author.id);
 });
 const addComment = () => {
-  NewsStore.comment({
+ const data={
     user_id: AuthStore.author.id,
-    quote_id: props.quote.id,
     title: title.value,
-  });
+  };
+  createComment(data,props.quote,'feed')
   title.value = "";
 };
 const addLike = async () => {
   const data = { quote_id: props.quote.id, user_id: AuthStore.author.id };
-  liked.value ? deleteLike(data) : createLike(data);
+  liked.value
+    ? deleteLike(data, props.quote, "feed")
+    : createLike(data, props.quote, "feed");
 };
 </script>
