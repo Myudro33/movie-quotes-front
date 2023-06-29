@@ -100,7 +100,7 @@
             <PenIcon />
             <h1 class="ml-2">{{ $t("add_quote.edit_quote") }}</h1>
           </div>
-          <div class="flex items-center cursor-pointer">
+          <div @click="deleteQuote(item.id)" class="flex items-center cursor-pointer">
             <TrashIcon />
             <h1 class="ml-2">{{ $t("add_quote.delete_quote") }}</h1>
           </div>
@@ -140,12 +140,13 @@
 
 <script setup>
 import { image, openQuoteModal } from "../services";
+import { createLike, deleteLike } from "../services/likeService";
+import { deleteQuote } from "../services/quoteServices";
 import { useI18n } from "vue-i18n";
 import { useNewsStore } from "../stores/NewsStore";
 import { useAuthStore } from "../stores/AuthStore";
 import { useMovieStore } from "../stores/MoviesStore";
 import { onMounted, computed, ref } from "vue";
-import { createLike, deleteLike } from "../services/likeService";
 import EyeIcon2 from "../components/icons/EyeIcon2.vue";
 import PenIcon from "../components/icons/PenIcon.vue";
 import TrashIcon from "../components/icons/TrashIcon.vue";

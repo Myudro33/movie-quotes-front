@@ -15,10 +15,15 @@
             class="cursor-pointer"
           />
           <hr v-if="props.stage === 'view'" class="border border-[#6C757D] h-5" />
-          <TrashIcon v-if="props.stage === 'edit' || props.stage === 'view'" />
-          <h1 v-if="props.stage === 'edit'" class="text-white mr-6">
-            {{ $t("add_quote.delete_quote") }}
-          </h1>
+          <div
+            @click="deleteQuote(MovieStore.quote.id)"
+            class="flex items-center cursor-pointer"
+          >
+            <TrashIcon v-if="props.stage === 'edit' || props.stage === 'view'" />
+            <h1 v-if="props.stage === 'edit'" class="text-white ml-2">
+              {{ $t("add_quote.delete_quote") }}
+            </h1>
+          </div>
         </div>
         <h1 v-if="props.stage !== ''" class="text-2xl xs:hidden md:flex text-white">
           {{
@@ -199,6 +204,7 @@
 </template>
 
 <script setup>
+import { deleteQuote } from "../services/quoteServices";
 import TheComment from "../components/TheComment.vue";
 import { createComment } from "../services/commentService";
 import { image, avatar } from "../services";
@@ -238,7 +244,7 @@ const getFile = (img) => {
 onMounted(() => {
   MovieStore.getMovies();
   if (props.stage !== "") {
-    data.title = { en: MovieStore.quote.title.en, ka: MovieStore.quote.title.ka };
+    data.title = { en: MovieStore.quote.title?.en, ka: MovieStore.quote.title?.ka };
     data.image = MovieStore?.quote?.image;
   }
 });
