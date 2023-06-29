@@ -58,6 +58,9 @@ export const useMovieStore = defineStore('MoviesStore', {
           'Content-Type': 'multipart/form-data'
         }
       })
+      const index = this.movies.findIndex(movie=>movie.id===this.movie.id)
+      this.movies[index] = response.data.movie
+      this.movie=response.data.movie
       return this.movies.push(response.data.movie)
     },
     async getMovie() {

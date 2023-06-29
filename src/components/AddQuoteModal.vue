@@ -114,7 +114,12 @@
               <option selected disabled value="">
                 {{ $t("add_quote.choose_movie") }}
               </option>
-              <option selected v-if="props.inner" :value="props.movie.id">
+              <option
+                :selected="props.inner"
+                :disabled="props.inner"
+                v-if="props.inner"
+                :value="props.movie.id"
+              >
                 {{
                   useI18n().locale.value === "en"
                     ? props.movie.name.en
@@ -123,7 +128,7 @@
               </option>
               <option
                 v-else
-                v-for="(item, index) in NewsStore.movies"
+                v-for="(item, index) in MovieStore.movies"
                 :key="index"
                 :value="item.id"
               >

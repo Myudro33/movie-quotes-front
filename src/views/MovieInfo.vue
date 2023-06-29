@@ -7,7 +7,7 @@
   />
   <AddMovieModal :edit="true" v-if="MovieStore.modal === 'add-movie'" />
   <h1 v-if="loading"></h1>
-  <div v-else class="flex flex-col absolute xs:py-10 md:py-0">
+  <div v-else class="flex flex-col xs:py-10 md:py-0 absolute md:right-20">
     <h1 class="text-2xl text-white xs:hidden md:flex">
       {{ $t("add_movie.movie_description") }}
     </h1>

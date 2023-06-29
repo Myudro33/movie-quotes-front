@@ -12,7 +12,7 @@
       <div class="flex" v-if="!props.edit">
         <div v-for="(chip, i) of chips" :key="i" class="h-auto px-1 py-2">
           <span
-            class="text-white text-[14px] ml-2 bg-[#6C757D] px-2 py-2 flex justify-between items-center min-w-[70px]"
+            class="text-white text-[14px] bg-[#6C757D] px-2 py-2 flex justify-between items-center min-w-[70px]"
             >{{ useI18n().locale.value === "en" ? chip.name.en : chip.name.ka }}
             <button @click="removeGenre(i)">
               <ExitIcon /></button
@@ -22,7 +22,7 @@
 
       <div v-else v-for="(chip, b) of editChips" :key="b" class="h-auto px-1 py-2">
         <span
-          class="text-white text-[14px] ml-2 bg-[#6C757D] px-2 py-2 flex justify-between items-center min-w-[70px]"
+          class="text-white text-[14px] bg-[#6C757D] px-2 py-2 flex justify-between items-center min-w-[70px]"
           >{{ useI18n().locale.value === "en" ? chip.name.en : chip.name.ka }}
           <button @click="removeGenre(b)">
             <ExitIcon /></button
@@ -50,7 +50,7 @@
         class="absolute xs:bottom-0 md:bottom-[21rem] px-10 bg-[#11101A] z-[100] rounded-md flex flex-col justify-around py-3"
         v-if="items"
       >
-        <div v-if="!props.edit">
+        <div>
           <li
             @click="setGenre(genre)"
             v-for="(genre, i) of MovieStore.genres"
@@ -60,16 +60,6 @@
             {{ useI18n().locale.value === "en" ? genre.name.en : genre.name.ka }}
           </li>
         </div>
-
-        <li
-          v-else
-          @click="setGenre(genre)"
-          v-for="(genre, b) of MovieStore.genres"
-          :key="b"
-          class="text-white text-[20px] cursor-pointer"
-        >
-          {{ useI18n().locale.value === "en" ? genre.name.en : genre.name.ka }}
-        </li>
       </ul>
     </div>
   </Field>

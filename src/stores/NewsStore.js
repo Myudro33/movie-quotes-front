@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import axiosInstance from '../config/axios-config'
 import { update } from '../services/quoteServices'
+import { useMovieStore } from './MoviesStore'
 
 export const useNewsStore = defineStore('newsStore', {
   state: () => ({
@@ -57,8 +58,10 @@ export const useNewsStore = defineStore('newsStore', {
           'Content-Type': 'multipart/form-data'
         }
       })
-      const movie = this.movies.find((movie) => movie.id === response.data.quote.movie.id)
-      movie.quotes.unshift(response.data.quote)
+      const MovieStore = useMovieStore()
+      // const movie = MovieStore.movies.find((movie) => movie.id === response.data.quote.movie.id)
+      MovieStore.movie.quotes.unshift(response.data.quote)
+      // movie.quotes.unshift(response.data.quote)
       return this.quotes.unshift(response.data.quote)
     },
     async updateQuote(data,quote){
