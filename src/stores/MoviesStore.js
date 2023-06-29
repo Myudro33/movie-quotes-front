@@ -9,6 +9,7 @@ export const useMovieStore = defineStore('MoviesStore', {
     modal: '',
     movies: [],
     movie: '',
+    quote:"",
     genres: []
   }),
   actions: {
@@ -58,25 +59,6 @@ export const useMovieStore = defineStore('MoviesStore', {
         }
       })
       return this.movies.push(response.data.movie)
-    },
-    async addMovieQuoteLike(data) {
-      const NewsStore = useNewsStore()
-      const AuthStore = useAuthStore()
-      const quote = this.movie.quotes.find((quote) => quote.id === data.quote_id)
-      const newsPageQuote = NewsStore.quotes.find((quote) => quote.id === data.quote_id)
-      const exists = quote.likes.some((like) => like.author_id === AuthStore.author.id)
-      const like = quote.likes.find((like) => like.author_id === AuthStore.author.id)
-      if (exists) {
-        await axiosInstance.delete(`/likes/${like.id}`)
-        quote.likes = quote.likes.filter((like) => like.author_id !== like.author_id)
-        newsPageQuote.likes = newsPageQuote.likes.filter(
-          (like) => like.author_id !== like.author_id
-        )
-      } else {
-        const response = await axiosInstance.post('/likes', data)
-        quote.likes.push(response.data.like)
-        newsPageQuote.likes.push(response.data.like)
-      }
     },
     async getMovie() {
       const id = router.currentRoute.value.params.id
