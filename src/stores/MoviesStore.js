@@ -2,7 +2,6 @@ import { defineStore } from 'pinia'
 import { useAuthStore } from './AuthStore.js'
 import axiosInstance from '../config/axios-config'
 import router from '../router'
-import { useNewsStore } from './NewsStore.js'
 
 export const useMovieStore = defineStore('MoviesStore', {
   state: () => ({

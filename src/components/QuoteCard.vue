@@ -36,7 +36,7 @@
       @click="toggleComments"
       class="text-white my-2 font-bold"
     >
-      {{ showMoreButton ? $t("addquote.show_more") : $t("addquote.show_less") }}
+      {{ showMoreButton ? $t("add_quote.show_more") : $t("add_quote.show_less") }}
     </button>
     <Form @submit="addComment" class="flex flex-col mt-6">
       <div class="w-full flex">
@@ -62,7 +62,6 @@
 <script setup>
 import { Form, Field, ErrorMessage } from "vee-validate";
 import { useAuthStore } from "../stores/AuthStore";
-import { useNewsStore } from "../stores/NewsStore";
 import CommentIcon from "./icons/CommentIcon.vue";
 import HeartIcon from "./icons/HeartIcon.vue";
 import TheComment from "./TheComment.vue";
@@ -72,7 +71,6 @@ import { useI18n } from "vue-i18n";
 import { avatar, image } from "../services/index.js";
 import { deleteLike, createLike } from "../services/likeService.js";
 const AuthStore = useAuthStore();
-const NewsStore = useNewsStore();
 const props = defineProps(["quote"]);
 const locale = computed(() => {
   return useI18n().locale.value;
