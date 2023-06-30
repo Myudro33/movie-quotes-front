@@ -3,7 +3,6 @@ import router from '../router/index.js'
 import { useModalStore } from './ModalStore.js'
 import axiosInstance from '../config/axios-config/index.js'
 import axios from 'axios'
-import { useI18n } from 'vue-i18n'
 
 export const useAuthStore = defineStore('authStore', {
   state: () => ({
@@ -24,12 +23,12 @@ export const useAuthStore = defineStore('authStore', {
         this.error = error.response.data.message
       }
     },
-    async register(data) {
+    async register(data,locale) {
       const ModalStore = useModalStore()
       try {
         await axiosInstance.post('/register', data, {
           params: {
-            locale: useI18n().locale.value
+            locale
           }
         })
         ModalStore.openModal('registered')
@@ -68,12 +67,13 @@ export const useAuthStore = defineStore('authStore', {
         this.error = error.response.data.message
       }
     },
-    async passwordReset(email) {
+    async passwordReset(email,locale) {
+      console.log(email);
       const ModalStore = useModalStore()
       try {
-        await axiosInstance.post(`/forgot-password/${email}`, {
+        await axiosInstance.post('/forgot-password',{email}, {
           params: {
-            locale: useI18n().locale.value
+            locale
           }
         })
         ModalStore.inner = 'instructions_sent'
@@ -114,6 +114,7 @@ export const useAuthStore = defineStore('authStore', {
           }
           this.error = ''
         } catch (error) {
+          alert(error)
           this.error = error.response?.data.message
         }
       }
