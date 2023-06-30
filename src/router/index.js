@@ -53,6 +53,12 @@ const router = createRouter({
           component: () => import('../views/MovieInfo.vue')
         }
       ]
+    },
+    {
+      path:'/forbidden',
+      name:'forbidden',
+      meta:{auth:true},
+      component:()=>import('../views/ForbiddenPage.vue')
     }
   ]
 })
