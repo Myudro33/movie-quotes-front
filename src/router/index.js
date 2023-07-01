@@ -57,7 +57,7 @@ const router = createRouter({
     {
       path:'/forbidden',
       name:'forbidden',
-      meta:{auth:true},
+      meta:{auth:false},
       component:()=>import('../views/ForbiddenPage.vue')
     }
   ]
@@ -67,7 +67,7 @@ router.beforeEach(async (to, _, next) => {
   const AuthStore = useAuthStore()
   await AuthStore.getUser()
   if (to.meta.auth && !AuthStore.author) {
-    router.push({ name: 'landing' })
+    router.push({ name: 'forbidden' })
   } else {
     next()
   }
