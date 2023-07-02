@@ -11,7 +11,7 @@ const router = createRouter({
       meta: { auth: false }
     },
     {
-      path: '/:token',
+      path: '/verify/:token',
       meta: { auth: false },
       name: 'verify',
       component: () => import('../views/TokenVerify.vue')
@@ -55,11 +55,16 @@ const router = createRouter({
       ]
     },
     {
-      path:'/forbidden',
-      name:'forbidden',
-      meta:{auth:false},
-      component:()=>import('../views/ForbiddenPage.vue')
-    }
+      path: '/forbidden',
+      name: 'forbidden',
+      meta: { auth: false },
+      component: () => import('../views/ForbiddenPage.vue')
+    },
+    {
+      path: '/:catchAll(.*)',
+      name: 'notfound',
+      component: () => import('../views/NotFound.vue')
+    },
   ]
 })
 

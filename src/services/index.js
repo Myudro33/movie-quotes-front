@@ -18,10 +18,8 @@ export const verify = async (url) => {
       ModalStore.inner = response.data.stage
     })
   } else if (url.query.email === 'reset-password') {
-    await axiosInstance.get(`/password-update/${url.params.token}`).then((response) => {
-      router.push(`?email=${response.data.email}&token=${response.data.token}`)
-      ModalStore.inner = response.data.stage
-    })
+    router.replace(`/?email=${url.query.user}&token=${url.params.token}`)
+    ModalStore.inner = 'reset-email-verified'
   } else if (url.query.email === 'email-update') {
     await axiosInstance
       .post(`/update-email/${url.params.token}`, {
