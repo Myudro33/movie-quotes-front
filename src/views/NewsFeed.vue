@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="md:w-[45rem] lg:w-[58.625rem] md:ml-36">
     <AddQuoteModal stage="" v-if="NewsStore.modal === 'add-quote'" :inner="false" />
     <SearchInput />
     <QuoteCard v-for="item of NewsStore.quotes" :quote="item" :key="item.id" />

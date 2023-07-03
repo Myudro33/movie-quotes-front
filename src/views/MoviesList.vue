@@ -1,8 +1,8 @@
 <template>
   <AddMovieModal v-if="MovieStore.modal === 'add-movie'" />
-  <div class="xs:w-full xs:py-4 xs:px-8 md:p-0 lg:w-[88.75rem]">
+  <div class="xs:w-full xs:py-4 xs:px-8 md:p-0 w-full md:pr-10 lg:pr-20">
     <MovieListHeading />
-    <div class="flex xs:flex-col md:gap-12 md:flex-row md:flex-wrap">
+    <div class="flex xs:flex-col md:gap-10 md:flex-row md:flex-wrap">
       <MovieCard v-for="item in MovieStore.movies" :movie="item" :key="item.id" />
     </div>
   </div>
