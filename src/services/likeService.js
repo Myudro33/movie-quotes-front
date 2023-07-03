@@ -19,7 +19,6 @@ export const deleteLike = async (data,quote,page) => {
 }
 
 export const createLike = async (data,quote,page) => {
-    console.log(page);
     const NewsStore = useNewsStore()
     const newsQuotes = NewsStore.quotes.find(quote=>quote.id===data.quote_id)
     const response = await axiosInstance.post('/likes', data)

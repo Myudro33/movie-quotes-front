@@ -9,6 +9,5 @@ if(page!=='feed'){
     return quote.comments.push(response.data.comment)
 }else{
     newsQuote.comments.push(response.data.comment)
-    console.log(newsQuote);
 }
 }

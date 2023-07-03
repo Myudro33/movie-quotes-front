@@ -242,7 +242,6 @@ const addChips = (event) => {
   }
 };
 const removeGenre = (event) => {
-  console.log(event);
   data.value.genre.splice(event, 1);
 };
 const post = () => {
