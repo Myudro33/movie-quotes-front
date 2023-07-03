@@ -37,8 +37,7 @@
 </template>
 
 <script setup>
-import PlusSquareIcon from "../components/icons/PlusSquareIcon.vue";
-import SearchIcon from "../components/icons/SearchIcon.vue";
+import { PlusSquareIcon, SearchIcon } from "../components/icons/index.js";
 import { useMovieStore } from "../stores/MoviesStore";
 import axiosInstance from "../config/axios-config";
 import { ref } from "vue";

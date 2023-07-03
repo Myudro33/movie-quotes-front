@@ -203,7 +203,7 @@ import { onMounted, ref } from "vue";
 import { useAuthStore } from "../stores/AuthStore.js";
 import { useMovieStore } from "../stores/MoviesStore";
 const MovieStore = useMovieStore();
-import ExitIcon from "./icons/ExitIcon.vue";
+import { ExitIcon } from "./icons/index.js";
 import FileUploadInput from "./FileUploadInput.vue";
 import ChipInput from "./ChipInput.vue";
 import { image } from "../services";

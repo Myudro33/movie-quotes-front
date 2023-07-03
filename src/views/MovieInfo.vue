@@ -13,7 +13,7 @@
     </h1>
     <div class="flex mt-8 xs:flex-col md:flex-row xs:px-8 md:px-0">
       <img
-        class="xs:w-full xs:h-72 md:w-[50rem] md:h-[27rem] rounded-xl shrink-0"
+        class="xs:w-full xs:h-72 md:w-[30rem] lg:w-[50rem] md:h-[27rem] rounded-xl shrink-0"
         :src="image + MovieStore.movie.image"
         alt="movie"
       />
@@ -149,14 +149,8 @@ import { useNewsStore } from "../stores/NewsStore";
 import { useAuthStore } from "../stores/AuthStore";
 import { useMovieStore } from "../stores/MoviesStore";
 import { onMounted, computed, ref } from "vue";
-import EyeIcon2 from "../components/icons/EyeIcon2.vue";
-import PenIcon from "../components/icons/PenIcon.vue";
-import TrashIcon from "../components/icons/TrashIcon.vue";
-import DotsIcon from "../components/icons/DotsIcon.vue";
-import PlusSquareIcon from "../components/icons/PlusSquareIcon.vue";
+import {EyeIcon2,PenIcon,TrashIcon,DotsIcon,PlusSquareIcon,HeartIcon,CommentIcon} from "../components/icons/index.js";
 import AddQuoteModal from "../components/AddQuoteModal.vue";
-import CommentIcon from "../components/icons/CommentIcon.vue";
-import HeartIcon from "../components/icons/HeartIcon.vue";
 import AddMovieModal from "../components/AddMovieModal.vue";
 const quoteModal = ref("");
 const MovieStore = useMovieStore();

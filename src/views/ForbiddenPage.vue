@@ -17,5 +17,5 @@
 
 <script setup>
 import { RouterLink } from "vue-router";
-import ForbiddenIcon from "../components/icons/ForbiddenIcon.vue";
+import { ForbiddenIcon } from "../components/icons/index.js";
 </script>

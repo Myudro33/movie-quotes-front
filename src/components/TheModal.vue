@@ -18,7 +18,7 @@
         image="send"
         :link="mailLink"
         :heading="$t('modal.check_email')"
-        :paragraph="$t('modal.check_email_paragraph')"
+        :paragraph="$t('modal.thank_you_paragraph')"
         :button="$t('modal.go_to_email')"
       />
       <InfoModal
@@ -57,14 +57,14 @@
         image="verified"
         :heading="$t('modal.success')"
         :paragraph="$t('modal.email_success_paragraph')"
-        :button="$t('modal.log_in')"
+        :button="$t('modal.go_to_news_feed')"
       />
       <InfoModal
         v-else-if="ModalStore.inner === 'password-changed'"
         image="verified"
         :heading="$t('modal.success')"
         :paragraph="$t('modal.password_success_paragraph')"
-        :button="$t('modal.go_to_news_feed')"
+        :button="$t('modal.log_in')"
       />
     </div>
   </div>

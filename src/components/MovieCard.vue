@@ -7,7 +7,7 @@
         alt="movie"
       />
       <h1 class="text-2xl my-4 flex">
-        {{ useI18n().locale.value === 'en' ? props.movie.name.en : props.movie.name.ka }}
+        {{ useI18n().locale.value === "en" ? props.movie.name.en : props.movie.name.ka }}
         <p class="ml-2">({{ props.movie.year }})</p>
       </h1>
       <div class="flex items-center">
@@ -19,8 +19,8 @@
 </template>
 
 <script setup>
-import { image } from '../services'
-import QuotesIcon from '../components/icons/QuotesIcon.vue'
-import { useI18n } from 'vue-i18n'
-const props = defineProps(['movie'])
+import { image } from "../services";
+import { QuotesIcon } from "../components/icons/index.js";
+import { useI18n } from "vue-i18n";
+const props = defineProps(["movie"]);
 </script>

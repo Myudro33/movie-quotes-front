@@ -14,5 +14,5 @@
 </template>
 
 <script setup>
-import GhostIcon from "../components/icons/GhostIcon.vue";
+import {GhostIcon} from "../components/icons/index.js";
 </script>
