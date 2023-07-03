@@ -1,7 +1,10 @@
 <template>
   <Form @submit="onSubmit" v-slot="{ errors }" class="w-full">
+    <div class="flex justify-end w-full translate-y-5 md:hidden">
+      <ExitIcon @click="ModalStore.closeModal" />
+    </div>
     <h1
-      class="xs:text-2xl md:text-4xl h-auto xs:mt-[4.375rem] md:mt-2 text-white text-center"
+      class="xs:text-2xl md:text-4xl h-auto xs:mt-[2.375rem] md:mt-2 text-white text-center"
     >
       {{ $t("forms.create_new_password") }}
     </h1>
@@ -51,7 +54,7 @@
 </template>
 
 <script setup>
-import ArrowIcon from "../components/icons/ArrowIcon.vue";
+import { ArrowIcon, ExitIcon } from "../components/icons/index.js";
 import { Form } from "vee-validate";
 import { reactive } from "vue";
 import { useAuthStore } from "../stores/AuthStore";

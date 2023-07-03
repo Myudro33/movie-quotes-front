@@ -1,7 +1,10 @@
 <template>
   <Form @submit="onSubmit" v-slot="{ errors }" class="w-full">
+    <div class="flex justify-end w-full translate-y-5 md:hidden">
+      <ExitIcon @click="ModalStore.closeModal" />
+    </div>
     <h1
-      class="xs:text-2xl md:text-4xl xs:mt-[4.375rem] h-12 md:mt-2 text-white text-center"
+      class="xs:text-2xl md:text-4xl xs:mt-[2.375rem] h-12 md:mt-2 text-white text-center"
     >
       {{ $t("forms.create_account") }}
     </h1>
@@ -82,6 +85,7 @@ import { Form } from "vee-validate";
 import { useModalStore } from "../stores/ModalStore";
 import { useAuthStore } from "../stores/AuthStore";
 import { useI18n } from "vue-i18n";
+import { ExitIcon } from "../components/icons/index.js";
 const ModalStore = useModalStore();
 const AuthStore = useAuthStore();
 import GoogleButton from "./GoogleButton.vue";

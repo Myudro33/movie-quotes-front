@@ -1,5 +1,8 @@
 <template>
   <Form @submit="submitForm" v-slot="{ meta, errors }" class="w-full">
+    <div class="flex justify-end w-full translate-y-5 md:hidden">
+      <ExitIcon @click="ModalStore.closeModal" />
+    </div>
     <h1
       class="xs:text-2xl md:text-4xl h-12 xs:mt-[4.375rem] md:mt-2 text-white text-center"
     >
@@ -50,7 +53,7 @@
       </div>
       <p
         @click="ModalStore.openModal('forgot_password')"
-        class="text-[#0D6EFD] cursor-pointer underline inline-block"
+        class="text-[#0D6EFD] cursor-pointer underline inline-block text-sm"
       >
         {{ $t("forms.forgot_password") }}
       </p>
@@ -79,6 +82,7 @@
 import { Form } from "vee-validate";
 import { useAuthStore } from "../stores/AuthStore";
 import { useModalStore } from "../stores/ModalStore";
+import { ExitIcon } from "../components/icons/index.js";
 const ModalStore = useModalStore();
 const AuthStore = useAuthStore();
 import GoogleButton from "../components/GoogleButton.vue";
