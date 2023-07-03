@@ -31,7 +31,7 @@
                 :class="[
                   !meta.valid && meta.touched
                     ? 'border-1 border-[#DC3545]'
-                    : 'border-[#6c757d]',
+                    : 'border-[#6c757d]-1',
                   meta.valid && meta.touched ? 'border-1  border-[#198754]' : '',
                 ]"
               />
@@ -53,7 +53,7 @@
                 :class="[
                   !meta.valid && meta.touched
                     ? 'border-1 border-[#DC3545]'
-                    : 'border-[#6c757d]',
+                    : 'border-[#6c757d]-1',
                   meta.valid && meta.touched ? 'border-1  border-[#198754]' : '',
                 ]"
               />
@@ -81,7 +81,7 @@
                 :class="[
                   !meta.valid && meta.touched
                     ? 'border-1 border-[#DC3545]'
-                    : 'border-[#6c757d]',
+                    : 'border-[#6c757d]-1',
                   meta.valid && meta.touched ? 'border-1  border-[#198754]' : '',
                 ]"
               />
@@ -103,7 +103,7 @@
                 :class="[
                   !meta.valid && meta.touched
                     ? 'border-1 border-[#DC3545]'
-                    : 'border-[#6c757d]',
+                    : 'border-[#6c757d]-1',
                   meta.valid && meta.touched ? 'border-1  border-[#198754]' : '',
                 ]"
               />
@@ -126,7 +126,7 @@
                 :class="[
                   !meta.valid && meta.touched
                     ? 'border-1 border-[#DC3545]'
-                    : 'border-[#6c757d]',
+                    : 'border-[#6c757d]-1',
                   meta.valid && meta.touched ? 'border-1  border-[#198754]' : '',
                 ]"
               />
@@ -146,7 +146,7 @@
                 :class="[
                   !meta.valid && meta.touched
                     ? 'border-1 border-[#DC3545]'
-                    : 'border-[#6c757d]',
+                    : 'border-[#6c757d]-1',
                   meta.valid && meta.touched ? 'border-1  border-[#198754]' : '',
                 ]"
                 v-bind="field"
@@ -168,7 +168,7 @@
                 :class="[
                   !meta.valid && meta.touched
                     ? 'border-1 border-[#DC3545]'
-                    : 'border-[#6c757d]',
+                    : 'border-[#6c757d]-1',
                   meta.valid && meta.touched ? 'border-1  border-[#198754]' : '',
                 ]"
                 v-bind="field"

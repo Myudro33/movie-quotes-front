@@ -3,7 +3,7 @@
     <div
       @click="showItems"
       :class="[
-        !meta.valid && meta.touched ? 'border-1 border-[#DC3545]' : 'border-[#6c757d]',
+        !meta.valid && meta.touched ? 'border-1 border-[#DC3545]' : 'border-[#6c757d]-1',
         meta.valid && meta.touched ? 'border-1  border-[#198754]' : '',
       ]"
       v-bind="field"
@@ -30,7 +30,7 @@
       </div>
       <label
         for="genre"
-        class="text-white text-xl pl-2"
+        class="text-white text-xl "
         v-if="chips.length < 1 && editChips.length < 1"
         >{{ $t("add_movie.genre") }}</label
       >

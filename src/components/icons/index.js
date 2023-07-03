@@ -21,7 +21,8 @@ import SearchIcon from './SearchIcon.vue';
 import SendIcon from './SendIcon.vue';
 import SubmitIcon from './SubmitIcon.vue';
 import TrashIcon from './TrashIcon.vue';
+import WarningIcon from './WarningIcon.vue';
+import SuccessIcon from './SuccessIcon.vue';
 
 
-
-export { ArrowIcon, ExitIcon, CameraIcon, DangerIcon, CommentIcon, DotsIcon, EyeIcon, EyeIcon2, ForbiddenIcon, GhostIcon, GoogleIcon, HeartIcon, PencilIcon, HamburgerIcon, HouseIcon, PenIcon, PhotoIcon, PlusSquareIcon, QuotesIcon, SearchIcon, SendIcon, SubmitIcon, TrashIcon }
+export { ArrowIcon,WarningIcon, ExitIcon,SuccessIcon, CameraIcon, DangerIcon, CommentIcon, DotsIcon, EyeIcon, EyeIcon2, ForbiddenIcon, GhostIcon, GoogleIcon, HeartIcon, PencilIcon, HamburgerIcon, HouseIcon, PenIcon, PhotoIcon, PlusSquareIcon, QuotesIcon, SearchIcon, SendIcon, SubmitIcon, TrashIcon }
