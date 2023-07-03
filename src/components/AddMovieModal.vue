@@ -26,7 +26,7 @@
               <input
                 v-bind="field"
                 type="text"
-                class="bg-transparent border mt-[1.25rem] placeholder:text-white outline-none h-[48px] text-white text-[16px] md:text-[20px] px-2 rounded-md"
+                class="bg-transparent border mt-[1.25rem] placeholder:text-white outline-none h-12 text-white md:text-xl px-2 rounded-md"
                 placeholder="Movie name"
                 :class="[
                   !meta.valid && meta.touched
@@ -48,7 +48,7 @@
               <input
                 v-bind="field"
                 type="text"
-                class="bg-transparent my-[1.25rem] border placeholder:text-white outline-none h-[48px] text-white text-[16px] md:text-[20px] px-2 rounded-md"
+                class="bg-transparent my-5 border placeholder:text-white outline-none h-12 text-white md:text-xl px-2 rounded-md"
                 placeholder="ფილმის სახელი"
                 :class="[
                   !meta.valid && meta.touched
@@ -76,7 +76,7 @@
               <input
                 v-bind="field"
                 type="text"
-                class="bg-transparent mt-[1.5rem] border placeholder:text-white outline-none h-[48px] text-white text-[16px] md:text-[20px] px-2 rounded-md"
+                class="bg-transparent mt-6 border placeholder:text-white outline-none h-12 text-white md:text-xl px-2 rounded-md"
                 :placeholder="$t('add_movie.year')"
                 :class="[
                   !meta.valid && meta.touched
@@ -98,7 +98,7 @@
               <input
                 v-bind="field"
                 type="text"
-                class="bg-transparent mt-[1.5rem] border placeholder:text-white outline-none h-[48px] text-white text-[16px] md:text-[20px] px-2 rounded-md"
+                class="bg-transparent mt-6 border placeholder:text-white outline-none h-12 text-white md:text-xl px-2 rounded-md"
                 placeholder="Director"
                 :class="[
                   !meta.valid && meta.touched
@@ -121,7 +121,7 @@
               <input
                 v-bind="field"
                 type="text"
-                class="bg-transparent mt-[1.5rem] border placeholder:text-white outline-none h-[48px] text-white text-[16px] md:text-[20px] px-2 rounded-md"
+                class="bg-transparent mt-6 border placeholder:text-white outline-none h-12 text-white md:text-xl px-2 rounded-md"
                 placeholder="რეჟისორი"
                 :class="[
                   !meta.valid && meta.touched
@@ -142,7 +142,7 @@
             >
               <textarea
                 placeholder="Movie description"
-                class="mt-[1.5rem] rounded-[.25rem] border placeholder:text-white outline-none py-[.3rem] px-[.5rem] bg-transparent h-[5.3rem] text-white xs:text-base md:text-[1.5rem]"
+                class="mt-6 rounded-md border placeholder:text-white outline-none py-[.3rem] px-2 bg-transparent h-[5.3rem] text-white xs:text-base md:text-2xl"
                 :class="[
                   !meta.valid && meta.touched
                     ? 'border-1 border-[#DC3545]'

@@ -2,12 +2,12 @@
   <div
     @click="closeModal"
     name="backDrop"
-    class="top-0 backdrop w-full h-[100%] absolute z-50 bg-[#00000090] flex justify-center items-center"
+    class="top-0 backdrop w-full h-full absolute z-50 bg-[#00000090] flex justify-center items-center"
   >
     <div
       @click.stop
       name="inner"
-      class="xs:w-screen xs:h-screen md:w-[601px] md:h-auto flex flex-col md:px-[120px] xs:px-[34px] md:py-10 bg-[#222030] items-center rounded-[10px]"
+      class="xs:w-screen xs:h-screen md:w-[37.563rem] md:h-auto flex flex-col md:px-[7.5rem] xs:px-[2.125rem] md:py-10 bg-[#222030] items-center rounded-xl"
     >
       <LoginFormVue v-if="ModalStore.inner === 'login'" />
       <RegistrationForm v-else-if="ModalStore.inner === 'register'" />
@@ -71,25 +71,25 @@
 </template>
 
 <script setup>
-import LoginFormVue from './LoginForm.vue'
-import RegistrationForm from './RegistrationForm.vue'
-import PasswordUpdateModal from './PasswordUpdateModal.vue'
-import { useModalStore } from '../stores/ModalStore'
-import { onMounted, onBeforeUnmount } from 'vue'
-import InfoModal from './InfoModal.vue'
-import PasswordResetModal from './PasswordResetModal.vue'
-const mailLink = import.meta.env.VITE_API_GMAIL_URL
-const ModalStore = useModalStore()
+import LoginFormVue from "./LoginForm.vue";
+import RegistrationForm from "./RegistrationForm.vue";
+import PasswordUpdateModal from "./PasswordUpdateModal.vue";
+import { useModalStore } from "../stores/ModalStore";
+import { onMounted, onBeforeUnmount } from "vue";
+import InfoModal from "./InfoModal.vue";
+import PasswordResetModal from "./PasswordResetModal.vue";
+const mailLink = import.meta.env.VITE_API_GMAIL_URL;
+const ModalStore = useModalStore();
 onMounted(() => {
-  if (ModalStore.inner !== '' || ModalStore.mobile !== '') {
-    ModalStore.scroll(true)
+  if (ModalStore.inner !== "" || ModalStore.mobile !== "") {
+    ModalStore.scroll(true);
   }
-})
+});
 onBeforeUnmount(() => {
-  ModalStore.scroll(false)
-})
+  ModalStore.scroll(false);
+});
 const closeModal = () => {
-  ModalStore.closeModal()
-  ModalStore.removeQuery()
-}
+  ModalStore.closeModal();
+  ModalStore.removeQuery();
+};
 </script>

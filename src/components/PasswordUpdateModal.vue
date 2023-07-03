@@ -1,7 +1,7 @@
 <template>
   <Form @submit="onSubmit" v-slot="{ errors }" class="w-full">
     <h1
-      class="xs:text-2xl md:text-4xl h-auto xs:mt-[70px] md:mt-2 text-white text-center"
+      class="xs:text-2xl md:text-4xl h-auto xs:mt-[4.375rem] md:mt-2 text-white text-center"
     >
       {{ $t("forms.forgot_password") }}
     </h1>
@@ -19,7 +19,7 @@
         :placeholder="$t('forms.email_placeholder')"
       />
     </div>
-    <button class="w-full h-[38px] my-5 bg-[#E31221] rounded-[4px] text-white">
+    <button class="w-full h-[2.375rem] my-5 bg-[#E31221] rounded-md text-white">
       {{ $t("forms.send_instructions") }}
     </button>
     <p

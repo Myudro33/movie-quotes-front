@@ -7,12 +7,12 @@
         meta.valid && meta.touched ? 'border-1  border-[#198754]' : '',
       ]"
       v-bind="field"
-      class="w-full flex flex-wrap items-center gap-2 bg-[#11101A] border border-[#6C757D]-1 min-h-[48px] rounded-md"
+      class="w-full flex flex-wrap items-center gap-2 bg-[#11101A] border border-[#6C757D]-1 min-h-[3rem] rounded-md"
     >
       <div class="flex" v-if="!props.edit">
         <div v-for="(chip, i) of chips" :key="i" class="h-auto px-1 py-2">
           <span
-            class="text-white text-[14px] bg-[#6C757D] px-2 py-2 flex justify-between items-center min-w-[70px]"
+            class="text-white text-sm bg-[#6C757D] px-2 py-2 flex justify-between items-center min-w-[4.3rem]"
             >{{ useI18n().locale.value === "en" ? chip.name.en : chip.name.ka }}
             <button @click="removeGenre(i)">
               <ExitIcon /></button
@@ -22,7 +22,7 @@
 
       <div v-else v-for="(chip, b) of editChips" :key="b" class="h-auto px-1 py-2">
         <span
-          class="text-white text-[14px] bg-[#6C757D] px-2 py-2 flex justify-between items-center min-w-[70px]"
+          class="text-white text-sm bg-[#6C757D] px-2 py-2 flex justify-between items-center min-w-[4.3rem]"
           >{{ useI18n().locale.value === "en" ? chip.name.en : chip.name.ka }}
           <button @click="removeGenre(b)">
             <ExitIcon /></button
@@ -30,7 +30,7 @@
       </div>
       <label
         for="genre"
-        class="text-white text-[20px] pl-2"
+        class="text-white text-xl pl-2"
         v-if="chips.length < 1 && editChips.length < 1"
         >{{ $t("add_movie.genre") }}</label
       >
@@ -55,7 +55,7 @@
             @click="setGenre(genre)"
             v-for="(genre, i) of MovieStore.genres"
             :key="i"
-            class="text-white text-[20px] cursor-pointer"
+            class="text-white text-xl cursor-pointer"
           >
             {{ useI18n().locale.value === "en" ? genre.name.en : genre.name.ka }}
           </li>

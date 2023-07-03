@@ -8,9 +8,9 @@
         ></h1>
         <button
           @click="ModalStore.inner = 'register'"
-          class="xs:w-28 md:w-36 h-12 text-white rounded-[4px] bg-[#E31221] text-xl mt-6"
+          class="xs:w-28 md:w-36 h-12 text-white rounded-md bg-[#E31221] text-xl mt-6"
         >
-          {{ $t('landing.get_started') }}
+          {{ $t("landing.get_started") }}
         </button>
       </div>
     </div>
@@ -19,7 +19,7 @@
 </template>
 
 <script setup>
-import LandingParallax from '../components/LandingParallax.vue'
-import { useModalStore } from '../stores/ModalStore'
-const ModalStore = useModalStore()
+import LandingParallax from "../components/LandingParallax.vue";
+import { useModalStore } from "../stores/ModalStore";
+const ModalStore = useModalStore();
 </script>

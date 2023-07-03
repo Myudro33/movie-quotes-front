@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-full">
+  <div class="w-full h-full lg:ml-20">
     <h1 class="text-2xl text-white ml-6 xs:hidden md:flex">
       {{ $t("profile.my_profile") }}
     </h1>
@@ -7,7 +7,7 @@
       <ArrowIcon @click="$router.back()" />
     </div>
     <div
-      class="w-full xs:min-h-screen md:min-h-[700px] xs:bg-[#24222F] md:bg-[#11101A] md:mt-24 md:rounded-3xl flex flex-col items-center xs:px-8 md:px-48"
+      class="md:w-[62.3rem] xs:min-h-screen md:min-h-[43.75rem] xs:bg-[#24222F] md:bg-[#11101A] md:mt-24 md:rounded-3xl flex flex-col items-center xs:px-8 md:px-48"
     >
       <img
         class="w-48 h-48 object-cover rounded-full xs:mt-6 md:mt-0 md:top-36 z-10 md:absolute"
@@ -86,7 +86,7 @@
           </button>
         </div>
         <div v-if="form.stage === 'password'" class="w-full h-auto my-10 mt-8">
-          <div class="border border-white rounded-[4px] p-6 text-white">
+          <div class="border border-white rounded-md p-6 text-white">
             <h1>{{ $t("profile.password_requirements") }}</h1>
             <ul>
               <li class="flex">

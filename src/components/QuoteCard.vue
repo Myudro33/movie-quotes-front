@@ -2,7 +2,7 @@
   <div class="w-full flex flex-col bg-[#11101A] rounded-xl md:p-6 xs:p-8 mt-6">
     <div class="flex items-center">
       <img
-        class="xs:w-10 xs:h-10 md:w-[52px] md:h-[52px] object-cover rounded-full"
+        class="xs:w-10 xs:h-10 md:w-[3.25rem] md:h-[3.25rem] object-cover rounded-full"
         :src="avatar + quote.user.avatar"
         alt="avatar"
       />
@@ -14,7 +14,7 @@
       ({{ quote.movie.year }})
     </p>
     <img
-      class="w-full md:h-[500px] xs:h-48 mt-7"
+      class="w-full md:h-[31.25rem] xs:h-48 mt-7"
       :src="image + quote.image"
       alt="quote"
     />
@@ -41,14 +41,14 @@
     <Form @submit="addComment" class="flex flex-col mt-6">
       <div class="w-full flex">
         <img
-          class="xs:w-10 xs:h-10 md:w-[52px] md:h-[52px] object-cover text-white shrink-0 rounded-full"
+          class="xs:w-10 xs:h-10 md:w-[3.25rem] md:h-[3.25rem] object-cover text-white shrink-0 rounded-full"
           :src="avatar + AuthStore.author.avatar"
           alt="avatar"
         />
         <Field rules="required" name="title" v-model="title" v-slot="{ field }">
           <input
             v-bind="field"
-            class="w-full text-white xs:h-10 md:h-[52px] ml-6 pl-6 outline-none bg-[#24222F] text-xl rounded-[10px]"
+            class="w-full text-white xs:h-10 md:h-[3.25rem] ml-6 pl-6 outline-none bg-[#24222F] text-xl rounded-xl"
             type="text"
             placeholder="Write a comment"
           />
@@ -65,7 +65,7 @@ import { useAuthStore } from "../stores/AuthStore";
 import CommentIcon from "./icons/CommentIcon.vue";
 import HeartIcon from "./icons/HeartIcon.vue";
 import TheComment from "./TheComment.vue";
-import {createComment} from '../services/commentService'
+import { createComment } from "../services/commentService";
 import { computed, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { avatar, image } from "../services/index.js";
@@ -95,11 +95,11 @@ const liked = computed(() => {
   return props.quote?.likes.some((like) => like.author_id === AuthStore.author.id);
 });
 const addComment = () => {
- const data={
+  const data = {
     user_id: AuthStore.author.id,
     title: title.value,
   };
-  createComment(data,props.quote,'feed')
+  createComment(data, props.quote, "feed");
   title.value = "";
 };
 const addLike = async () => {

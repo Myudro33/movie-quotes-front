@@ -8,13 +8,13 @@
       <div
         :class="`xs:hidden  md:flex ${
           size ? 'mr-8 border-b border-[#EFEFEF4D] ' : 'md:w-44'
-        } items-center h-[52px] `"
+        } items-center h-[3.25rem] `"
       >
         <SearchIcon class="shrink-0" />
         <input
           @keydown.enter="search"
           v-if="size"
-          class="w-full h-[30px] bg-transparent text-white px-3"
+          class="w-full h-[1.875rem] bg-transparent text-white px-3"
           type="text"
           v-model="input"
         />

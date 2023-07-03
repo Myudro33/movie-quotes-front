@@ -58,7 +58,7 @@
               <textarea
                 :readonly="props.stage === 'view'"
                 placeholder="Start create new quote"
-                class="mt-[1.5rem] rounded-[.25rem] border outline-none py-[.3rem] px-[.5rem] bg-transparent h-[5.3rem] text-white xs:text-base md:text-[1.5rem]"
+                class="mt-6 rounded-[.25rem] border outline-none py-[.3rem] px-2 bg-transparent h-[5.3rem] text-white xs:text-base md:text-2xl"
                 :class="[
                   !meta.valid && meta.touched
                     ? 'border-1 border-[#DC3545]'
@@ -81,7 +81,7 @@
               <textarea
                 :readonly="props.stage === 'view'"
                 placeholder="ახალი ციტატა"
-                class="mt-[1.5rem] rounded-[.25rem] border outline-none py-[.3rem] px-[.5rem] bg-transparent h-[5.3rem] text-white xs:text-base md:text-[1.5rem]"
+                class="mt-6 rounded-[.25rem] border outline-none py-[.3rem] px-2 bg-transparent h-[5.3rem] text-white xs:text-base md:text-2xl"
                 :class="[
                   !meta.valid && meta.touched
                     ? 'border-1 border-[#DC3545]'
@@ -188,14 +188,14 @@
         >
           <div class="w-full flex">
             <img
-              class="xs:w-10 xs:h-10 md:w-[52px] md:h-[52px] object-cover text-white shrink-0 rounded-full"
+              class="xs:w-10 xs:h-10 md:w-[3.25rem] md:h-[3.25rem] object-cover text-white shrink-0 rounded-full"
               :src="avatar + AuthStore.author.avatar"
               alt="avatar"
             />
             <Field rules="required" name="title" v-model="title" v-slot="{ field }">
               <input
                 v-bind="field"
-                class="w-full text-white xs:h-10 md:h-[52px] ml-6 pl-6 outline-none bg-[#24222F] text-xl rounded-[10px]"
+                class="w-full text-white xs:h-10 md:h-[3.25rem] ml-6 pl-6 outline-none bg-[#24222F] text-xl rounded-[.6rem]"
                 type="text"
                 placeholder="Write a comment"
               />

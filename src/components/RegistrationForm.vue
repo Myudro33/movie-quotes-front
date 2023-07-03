@@ -1,6 +1,8 @@
 <template>
   <Form @submit="onSubmit" v-slot="{ errors }" class="w-full">
-    <h1 class="xs:text-2xl md:text-4xl xs:mt-[70px] h-12 md:mt-2 text-white text-center">
+    <h1
+      class="xs:text-2xl md:text-4xl xs:mt-[4.375rem] h-12 md:mt-2 text-white text-center"
+    >
       {{ $t("forms.create_account") }}
     </h1>
     <p class="text-[#6C757D] mt-3 text-center">
@@ -60,7 +62,7 @@
     >
       {{ AuthStore.error }}
     </p>
-    <button class="bg-[#E31221] w-full mb-3 h-[38px] text-white mt-6 rounded-[4px]">
+    <button class="bg-[#E31221] w-full mb-3 h-[2.375rem] text-white mt-6 rounded-md">
       {{ $t("forms.get_started") }}
     </button>
     <GoogleButton />
