@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
 import axiosInstance from '../config/axios-config'
-import { update } from '../services/quoteServices'
 import { useMovieStore } from './MoviesStore'
 
 export const useNewsStore = defineStore('newsStore', {
@@ -59,14 +58,40 @@ export const useNewsStore = defineStore('newsStore', {
         }
       })
       const MovieStore = useMovieStore()
-      // const movie = MovieStore.movies.find((movie) => movie.id === response.data.quote.movie.id)
       MovieStore.movie.quotes.unshift(response.data.quote)
-      // movie.quotes.unshift(response.data.quote)
       return this.quotes.unshift(response.data.quote)
     },
-    async updateQuote(data,quote){
-    const file  = data.image===quote.image?null:quote.image
-     update(data,file,quote.id)
+    async updateQuote(data, quote) {
+      const MovieStore = useMovieStore()
+      const image = data.image === quote.image ? null : quote.image
+      const formData = new FormData()
+      formData.append('user_id', data.user_id)
+      formData.append('movie_id', data.movie_id)
+      formData.append('title', JSON.stringify({ en: data.title.en, ka: data.title.ka }))
+      if (image) {
+        formData.append('image', data.image)
+      }
+      try {
+        const response = await axiosInstance.post(`/quotes/${quote.id}`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        })
+        const index = MovieStore.movie.quotes.findIndex(item => item.id === quote.id)
+        MovieStore.movie.quotes[index] = response.data.quote
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async deleteQuote(id) {
+      const MovieStore = useMovieStore()
+      try {
+        await axiosInstance.delete(`/quotes/${id}`)
+        const filtered = MovieStore.movie.quotes.filter(quote => quote.id !== id)
+        return MovieStore.movie.quotes = filtered
+      } catch (error) {
+        alert(error.response.data.error);
+      }
     }
   }
 })

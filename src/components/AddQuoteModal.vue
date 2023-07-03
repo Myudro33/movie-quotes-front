@@ -16,7 +16,7 @@
           />
           <hr v-if="props.stage === 'view'" class="border border-[#6C757D] h-5" />
           <div
-            @click="deleteQuote(MovieStore.quote.id)"
+            @click="NewsStore.deleteQuote(MovieStore.quote.id)"
             class="flex items-center cursor-pointer"
           >
             <TrashIcon v-if="props.stage === 'edit' || props.stage === 'view'" />
@@ -209,7 +209,6 @@
 </template>
 
 <script setup>
-import { deleteQuote } from "../services/quoteServices";
 import TheComment from "../components/TheComment.vue";
 import { createComment } from "../services/commentService";
 import { image, avatar } from "../services";
