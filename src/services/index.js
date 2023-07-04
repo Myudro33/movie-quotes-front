@@ -2,9 +2,11 @@ import { computed } from 'vue'
 import { useModalStore } from '../stores/ModalStore.js'
 import router from '../router'
 import axiosInstance from '../config/axios-config'
-
+import { useAuthStore } from '../stores/AuthStore.js'
+const AuthStore = useAuthStore()
+console.log(AuthStore.author);
 export const avatar = computed(() => {
-  return import.meta.env.VITE_API_IMAGE_ENDPOINT + 'avatars/'
+  return AuthStore.author.google_id===null?import.meta.env.VITE_API_IMAGE_ENDPOINT + 'avatars/':''
 })
 export const image = computed(() => {
   return import.meta.env.VITE_API_IMAGE_ENDPOINT + 'images/'

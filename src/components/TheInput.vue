@@ -1,14 +1,9 @@
 <template>
   <div class="relative">
     <label-component :required="required" :label="id" :title="label" />
-    <Field
-      :readonly="readonly"
-      validateOnInput
-      v-slot="{ field, meta }"
-      :name="id"
-      :rules="rules"
-    >
+    <Field validateOnInput v-slot="{ field, meta }" :name="id" :rules="rules">
       <input
+        :readonly="readonly"
         :placeholder="placeholder"
         v-bind="field"
         class="w-full h-[2.375rem] text-lg mt-2"
