@@ -12,6 +12,8 @@
         :placeholder="placeholder"
         v-bind="field"
         class="w-full h-[2.375rem] text-lg mt-2"
+        :value="modelValue"
+        @change="changeValue"
         :class="
           style
             ? `xs:border-b md:border-2  ${

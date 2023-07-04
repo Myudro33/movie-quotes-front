@@ -19,8 +19,10 @@ export const useMovieStore = defineStore('MoviesStore', {
       this.movies = response.data.movies.filter((movie) => movie.author.id === AuthStore.author.id)
     },
     async addMovie(data) {
+      console.log(data);
+      const AuthStore = useAuthStore()
       const formData = new FormData()
-      formData.append('user_id', data.user_id)
+      formData.append('user_id', AuthStore.author.id)
       formData.append('name', JSON.stringify({ en: data.movie_name.en, ka: data.movie_name.ka }))
       formData.append('year', data.year)
       formData.append('image', data.image)
@@ -29,7 +31,7 @@ export const useMovieStore = defineStore('MoviesStore', {
         'description',
         JSON.stringify({ en: data.movie_description.en, ka: data.movie_description.ka })
       )
-      formData.append('director', JSON.stringify({ en: data.director.en, ka: data.director.ka }))
+      formData.append('director', JSON.stringify({ en: data.director_name.en, ka: data.director_name.ka }))
       const response = await axiosInstance.post('/movies', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'

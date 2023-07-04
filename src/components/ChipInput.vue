@@ -7,7 +7,7 @@
         meta.valid && meta.touched ? 'border-1  border-[#198754]' : '',
       ]"
       v-bind="field"
-      class="w-full flex flex-wrap items-center gap-2 bg-[#11101A] border border-[#6C757D]-1 min-h-[3rem] rounded-md"
+      class="w-full flex flex-wrap mt-5 items-center gap-2 bg-[#11101A] border border-[#6C757D]-1 min-h-[3rem] rounded-md"
     >
       <div class="flex" v-if="!props.edit">
         <div v-for="(chip, i) of chips" :key="i" class="h-auto px-1 py-2">
@@ -30,7 +30,7 @@
       </div>
       <label
         for="genre"
-        class="text-white text-xl "
+        class="text-white text-xl"
         v-if="chips.length < 1 && editChips.length < 1"
         >{{ $t("add_movie.genre") }}</label
       >
