@@ -1,12 +1,13 @@
 <template>
   <div class="relative w-full flex flex-col">
     <Field
-      v-bind="props.bind"
+      v-model="propBind"
       v-slot="{ field, meta }"
       :rules="props.rules"
       :name="props.name"
     >
       <textarea
+        :readonly="readonly"
         v-if="props.type === 'textarea'"
         :placeholder="placeholder"
         class="mt-6 rounded-md border placeholder:text-white outline-none py-[.3rem] px-2 bg-transparent h-[5.3rem] text-white xs:text-base md:text-2xl"
@@ -38,8 +39,16 @@
 </template>
 
 <script setup>
-import { Field, useField } from "vee-validate";
-const props = defineProps(["name", "rules", "placeholder", "lang", "type", "bind"]);
-const { value, errorMessage } = useField(() => props.name);
-console.log(value);
+import { Field } from "vee-validate";
+import { ref } from "vue";
+const props = defineProps([
+  "name",
+  "rules",
+  "placeholder",
+  "lang",
+  "type",
+  "bind",
+  "readonly",
+]);
+const propBind = ref(props.bind);
 </script>

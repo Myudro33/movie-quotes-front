@@ -15,42 +15,47 @@
       </div>
       <div class="w-full px-8 flex flex-col">
         <AuthorTag />
-        <Form
-          @submit="onSubmit"
-          v-slot="{ getValues, values, setValues }"
-          enctype="multipart/form-data"
-          class="flex flex-col"
-        >
+        <Form @submit="onSubmit" enctype="multipart/form-data" class="flex flex-col">
           <TheFIeld
             name="movie_name.en"
             rules="required|min:3|max:50|en"
             placeholder="Movie name"
             lang="Eng"
+            :bind="getFieldInputBinds('name.en').value.value"
           />
           <TheFIeld
             name="movie_name.ka"
             rules="required|min:3|max:50|ka"
             placeholder="ფილმის სახელი"
             lang="ქარ"
+            :bind="getFieldInputBinds('name.ka').value.value"
           />
           <ChipInput
+            :propChips="getFieldInputBinds('genre').value.value || MovieStore.movie.genre"
             name="genre"
             :edit="props.edit"
             @chip-update="addChips"
             @remove-genre="removeGenre"
           />
-          <TheFIeld :bind="year" name="year" rules="required|number" placeholder="წელი" />
+          <TheFIeld
+            name="year"
+            rules="required|number"
+            placeholder="წელი"
+            :bind="getFieldInputBinds('year').value.value"
+          />
           <TheFIeld
             name="director_name.en"
             rules="required|min:3|max:50|en"
             placeholder="Director"
             lang="Eng"
+            :bind="getFieldInputBinds('director.en').value.value"
           />
           <TheFIeld
             name="director_name.ka"
             rules="required|min:3|max:50|ka"
             placeholder="რეჟისორი"
             lang="ქარ"
+            :bind="getFieldInputBinds('director.ka').value.value"
           />
           <TheFIeld
             name="movie_description.en"
@@ -58,6 +63,7 @@
             placeholder="Movie description"
             lang="Eng"
             type="textarea"
+            :bind="getFieldInputBinds('description.en').value.value"
           />
           <TheFIeld
             name="movie_description.ka"
@@ -65,16 +71,17 @@
             placeholder="ფილმის აღწერა"
             lang="ქარ"
             type="textarea"
+            :bind="getFieldInputBinds('description.ka').value.value"
           />
           <FileUploadInput
             name="image"
             :edit="props.edit"
-            :image="image + MovieStore.movie.image"
+            :image="props.edit && image + MovieStore.movie.image"
             @selectFile="getFile"
             @drop.prevent="drop"
           />
           <button
-            @click="submit(setValues)"
+            @click="submit"
             type="submit"
             class="w-full h-12 bg-[#E31221] text-white mt-10 text-xl rounded-[.3rem]"
           >
@@ -90,54 +97,60 @@
 import ModalWrapper from "./ModalWrapper.vue";
 import AuthorTag from "./AuthorTag.vue";
 import { Form, useForm } from "vee-validate";
-import { onMounted, ref } from "vue";
-import { useAuthStore } from "../stores/AuthStore.js";
+import { ref } from "vue";
 import { useMovieStore } from "../stores/MoviesStore";
 const MovieStore = useMovieStore();
 import { ExitIcon } from "./icons/index.js";
 import FileUploadInput from "./FileUploadInput.vue";
 import ChipInput from "./ChipInput.vue";
 import { image } from "../services";
-import TheFIeld from "./icons/TheFIeld.vue";
+import TheFIeld from "./TheFIeld.vue";
+const newImage = ref("");
 const props = defineProps(["edit"]);
-const AuthStore = useAuthStore();
-const data = ref({
-  genre: [],
-  image: null,
+const { defineInputBinds, setValues } = useForm({
+  initialValues: props.edit && MovieStore.movie,
 });
 const getFile = (img) => {
-  data.value.image = img.value;
+  setValues({
+    image: img.value,
+  });
+  newImage.value = img.value;
 };
-const { setValues, values, defineInputBinds } = useForm();
-const year = defineInputBinds("year");
-
-onMounted(() => {
-  const movie = MovieStore.movie;
-  if (props.edit && movie !== "") {
-    setValues(MovieStore.movie);
-    console.log(values);
-  }
-});
+const getFieldInputBinds = (field) => defineInputBinds(field);
 const addChips = (event) => {
   if (props.edit) {
-    data.value.genre = event.value;
+    getFieldInputBinds("genre").value.value = event.value;
   } else {
-    data.value.genre = event;
+    setValues({
+      genre: event,
+    });
   }
 };
-const removeGenre = (event) => {
-  data.value.genre.splice(event, 1);
-};
-const onSubmit = async (values) => {
-  if (!props.edit) {
-    MovieStore.addMovie(values);
+const removeGenre = (event, chips) => {
+  if (props.edit) {
+    getFieldInputBinds("genre").value.value.splice(event, 1);
+    setValues({
+      genre: getFieldInputBinds("genre").value.value,
+    });
   } else {
-    MovieStore.updateMovie(values);
+    getFieldInputBinds("genre").value.value = chips;
+    setValues({
+      genre: chips,
+    });
+  }
+};
+const onSubmit = (values) => {
+  if (!props.edit) {
+    MovieStore.addMovie(values, getFieldInputBinds("genre").value.value);
+  } else {
+    MovieStore.updateMovie(values, newImage, getFieldInputBinds("genre").value.value);
   }
   MovieStore.modal = "";
 };
-
-const submit = (setValues) => {
-  setValues({ genre: data.value.genre, image: data.value.image });
+const submit = () => {
+  setValues({
+    genre: getFieldInputBinds("genre").value.value,
+    image: getFieldInputBinds("image").value.value,
+  });
 };
 </script>

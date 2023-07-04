@@ -1,5 +1,5 @@
 <template>
-  <Field v-slot="{ field, meta }" rules="required" name="image">
+  <Field v-slot="{ field, meta }" :rules="required" name="image">
     <div
       v-bind="field"
       v-if="!props.stage"
@@ -51,12 +51,12 @@
     </div>
     <div v-else class="flex justify-center items-center">
       <div
-        class="text-white text-2xl absolute bottom-64 w-[8.4rem] h-[5.25rem] bg-black opacity-80 rounded-lg flex flex-col justify-center items-center"
+        class="text-white text-2xl absolute xs:bottom-64 md:bottom-80 w-[8.4rem] h-[5.25rem] bg-black opacity-80 rounded-lg flex flex-col justify-center items-center"
       >
         <PhotoIcon />
         <label
           :class="props.edit && 'mt-2 ml-0'"
-          class="xs:text-xs md:text-xl p-2 text-white rounded-md ml-2"
+          class="xs:text-xs md:text-xl p-2 text-whitecursor-pointer rounded-md ml-2"
           for="dropzoneFile"
           >{{ $t("add_quote.choose_file") }}</label
         >
@@ -74,6 +74,13 @@ const active = ref(false);
 const dropzoneFile = ref("");
 const emit = defineEmits(["selectFile"]);
 const props = defineProps(["edit", "image", "stage"]);
+const required = () => {
+  console.log(props.image, dropzoneFile);
+  if (props.image !== undefined || dropzoneFile.value !== "") {
+    return true;
+  }
+  return false;
+};
 const toggleActive = (e) => {
   active.value = !active.value;
   dropzoneFile.value = e.dataTransfer.files[0];

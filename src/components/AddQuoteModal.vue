@@ -44,57 +44,33 @@
       <div class="w-full px-8 flex flex-col">
         <AuthorTag />
         <Form
-          @submit="addQuote"
+          @submit="onSubmit"
+          v-slot="{ values }"
           enctype="multipart/form-data"
           class="flex flex-col relative"
         >
-          <div class="relative w-full flex flex-col">
-            <Field
-              rules="required|en"
-              v-model="data.title.en"
-              v-slot="{ field, meta }"
-              name="title_en"
-            >
-              <textarea
-                :readonly="props.stage === 'view'"
-                placeholder="Start create new quote"
-                class="mt-6 rounded-[.25rem] border outline-none py-[.3rem] px-2 bg-transparent h-[5.3rem] text-white xs:text-base md:text-2xl"
-                :class="[
-                  !meta.valid && meta.touched
-                    ? 'border-1 border-[#DC3545]'
-                    : 'border-[#6c757d]',
-                  meta.valid && meta.touched ? 'border-1  border-[#198754]' : '',
-                ]"
-                v-bind="field"
-              >
-              </textarea>
-              <p class="text-white absolute right-5 top-8 md:text-xl">Eng</p>
-            </Field>
-          </div>
-          <div class="relative w-full flex flex-col">
-            <Field
-              rules="required|ka"
-              v-model="data.title.ka"
-              v-slot="{ field, meta }"
-              name="title_ka"
-            >
-              <textarea
-                :readonly="props.stage === 'view'"
-                placeholder="ახალი ციტატა"
-                class="mt-6 rounded-[.25rem] border outline-none py-[.3rem] px-2 bg-transparent h-[5.3rem] text-white xs:text-base md:text-2xl"
-                :class="[
-                  !meta.valid && meta.touched
-                    ? 'border-1 border-[#DC3545]'
-                    : 'border-[#6c757d]',
-                  meta.valid && meta.touched ? 'border-1  border-[#198754]' : '',
-                ]"
-                v-bind="field"
-              ></textarea>
-              <p class="text-white absolute right-5 top-8 md:text-xl">ქარ</p>
-            </Field>
-          </div>
+          <TheFIeld
+            :readonly="props.stage === 'view'"
+            name="title.en"
+            rules="required|en"
+            placeholder="Start create new quote"
+            lang="Eng"
+            type="textarea"
+            :bind="getFieldInputBinds('title.en').value.value"
+          />
+          <TheFIeld
+            :readonly="props.stage === 'view'"
+            name="title.ka"
+            rules="required|ka"
+            placeholder="ახალი ციტატა"
+            lang="ქარ"
+            type="textarea"
+            :bind="getFieldInputBinds('title.ka').value.value"
+          />
+
           <FileUploadInput
-            :stage="props.stage === 'edit' && true"
+            name="image"
+            :stage="props.stage === 'edit'"
             v-if="props.stage !== 'view'"
             @selectFile="getFile"
             @drop.prevent="drop"
@@ -106,7 +82,7 @@
             <CameraIcon class="mr-3" color="#fff" />
             <Field
               rules="required"
-              v-model="data.movie_id"
+              v-model="MovieStore.movie.id"
               class="text-white bg-[#000000] h-full w-full text-2xl outline-none"
               name="field"
               as="select"
@@ -138,27 +114,28 @@
           </div>
           <ErrorMessage class="text-red-500" name="field" />
           <button
-            v-if="props.stage !== 'view' && props.stage !== 'edit'"
             type="submit"
+            @click="submit"
+            v-if="props.stage !== 'view' && props.stage !== 'edit'"
             class="w-full h-12 bg-[#E31221] text-white mt-10 text-xl rounded-[.3rem]"
           >
             {{ $t("add_quote.post") }}
           </button>
           <img
             v-if="props.stage === 'view' || props.stage === 'edit'"
-            :src="image + data.image"
+            :src="image + MovieStore.quote.image"
             alt="quote img"
             class="w-full md:h-[32rem] xs:h-80 rounded-xl xs:my-6"
           />
+          <button
+            v-if="props.stage === 'edit'"
+            type="submit"
+            @click="submit(values)"
+            class="w-full h-12 bg-[#E31221] text-white mt-10 text-xl rounded-[.3rem]"
+          >
+            {{ $t("add_quote.save_changes") }}
+          </button>
         </Form>
-        <button
-          @click="quoteUpdate"
-          v-if="props.stage === 'edit'"
-          type="button"
-          class="w-full h-12 bg-[#E31221] text-white mt-10 text-xl rounded-[.3rem]"
-        >
-          {{ $t("add_quote.save_changes") }}
-        </button>
         <div v-if="props.stage === 'view'" class="flex">
           <div class="flex">
             <h1 class="text-white text-2xl mr-2">
@@ -209,6 +186,7 @@
 </template>
 
 <script setup>
+import TheFIeld from "./TheFIeld.vue";
 import TheComment from "../components/TheComment.vue";
 import { createComment } from "../services/commentService";
 import { image, avatar } from "../services";
@@ -217,8 +195,15 @@ import { useMovieStore } from "../stores/MoviesStore";
 import { useAuthStore } from "../stores/AuthStore";
 import { useNewsStore } from "../stores/NewsStore";
 import ModalWrapper from "./ModalWrapper.vue";
-import {PenIcon,TrashIcon,ExitIcon,CameraIcon,CommentIcon,HeartIcon} from "../components/icons/index.js";
-import { Form, Field, ErrorMessage } from "vee-validate";
+import {
+  PenIcon,
+  TrashIcon,
+  ExitIcon,
+  CameraIcon,
+  CommentIcon,
+  HeartIcon,
+} from "../components/icons/index.js";
+import { Form, Field, ErrorMessage, useForm } from "vee-validate";
 import { reactive, onMounted, computed, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import FileUploadInput from "./FileUploadInput.vue";
@@ -229,31 +214,40 @@ const NewsStore = useNewsStore();
 const props = defineProps(["inner", "movie", "stage"]);
 const title = ref("");
 const data = reactive({
-  user_id: AuthStore.author.id,
-  movie_id: props.inner ? props.movie.id : "",
-  title: { en: "", ka: "" },
   image: null,
 });
 const liked = computed(() => {
   return MovieStore.quote.likes.some((like) => like.author_id === AuthStore.author.id);
 });
-const getFile = (img) => {
-  data.image = img.value;
-};
+
 onMounted(() => {
   MovieStore.getMovies();
   if (props.stage !== "") {
-    data.title = { en: MovieStore.quote.title?.en, ka: MovieStore.quote.title?.ka };
     data.image = MovieStore?.quote?.image;
   }
 });
-const addQuote = () => {
-  NewsStore.addQuote(data);
+const { setValues, defineInputBinds } = useForm({
+  initialValues: props.stage !== "" && MovieStore.quote,
+});
+const getFile = (img) => {
+  data.image = img.value;
+  setValues({
+    image: img.value,
+  });
+};
+const getFieldInputBinds = (field) => defineInputBinds(field);
+const onSubmit = (values) => {
+  NewsStore.addQuote(values);
   NewsStore.modal = "";
 };
-const quoteUpdate = () => {
-  NewsStore.updateQuote(data, MovieStore.quote);
-  NewsStore.modal = "";
+const submit = (values) => {
+  if (props.stage === "edit") {
+    setValues({
+      title: values.title,
+    });
+    NewsStore.updateQuote(values, data.image);
+    NewsStore.modal = "";
+  }
 };
 const addComment = () => {
   const data = {
