@@ -23,15 +23,16 @@
         :value="$t('profile.upload_photo')"
         onclick="document.getElementById('file').click();"
       />
-      <Form v-slot="{ errors }" class="w-full">
+      <Form class="w-full">
         <div class="w-full mt-10 flex relative">
           <input-component
+            rules="required|min:3|max:15|lowercase"
+            :bind="form.username"
+            @change-value="change"
             class="xs:w-full md:w-10/12"
-            :error="errors.username"
-            v-model="form.username"
             type="text"
             :label="$t('forms.name')"
-            id="username"
+            name="username"
             :placeholder="$t('forms.name_placeholder')"
             :style="true"
           />
@@ -46,11 +47,11 @@
         <div class="mt-4 flex relative">
           <input-component
             class="xs:w-full md:w-10/12"
-            :rules="'required|email'"
-            :error="errors.email"
-            v-model="form.email"
+            rules="required|email"
             type="text"
-            id="email"
+            @change-value="change"
+            :bind="form.email"
+            name="email"
             :label="$t('forms.email')"
             :placeholder="$t('forms.email_placeholder')"
             :style="true"
@@ -68,14 +69,14 @@
         <div v-if="googleAuthor" class="w-full mt-4 flex relative">
           <input-component
             class="xs:w-full md:w-10/12"
-            :rules="'required|min:8|max:15|lowercase'"
-            v-model="form.fake_password"
-            :error="errors.fake_password"
+            rules="required|min:8|max:15|lowercase"
             type="password"
-            id="fake_password"
+            name="fake_password"
+            :bind="form.fake_password"
             :label="$t('forms.password')"
             :placeholder="$t('forms.password_placeholder')"
             :style="true"
+            page="profile"
           />
           <button
             @click="editForm('password')"
@@ -101,29 +102,31 @@
           </div>
           <div class="mt-4">
             <input-component
-              :rules="'required|min:8|max:15|lowercase'"
-              v-model="form.password"
-              :error="errors.password"
+              rules="required|min:8|max:15|lowercase"
               type="password"
-              id="password"
+              name="password"
+              @change-value="change"
+              :bind="getFieldInputBinds('password').value.value"
               @update:errorMessage="errorDots"
               :label="$t('forms.password')"
               :required="true"
               :placeholder="$t('forms.password_placeholder')"
               :style="true"
+              @error-value="errorDots"
             />
           </div>
           <div class="mt-4">
             <input-component
-              :rules="'required|confirmed:password'"
-              v-model="form.password_confirmation"
-              :error="errors.password_confirmation"
+              rules="required|confirmed:password"
               type="password"
-              id="password_confirmation"
+              @change-value="change"
+              :bind="getFieldInputBinds('password_confirmation').value.value"
+              name="password_confirmation"
               :label="$t('forms.confirm_password')"
               :required="true"
               :placeholder="$t('forms.confirm_password_placeholder')"
               :style="true"
+              @error-value="errorDots"
             />
           </div>
         </div>
@@ -132,12 +135,12 @@
         {{ AuthStore.error }}
       </p>
     </div>
-    <div v-if="form.stage !== ''" class="flex justify-end my-16">
+    <div v-if="form.stage !== ''" class="flex md:w-[62rem] justify-end my-16">
       <button class="mx-6 py-2 px-4 text-xl text-[#CED4DA]" @click="form.stage = ''">
         {{ $t("profile.cancel") }}
       </button>
       <button
-        @click="AuthStore.updateUser(form, locale)"
+        @click="submit"
         class="bg-[#E31221] py-2 px-4 text-white text-xl rounded-md disabled:bg-[#E3122140]"
       >
         {{ $t("profile.save_changes") }}
@@ -147,11 +150,11 @@
 </template>
 
 <script setup>
-import { Form } from "vee-validate";
+import { Form, useForm } from "vee-validate";
 import { computed, reactive, ref } from "vue";
 import { useAuthStore } from "../stores/AuthStore";
 import { useModalStore } from "../stores/ModalStore";
-import {ArrowIcon} from "../components/icons/index.js";
+import { ArrowIcon } from "../components/icons/index.js";
 import { avatar } from "../services/index.js";
 import { useI18n } from "vue-i18n";
 const AuthStore = useAuthStore();
@@ -166,11 +169,14 @@ const form = reactive({
   stage: "",
   avatar: "",
 });
+const { defineInputBinds } = useForm();
+const getFieldInputBinds = (field) => defineInputBinds(field);
 const passwordValidation = reactive({
   min: "",
   max: "",
 });
 const errorDots = (errorMessage) => {
+  console.log(errorMessage);
   if (errorMessage) {
     if (errorMessage.includes("8")) {
       passwordValidation.min = "text-red-500";
@@ -191,6 +197,12 @@ const editForm = (value) => {
   } else {
     form.stage = value;
   }
+};
+const change = (event, name) => {
+  form[name] = event;
+};
+const submit = () => {
+  AuthStore.updateUser(form, locale);
 };
 const handleFileUpload = (event) => {
   form.avatar = event;

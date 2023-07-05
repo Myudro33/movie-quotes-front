@@ -1,10 +1,10 @@
 <template>
-  <Form @submit="onSubmit" v-slot="{ errors }" class="w-full">
+  <Form @submit="onSubmit" class="w-full">
     <div class="flex justify-end w-full translate-y-5 md:hidden">
       <ExitIcon @click="ModalStore.closeModal" />
     </div>
     <h1
-      class="xs:text-2xl md:text-4xl h-auto xs:mt-[2.375rem] md:mt-2 text-white text-center"
+      class="xs:text-2xl md:text-4xl md:h-12 xs:mt-[2.375rem] md:mt-2 text-white text-center"
     >
       {{ $t("forms.create_new_password") }}
     </h1>
@@ -13,23 +13,20 @@
     </p>
     <div class="mt-4">
       <input-component
-        :rules="'required|min:8|max:15|lowercase'"
-        v-model="form.password"
-        :error="errors.password"
+        name="password"
         type="password"
-        id="password"
+        rules="required|min:8|max:15|lowercase"
+        :placeholder="$t('forms.password_placeholder')"
+        :bind="getFieldInputBinds('password').value.value"
         :label="$t('forms.password')"
         :required="true"
-        :placeholder="$t('forms.password_placeholder')"
       />
     </div>
     <div class="mt-4">
       <input-component
-        :rules="'required|confirmed:password'"
-        v-model="form.confirmPassword"
-        :error="errors.confirmPassword"
+        rules="required|confirmed:password"
         type="password"
-        id="confirmPassword"
+        name="confirmPassword"
         :label="$t('forms.confirm_password')"
         :required="true"
         :placeholder="$t('forms.confirm_password_placeholder')"
@@ -41,7 +38,10 @@
     >
       {{ AuthStore.error }}
     </p>
-    <button class="w-full h-[2.375rem] my-5 bg-[#E31221] rounded-md text-white">
+    <button
+      type="submit"
+      class="w-full h-[2.375rem] my-5 bg-[#E31221] rounded-md text-white"
+    >
       {{ $t("forms.reset_password") }}
     </button>
     <p
@@ -55,22 +55,19 @@
 
 <script setup>
 import { ArrowIcon, ExitIcon } from "../components/icons/index.js";
-import { Form } from "vee-validate";
-import { reactive } from "vue";
+import { Form, useForm } from "vee-validate";
 import { useAuthStore } from "../stores/AuthStore";
 import { useModalStore } from "../stores/ModalStore";
 import router from "../router";
 const AuthStore = useAuthStore();
 const ModalStore = useModalStore();
-const form = reactive({
-  password: "",
-  confirmPassword: "",
-});
-const onSubmit = () => {
+const { defineInputBinds } = useForm();
+const getFieldInputBinds = (field) => defineInputBinds(field);
+const onSubmit = (values) => {
   AuthStore.passwordUpdate({
     token: router.currentRoute.value.query.token,
     email: router.currentRoute.value.query.email,
-    password: form.password,
+    password: values.password,
   });
 };
 </script>

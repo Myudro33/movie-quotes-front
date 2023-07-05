@@ -1,10 +1,10 @@
 <template>
-  <Form @submit="onSubmit" v-slot="{ errors }" class="w-full">
+  <Form @submit="onSubmit" class="w-full">
     <div class="flex justify-end w-full translate-y-5 md:hidden">
       <ExitIcon @click="ModalStore.closeModal" />
     </div>
     <h1
-      class="xs:text-2xl md:text-4xl h-auto xs:mt-[2.375rem] md:mt-2 text-white text-center"
+      class="xs:text-2xl md:text-4xl md:h-12 xs:mt-[2.375rem] md:mt-2 text-white text-center"
     >
       {{ $t("forms.forgot_password") }}
     </h1>
@@ -13,13 +13,12 @@
     </p>
     <div class="mt-4">
       <input-component
-        :rules="'required|email'"
-        :error="errors.email"
-        v-model="form.email"
-        type="text"
-        id="email"
-        :label="$t('forms.email')"
+        name="email"
+        rules="required|email"
         :placeholder="$t('forms.email_placeholder')"
+        :bind="getFieldInputBinds('email').value.value"
+        :label="$t('forms.email')"
+        :required="true"
       />
     </div>
     <button class="w-full h-[2.375rem] my-5 bg-[#E31221] rounded-md text-white">
@@ -36,18 +35,17 @@
 
 <script setup>
 import { ExitIcon, ArrowIcon } from "../components/icons/index.js";
-import { Form } from "vee-validate";
-import { reactive } from "vue";
+import { Form, useForm } from "vee-validate";
 import { useModalStore } from "../stores/ModalStore";
 import { useAuthStore } from "../stores/AuthStore";
 import { useI18n } from "vue-i18n";
 const locale = useI18n().locale.value;
 const ModalStore = useModalStore();
 const AuthStore = useAuthStore();
-const form = reactive({
-  email: "",
-});
-const onSubmit = () => {
-  AuthStore.passwordReset(form.email, locale);
+const { defineInputBinds } = useForm();
+const getFieldInputBinds = (field) => defineInputBinds(field);
+
+const onSubmit = (values) => {
+  AuthStore.passwordReset(values.email, locale);
 };
 </script>

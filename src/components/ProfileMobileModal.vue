@@ -3,7 +3,7 @@
     v-if="ModalStore.mobile !== 'updated-succesfully' && ModalStore.mobile !== 'confirm'"
     class="bg-[#181623] w-full h-full absolute top-[4.375rem] z-30"
   >
-    <Form v-slot="{ errors }" class="w-full">
+    <Form class="w-full">
       <div class="w-full h-10 mt-4 px-10 flex items-center md:hidden">
         <ArrowIcon @click="ModalStore.closeModal" />
       </div>
@@ -13,41 +13,36 @@
         <input-component
           v-if="ModalStore.mobile === 'username'"
           class="w-full"
-          :rules="'required'"
-          :error="errors.username"
-          v-model="form.username"
+          rules="required|min:3|max:15|lowercase"
+          @change-value="change"
           type="text"
-          id="username"
           :label="$t('forms.name')"
+          name="username"
         />
         <input-component
           v-else-if="ModalStore.mobile === 'email'"
           class="w-full"
-          :rules="'required|email'"
-          :error="errors.email"
-          v-model="form.email"
+          rules="required|email"
+          @change-value="change"
           type="text"
-          id="email"
+          name="email"
           :label="$t('forms.email')"
         />
         <div class="w-full" v-else-if="ModalStore.mobile === 'password'">
           <div class="mt-4">
             <input-component
-              :rules="'required|min:8|max:15|lowercase'"
-              v-model="form.newPassword"
-              :error="errors.password"
+              rules="required|min:8|max:15|lowercase"
+              :bind="form.password"
               type="password"
-              id="password"
+              name="password"
               :label="$t('forms.password')"
             />
           </div>
           <div class="mt-4">
             <input-component
-              :rules="'required|confirmed:password'"
-              v-model="form.confirmPassword"
-              :error="errors.confirmPassword"
+              rules="required|confirmed:password"
               type="password"
-              id="confirmPassword"
+              name="confirmPassword"
               :label="$t('forms.confirm_password')"
             />
           </div>
@@ -120,6 +115,9 @@ const form = reactive({
   newPassword: "",
   avatar: "",
 });
+const change = (event, name) => {
+  form[name] = event;
+};
 onMounted(() => {
   back.value = ModalStore.mobile;
   if (ModalStore.mobile !== "" || ModalStore.inner !== "") {

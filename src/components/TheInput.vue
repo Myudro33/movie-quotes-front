@@ -1,18 +1,26 @@
 <template>
-  <div class="relative">
-    <label-component :required="required" :label="id" :title="label" />
-    <Field validateOnInput v-slot="{ field, meta }" :name="id" :rules="rules">
+  <div class="relative w-full flex flex-col">
+    <label-component
+      :required="props.required"
+      :label="props.name"
+      :title="props.label"
+    />
+    <Field
+      v-model="propBind"
+      v-slot="{ field, meta }"
+      :rules="props.rules"
+      :name="props.name"
+    >
       <input
-        :readonly="readonly"
-        :placeholder="placeholder"
         v-bind="field"
+        :type="localType"
+        @input="change"
+        :placeholder="props.placeholder"
         class="w-full h-[2.375rem] text-lg mt-2"
-        :value="modelValue"
-        @change="changeValue"
         :class="
           style
-            ? `xs:border-b md:border-2  ${
-                !meta.valid
+            ? `xs:border-b md:border-2   ${
+                !meta.valid && meta.touched
                   ? 'xs:border-b-red-500  md:border-red-500'
                   : 'xs:border-b-gray-500 md:border-gray-500'
               } md:px-5  xs:bg-transparent md:bg-white xs:outline-none md:outline md:rounded-md xs:text-white md:text-black`
@@ -22,9 +30,8 @@
                   : 'border-[#6c757d]-1'
               } ${
                 meta.valid && meta.touched ? 'border-1  border-[#198754]' : ''
-              }  px-5 border-2  rounded-md outline-none `
+              }  px-5 border-2  rounded-md outline-none`
         "
-        :type="localType"
       />
       <SuccessIcon class="absolute top-10 right-8" v-if="meta.valid && meta.touched" />
       <WarningIcon
@@ -34,35 +41,51 @@
     </Field>
     <EyeIcon
       @click="changeInputType"
-      class="absolute z-30 right-2 cursor-pointer top-11"
-      v-if="id === 'password' || id === 'confirmPassword'"
+      class="absolute z-10 right-2 cursor-pointer top-11"
+      v-if="props.type === 'password' && localType === 'text' && props.page !== 'profile'"
     />
-    <ErrorMessage class="text-[#F15524] xs:text-sm md:text-base" :name="id" />
+    <EyeIcon2
+      color="text-gray-500"
+      @click="changeInputType"
+      class="w-[0.875rem] h-[0.875rem] absolute z-10 right-2 cursor-pointer top-11"
+      v-if="
+        props.type === 'password' && localType === 'password' && props.page !== 'profile'
+      "
+    />
+    <ErrorMessage class="text-red-500" :name="props.name" />
   </div>
 </template>
 
 <script setup>
-import { Field, ErrorMessage, useField } from "vee-validate";
-import { watch, ref } from "vue";
-import { EyeIcon, SuccessIcon, WarningIcon } from "./icons/index.js";
+import { Field, useField } from "vee-validate";
+import { ref, watch } from "vue";
+import { EyeIcon, EyeIcon2, SuccessIcon, WarningIcon } from "./icons/index.js";
 const props = defineProps([
-  "modelValue",
-  "id",
-  "placeholder",
-  "label",
+  "name",
   "rules",
-  "required",
+  "placeholder",
+  "lang",
   "type",
-  "error",
-  "style",
+  "bind",
   "readonly",
+  "label",
+  "required",
+  "page",
+  "style",
 ]);
+const emits = defineEmits("change-value");
+const propBind = ref(props.bind);
 const localType = ref(props.type);
-const { errorMessage } = useField(() => props.id);
-const emit = defineEmits(["update:modelValue", "update:errorMessage"]);
-const changeValue = ($event) => {
-  emit("update:modelValue", $event.target.value, errorMessage.value);
+const change = (event) => {
+  emits("change-value", event.target.value, props.name);
 };
+
+if (props.page === "profile") {
+  const { errorMessage } = useField(props.name);
+  watch(errorMessage, (error) => {
+    emits("error-value", error);
+  });
+}
 const changeInputType = () => {
   if (localType.value === "password") {
     return (localType.value = "text");
@@ -70,7 +93,4 @@ const changeInputType = () => {
     return (localType.value = "password");
   }
 };
-watch(errorMessage, (error) => {
-  emit("update:errorMessage", error);
-});
 </script>

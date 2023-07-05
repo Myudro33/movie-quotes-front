@@ -1,5 +1,5 @@
 <template>
-  <Form @submit="submitForm" v-slot="{ meta, errors }" class="w-full">
+  <Form @submit="onSubmit" class="w-full">
     <div class="flex justify-end w-full translate-y-5 md:hidden">
       <ExitIcon @click="ModalStore.closeModal" />
     </div>
@@ -13,24 +13,23 @@
     </p>
     <div class="mt-4">
       <input-component
-        :rules="'required'"
-        :error="errors.username"
-        v-model="form.username"
-        type="text"
-        id="username"
-        :label="$t('forms.email')"
+        name="username"
+        rules="required"
         :placeholder="$t('forms.email_placeholder')"
+        :bind="getFieldInputBinds('username').value.value"
+        :label="$t('forms.email')"
+        :required="true"
       />
     </div>
     <div class="mt-4">
       <input-component
-        :rules="'required|min:8|max:15|lowercase'"
-        v-model="form.password"
-        :error="errors.password"
+        name="password"
         type="password"
-        id="password"
-        :label="$t('forms.password')"
+        rules="required|min:8|max:15|lowercase"
         :placeholder="$t('forms.password_placeholder')"
+        :bind="getFieldInputBinds('password').value.value"
+        :label="$t('forms.password')"
+        :required="true"
       />
     </div>
     <p
@@ -42,9 +41,9 @@
     <div class="w-full flex items-center justify-between mt-2">
       <div>
         <input
-          @change="!form.remember"
-          v-model="form.remember"
+          @change="remember = !remember"
           id="remember"
+          name="remember"
           type="checkbox"
         />
         <label class="text-white ml-2" for="remember">{{
@@ -60,7 +59,6 @@
     </div>
     <button
       type="submit"
-      :disabled="!meta.valid"
       class="w-full h-[2.375rem] my-4 bg-[#E31221] disabled:bg-[#e31220a7] rounded-md text-white"
     >
       {{ $t("forms.sign_in") }}
@@ -79,20 +77,27 @@
 </template>
 
 <script setup>
-import { Form } from "vee-validate";
+import { Form, useForm } from "vee-validate";
 import { useAuthStore } from "../stores/AuthStore";
 import { useModalStore } from "../stores/ModalStore";
 import { ExitIcon } from "../components/icons/index.js";
+import { ref } from "vue";
 const ModalStore = useModalStore();
 const AuthStore = useAuthStore();
 import GoogleButton from "../components/GoogleButton.vue";
-import { reactive } from "vue";
-const form = reactive({
-  username: "",
-  password: "",
-  remember: false,
-});
-const submitForm = () => {
-  AuthStore.login(form);
+import { useI18n } from "vue-i18n";
+const remember = ref(false);
+const { defineInputBinds } = useForm();
+const getFieldInputBinds = (field) => defineInputBinds(field);
+const locale = useI18n().locale.value;
+const onSubmit = (values) => {
+  AuthStore.login(
+    {
+      username: values.username,
+      password: values.password,
+      remember: remember.value,
+    },
+    locale
+  );
 };
 </script>

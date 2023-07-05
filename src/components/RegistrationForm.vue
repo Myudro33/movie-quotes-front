@@ -1,5 +1,5 @@
 <template>
-  <Form @submit="onSubmit" v-slot="{ errors }" class="w-full">
+  <Form @submit="onSubmit" class="w-full">
     <div class="flex justify-end w-full translate-y-5 md:hidden">
       <ExitIcon @click="ModalStore.closeModal" />
     </div>
@@ -13,50 +13,44 @@
     </p>
     <div class="mt-4">
       <input-component
-        :rules="'required|min:3|max:15|lowercase'"
-        v-model="form.username"
-        :error="errors.username"
-        id="username"
-        :label="$t('forms.name')"
-        type="text"
-        :required="true"
+        name="username"
+        rules="required|min:3|max:15|lowercase"
         :placeholder="$t('forms.name_placeholder')"
+        :bind="getFieldInputBinds('username').value.value"
+        :label="$t('forms.name')"
+        :required="true"
       />
     </div>
     <div class="mt-4">
       <input-component
-        :rules="'required|email'"
-        :error="errors.email"
-        v-model="form.email"
-        type="email"
-        id="email"
+        name="email"
+        rules="required|email"
+        :placeholder="$t('forms.email_placeholder')"
+        :bind="getFieldInputBinds('email').value.value"
         :label="$t('forms.email')"
         :required="true"
-        :placeholder="$t('forms.email_placeholder')"
       />
     </div>
     <div class="mt-4">
       <input-component
-        :rules="'required|min:8|max:15|lowercase'"
-        v-model="form.password"
-        :error="errors.password"
+        name="password"
         type="password"
-        id="password"
+        rules="required|min:8|max:15|lowercase"
+        :placeholder="$t('forms.password_placeholder')"
+        :bind="getFieldInputBinds('password').value.value"
         :label="$t('forms.password')"
         :required="true"
-        :placeholder="$t('forms.password_placeholder')"
       />
     </div>
     <div class="mt-4">
       <input-component
-        :rules="'required|confirmed:password'"
-        v-model="form.confirmPassword"
-        :error="errors.confirmPassword"
+        name="confirmPassword"
         type="password"
-        id="confirmPassword"
+        rules="required|confirmed:password"
+        :placeholder="$t('forms.confirm_password_placeholder')"
+        :bind="getFieldInputBinds('confirmPassword').value.value"
         :label="$t('forms.confirm_password')"
         :required="true"
-        :placeholder="$t('forms.confirm_password_placeholder')"
       />
     </div>
     <p
@@ -81,7 +75,7 @@
 </template>
 
 <script setup>
-import { Form } from "vee-validate";
+import { Form, useForm } from "vee-validate";
 import { useModalStore } from "../stores/ModalStore";
 import { useAuthStore } from "../stores/AuthStore";
 import { useI18n } from "vue-i18n";
@@ -91,19 +85,16 @@ const AuthStore = useAuthStore();
 import GoogleButton from "./GoogleButton.vue";
 const locale = useI18n().locale.value;
 
-import { reactive } from "vue";
-const form = reactive({
-  username: "",
-  email: "",
-  password: "",
-  confirmPassword: "",
-});
-const onSubmit = () => {
+const { defineInputBinds } = useForm();
+const getFieldInputBinds = (field) => defineInputBinds(field);
+
+const onSubmit = (values) => {
   AuthStore.register(
     {
-      username: form.username,
-      email: form.email,
-      password: form.password,
+      username: values.username,
+      email: values.email,
+      password: values.password,
+      password_confirmation: values.confirmPassword,
     },
     locale
   );
