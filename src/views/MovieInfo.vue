@@ -90,7 +90,7 @@
             class="flex items-center cursor-pointer"
             @click="setStage('view', item.id)"
           >
-            <EyeIcon2 />
+            <EyeIcon2 color="#fff" />
             <h1 class="ml-2">{{ $t("add_quote.view_quote") }}</h1>
           </div>
           <div

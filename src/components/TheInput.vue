@@ -45,7 +45,7 @@
       v-if="props.type === 'password' && localType === 'text' && props.page !== 'profile'"
     />
     <EyeIcon2
-      color="text-gray-500"
+      color="#6c757d"
       @click="changeInputType"
       class="w-[0.875rem] h-[0.875rem] absolute z-10 right-2 cursor-pointer top-11"
       v-if="
