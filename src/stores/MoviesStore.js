@@ -65,8 +65,12 @@ export const useMovieStore = defineStore('MoviesStore', {
     },
     async getMovie() {
       const id = router.currentRoute.value.params.id
-      const response = await axiosInstance.get(`/movies/${id}`)
-      this.movie = response.data.movie
+      try {
+        const response = await axiosInstance.get(`/movies/${id}`)
+        this.movie = response.data.movie
+      } catch (error) {
+        error.response.status===403&&router.push({name:'forbidden'})
+      }
     },
     async getGenres() {
       const response = await axiosInstance.get('/genres')

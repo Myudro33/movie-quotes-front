@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import axiosInstance from '../config/axios-config'
 import { useMovieStore } from './MoviesStore'
 import { useAuthStore } from './AuthStore'
+import router from '../router'
 const AuthStore = useAuthStore()
 export const useNewsStore = defineStore('newsStore', {
   state: () => ({
@@ -70,6 +71,7 @@ export const useNewsStore = defineStore('newsStore', {
       formData.append('movie_id', MovieStore.movie.id)
       formData.append('title', JSON.stringify({ en: data.title.en, ka: data.title.ka }))
       img.name===undefined ? null :  formData.append('image', img)
+      try {
         const response = await axiosInstance.post(`/quotes/${MovieStore.quote.id}`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
@@ -77,12 +79,22 @@ export const useNewsStore = defineStore('newsStore', {
         })
         const index = MovieStore.movie.quotes.findIndex(item => item.id === MovieStore.quote.id)
         MovieStore.movie.quotes[index] = response.data.quote
+        
+      } catch (error) {
+        error.response.status===403&&router.push({name:'forbidden'})
+        
+      }
     },
     async deleteQuote(id) {
       const MovieStore = useMovieStore()
+      try {
         await axiosInstance.delete(`/quotes/${id}`)
         const filtered = MovieStore.movie.quotes.filter(quote => quote.id !== id)
         return MovieStore.movie.quotes = filtered
+      } catch (error) {
+        error.response.status===403&&router.push({name:'forbidden'})
+        
+      }
     },
     async deleteLike(data,quote,page){
       const AuthStore = useAuthStore()
