@@ -3,7 +3,7 @@
     <div class="flex absolute top-1/2 xs:left-6 md:left-24">
       <hr class="xs:w-4 md:w-14 border-2 border-white xs:m-2 md:m-8" />
       <div class="flex flex-col">
-        <h1 v-html="image.text1" class="font-bold xs:text-xl md:text-5xl"></h1>
+        <h1 v-html="image.text1" class="font-bold xs:text-xl md:text-5xl md:h-40"></h1>
         <h1 class="font-bold md:text-[1.875rem] xs:mt-2">{{ image.text2 }}</h1>
       </div>
     </div>
