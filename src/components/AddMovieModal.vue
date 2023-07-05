@@ -16,14 +16,14 @@
       <div class="w-full px-8 flex flex-col">
         <AuthorTag />
         <Form @submit="onSubmit" enctype="multipart/form-data" class="flex flex-col">
-          <TheFIeld
+          <TheField
             name="movie_name.en"
             rules="required|min:3|max:50|en"
             placeholder="Movie name"
             lang="Eng"
             :bind="getFieldInputBinds('name.en').value.value"
           />
-          <TheFIeld
+          <TheField
             name="movie_name.ka"
             rules="required|min:3|max:50|ka"
             placeholder="ფილმის სახელი"
@@ -37,27 +37,27 @@
             @chip-update="addChips"
             @remove-genre="removeGenre"
           />
-          <TheFIeld
+          <TheField
             name="year"
             rules="required|number"
             placeholder="წელი"
             :bind="getFieldInputBinds('year').value.value"
           />
-          <TheFIeld
+          <TheField
             name="director_name.en"
             rules="required|min:3|max:50|en"
             placeholder="Director"
             lang="Eng"
             :bind="getFieldInputBinds('director.en').value.value"
           />
-          <TheFIeld
+          <TheField
             name="director_name.ka"
             rules="required|min:3|max:50|ka"
             placeholder="რეჟისორი"
             lang="ქარ"
             :bind="getFieldInputBinds('director.ka').value.value"
           />
-          <TheFIeld
+          <TheField
             name="movie_description.en"
             rules="required|en"
             placeholder="Movie description"
@@ -65,7 +65,7 @@
             type="textarea"
             :bind="getFieldInputBinds('description.en').value.value"
           />
-          <TheFIeld
+          <TheField
             name="movie_description.ka"
             rules="required|ka"
             placeholder="ფილმის აღწერა"
@@ -100,7 +100,7 @@ import { ExitIcon } from "./icons/index.js";
 import FileUploadInput from "./FileUploadInput.vue";
 import ChipInput from "./ChipInput.vue";
 import { image } from "../services";
-import TheFIeld from "./TheFIeld.vue";
+import TheField from "./TheField.vue";
 const newImage = ref("");
 const props = defineProps(["edit"]);
 const { defineInputBinds, setValues } = useForm({

@@ -49,7 +49,7 @@
           enctype="multipart/form-data"
           class="flex flex-col relative"
         >
-          <TheFIeld
+          <TheField
             :readonly="props.stage === 'view'"
             name="title.en"
             rules="required|en"
@@ -58,7 +58,7 @@
             type="textarea"
             :bind="getFieldInputBinds('title.en').value.value"
           />
-          <TheFIeld
+          <TheField
             :readonly="props.stage === 'view'"
             name="title.ka"
             rules="required|ka"
@@ -186,7 +186,7 @@
 </template>
 
 <script setup>
-import TheFIeld from "./TheFIeld.vue";
+import TheField from "./TheField.vue";
 import TheComment from "../components/TheComment.vue";
 import { createComment } from "../services/commentService";
 import { image, avatar } from "../services";
