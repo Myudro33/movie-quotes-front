@@ -59,9 +59,9 @@
     >
       {{ AuthStore.error }}
     </p>
-    <button class="bg-[#E31221] w-full mb-3 h-[2.375rem] text-white mt-6 rounded-md">
+    <the-button class="w-full mb-3 h-[2.375rem] mt-6">
       {{ $t("forms.get_started") }}
-    </button>
+    </the-button>
     <GoogleButton />
     <p class="text-center mt-8 text-[#6C757D]">
       {{ $t("forms.have_account") }}

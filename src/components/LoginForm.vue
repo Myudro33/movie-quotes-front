@@ -57,12 +57,9 @@
         {{ $t("forms.forgot_password") }}
       </p>
     </div>
-    <button
-      type="submit"
-      class="w-full h-[2.375rem] my-4 bg-[#E31221] disabled:bg-[#e31220a7] rounded-md text-white"
-    >
+    <the-button type="submit" class="w-full h-[2.375rem] my-4">
       {{ $t("forms.sign_in") }}
-    </button>
+    </the-button>
     <GoogleButton type="signin" />
     <p class="text-center mt-8 text-[#6C757D]">
       {{ $t("forms.dont_have_account") }}

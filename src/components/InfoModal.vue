@@ -17,13 +17,9 @@
       :href="link"
       >{{ button }}</a
     >
-    <button
-      v-else
-      @click="onSubmit"
-      class="xs:w-9/12 md:w-full h-10 mt-8 rounded-md bg-[#E31221] text-white"
-    >
+    <the-button v-else @click="onSubmit" class="xs:w-9/12 md:w-full h-10 mt-8">
       {{ button }}
-    </button>
+    </the-button>
     <button @click="ModalStore.closeModal" class="text-[#6C757D] md:mt-8" v-if="skip">
       {{ skip }}
     </button>

@@ -53,13 +53,13 @@
         <button class="py-2 px-4 text-xl text-[#CED4DA]" @click="ModalStore.closeModal">
           {{ $t("profile.cancel") }}
         </button>
-        <button
+        <the-button
           type="button"
           @click="ModalStore.mobile = 'confirm'"
-          class="bg-[#E31221] py-2 px-4 text-white text-xl rounded-md disabled:bg-[#E3122140]"
+          class="py-2 px-4 text-xl"
         >
           {{ $t("profile.edit") }}
-        </button>
+        </the-button>
       </div>
     </Form>
   </div>
@@ -86,13 +86,13 @@
         >
           {{ $t("profile.cancel") }}
         </button>
-        <button
+        <the-button
           type="button"
           @click="AuthStore.updateUser(form)"
-          class="bg-[#E31221] py-2 px-4 text-white text-xl rounded-md disabled:bg-[#E3122140]"
+          class="py-2 px-4 text-xl"
         >
           {{ $t("profile.confirm") }}
-        </button>
+        </the-button>
       </div>
     </div>
   </div>

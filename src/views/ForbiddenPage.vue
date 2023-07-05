@@ -8,9 +8,9 @@
       {{ $t("forbidden.paragraph") }}
     </p>
     <RouterLink :to="{ name: 'landing' }">
-      <button class="bg-[#E31221] px-4 py-2 rounded-md mt-10">
+      <the-button class="px-4 py-2 mt-10">
         {{ $t("forbidden.return") }}
-      </button>
+      </the-button>
     </RouterLink>
   </div>
 </template>

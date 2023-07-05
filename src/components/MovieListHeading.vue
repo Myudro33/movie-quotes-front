@@ -26,12 +26,12 @@
           {{ $t("feed.search_by") }}
         </button>
       </div>
-      <button
+      <the-button
         @click="MovieStore.modal = 'add-movie'"
-        class="bg-[#E31221] text-white h-[2.375rem] xs:text-xs xs:w-48 md:w-52 justify-center md:text-base flex px-3 items-center rounded-[.25rem]"
+        class="h-[2.375rem] xs:text-xs xs:w-48 md:w-52 justify-center md:text-base flex px-3 items-center"
       >
         <PlusSquareIcon class="mr-2" /> {{ $t("add_movie.add_movie") }}
-      </button>
+      </the-button>
     </div>
   </div>
 </template>

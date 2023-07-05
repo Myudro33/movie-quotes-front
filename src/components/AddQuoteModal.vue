@@ -113,28 +113,28 @@
             </Field>
           </div>
           <ErrorMessage class="text-red-500" name="field" />
-          <button
+          <the-button
             type="submit"
             @click="submit"
             v-if="props.stage !== 'view' && props.stage !== 'edit'"
-            class="w-full h-12 bg-[#E31221] text-white mt-10 text-xl rounded-[.3rem]"
+            class="w-full mt-10 text-xl"
           >
             {{ $t("add_quote.post") }}
-          </button>
+          </the-button>
           <img
             v-if="props.stage === 'view' || props.stage === 'edit'"
             :src="image + MovieStore.quote.image"
             alt="quote img"
             class="w-full md:h-[32rem] xs:h-80 rounded-xl xs:my-6"
           />
-          <button
+          <the-button
             v-if="props.stage === 'edit'"
             type="submit"
             @click="submit(values)"
-            class="w-full h-12 bg-[#E31221] text-white mt-10 text-xl rounded-[.3rem]"
+            class="w-full mt-10 text-xl"
           >
             {{ $t("add_quote.save_changes") }}
-          </button>
+          </the-button>
         </Form>
         <div v-if="props.stage === 'view'" class="flex">
           <div class="flex">

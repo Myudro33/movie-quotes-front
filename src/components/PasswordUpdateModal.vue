@@ -21,9 +21,9 @@
         :required="true"
       />
     </div>
-    <button class="w-full h-[2.375rem] my-5 bg-[#E31221] rounded-md text-white">
+    <the-button class="w-full h-[2.375rem] my-5">
       {{ $t("forms.send_instructions") }}
-    </button>
+    </the-button>
     <p
       @click="ModalStore.inner = 'login'"
       class="flex justify-center items-center cursor-pointer text-[#6C757D] font-normal"

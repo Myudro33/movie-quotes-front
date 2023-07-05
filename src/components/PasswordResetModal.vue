@@ -38,12 +38,9 @@
     >
       {{ AuthStore.error }}
     </p>
-    <button
-      type="submit"
-      class="w-full h-[2.375rem] my-5 bg-[#E31221] rounded-md text-white"
-    >
+    <the-button type="submit" class="w-full h-[2.375rem] my-5">
       {{ $t("forms.reset_password") }}
-    </button>
+    </the-button>
     <p
       @click="ModalStore.inner = 'login'"
       class="flex justify-center items-center cursor-pointer text-[#6C757D] font-normal"

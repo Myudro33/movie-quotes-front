@@ -67,12 +67,12 @@
       <hr
         class="border xs:w-full md:w-0 md:h-8 xs:my-4 md:my-0 md:mx-4 border-[#6C757D] xs:rotate-180 md:rotate-0"
       />
-      <button
+      <the-button
         @click="openAddQuoteModal"
-        class="bg-[#E31221] rounded-md text-white md:text-xl flex items-center justify-between px-2 h-12"
+        class="md:text-xl flex items-center justify-between px-2"
       >
         <PlusSquareIcon class="mx-2" /> {{ $t("add_quote.add_quote") }}
-      </button>
+      </the-button>
     </div>
     <div
       class="md:w-[61rem] relative"

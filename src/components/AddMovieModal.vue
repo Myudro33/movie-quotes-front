@@ -80,13 +80,9 @@
             @selectFile="getFile"
             @drop.prevent="drop"
           />
-          <button
-            @click="submit"
-            type="submit"
-            class="w-full h-12 bg-[#E31221] text-white mt-10 text-xl rounded-[.3rem]"
-          >
+          <the-button @click="submit" type="submit" class="w-full mt-10 text-xl">
             {{ $t("add_movie.add_movie") }}
-          </button>
+          </the-button>
         </Form>
       </div>
     </div>

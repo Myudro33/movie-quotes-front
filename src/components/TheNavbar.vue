@@ -14,12 +14,12 @@
         <LanguageSwitch />
       </div>
       <div v-if="!AuthStore.author">
-        <button
+        <the-button
           @click="ModalStore.openModal('register')"
-          class="bg-[#E31221] px-4 xs:h-8 md:h-[2.375rem] text-white rounded-md mx-4"
+          class="px-4 xs:h-8 md:h-[2.375rem] mx-4"
         >
           {{ $t("forms.sign_up") }}
-        </button>
+        </the-button>
         <button
           @click="ModalStore.openModal('login')"
           class="xs:w-[4.5rem] xs:h-8 md:w-24 md:h-[2.375rem] border border-[#fff] text-white rounded-md"

@@ -6,13 +6,13 @@
     </h1>
     <p class="font-medium md:text-2xl mt-4">{{ $t("not_found.paragraph") }}</p>
     <RouterLink :to="{ name: 'landing' }">
-      <button class="bg-[#E31221] px-4 py-2 rounded-md mt-10">
+      <the-button class="px-4 py-2 rounded-md mt-10">
         {{ $t("forbidden.return") }}
-      </button>
+      </the-button>
     </RouterLink>
   </div>
 </template>
 
 <script setup>
-import {GhostIcon} from "../components/icons/index.js";
+import { GhostIcon } from "../components/icons/index.js";
 </script>
