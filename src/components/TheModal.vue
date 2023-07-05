@@ -2,7 +2,7 @@
   <div
     @click="closeModal"
     name="backDrop"
-    class="top-0 backdrop w-full h-full absolute z-50 bg-[#00000090] flex justify-center items-center"
+    class="top-0 backdrop w-full h-full fixed z-50 bg-[#00000090] flex justify-center items-center"
   >
     <div
       @click.stop
