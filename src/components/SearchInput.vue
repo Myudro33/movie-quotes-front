@@ -11,9 +11,9 @@
     </button>
     <button
       @click="size = true"
-      :class="`ml-8 xs:hidden  md:flex md:justify-end ${
+      :class="`ml-8 xs:hidden  md:flex md:justify-end   ${
         size ? 'md:w-8/12 border-b border-[#EFEFEF4D]' : 'md:w-36'
-      } items-center h-[5.375rem] `"
+      } items-center  `"
     >
       <SearchIcon />
       <input
@@ -45,6 +45,7 @@
     <div class="flex items-center h-16 px-8 border-b border-b-[#EFEFEF4D]">
       <ArrowIcon class="w-10 h-10" @click="ModalStore.closeModal" />
       <input
+        @keydown.enter="search"
         v-model="input"
         class="w-full h-10 mx-2 bg-transparent text-white placeholder:text-white outline-none px-3"
         type="text"
@@ -71,19 +72,15 @@ const NewsStore = useNewsStore();
 const input = ref("");
 const size = ref(false);
 const search = async () => {
-  try {
-    const response = await axiosInstance.get("/quotes", {
-      params: {
-        query: input.value,
-      },
-    });
-    if (input.value === "") {
-      NewsStore.quotes = response.data.quotes.data;
-    } else {
-      NewsStore.quotes = response.data.quotes;
-    }
-  } catch (error) {
-    console.error(error);
+  const response = await axiosInstance.get("/quotes", {
+    params: {
+      query: input.value,
+    },
+  });
+  if (input.value === "") {
+    NewsStore.quotes = response.data.quotes.data;
+  } else {
+    NewsStore.quotes = response.data.quotes;
   }
 };
 </script>
