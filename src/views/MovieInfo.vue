@@ -143,13 +143,20 @@
 
 <script setup>
 import { image, openQuoteModal } from "../services";
-import { createLike, deleteLike } from "../services/likeService";
 import { useI18n } from "vue-i18n";
 import { useNewsStore } from "../stores/NewsStore";
 import { useAuthStore } from "../stores/AuthStore";
 import { useMovieStore } from "../stores/MoviesStore";
 import { onMounted, computed, ref } from "vue";
-import {EyeIcon2,PenIcon,TrashIcon,DotsIcon,PlusSquareIcon,HeartIcon,CommentIcon} from "../components/icons/index.js";
+import {
+  EyeIcon2,
+  PenIcon,
+  TrashIcon,
+  DotsIcon,
+  PlusSquareIcon,
+  HeartIcon,
+  CommentIcon,
+} from "../components/icons/index.js";
 import AddQuoteModal from "../components/AddQuoteModal.vue";
 import AddMovieModal from "../components/AddMovieModal.vue";
 const quoteModal = ref("");
@@ -168,7 +175,7 @@ const addLike = (item) => {
     quote_id: item.id,
     user_id: AuthStore.author.id,
   };
-  liked(item) ? deleteLike(data, item) : createLike(data, item);
+  liked(item) ? NewsStore.deleteLike(data, item) : NewsStore.createLike(data, item);
 };
 onMounted(async () => {
   await MovieStore.getMovie();

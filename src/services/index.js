@@ -4,7 +4,6 @@ import router from '../router'
 import axiosInstance from '../config/axios-config'
 import { useAuthStore } from '../stores/AuthStore.js'
 const AuthStore = useAuthStore()
-console.log(AuthStore.author);
 export const avatar = computed(() => {
   return AuthStore.author.google_id===null?import.meta.env.VITE_API_IMAGE_ENDPOINT + 'avatars/':''
 })

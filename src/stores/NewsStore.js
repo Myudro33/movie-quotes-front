@@ -83,6 +83,30 @@ export const useNewsStore = defineStore('newsStore', {
         await axiosInstance.delete(`/quotes/${id}`)
         const filtered = MovieStore.movie.quotes.filter(quote => quote.id !== id)
         return MovieStore.movie.quotes = filtered
+    },
+    async deleteLike(data,quote,page){
+      const AuthStore = useAuthStore()
+      const like = quote.likes.find((like) => like.author_id === AuthStore.author.id)
+      await axiosInstance.delete(`/likes/${like.id}`)
+      const filtered = quote.likes.filter((like) => like.author_id !== AuthStore.author.id)
+      const newsQuotes = this.quotes.find(quote=>quote.id===data.quote_id)
+      if(page==='feed'){
+          const newsQuote = newsQuotes.likes.filter((like)=>like.author_id!==AuthStore.author.id)
+          return  newsQuotes.likes = newsQuote
+      }else{
+          newsQuotes.likes = newsQuotes.likes.filter((like)=>like.author_id!==AuthStore.author.id)
+          return quote.likes = filtered
+      }
+    },
+    async createLike(data,quote,page){
+    const newsQuotes = this.quotes.find(quote=>quote.id===data.quote_id)
+    const response = await axiosInstance.post('/likes', data)
+    if(page==='feed'){
+     return newsQuotes.likes.push(response.data.like)
+    }else{
+        newsQuotes.likes.push(response.data.like)
+        return quote.likes.push(response.data.like)
+    }
     }
   }
 })

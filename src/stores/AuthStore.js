@@ -10,7 +10,7 @@ export const useAuthStore = defineStore('authStore', {
     user: null
   }),
   actions: {
-    async login(data) {
+    async login(data,locale) {
       const ModalStore = useModalStore()
       try {
         await this.getToken()
@@ -20,7 +20,8 @@ export const useAuthStore = defineStore('authStore', {
         ModalStore.closeModal()
         this.error = ''
       } catch (error) {
-        this.error = error.response.data.message
+        this.error =this.error = locale==='en'?'Email or password is incorrect':'იმეილი ან პაროლი არასწორია'
+
       }
     },
     async register(data,locale) {
@@ -34,7 +35,7 @@ export const useAuthStore = defineStore('authStore', {
         ModalStore.openModal('registered')
         this.error = ''
       } catch (error) {
-        this.error = error.response.data.message
+        this.error = error.response.data.errors[Object.keys(error.response.data.errors)[0]][0][locale];
       }
     },
     async logout() {
@@ -93,6 +94,8 @@ export const useAuthStore = defineStore('authStore', {
       }
     },
     async updateUser(form, locale) {
+      console.log(form);
+      // return
       const ModalStore = useModalStore()
       if (form.avatar !== '') {
         this.uploadAvatar(form.avatar)

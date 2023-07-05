@@ -190,7 +190,6 @@ import TheFIeld from "./TheFIeld.vue";
 import TheComment from "../components/TheComment.vue";
 import { createComment } from "../services/commentService";
 import { image, avatar } from "../services";
-import { deleteLike, createLike } from "../services/likeService";
 import { useMovieStore } from "../stores/MoviesStore";
 import { useAuthStore } from "../stores/AuthStore";
 import { useNewsStore } from "../stores/NewsStore";
@@ -259,6 +258,8 @@ const addComment = () => {
 };
 const addLike = () => {
   const data = { quote_id: MovieStore?.quote.id, user_id: AuthStore.author.id };
-  liked.value ? deleteLike(data, MovieStore.quote) : createLike(data, MovieStore.quote);
+  liked.value
+    ? NewsStore.deleteLike(data, MovieStore.quote)
+    : NewsStore.createLike(data, MovieStore.quote);
 };
 </script>
