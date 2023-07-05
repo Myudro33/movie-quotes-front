@@ -169,7 +169,7 @@
               :src="avatar + AuthStore.author.avatar"
               alt="avatar"
             />
-            <Field rules="required" name="title" v-model="title" v-slot="{ field }">
+            <Field name="title" v-model="title" v-slot="{ field }">
               <input
                 v-bind="field"
                 class="w-full text-white xs:h-10 md:h-[3.25rem] ml-6 pl-6 outline-none bg-[#24222F] text-xl rounded-[.6rem]"
@@ -178,7 +178,6 @@
               />
             </Field>
           </div>
-          <ErrorMessage class="text-red-500 ml-20" name="title" />
         </Form>
       </div>
     </div>
@@ -188,7 +187,6 @@
 <script setup>
 import TheField from "./TheField.vue";
 import TheComment from "../components/TheComment.vue";
-import { createComment } from "../services/commentService";
 import { image, avatar } from "../services";
 import { useMovieStore } from "../stores/MoviesStore";
 import { useAuthStore } from "../stores/AuthStore";
@@ -253,7 +251,7 @@ const addComment = () => {
     user_id: AuthStore.author.id,
     title: title.value,
   };
-  createComment(data, MovieStore.quote);
+  NewsStore.createComment(data, MovieStore.quote);
   title.value = "";
 };
 const addLike = () => {

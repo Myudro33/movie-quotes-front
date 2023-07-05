@@ -45,7 +45,7 @@
           :src="avatar + AuthStore.author.avatar"
           alt="avatar"
         />
-        <Field rules="required" name="title" v-model="title" v-slot="{ field }">
+        <Field name="title" v-model="title" v-slot="{ field }">
           <input
             v-bind="field"
             class="w-full text-white xs:h-10 md:h-[3.25rem] ml-6 pl-6 outline-none bg-[#24222F] text-xl rounded-xl"
@@ -54,18 +54,16 @@
           />
         </Field>
       </div>
-      <ErrorMessage class="text-red-500 ml-20" name="title" />
     </Form>
   </div>
 </template>
 
 <script setup>
-import { Form, Field, ErrorMessage } from "vee-validate";
+import { Form, Field } from "vee-validate";
 import { useAuthStore } from "../stores/AuthStore";
 import CommentIcon from "./icons/CommentIcon.vue";
 import HeartIcon from "./icons/HeartIcon.vue";
 import TheComment from "./TheComment.vue";
-import { createComment } from "../services/commentService";
 import { computed, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { avatar, image } from "../services/index.js";
@@ -100,7 +98,7 @@ const addComment = () => {
     user_id: AuthStore.author.id,
     title: title.value,
   };
-  createComment(data, props.quote, "feed");
+  NewsStore.createComment(data, props.quote, "feed");
   title.value = "";
 };
 const addLike = async () => {
