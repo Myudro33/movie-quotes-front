@@ -12,7 +12,7 @@ export const useNewsStore = defineStore('newsStore', {
     perPage: 10,
     isLoading: true,
     isLastPage: false,
-    user:AuthStore.author
+    user: AuthStore.author
   }),
   actions: {
     async getQuotes() {
@@ -70,7 +70,7 @@ export const useNewsStore = defineStore('newsStore', {
       formData.append('user_id', this.user.id)
       formData.append('movie_id', MovieStore.movie.id)
       formData.append('title', JSON.stringify({ en: data.title.en, ka: data.title.ka }))
-      img.name===undefined ? null :  formData.append('image', img)
+      img.name === undefined ? null : formData.append('image', img)
       try {
         const response = await axiosInstance.post(`/quotes/${MovieStore.quote.id}`, formData, {
           headers: {
@@ -79,10 +79,10 @@ export const useNewsStore = defineStore('newsStore', {
         })
         const index = MovieStore.movie.quotes.findIndex(item => item.id === MovieStore.quote.id)
         MovieStore.movie.quotes[index] = response.data.quote
-        
+
       } catch (error) {
-        error.response.status===403&&router.push({name:'forbidden'})
-        
+        error.response.status === 403 && router.push({ name: 'forbidden' })
+
       }
     },
     async deleteQuote(id) {
@@ -92,43 +92,44 @@ export const useNewsStore = defineStore('newsStore', {
         const filtered = MovieStore.movie.quotes.filter(quote => quote.id !== id)
         return MovieStore.movie.quotes = filtered
       } catch (error) {
-        error.response.status===403&&router.push({name:'forbidden'})
-        
+        error.response.status === 403 && router.push({ name: 'forbidden' })
+
       }
     },
-    async deleteLike(data,quote,page){
+    async deleteLike(data, quote, page) {
       const AuthStore = useAuthStore()
       const like = quote.likes.find((like) => like.author_id === AuthStore.author.id)
       await axiosInstance.delete(`/likes/${like.id}`)
       const filtered = quote.likes.filter((like) => like.author_id !== AuthStore.author.id)
-      const newsQuotes = this.quotes.find(quote=>quote.id===data.quote_id)
-      if(page==='feed'){
-          const newsQuote = newsQuotes.likes.filter((like)=>like.author_id!==AuthStore.author.id)
-          return  newsQuotes.likes = newsQuote
-      }else{
-          newsQuotes.likes = newsQuotes.likes.filter((like)=>like.author_id!==AuthStore.author.id)
-          return quote.likes = filtered
+      const newsQuotes = this.quotes.find(quote => quote.id === data.quote_id)
+      if (page === 'feed') {
+        const newsQuote = newsQuotes.likes.filter((like) => like.author_id !== AuthStore.author.id)
+        return newsQuotes.likes = newsQuote
+      } else {
+        newsQuotes.likes = newsQuotes.likes.filter((like) => like.author_id !== AuthStore.author.id)
+        return quote.likes = filtered
       }
     },
-    async createLike(data,quote,page){
-    const newsQuotes = this.quotes.find(quote=>quote.id===data.quote_id)
-    const response = await axiosInstance.post('/likes', data)
-    if(page==='feed'){
-     return newsQuotes.likes.push(response.data.like)
-    }else{
+    async createLike(data, quote, page) {
+      console.log(data,quote);
+      const newsQuotes = this.quotes.find(quote => quote.id === data.quote_id)
+      const response = await axiosInstance.post('/likes', { quote_id: data.quote_id, user_id: data.user_id, author: quote.user.id })
+      if (page === 'feed') {
+        return newsQuotes.likes.push(response.data.like)
+      } else {
         newsQuotes.likes.push(response.data.like)
         return quote.likes.push(response.data.like)
-    }
+      }
     },
-    async createComment(data,quote,page){
-      const newsQuote = this.quotes.find(quotes=>quotes.id===quote.id)
-      const response = await axiosInstance.post('/comments', {user_id:data.user_id,quote_id:quote.id,title:data.title})
-  if(page!=='feed'){
-      newsQuote.comments.push(response.data.comment)
-      return quote.comments.push(response.data.comment)
-  }else{
-      newsQuote.comments.push(response.data.comment)
-  }
+    async createComment(data, quote, page) {
+      const newsQuote = this.quotes.find(quotes => quotes.id === quote.id)
+      const response = await axiosInstance.post('/comments', { user_id: data.user_id, quote_id: quote.id, title: data.title, author: quote.user.id })
+      if (page !== 'feed') {
+        newsQuote.comments.push(response.data.comment)
+        return quote.comments.push(response.data.comment)
+      } else {
+        newsQuote.comments.push(response.data.comment)
+      }
     }
   }
 })
