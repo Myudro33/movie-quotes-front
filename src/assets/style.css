@@ -3,12 +3,16 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'HelveticaNeue';
-  src: url('../../fonts/helvetica-neue-lt-geo-55-roman.ttf');
+  font-family: 'Geo';
+  src: url('/fonts/font-ge.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Eng';
+  src: url('../../public/fonts/font-en.ttf') format('truetype');
 }
 
 * {
-  font-family: 'HelveticaNeue';
   margin: 0;
   padding: 0;
   box-sizing: border-box;
