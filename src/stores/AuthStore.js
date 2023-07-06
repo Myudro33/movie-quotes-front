@@ -20,7 +20,11 @@ export const useAuthStore = defineStore('authStore', {
         ModalStore.closeModal()
         this.error = ''
       } catch (error) {
-        this.error =this.error = locale==='en'?'Email or password is incorrect':'იმეილი ან პაროლი არასწორია'
+        if(error.response.status===401){
+          this.error = locale==='en'?'Email or password is incorrect':'იმეილი ან პაროლი არასწორია'
+        }else if(error.response.status===403){
+          this.error = locale==='en'?'You must verify your account first':'თქვენი ანგარიში გასააქტიურებელია'
+        }
 
       }
     },
