@@ -7,6 +7,8 @@ import add_quote from './add_quote.json'
 import add_movie from './add_movie.json'
 import forbidden from './forbidden.json'
 import not_found from './not_found.json'
+import notification from './notification.json'
+
 
 const translations = {
   forms,
@@ -17,7 +19,8 @@ const translations = {
   add_quote,
   add_movie,
   forbidden,
-  not_found
+  not_found,
+  notification
 }
 
 export default translations

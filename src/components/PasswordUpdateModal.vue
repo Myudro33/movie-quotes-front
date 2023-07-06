@@ -4,7 +4,7 @@
       <ExitIcon @click="ModalStore.closeModal" />
     </div>
     <h1
-      class="xs:text-2xl md:text-4xl md:h-12 xs:mt-[2.375rem] md:mt-2 text-white text-center"
+      class="xs:text-2xl md:text-3xl md:h-16 xs:mt-[2.375rem] md:mt-2 text-white text-center"
     >
       {{ $t("forms.forgot_password") }}
     </h1>
