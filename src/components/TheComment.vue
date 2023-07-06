@@ -17,6 +17,6 @@
 </template>
 
 <script setup>
-import { avatar } from "../services";
+import { avatar } from "../services/imagePrefixes";
 const props = defineProps(["comment"]);
 </script>

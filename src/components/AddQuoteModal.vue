@@ -187,7 +187,7 @@
 <script setup>
 import TheField from "./TheField.vue";
 import TheComment from "../components/TheComment.vue";
-import { image, avatar } from "../services";
+import { image, avatar } from "../services/imagePrefixes";
 import { useMovieStore } from "../stores/MoviesStore";
 import { useAuthStore } from "../stores/AuthStore";
 import { useNewsStore } from "../stores/NewsStore";

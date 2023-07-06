@@ -99,7 +99,7 @@ const MovieStore = useMovieStore();
 import { ExitIcon } from "./icons/index.js";
 import FileUploadInput from "./FileUploadInput.vue";
 import ChipInput from "./ChipInput.vue";
-import { image } from "../services";
+import { image } from "../services/imagePrefixes";
 import TheField from "./TheField.vue";
 const newImage = ref("");
 const props = defineProps(["edit"]);
