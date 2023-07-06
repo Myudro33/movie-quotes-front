@@ -13,10 +13,14 @@ import AddMovieModal from "../components/AddMovieModal.vue";
 import MovieCard from "../components/MovieCard.vue";
 import MovieListHeading from "../components/MovieListHeading.vue";
 import { useMovieStore } from "../stores/MoviesStore";
-import { onMounted } from "vue";
+import { onBeforeUnmount, onMounted } from "vue";
 const MovieStore = useMovieStore();
 onMounted(() => {
   MovieStore.getMovies();
   MovieStore.getGenres();
+  window.addEventListener("scroll", MovieStore.handleScroll);
+});
+onBeforeUnmount(() => {
+  window.removeEventListener("scroll", MovieStore.handleScroll);
 });
 </script>

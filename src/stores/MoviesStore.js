@@ -11,12 +11,45 @@ export const useMovieStore = defineStore('MoviesStore', {
     movie: '',
     quote: "",
     genres: [],
+    quantity:0,
+    currentPage: 1,
+    perPage: 10,
+    isLoading: true,
+    isLastPage: false,
     user: AuthStore.author
   }),
   actions: {
     async getMovies() {
-      const response = await axiosInstance.get('/movies')
-      this.movies = response.data.movies.filter((movie) => movie.author.id === this.user.id)
+      if (this.isLastPage) {
+        this.isLastPage = true
+        return
+      }
+      this.isLoading = true
+      await axiosInstance.get('/movies',{
+        params: {
+          page: this.currentPage,
+          perPage: this.perPage
+        }
+      }).then((response)=>{
+        this.movies = this.movies.concat(response.data.movies.data)
+        this.quantity = response.data.movies.meta.pagination.total
+        this.currentPage = response.data.movies.meta.pagination.current_page + 1
+        this.isLoading = false
+        if (
+          response.data.movies.meta.pagination.current_page >=
+          response.data.movies.meta.pagination.last_page
+        ) {
+          this.isLastPage = true
+        }
+      })
+    },
+    handleScroll() {
+      const scrollThreshold = 10
+      const windowBottom = window.innerHeight + window.pageYOffset
+      const documentHeight = document.documentElement.scrollHeight
+      if (documentHeight - windowBottom < scrollThreshold && !this.isLoading) {
+        this.getMovies()
+      }
     },
     async addMovie(data, genre) {
       const formData = new FormData()

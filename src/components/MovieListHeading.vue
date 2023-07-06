@@ -2,12 +2,15 @@
   <div class="w-full flex items-center justify-between">
     <h1 class="text-white font-bold xs:text-lg md:text-2xl flex xs:flex-col md:flex-row">
       {{ $t("add_movie.movie_list") }}
-      <p class="xs:px-0 md:pl-3 xs:mt-2 md:mt-0">({{ MovieStore.movies?.length }})</p>
+      <p class="xs:px-0 md:pl-3 xs:mt-2 md:mt-0">({{ MovieStore.quantity }})</p>
     </h1>
-    <div class="flex justify-end items-center md:w-[45rem]">
+    <div
+      :class="size ? 'md:w-[45rem]' : 'md:w-[45rem]'"
+      class="flex justify-end items-center"
+    >
       <div
-        :class="`xs:hidden  md:flex ${
-          size ? 'mr-8 border-b border-[#EFEFEF4D] ' : 'md:w-44'
+        :class="`xs:hidden  md:flex   ${
+          size ? 'mr-8 border-b border-[#EFEFEF4D] w-[60%]' : 'md:w-44'
         } items-center h-[3.25rem] `"
       >
         <SearchIcon class="shrink-0" />
@@ -20,7 +23,7 @@
         />
         <button
           @click="clickHandle"
-          :class="size ? 'w-44' : 'w-auto'"
+          :class="size ? 'w-56' : 'w-auto'"
           class="text-[#CED4DA] p-2 mx-3 text-xl"
         >
           {{ $t("feed.search_by") }}
@@ -46,14 +49,22 @@ const size = ref(false);
 const input = ref("");
 const clickHandle = () => {
   size.value = true;
-  search();
+  if (input.value !== "") {
+    search();
+  } else {
+    MovieStore.getMovies();
+  }
 };
 const search = async () => {
   const response = await axiosInstance.get("/movies", {
     params: {
-      query: input.value,
+      query: input.value === "" ? "" : input.value,
     },
   });
-  MovieStore.movies = response.data.movies;
+  if (input.value !== "") {
+    MovieStore.movies = response.data.movies;
+  } else {
+    MovieStore.movies = response.data.movies.data;
+  }
 };
 </script>

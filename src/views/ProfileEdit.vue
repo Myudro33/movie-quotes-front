@@ -173,7 +173,6 @@ const passwordValidation = reactive({
   max: "",
 });
 const errorDots = (errorMessage) => {
-  console.log(errorMessage);
   if (errorMessage) {
     if (errorMessage.includes("8")) {
       passwordValidation.min = "text-red-500";

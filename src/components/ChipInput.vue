@@ -115,7 +115,6 @@ const setGenre = (value) => {
       return;
     } else {
       chipsProps.value.push(value);
-      console.log(chipsProps.value);
     }
   }
 };

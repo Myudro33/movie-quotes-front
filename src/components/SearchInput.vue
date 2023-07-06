@@ -3,7 +3,7 @@
     <button
       @click="NewsStore.modal = 'add-quote'"
       :class="`bg-[#24222F] text-white rounded-xl  md:h-[3.25rem] ${
-        size ? 'md:w-64' : 'md:w-10/12'
+        size ? 'md:w-64' : 'md:w-9/12'
       } xs:h-[5.375rem] text-xl font-normal flex items-center px-3`"
     >
       <PencilIcon />
@@ -12,7 +12,7 @@
     <button
       @click="size = true"
       :class="`ml-8 xs:hidden  md:flex md:justify-end   ${
-        size ? 'md:w-8/12 border-b border-[#EFEFEF4D]' : 'md:w-36'
+        size ? 'md:w-8/12 border-b border-[#EFEFEF4D]' : 'md:w-48'
       } items-center  `"
     >
       <SearchIcon />
@@ -24,7 +24,7 @@
         :placeholder="$t('feed.search_placeholder')"
         type="text"
       />
-      <button class="text-[#CED4DA] w-42 p-2 mx-3" v-else>
+      <button class="text-[#CED4DA] w-48 md:text-base p-2 mx-3" v-else>
         {{ $t("feed.search_by") }}
       </button>
     </button>

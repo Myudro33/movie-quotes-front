@@ -20,7 +20,11 @@
     <the-button v-else @click="onSubmit" class="xs:w-9/12 md:w-full h-10 mt-8">
       {{ button }}
     </the-button>
-    <button @click="ModalStore.closeModal" class="text-[#6C757D] md:mt-8" v-if="skip">
+    <button
+      @click="ModalStore.closeModal"
+      class="text-[#6C757D] xs:mt-3 md:mt-8"
+      v-if="skip"
+    >
       {{ skip }}
     </button>
   </div>

@@ -73,7 +73,6 @@ export const useAuthStore = defineStore('authStore', {
       }
     },
     async passwordReset(email,locale) {
-      console.log(email);
       const ModalStore = useModalStore()
       try {
         await axiosInstance.post('/forgot-password',{email}, {
@@ -98,8 +97,6 @@ export const useAuthStore = defineStore('authStore', {
       }
     },
     async updateUser(form, locale) {
-      console.log(form);
-      // return
       const ModalStore = useModalStore()
       if (form.avatar !== '') {
         this.uploadAvatar(form.avatar)
@@ -128,7 +125,6 @@ export const useAuthStore = defineStore('authStore', {
     },
     async uploadAvatar(event) {
       const file = event.target.files[0]
-      console.log(file)
       const formData = new FormData()
       formData.append('avatar', file)
       try {
