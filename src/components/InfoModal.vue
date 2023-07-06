@@ -44,6 +44,8 @@ const onSubmit = () => {
     router.push({ name: "news" });
   } else if (props.button === t("modal.log_in")) {
     ModalStore.inner = "login";
+  } else if (props.button === t("modal.another_link")) {
+    ModalStore.removeQuery();
   } else if (props.image === "verified") {
     ModalStore.removeQuery();
   } else {

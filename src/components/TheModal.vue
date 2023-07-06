@@ -66,6 +66,13 @@
         :paragraph="$t('modal.password_success_paragraph')"
         :button="$t('modal.log_in')"
       />
+      <InfoModal
+        v-else-if="ModalStore.inner === 'link-expired'"
+        image="danger"
+        :heading="$t('modal.link_expired')"
+        :paragraph="$t('modal.link_expired_paragraph')"
+        :button="$t('modal.another_link')"
+      />
     </div>
   </div>
 </template>

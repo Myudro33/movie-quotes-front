@@ -9,10 +9,23 @@ export const verify = async (url) => {
       await axiosInstance.get(`/verify-email/${url.params.token}`).then((response) => {
         router.push({ name: 'landing' })
         ModalStore.inner = response.data.stage
+      }).catch((error)=>{
+        if(error.response.status===404){
+          alert('error')
+        ModalStore.inner = 'link-expired'
+        }
       })
     } else if (url.query.email === 'reset-password') {
-      router.replace(`/?email=${url.query.user}&token=${url.params.token}`)
-      ModalStore.inner = 'reset-email-verified'
+      await axiosInstance.get(`/verify-token/nika@gmail.com`).then((response)=>{
+        console.log(response);
+        router.replace(`/?email=${url.query.user}&token=${url.params.token}`)
+        ModalStore.inner =  response.data.stage
+      }).catch((error)=>{
+        if(error.response.status===404){
+        ModalStore.inner = 'link-expired'
+        }
+      })
+     
     } else if (url.query.email === 'email-update') {
       await axiosInstance
         .post(`/update-email/${url.params.token}`, {
@@ -21,6 +34,11 @@ export const verify = async (url) => {
         .then((response) => {
           ModalStore.inner = response.data.stage
           router.push({ name: 'news' })
+        }).catch((error)=>{
+          if(error.response.status===404){
+            alert('error')
+          ModalStore.inner = 'link-expired'
+          }
         })
     }
   }
