@@ -16,14 +16,26 @@
 import { useMovieStore } from "../stores/MoviesStore";
 import { useNewsStore } from "../stores/NewsStore";
 import { onMounted, onBeforeUnmount } from "vue";
+import instantiatePusher from "../config/pusher/index";
 import QuoteCard from "../components/QuoteCard.vue";
 import SearchInput from "../components/SearchInput.vue";
 import AddQuoteModal from "../components/AddQuoteModal.vue";
+import { useAuthStore } from "../stores/AuthStore";
+import { useNotificationStore } from "../stores/NotificationStore";
 const MovieStore = useMovieStore();
 const NewsStore = useNewsStore();
+const AuthStore = useAuthStore();
+const NotificationStore = useNotificationStore();
 onMounted(() => {
   MovieStore.getMovies();
   NewsStore.getQuotes();
+  instantiatePusher();
+  window.Echo.private(`notification.${AuthStore.author.id}`).listen(
+    "NotificationEvent",
+    (data) => {
+      NotificationStore.notifications.unshift(data.notification);
+    }
+  );
   window.addEventListener("scroll", NewsStore.handleScroll);
 });
 onBeforeUnmount(() => {
