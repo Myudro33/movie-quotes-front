@@ -152,7 +152,7 @@ import { computed, reactive, ref } from "vue";
 import { useAuthStore } from "../stores/AuthStore";
 import { useModalStore } from "../stores/ModalStore";
 import { ArrowIcon } from "../components/icons/index.js";
-import { avatar } from "../services/index.js";
+import { avatar } from "../services/imagePrefixes";
 import { useI18n } from "vue-i18n";
 const AuthStore = useAuthStore();
 const ModalStore = useModalStore();

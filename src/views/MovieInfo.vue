@@ -142,7 +142,8 @@
 </template>
 
 <script setup>
-import { image, openQuoteModal } from "../services";
+import { image } from "../services/imagePrefixes";
+import { openQuoteModal } from "../services/smallQuoteModal";
 import { useI18n } from "vue-i18n";
 import { useNewsStore } from "../stores/NewsStore";
 import { useAuthStore } from "../stores/AuthStore";

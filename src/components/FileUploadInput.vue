@@ -75,7 +75,6 @@ const dropzoneFile = ref("");
 const emit = defineEmits(["selectFile"]);
 const props = defineProps(["edit", "image", "stage"]);
 const required = () => {
-  console.log(props.image, dropzoneFile);
   if (props.image !== undefined || dropzoneFile.value !== "") {
     return true;
   }

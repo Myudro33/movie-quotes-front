@@ -11,6 +11,6 @@
 
 <script setup>
 import { useAuthStore } from "../stores/AuthStore";
-import { avatar } from "../services/index.js";
+import { avatar } from "../services/imagePrefixes";
 const AuthStore = useAuthStore();
 </script>

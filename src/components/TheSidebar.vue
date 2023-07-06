@@ -52,7 +52,7 @@ import { useAuthStore } from "../stores/AuthStore";
 import { useSidebarStore } from "../stores/SidebarStore";
 import LanguageSwitch from "./LanguageSwitch.vue";
 import { useRoute } from "vue-router";
-import { avatar } from "../services/index.js";
+import { avatar } from "../services/imagePrefixes";
 const route = useRoute();
 const AuthStore = useAuthStore();
 const SidebarStore = useSidebarStore();

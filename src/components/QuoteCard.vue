@@ -66,7 +66,7 @@ import HeartIcon from "./icons/HeartIcon.vue";
 import TheComment from "./TheComment.vue";
 import { computed, ref } from "vue";
 import { useI18n } from "vue-i18n";
-import { avatar, image } from "../services/index.js";
+import { avatar, image } from "../services/imagePrefixes";
 import { useNewsStore } from "../stores/NewsStore";
 const AuthStore = useAuthStore();
 const NewsStore = useNewsStore();
