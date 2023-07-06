@@ -10,6 +10,18 @@
     </button>
     <h1 class="text-[#DDCCAA] font-medium xs:hidden md:flex">{{ $t("landing.logo") }}</h1>
     <div class="flex xs:flex-row-reverse md:flex-row">
+      <div
+        v-if="AuthStore.author"
+        @click="NotificationStore.modal = !NotificationStore.modal"
+        class="w-10 h-10 xs:mx-3 relative"
+      >
+        <BellIcon />
+        <span
+          v-if="NotificationStore.notifications.length > 0"
+          class="w-5 h-5 text-white top-0 right-1 rounded-full flex justify-center items-center absolute bg-red-500"
+          >{{ NotificationStore.notifications.length }}</span
+        >
+      </div>
       <div class="xs:hidden md:flex flex items-center">
         <LanguageSwitch />
       </div>
@@ -44,11 +56,12 @@
 
 <script setup>
 import LanguageSwitch from "./LanguageSwitch.vue";
-import SearchIcon from "./icons/SearchIcon.vue";
 import { useModalStore } from "../stores/ModalStore";
 import { useAuthStore } from "../stores/AuthStore";
 import { useSidebarStore } from "../stores/SidebarStore";
-import HamburgerIcon from "./icons/HamburgerIcon.vue";
+import { HamburgerIcon, SearchIcon, BellIcon } from "./icons/index.js";
+import { useNotificationStore } from "../stores/NotificationStore";
+const NotificationStore = useNotificationStore();
 const ModalStore = useModalStore();
 const AuthStore = useAuthStore();
 const SidebarStore = useSidebarStore();
