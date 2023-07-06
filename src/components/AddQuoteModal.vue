@@ -42,7 +42,10 @@
         />
       </div>
       <div class="w-full px-8 flex flex-col">
-        <AuthorTag />
+        <AuthorTag
+          :author="MovieStore.quote.user.username"
+          :image="avatar + MovieStore.quote.user.avatar"
+        />
         <Form
           @submit="onSubmit"
           v-slot="{ values }"
@@ -256,6 +259,7 @@ const addComment = () => {
 };
 const addLike = () => {
   const data = { quote_id: MovieStore?.quote.id, user_id: AuthStore.author.id };
+  console.log(MovieStore.quote);
   liked.value
     ? NewsStore.deleteLike(data, MovieStore.quote)
     : NewsStore.createLike(data, MovieStore.quote);
