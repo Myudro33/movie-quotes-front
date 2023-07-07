@@ -149,6 +149,7 @@ import { useNewsStore } from "../stores/NewsStore";
 import { useAuthStore } from "../stores/AuthStore";
 import { useMovieStore } from "../stores/MoviesStore";
 import { onMounted, computed, ref } from "vue";
+import { deleteLike, createLike } from "../services/likeService";
 import {
   EyeIcon2,
   PenIcon,
@@ -176,7 +177,7 @@ const addLike = (item) => {
     quote_id: item.id,
     user_id: AuthStore.author.id,
   };
-  liked(item) ? NewsStore.deleteLike(data, item) : NewsStore.createLike(data, item);
+  liked(item) ? deleteLike(item, "movie") : createLike(data, item, "movie");
 };
 onMounted(async () => {
   await MovieStore.getMovie();

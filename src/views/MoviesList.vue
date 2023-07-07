@@ -3,7 +3,7 @@
   <div class="xs:w-full xs:py-4 xs:px-8 md:p-0 w-full md:pr-10 lg:pr-20">
     <MovieListHeading />
     <div class="flex xs:flex-col md:gap-10 md:flex-row md:flex-wrap">
-      <MovieCard v-for="item in MovieStore.movies" :movie="item" :key="item.id" />
+      <MovieCard v-for="item in MovieStore.filteredMovies" :movie="item" :key="item.id" />
     </div>
   </div>
 </template>

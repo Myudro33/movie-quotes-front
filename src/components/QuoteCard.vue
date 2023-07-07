@@ -67,9 +67,9 @@ import TheComment from "./TheComment.vue";
 import { computed, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { avatar, image } from "../services/imagePrefixes";
-import { useNewsStore } from "../stores/NewsStore";
+import { createLike, deleteLike } from "../services/likeService";
+import { createComment } from "../services/commentService";
 const AuthStore = useAuthStore();
-const NewsStore = useNewsStore();
 const props = defineProps(["quote"]);
 const locale = computed(() => {
   return useI18n().locale.value;
@@ -98,13 +98,11 @@ const addComment = () => {
     user_id: AuthStore.author.id,
     title: title.value,
   };
-  NewsStore.createComment(data, props.quote, "feed");
+  createComment(data, props.quote, "feed");
   title.value = "";
 };
 const addLike = async () => {
   const data = { quote_id: props.quote.id, user_id: AuthStore.author.id };
-  liked.value
-    ? NewsStore.deleteLike(data, props.quote, "feed")
-    : NewsStore.createLike(data, props.quote, "feed");
+  liked.value ? deleteLike(props.quote) : createLike(data, props.quote);
 };
 </script>

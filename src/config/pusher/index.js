@@ -25,7 +25,6 @@ export default function instantiatePusher() {
               callback(null, response.data)
             })
             .catch((error) => {
-              console.log(error);
               callback(error)
             })
         }

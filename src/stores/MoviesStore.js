@@ -93,6 +93,20 @@ export const useMovieStore = defineStore('MoviesStore', {
     async deleteMovie() {
       await axiosInstance.delete(`/movies/${this.movie.id}`)
       router.back()
+    },
+    likeInteractions(quote,like,stage,data,response){
+      if(stage==='delete'){
+        const moviequotes = this.movie.quotes.find(item=>item.id===quote.id)
+        const filtered = moviequotes.likes.filter(item=>item.id!==like.id)
+        moviequotes.likes =filtered
+      }else{
+        const Moviequotes = this.movie.quotes.find(item=>item.id===data.quote_id)
+       Moviequotes.likes.push(response.data.like)
+      }
+     },
+     addCommentOnMovieQuote(data,quote){
+      const singleQuote= this.movie.quotes.find(item=>item.id===quote.id)
+      singleQuote.comments.push(data)
     }
   }
 })
