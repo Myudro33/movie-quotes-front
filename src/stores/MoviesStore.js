@@ -2,58 +2,38 @@ import { defineStore } from 'pinia'
 import { useAuthStore } from './AuthStore.js'
 import axiosInstance from '../config/axios-config'
 import router from '../router'
-const AuthStore = useAuthStore()
 export const useMovieStore = defineStore('MoviesStore', {
   state: () => ({
     modal: '',
     quoteModal: "",
     movies: [],
+    filteredMovies: [],
     movie: '',
     quote: "",
     genres: [],
-    quantity:0,
-    currentPage: 1,
-    perPage: 10,
-    isLoading: true,
-    isLastPage: false,
-    user: AuthStore.author
   }),
   actions: {
     async getMovies() {
-      if (this.isLastPage) {
-        this.isLastPage = true
-        return
-      }
-      this.isLoading = true
-      await axiosInstance.get('/movies',{
-        params: {
-          page: this.currentPage,
-          perPage: this.perPage
-        }
-      }).then((response)=>{
-        this.movies = this.movies.concat(response.data.movies.data)
-        this.quantity = response.data.movies.meta.pagination.total
-        this.currentPage = response.data.movies.meta.pagination.current_page + 1
-        this.isLoading = false
-        if (
-          response.data.movies.meta.pagination.current_page >=
-          response.data.movies.meta.pagination.last_page
-        ) {
-          this.isLastPage = true
-        }
-      })
+      const response = await axiosInstance.get('/movies')
+      this.movies = response.data.movies
+      this.filteredMovies = response.data.movies
     },
-    handleScroll() {
-      const scrollThreshold = 10
-      const windowBottom = window.innerHeight + window.pageYOffset
-      const documentHeight = document.documentElement.scrollHeight
-      if (documentHeight - windowBottom < scrollThreshold && !this.isLoading) {
-        this.getMovies()
+    searchMovies(query) {
+      if(query!==''){
+
+        this.filteredMovies = this.movies.filter((movie) => {
+          const enName = movie.name.en.toLowerCase();
+          const kaName = movie.name.ka.toLowerCase();
+          return enName.includes(query) || kaName.includes(query);
+        })
+      }else{
+        this.filteredMovies=this.movies
       }
     },
     async addMovie(data, genre) {
+      const AuthStore = useAuthStore()
       const formData = new FormData()
-      formData.append('user_id', this.user.id)
+      formData.append('user_id', AuthStore.author.id)
       formData.append('name', JSON.stringify({ en: data.movie_name.en, ka: data.movie_name.ka }))
       formData.append('year', data.year)
       formData.append('image', data.image)
@@ -71,8 +51,9 @@ export const useMovieStore = defineStore('MoviesStore', {
       return this.movies.push(response.data.movie)
     },
     async updateMovie(data, image, genre) {
+      const AuthStore = useAuthStore()
       const formData = new FormData()
-      formData.append('user_id', this.user.id)
+      formData.append('user_id', AuthStore.author.id)
       formData.append('name', JSON.stringify({ en: data.movie_name.en, ka: data.movie_name.ka }))
       formData.append('year', data.year)
       if (image !== this.movie.image) {
@@ -102,7 +83,7 @@ export const useMovieStore = defineStore('MoviesStore', {
         const response = await axiosInstance.get(`/movies/${id}`)
         this.movie = response.data.movie
       } catch (error) {
-        error.response.status===403&&router.push({name:'forbidden'})
+        error.response.status === 403 && router.push({ name: 'forbidden' })
       }
     },
     async getGenres() {

@@ -42,29 +42,15 @@
 <script setup>
 import { PlusSquareIcon, SearchIcon } from "../components/icons/index.js";
 import { useMovieStore } from "../stores/MoviesStore";
-import axiosInstance from "../config/axios-config";
 import { ref } from "vue";
 const MovieStore = useMovieStore();
 const size = ref(false);
 const input = ref("");
 const clickHandle = () => {
   size.value = true;
-  if (input.value !== "") {
-    search();
-  } else {
-    MovieStore.getMovies();
-  }
+  search();
 };
-const search = async () => {
-  const response = await axiosInstance.get("/movies", {
-    params: {
-      query: input.value === "" ? "" : input.value,
-    },
-  });
-  if (input.value !== "") {
-    MovieStore.movies = response.data.movies;
-  } else {
-    MovieStore.movies = response.data.movies.data;
-  }
+const search = () => {
+  MovieStore.searchMovies(input.value);
 };
 </script>
