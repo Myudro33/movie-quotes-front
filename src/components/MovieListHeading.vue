@@ -2,7 +2,7 @@
   <div class="w-full flex items-center justify-between">
     <h1 class="text-white font-bold xs:text-lg md:text-2xl flex xs:flex-col md:flex-row">
       {{ $t("add_movie.movie_list") }}
-      <p class="xs:px-0 md:pl-3 xs:mt-2 md:mt-0">({{ MovieStore.quantity }})</p>
+      <p class="xs:px-0 md:pl-3 xs:mt-2 md:mt-0">({{ MovieStore.movies.length }})</p>
     </h1>
     <div
       :class="size ? 'md:w-[45rem]' : 'md:w-[45rem]'"

@@ -18,7 +18,7 @@
         <BellIcon />
         <span
           v-if="NotificationStore.notifications.length > 0"
-          class="w-5 h-5 text-white top-0 right-1 rounded-full flex justify-center items-center absolute bg-red-500"
+          class="w-6 h-6 text-white top-0 right-1 rounded-full flex justify-center items-center absolute bg-red-500"
           >{{ NotificationStore.notifications.length }}</span
         >
       </div>

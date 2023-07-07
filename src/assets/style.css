@@ -9,7 +9,7 @@
 
 @font-face {
   font-family: 'Eng';
-  src: url('../../public/fonts/font-en.ttf') format('truetype');
+  src: url('/fonts/font-en.ttf') format('truetype');
 }
 
 * {

@@ -43,6 +43,7 @@
       </div>
       <div class="w-full px-8 flex flex-col">
         <AuthorTag
+          v-if="props.stage === 'view' || props.stage === 'edit'"
           :author="MovieStore.quote.user.username"
           :image="avatar + MovieStore.quote.user.avatar"
         />
@@ -259,7 +260,6 @@ const addComment = () => {
 };
 const addLike = () => {
   const data = { quote_id: MovieStore?.quote.id, user_id: AuthStore.author.id };
-  console.log(MovieStore.quote);
   liked.value
     ? NewsStore.deleteLike(data, MovieStore.quote)
     : NewsStore.createLike(data, MovieStore.quote);
