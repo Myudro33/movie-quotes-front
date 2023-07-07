@@ -155,12 +155,19 @@
           </div>
         </div>
         <hr v-if="props.stage !== 'edit'" class="border w-full border-[#EFEFEF33] mt-6" />
-        <div v-if="props.stage === 'view'">
+        <div v-if="props.stage === 'view'" class="flex flex-col items-center">
           <TheComment
-            v-for="(item, index) in MovieStore.quote.comments"
+            v-for="(item, index) in limitedComments"
             :comment="item"
             :key="index"
           />
+          <button
+            v-if="comments.length > 2"
+            @click="toggleComments"
+            class="text-white my-2 font-bold"
+          >
+            {{ showMoreButton ? $t("add_quote.show_more") : $t("add_quote.show_less") }}
+          </button>
         </div>
         <Form
           v-if="props.stage === 'view'"
@@ -209,6 +216,8 @@ import { reactive, onMounted, computed, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import FileUploadInput from "./FileUploadInput.vue";
 import AuthorTag from "./AuthorTag.vue";
+import { createLike, deleteLike } from "../services/likeService";
+import { createComment } from "../services/commentService";
 const MovieStore = useMovieStore();
 const AuthStore = useAuthStore();
 const NewsStore = useNewsStore();
@@ -220,6 +229,21 @@ const data = reactive({
 const liked = computed(() => {
   return MovieStore.quote.likes.some((like) => like.author_id === AuthStore.author.id);
 });
+const comments = ref(MovieStore.quote.comments);
+const commentsToShow = ref(2);
+const limitedComments = computed(() => {
+  return comments.value.slice(0, commentsToShow.value);
+});
+const showMoreButton = computed(() => {
+  return comments.value.length > commentsToShow.value;
+});
+const toggleComments = () => {
+  if (showMoreButton.value) {
+    commentsToShow.value = comments.value.length;
+  } else {
+    commentsToShow.value = 2;
+  }
+};
 
 onMounted(() => {
   MovieStore.getMovies();
@@ -255,13 +279,13 @@ const addComment = () => {
     user_id: AuthStore.author.id,
     title: title.value,
   };
-  NewsStore.createComment(data, MovieStore.quote);
+  createComment(data, MovieStore.quote, "movie");
   title.value = "";
 };
 const addLike = () => {
   const data = { quote_id: MovieStore?.quote.id, user_id: AuthStore.author.id };
   liked.value
-    ? NewsStore.deleteLike(data, MovieStore.quote)
-    : NewsStore.createLike(data, MovieStore.quote);
+    ? deleteLike(MovieStore.quote, "movie")
+    : createLike(data, MovieStore.quote, "movie");
 };
 </script>
