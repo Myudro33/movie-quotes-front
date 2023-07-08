@@ -9,7 +9,6 @@ export const useMovieStore = defineStore('MoviesStore', {
     movies: [],
     filteredMovies: [],
     movie: '',
-    quote: "",
     genres: [],
   }),
   actions: {
@@ -106,7 +105,7 @@ export const useMovieStore = defineStore('MoviesStore', {
      },
      addCommentOnMovieQuote(data,quote){
       const singleQuote= this.movie.quotes.find(item=>item.id===quote.id)
-      singleQuote.comments.push(data)
+      singleQuote.comments.unshift(data)
     }
   }
 })

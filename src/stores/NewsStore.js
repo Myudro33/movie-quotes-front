@@ -7,6 +7,7 @@ export const useNewsStore = defineStore('newsStore', {
   state: () => ({
     modal: '',
     quotes: [],
+    quote:"",
     currentPage: 1,
     perPage: 10,
     isLoading: true,
@@ -66,18 +67,19 @@ export const useNewsStore = defineStore('newsStore', {
     async updateQuote(data, img) {
       const AuthStore = useAuthStore()
       const MovieStore = useMovieStore()
+      const NewsStore = useNewsStore()
       const formData = new FormData()
       formData.append('user_id', AuthStore.author.id)
       formData.append('movie_id', MovieStore.movie.id)
       formData.append('title', JSON.stringify({ en: data.title.en, ka: data.title.ka }))
       img.name === undefined ? null : formData.append('image', img)
       try {
-        const response = await axiosInstance.post(`/quotes/${MovieStore.quote.id}`, formData, {
+        const response = await axiosInstance.post(`/quotes/${NewsStore.quote.id}`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
         })
-        const index = MovieStore.movie.quotes.findIndex(item => item.id === MovieStore.quote.id)
+        const index = MovieStore.movie.quotes.findIndex(item => item.id === NewsStore.quote.id)
         MovieStore.movie.quotes[index] = response.data.quote
 
       } catch (error) {
