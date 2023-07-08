@@ -1,11 +1,11 @@
 <template>
-  <AddQuoteModal
+  <QuoteModal
     v-if="NewsStore.modal === 'add-quote'"
     :inner="true"
-    :stage="MovieStore.quoteModal"
+    :mode="MovieStore.quoteModal"
     :movie="MovieStore.movie"
   />
-  <AddMovieModal :edit="true" v-if="MovieStore.modal === 'add-movie'" />
+  <MovieModal :edit="true" v-if="MovieStore.modal === 'add-movie'" />
   <h1 v-if="loading" class="text-white text-3xl">{{ $t("add_quote.loading") }}</h1>
   <div v-else class="flex flex-col xs:py-10 md:pb-20">
     <h1 class="text-2xl text-white xs:hidden md:flex">
@@ -159,8 +159,8 @@ import {
   HeartIcon,
   CommentIcon,
 } from "../components/icons/index.js";
-import AddQuoteModal from "../components/AddQuoteModal.vue";
-import AddMovieModal from "../components/AddMovieModal.vue";
+import QuoteModal from "../components/QuoteModal.vue";
+import MovieModal from "../components/MovieModal.vue";
 const quoteModal = ref("");
 const MovieStore = useMovieStore();
 const NewsStore = useNewsStore();
@@ -194,7 +194,7 @@ const openAddQuoteModal = () => {
 };
 const setStage = (val, index) => {
   MovieStore.quoteModal = val;
-  MovieStore.quote = MovieStore.movie.quotes.find((quote) => quote.id === index);
+  NewsStore.quote = MovieStore.movie.quotes.find((quote) => quote.id === index);
   NewsStore.modal = "add-quote";
 };
 </script>

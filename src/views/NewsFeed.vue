@@ -1,6 +1,6 @@
 <template>
   <div class="md:w-[45rem] lg:w-[58.625rem] md:ml-36">
-    <AddQuoteModal stage="" v-if="NewsStore.modal === 'add-quote'" :inner="false" />
+    <QuoteModal mode="" v-if="NewsStore.modal === 'add-quote'" :inner="false" />
     <SearchInput />
     <QuoteCard v-for="item of NewsStore.quotes" :quote="item" :key="item.id" />
     <h1 class="text-white md:text-4xl text-center my-5 h-12" v-if="NewsStore.isLoading">
@@ -18,7 +18,7 @@ import { useNewsStore } from "../stores/NewsStore";
 import { onMounted, onBeforeUnmount } from "vue";
 import QuoteCard from "../components/QuoteCard.vue";
 import SearchInput from "../components/SearchInput.vue";
-import AddQuoteModal from "../components/AddQuoteModal.vue";
+import QuoteModal from "../components/QuoteModal.vue";
 const MovieStore = useMovieStore();
 const NewsStore = useNewsStore();
 onMounted(() => {

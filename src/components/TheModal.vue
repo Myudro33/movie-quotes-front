@@ -43,7 +43,7 @@
         image="verified"
         :heading="$t('modal.thank_you')"
         :paragraph="$t('modal.account_activated')"
-        :button="$t('modal.go_to_news_feed')"
+        :button="$t('modal.log_in')"
       />
       <InfoModal
         v-else-if="ModalStore.inner === 'user-updated'"

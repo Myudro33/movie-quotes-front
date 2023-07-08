@@ -11,23 +11,23 @@
         >
           <PenIcon
             @click="MovieStore.quoteModal = 'edit'"
-            v-if="props.stage === 'view'"
+            v-if="props.mode === 'view'"
             class="cursor-pointer"
           />
-          <hr v-if="props.stage === 'view'" class="border border-[#6C757D] h-5" />
+          <hr v-if="props.mode === 'view'" class="border border-[#6C757D] h-5" />
           <div
-            @click="NewsStore.deleteQuote(MovieStore.quote.id)"
+            @click="NewsStore.deleteQuote(NewsStore.quote.id)"
             class="flex items-center cursor-pointer"
           >
-            <TrashIcon v-if="props.stage === 'edit' || props.stage === 'view'" />
-            <h1 v-if="props.stage === 'edit'" class="text-white ml-2">
+            <TrashIcon v-if="props.mode === 'edit' || props.mode === 'view'" />
+            <h1 v-if="props.mode === 'edit'" class="text-white ml-2">
               {{ $t("add_quote.delete_quote") }}
             </h1>
           </div>
         </div>
-        <h1 v-if="props.stage !== ''" class="text-2xl xs:hidden md:flex text-white">
+        <h1 v-if="props.mode !== ''" class="text-2xl xs:hidden md:flex text-white">
           {{
-            props.stage === "view"
+            props.mode === "view"
               ? $t("add_quote.view_quote")
               : $t("add_quote.edit_quote")
           }}
@@ -43,18 +43,17 @@
       </div>
       <div class="w-full px-8 flex flex-col">
         <AuthorTag
-          v-if="props.stage === 'view' || props.stage === 'edit'"
-          :author="MovieStore.quote.user.username"
-          :image="avatar + MovieStore.quote.user.avatar"
+          v-if="props.mode === 'view' || props.mode === 'edit'"
+          :author="NewsStore.quote.user.username"
+          :image="avatar + NewsStore.quote.user.avatar"
         />
         <Form
           @submit="onSubmit"
-          v-slot="{ values }"
           enctype="multipart/form-data"
           class="flex flex-col relative"
         >
           <TheField
-            :readonly="props.stage === 'view'"
+            :readonly="props.mode === 'view'"
             name="title.en"
             rules="required|en"
             placeholder="Start create new quote"
@@ -63,7 +62,7 @@
             :bind="getFieldInputBinds('title.en').value.value"
           />
           <TheField
-            :readonly="props.stage === 'view'"
+            :readonly="props.mode === 'view'"
             name="title.ka"
             rules="required|ka"
             placeholder="ახალი ციტატა"
@@ -74,13 +73,13 @@
 
           <FileUploadInput
             name="image"
-            :stage="props.stage === 'edit'"
-            v-if="props.stage !== 'view'"
+            :mode="props.mode === 'edit'"
+            v-if="props.mode !== 'view'"
             @selectFile="getFile"
             @drop.prevent="drop"
           />
           <div
-            v-if="props.stage !== 'view' && props.stage !== 'edit'"
+            v-if="props.mode !== 'view' && props.mode !== 'edit'"
             class="relative w-full flex items-center bg-[#000000] rounded-sm h-[5.3rem] mt-7 p-4"
           >
             <CameraIcon class="mr-3" color="#fff" />
@@ -119,43 +118,41 @@
           <ErrorMessage class="text-red-500" name="field" />
           <the-button
             type="submit"
-            @click="submit"
-            v-if="props.stage !== 'view' && props.stage !== 'edit'"
+            v-if="props.mode !== 'view' && props.mode !== 'edit'"
             class="w-full mt-10 text-xl"
           >
             {{ $t("add_quote.post") }}
           </the-button>
           <img
-            v-if="props.stage === 'view' || props.stage === 'edit'"
-            :src="image + MovieStore.quote.image"
+            v-if="props.mode === 'view' || props.mode === 'edit'"
+            :src="image + NewsStore.quote.image"
             alt="quote img"
             class="w-full md:h-[32rem] xs:h-80 rounded-xl xs:my-6"
           />
           <the-button
-            v-if="props.stage === 'edit'"
+            v-if="props.mode === 'edit'"
             type="submit"
-            @click="submit(values)"
             class="w-full mt-10 text-xl"
           >
             {{ $t("add_quote.save_changes") }}
           </the-button>
         </Form>
-        <div v-if="props.stage === 'view'" class="flex">
+        <div v-if="props.mode === 'view'" class="flex">
           <div class="flex">
             <h1 class="text-white text-2xl mr-2">
-              {{ MovieStore.quote.comments?.length }}
+              {{ NewsStore.quote.comments?.length }}
             </h1>
             <CommentIcon />
           </div>
           <div class="flex">
             <h1 class="text-white text-2xl ml-4 mr-2">
-              {{ MovieStore.quote.likes?.length }}
+              {{ NewsStore.quote.likes?.length }}
             </h1>
             <HeartIcon :color="liked" @click="addLike()" class="cursor-default" />
           </div>
         </div>
-        <hr v-if="props.stage !== 'edit'" class="border w-full border-[#EFEFEF33] mt-6" />
-        <div v-if="props.stage === 'view'" class="flex flex-col items-center">
+        <hr v-if="props.mode !== 'edit'" class="border w-full border-[#EFEFEF33] mt-6" />
+        <div v-if="props.mode === 'view'" class="flex flex-col items-center">
           <TheComment
             v-for="(item, index) in limitedComments"
             :comment="item"
@@ -170,7 +167,7 @@
           </button>
         </div>
         <Form
-          v-if="props.stage === 'view'"
+          v-if="props.mode === 'view'"
           @submit="addComment"
           class="flex flex-col mt-6"
         >
@@ -221,15 +218,14 @@ import { createComment } from "../services/commentService";
 const MovieStore = useMovieStore();
 const AuthStore = useAuthStore();
 const NewsStore = useNewsStore();
-const props = defineProps(["inner", "movie", "stage"]);
-const title = ref("");
+const props = defineProps(["inner", "movie", "mode"]);
 const data = reactive({
   image: null,
 });
 const liked = computed(() => {
-  return MovieStore.quote.likes.some((like) => like.author_id === AuthStore.author.id);
+  return NewsStore.quote.likes.some((like) => like.author_id === AuthStore.author.id);
 });
-const comments = ref(MovieStore.quote.comments);
+const comments = ref(NewsStore.quote.comments);
 const commentsToShow = ref(2);
 const limitedComments = computed(() => {
   return comments.value.slice(0, commentsToShow.value);
@@ -247,12 +243,12 @@ const toggleComments = () => {
 
 onMounted(() => {
   MovieStore.getMovies();
-  if (props.stage !== "") {
+  if (props.mode !== "") {
     data.image = MovieStore?.quote?.image;
   }
 });
 const { setValues, defineInputBinds } = useForm({
-  initialValues: props.stage !== "" && MovieStore.quote,
+  initialValues: props.mode !== "" && NewsStore.quote,
 });
 const getFile = (img) => {
   data.image = img.value;
@@ -262,30 +258,28 @@ const getFile = (img) => {
 };
 const getFieldInputBinds = (field) => defineInputBinds(field);
 const onSubmit = (values) => {
-  NewsStore.addQuote(values);
-  NewsStore.modal = "";
-};
-const submit = (values) => {
-  if (props.stage === "edit") {
+  if (props.mode === "edit") {
     setValues({
       title: values.title,
     });
     NewsStore.updateQuote(values, data.image);
     NewsStore.modal = "";
+    return;
   }
+  NewsStore.addQuote(values);
+  NewsStore.modal = "";
 };
-const addComment = () => {
+const addComment = (values) => {
   const data = {
     user_id: AuthStore.author.id,
-    title: title.value,
+    title: values.title,
   };
-  createComment(data, MovieStore.quote, "movie");
-  title.value = "";
+  createComment(data, NewsStore.quote, "movie");
 };
 const addLike = () => {
-  const data = { quote_id: MovieStore?.quote.id, user_id: AuthStore.author.id };
+  const data = { quote_id: NewsStore?.quote.id, user_id: AuthStore.author.id };
   liked.value
-    ? deleteLike(MovieStore.quote, "movie")
-    : createLike(data, MovieStore.quote, "movie");
+    ? deleteLike(NewsStore.quote, "movie")
+    : createLike(data, NewsStore.quote, "movie");
 };
 </script>

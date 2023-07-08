@@ -1,5 +1,5 @@
 <template>
-  <AddMovieModal v-if="MovieStore.modal === 'add-movie'" />
+  <MovieModal v-if="MovieStore.modal === 'add-movie'" />
   <div class="xs:w-full xs:py-4 xs:px-8 md:p-0 w-full md:pr-10 lg:pr-20">
     <MovieListHeading />
     <div class="flex xs:flex-col md:gap-10 md:flex-row md:flex-wrap">
@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-import AddMovieModal from "../components/AddMovieModal.vue";
+import MovieModal from "../components/MovieModal.vue";
 import MovieCard from "../components/MovieCard.vue";
 import MovieListHeading from "../components/MovieListHeading.vue";
 import { useMovieStore } from "../stores/MoviesStore";

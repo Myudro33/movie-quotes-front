@@ -17,7 +17,7 @@ const font = computed(() => {
   if (useI18n().locale.value === "en") {
     return "Eng";
   } else {
-    return "Geo"; // Default font if the locale is not English or French
+    return "Geo";
   }
 });
 </script>
