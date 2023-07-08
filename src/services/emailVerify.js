@@ -16,7 +16,7 @@ export const verify = async (url) => {
         }
       })
     } else if (url.query.email === 'reset-password') {
-      await axiosInstance.get(`/verify-token/nika@gmail.com`).then((response)=>{
+      await axiosInstance.post(`/verify-token/${url.query.user}`,{token:url.params.token}).then((response)=>{
         router.replace(`/?email=${url.query.user}&token=${url.params.token}`)
         ModalStore.inner =  response.data.stage
       }).catch((error)=>{
