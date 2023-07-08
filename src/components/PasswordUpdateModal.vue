@@ -16,7 +16,6 @@
         name="email"
         rules="required|email"
         :placeholder="$t('forms.email_placeholder')"
-        :bind="getFieldInputBinds('email').value.value"
         :label="$t('forms.email')"
         :required="true"
       />
@@ -35,15 +34,13 @@
 
 <script setup>
 import { ExitIcon, ArrowIcon } from "../components/icons/index.js";
-import { Form, useForm } from "vee-validate";
+import { Form } from "vee-validate";
 import { useModalStore } from "../stores/ModalStore";
 import { useAuthStore } from "../stores/AuthStore";
 import { useI18n } from "vue-i18n";
 const locale = useI18n().locale.value;
 const ModalStore = useModalStore();
 const AuthStore = useAuthStore();
-const { defineInputBinds } = useForm();
-const getFieldInputBinds = (field) => defineInputBinds(field);
 
 const onSubmit = (values) => {
   AuthStore.passwordReset(values.email, locale);

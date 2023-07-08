@@ -16,7 +16,6 @@
         name="username"
         rules="required|min:3|max:15|lowercase"
         :placeholder="$t('forms.name_placeholder')"
-        :bind="getFieldInputBinds('username').value.value"
         :label="$t('forms.name')"
         :required="true"
       />
@@ -26,7 +25,6 @@
         name="email"
         rules="required|email"
         :placeholder="$t('forms.email_placeholder')"
-        :bind="getFieldInputBinds('email').value.value"
         :label="$t('forms.email')"
         :required="true"
       />
@@ -37,7 +35,6 @@
         type="password"
         rules="required|min:8|max:15|lowercase"
         :placeholder="$t('forms.password_placeholder')"
-        :bind="getFieldInputBinds('password').value.value"
         :label="$t('forms.password')"
         :required="true"
       />
@@ -48,7 +45,6 @@
         type="password"
         rules="required|confirmed:password"
         :placeholder="$t('forms.confirm_password_placeholder')"
-        :bind="getFieldInputBinds('confirmPassword').value.value"
         :label="$t('forms.confirm_password')"
         :required="true"
       />
@@ -75,7 +71,7 @@
 </template>
 
 <script setup>
-import { Form, useForm } from "vee-validate";
+import { Form } from "vee-validate";
 import { useModalStore } from "../stores/ModalStore";
 import { useAuthStore } from "../stores/AuthStore";
 import { useI18n } from "vue-i18n";
@@ -84,10 +80,6 @@ const ModalStore = useModalStore();
 const AuthStore = useAuthStore();
 import GoogleButton from "./GoogleButton.vue";
 const locale = useI18n().locale.value;
-
-const { defineInputBinds } = useForm();
-const getFieldInputBinds = (field) => defineInputBinds(field);
-
 const onSubmit = (values) => {
   AuthStore.register(
     {

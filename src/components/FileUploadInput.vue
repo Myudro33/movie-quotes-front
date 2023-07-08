@@ -2,7 +2,7 @@
   <Field v-slot="{ field, meta }" :rules="required" name="image">
     <div
       v-bind="field"
-      v-if="!props.stage"
+      v-if="!props.mode"
       @dragenter.prevent="toggleActive"
       @dragleave.prevent="toggleActive"
       @dragover.prevent
@@ -73,8 +73,11 @@ import PhotoIcon from "./icons/PhotoIcon.vue";
 const active = ref(false);
 const dropzoneFile = ref("");
 const emit = defineEmits(["selectFile"]);
-const props = defineProps(["edit", "image", "stage"]);
+const props = defineProps(["edit", "image", "mode"]);
 const required = () => {
+  if (props.mode) {
+    return true;
+  }
   if (props.image !== undefined || dropzoneFile.value !== "") {
     return true;
   }

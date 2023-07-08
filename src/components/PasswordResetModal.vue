@@ -17,7 +17,6 @@
         type="password"
         rules="required|min:8|max:15|lowercase"
         :placeholder="$t('forms.password_placeholder')"
-        :bind="getFieldInputBinds('password').value.value"
         :label="$t('forms.password')"
         :required="true"
       />
@@ -52,14 +51,12 @@
 
 <script setup>
 import { ArrowIcon, ExitIcon } from "../components/icons/index.js";
-import { Form, useForm } from "vee-validate";
+import { Form } from "vee-validate";
 import { useAuthStore } from "../stores/AuthStore";
 import { useModalStore } from "../stores/ModalStore";
 import router from "../router";
 const AuthStore = useAuthStore();
 const ModalStore = useModalStore();
-const { defineInputBinds } = useForm();
-const getFieldInputBinds = (field) => defineInputBinds(field);
 const onSubmit = (values) => {
   AuthStore.passwordUpdate({
     token: router.currentRoute.value.query.token,
