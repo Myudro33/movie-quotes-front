@@ -84,21 +84,16 @@
           >
             <CameraIcon class="mr-3" color="#fff" />
             <Field
-              rules="required"
-              v-model="MovieStore.movie.id"
+              :rules="!props.inner && 'required'"
+              :v-model="props.mode === 'edit' && MovieStore.movie.id"
               class="text-white bg-[#000000] h-full w-full text-2xl outline-none"
               name="field"
               as="select"
             >
-              <option selected disabled value="">
+              <option v-if="!props.inner" selected disabled value="">
                 {{ $t("add_quote.choose_movie") }}
               </option>
-              <option
-                :selected="props.inner"
-                :disabled="props.inner"
-                v-if="props.inner"
-                :value="props.movie.id"
-              >
+              <option disabled selected value="" v-if="props.inner">
                 {{
                   useI18n().locale.value === "en"
                     ? props.movie.name.en
@@ -266,7 +261,7 @@ const onSubmit = (values) => {
     NewsStore.modal = "";
     return;
   }
-  NewsStore.addQuote(values);
+  NewsStore.addQuote(values, props.inner);
   NewsStore.modal = "";
 };
 const addComment = (values) => {

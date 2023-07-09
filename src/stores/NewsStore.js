@@ -48,12 +48,12 @@ export const useNewsStore = defineStore('newsStore', {
         this.getQuotes()
       }
     },
-    async addQuote(data) {
+    async addQuote(data,page) {
       const AuthStore = useAuthStore()
       const MovieStore = useMovieStore()
       const formData = new FormData()
       formData.append('user_id', AuthStore.author.id)
-      formData.append('movie_id', MovieStore.movie.id)
+      formData.append('movie_id', page?MovieStore.movie.id:data.field)
       formData.append('title', JSON.stringify({ en: data.title.en, ka: data.title.ka }))
       formData.append('image', data.image)
       const response = await axiosInstance.post('/quotes', formData, {
@@ -61,7 +61,7 @@ export const useNewsStore = defineStore('newsStore', {
           'Content-Type': 'multipart/form-data'
         }
       })
-      MovieStore.movie.quotes.unshift(response.data.quote)
+      page&&MovieStore.movie.quotes.unshift(response.data.quote)
       return this.quotes.unshift(response.data.quote)
     },
     async updateQuote(data, img) {
@@ -72,7 +72,7 @@ export const useNewsStore = defineStore('newsStore', {
       formData.append('user_id', AuthStore.author.id)
       formData.append('movie_id', MovieStore.movie.id)
       formData.append('title', JSON.stringify({ en: data.title.en, ka: data.title.ka }))
-      img.name === undefined ? null : formData.append('image', img)
+      img === undefined ? null : formData.append('image', img)
       try {
         const response = await axiosInstance.post(`/quotes/${NewsStore.quote.id}`, formData, {
           headers: {
