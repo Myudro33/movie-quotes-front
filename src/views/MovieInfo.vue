@@ -2,7 +2,7 @@
   <QuoteModal
     v-if="NewsStore.modal === 'add-quote'"
     :inner="true"
-    :mode="MovieStore.quoteModal"
+    :mode="ModalStore.quoteModal"
     :movie="MovieStore.movie"
   />
   <MovieModal :edit="true" v-if="MovieStore.modal === 'add-movie'" />
@@ -83,7 +83,7 @@
         class="md:w-[50rem] md:h-[17rem] bg-[#11101A] mt-10 py-6 px-8 flex flex-col md:rounded-xl"
       >
         <div
-          v-if="quoteModal === item.id"
+          v-if="ModalStore.quoteModal === item.id"
           class="w-60 h-48 flex flex-col text-white justify-between absolute xs:right-4 md:right-0 xs:bottom-16 md:top-24 py-8 px-6 bg-[#24222F] rounded-lg"
         >
           <div
@@ -143,7 +143,6 @@
 
 <script setup>
 import { image } from "../services/imagePrefixes";
-import { openQuoteModal } from "../services/smallQuoteModal";
 import { useI18n } from "vue-i18n";
 import { useNewsStore } from "../stores/NewsStore";
 import { useAuthStore } from "../stores/AuthStore";
@@ -161,10 +160,11 @@ import {
 } from "../components/icons/index.js";
 import QuoteModal from "../components/QuoteModal.vue";
 import MovieModal from "../components/MovieModal.vue";
-const quoteModal = ref("");
+import { useModalStore } from "../stores/ModalStore";
 const MovieStore = useMovieStore();
 const NewsStore = useNewsStore();
 const AuthStore = useAuthStore();
+const ModalStore = useModalStore();
 const liked = (item) => {
   return item?.likes.some((like) => like.author_id === AuthStore.author.id);
 };
@@ -186,14 +186,14 @@ onMounted(async () => {
   loading.value = false;
 });
 const modal = (num) => {
-  openQuoteModal(num, quoteModal);
+  ModalStore.openQuoteModal(num);
 };
 const openAddQuoteModal = () => {
   NewsStore.modal = "add-quote";
-  MovieStore.quoteModal = "";
+  ModalStore.quoteModal = "";
 };
 const setStage = (val, index) => {
-  MovieStore.quoteModal = val;
+  ModalStore.quoteModal = val;
   NewsStore.quote = MovieStore.movie.quotes.find((quote) => quote.id === index);
   NewsStore.modal = "add-quote";
 };

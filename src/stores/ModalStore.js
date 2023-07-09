@@ -4,7 +4,8 @@ import router from '../router'
 export const useModalStore = defineStore('modalStore', {
   state: () => ({
     inner: '',
-    mobile: ''
+    mobile: '',
+    quoteModal:""
   }),
   actions: {
     closeModal() {
@@ -32,6 +33,9 @@ export const useModalStore = defineStore('modalStore', {
       } else {
         document.documentElement.classList.remove('modal-open')
       }
+    },
+    openQuoteModal(num){
+     this.quoteModal===num?this.quoteModal='':this.quoteModal=num
     }
   }
 })
