@@ -16,7 +16,7 @@
       v-for="item in NotificationStore.notifications"
       :key="item.id"
       @click="markAsRead(item)"
-      class="mt-4 w-full md:h-[7.7rem] flex xs:flex-col md:flex-row items-center xs:p-3 md:p-6 border border-[#6C757D80] rounded-lg"
+      class="mt-4 w-full md:h-[7.7rem] cursor-pointer flex xs:flex-col md:flex-row items-center xs:p-3 md:p-6 border border-[#6C757D80] rounded-lg"
     >
       <img
         :class="!item.seen && 'border-2 border-[#198754]'"

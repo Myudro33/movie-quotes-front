@@ -14,15 +14,19 @@ export const useNotificationStore = defineStore('notificationStore', {
             this.notifications = response.data.notifications;
         },
         async markAsRead(item){
-            if(item.id){
+            if(item.id&&!item.seen){
                 await axiosInstance.put('/notifications',{id:item.id})
                 const notification = this.notifications.find(x=>x.id===item.id)
                 notification.seen=true
             }else{
-                await axiosInstance.put('/notifications',{post_author:item})
-                for (let index = 0; index < this.notifications.length; index++) {
-                    this.notifications[index].seen=true
-                }
+                const seen = (e) => e.seen==false;
+                const alreadySeen = this.notifications.some(seen)
+                if(alreadySeen){
+                    await axiosInstance.put('/notifications',{post_author:item})
+                    for (let index = 0; index < this.notifications.length; index++) {
+                            this.notifications[index].seen=true
+                        }
+                    }
             }
         },
         publicInteractions(data) {
