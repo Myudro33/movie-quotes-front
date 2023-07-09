@@ -13,6 +13,18 @@ export const useNotificationStore = defineStore('notificationStore', {
             const response = await axiosInstance.get(`/notifications/${AuthStore.author.email}`)
             this.notifications = response.data.notifications;
         },
+        async markAsRead(item){
+            if(item.id){
+                await axiosInstance.put('/notifications',{id:item.id})
+                const notification = this.notifications.find(x=>x.id===item.id)
+                notification.seen=true
+            }else{
+                await axiosInstance.put('/notifications',{post_author:item})
+                for (let index = 0; index < this.notifications.length; index++) {
+                    this.notifications[index].seen=true
+                }
+            }
+        },
         publicInteractions(data) {
             const NewsStore = useNewsStore()
             const quote = NewsStore.quotes.find(quote => quote.id === data.notification.quote_id)
