@@ -10,7 +10,7 @@
           class="flex absolute xs:left-4 md:left-8 md:h-5/6 top-0 justify-between xs:w-28 md:w-36 rounded-lg items-center px-5"
         >
           <PenIcon
-            @click="MovieStore.quoteModal = 'edit'"
+            @click="ModalStore.quoteModal = 'edit'"
             v-if="props.mode === 'view'"
             class="cursor-pointer"
           />
@@ -195,6 +195,7 @@ import { useMovieStore } from "../stores/MoviesStore";
 import { useAuthStore } from "../stores/AuthStore";
 import { useNewsStore } from "../stores/NewsStore";
 import ModalWrapper from "./ModalWrapper.vue";
+const ModalStore = useModalStore();
 import {
   PenIcon,
   TrashIcon,
@@ -210,6 +211,7 @@ import FileUploadInput from "./FileUploadInput.vue";
 import AuthorTag from "./AuthorTag.vue";
 import { createLike, deleteLike } from "../services/likeService";
 import { createComment } from "../services/commentService";
+import { useModalStore } from "../stores/ModalStore";
 const MovieStore = useMovieStore();
 const AuthStore = useAuthStore();
 const NewsStore = useNewsStore();

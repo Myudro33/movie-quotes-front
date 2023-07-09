@@ -5,7 +5,6 @@ import router from '../router'
 export const useMovieStore = defineStore('MoviesStore', {
   state: () => ({
     modal: '',
-    quoteModal: "",
     movies: [],
     filteredMovies: [],
     movie: '',

@@ -9,11 +9,11 @@
       <HamburgerIcon />
     </button>
     <h1 class="text-[#DDCCAA] font-medium xs:hidden md:flex">{{ $t("landing.logo") }}</h1>
-    <div class="flex xs:flex-row-reverse md:flex-row">
+    <div class="flex xs:flex-row-reverse md:flex-row items-center">
       <div
         v-if="AuthStore.author"
         @click="NotificationStore.modal = !NotificationStore.modal"
-        class="w-10 h-10 xs:mx-3 relative"
+        class="w-10 h-10 xs:mx-3 relative flex items-center"
       >
         <BellIcon />
         <span
@@ -47,7 +47,11 @@
         >
           {{ $t("forms.log_out") }}
         </button>
-        <SearchIcon class="md:hidden" @click="openSearchModal" />
+        <SearchIcon
+          v-if="router.currentRoute.value.name === 'news'"
+          class="md:hidden w-7 h-7"
+          @click="openSearchModal"
+        />
       </div>
     </div>
   </div>
@@ -61,10 +65,15 @@ import { useAuthStore } from "../stores/AuthStore";
 import { useSidebarStore } from "../stores/SidebarStore";
 import { HamburgerIcon, SearchIcon, BellIcon } from "./icons/index.js";
 import { useNotificationStore } from "../stores/NotificationStore";
+import { onMounted } from "vue";
+import router from "../router";
 const NotificationStore = useNotificationStore();
 const ModalStore = useModalStore();
 const AuthStore = useAuthStore();
 const SidebarStore = useSidebarStore();
+onMounted(() => {
+  console.log(router);
+});
 const openSearchModal = () => {
   ModalStore.mobile = "search";
 };
