@@ -46,7 +46,9 @@
           >{{ $t("add_quote.choose_file") }}</label
         >
         <input @input="selectedFile" class="hidden" type="file" id="dropzoneFile" />
-        <p v-if="dropzoneFile.name" class="text-white ml-2">{{ dropzoneFile.name }}</p>
+        <p v-if="dropzoneFile.name" class="text-white ml-2 my-auto xs:hidden md:flex">
+          {{ dropzoneFile.name }}
+        </p>
       </div>
     </div>
     <div v-else class="flex justify-center items-center">

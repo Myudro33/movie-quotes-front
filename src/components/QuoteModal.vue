@@ -43,15 +43,62 @@
       </div>
       <div class="w-full px-8 flex flex-col">
         <AuthorTag
-          v-if="props.mode === 'view' || props.mode === 'edit'"
-          :author="NewsStore.quote.user.username"
-          :image="avatar + NewsStore.quote.user.avatar"
+          v-if="props.mode === 'view' || props.mode === 'edit' || props.inner"
+          :author="
+            props.inner ? MovieStore.movie.author.username : NewsStore.quote.user.username
+          "
+          :image="
+            props.inner
+              ? avatar + MovieStore.movie.author.avatar
+              : avatar + NewsStore.quote.user.avatar
+          "
         />
         <Form
           @submit="onSubmit"
           enctype="multipart/form-data"
           class="flex flex-col relative"
         >
+          <div
+            v-if="props.inner"
+            class="w-full md:h-[9.8rem] flex my-3 xs:bg-[#000] md:bg-transparent xs:p-4 md:p-0 rounded-md"
+          >
+            <img
+              class="xs:w-[7rem] xs:h-[5.1rem] md:h-full md:w-[18.1rem] rounded-md"
+              :src="image + MovieStore.movie.image"
+              alt=""
+            />
+            <div class="flex flex-col xs:ml-2 md:ml-5">
+              <h1 class="md:text-2xl text-[#DDCCAA] md:mt-2">
+                {{
+                  useI18n().locale.value === "en"
+                    ? MovieStore.movie.name.en
+                    : MovieStore.movie.name.ka
+                }}
+                ({{ MovieStore.movie.year }})
+              </h1>
+              <div class="flex xs:flex-col-reverse md:flex-col">
+                <div class="flex flex-wrap xs:gap-1 md:gap-3 xs:my-1 md:my-4">
+                  <span
+                    v-for="item in MovieStore.movie.genre"
+                    :key="item.id"
+                    class="xs:p-[.3rem] md:p-2 bg-[#6C757D] text-white rounded-md xs:text-xs md:text-base"
+                  >
+                    {{ useI18n().locale.value === "en" ? item.name.en : item.name.ka }}
+                  </span>
+                </div>
+                <h2 class="text-white flex md:text-xl">
+                  {{ $t("add_movie.director") }}
+                  <p class="ml-2">
+                    {{
+                      useI18n().locale.value === "en"
+                        ? MovieStore.movie.director.en
+                        : MovieStore.movie.director.ka
+                    }}
+                  </p>
+                </h2>
+              </div>
+            </div>
+          </div>
           <TheField
             :readonly="props.mode === 'view'"
             name="title.en"
@@ -79,7 +126,7 @@
             @drop.prevent="drop"
           />
           <div
-            v-if="props.mode !== 'view' && props.mode !== 'edit'"
+            v-if="props.mode !== 'view' && props.mode !== 'edit' && !props.inner"
             class="relative w-full flex items-center bg-[#000000] rounded-sm h-[5.3rem] mt-7 p-4"
           >
             <CameraIcon class="mr-3" color="#fff" />
@@ -239,6 +286,7 @@ const toggleComments = () => {
 };
 
 onMounted(() => {
+  console.log(props.inner, props.mode);
   MovieStore.getMovies();
   if (props.mode !== "") {
     data.image = MovieStore?.quote?.image;

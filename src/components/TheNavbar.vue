@@ -65,15 +65,11 @@ import { useAuthStore } from "../stores/AuthStore";
 import { useSidebarStore } from "../stores/SidebarStore";
 import { HamburgerIcon, SearchIcon, BellIcon } from "./icons/index.js";
 import { useNotificationStore } from "../stores/NotificationStore";
-import { onMounted } from "vue";
 import router from "../router";
 const NotificationStore = useNotificationStore();
 const ModalStore = useModalStore();
 const AuthStore = useAuthStore();
 const SidebarStore = useSidebarStore();
-onMounted(() => {
-  console.log(router);
-});
 const openSearchModal = () => {
   ModalStore.mobile = "search";
 };
