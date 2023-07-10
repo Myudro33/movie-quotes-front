@@ -43,14 +43,13 @@
       </div>
       <div class="w-full px-8 flex flex-col">
         <AuthorTag
-          v-if="props.mode === 'view' || props.mode === 'edit' || props.inner"
           :author="
-            props.inner ? MovieStore.movie.author.username : NewsStore.quote.user.username
+            props.mode !== '' ? NewsStore.quote.user.username : AuthStore.author.username
           "
           :image="
-            props.inner
-              ? avatar + MovieStore.movie.author.avatar
-              : avatar + NewsStore.quote.user.avatar
+            props.mode !== ''
+              ? avatar + NewsStore.quote.user.avatar
+              : avatar + AuthStore.author.avatar
           "
         />
         <Form
@@ -59,7 +58,7 @@
           class="flex flex-col relative"
         >
           <div
-            v-if="props.inner"
+            v-if="props.inner && props.mode !== 'view'"
             class="w-full md:h-[9.8rem] flex my-3 xs:bg-[#000] md:bg-transparent xs:p-4 md:p-0 rounded-md"
           >
             <img
@@ -102,7 +101,7 @@
           <TheField
             :readonly="props.mode === 'view'"
             name="title.en"
-            rules="required|en"
+            :rules="props.mode !== 'view' && 'required|en'"
             placeholder="Start create new quote"
             lang="Eng"
             type="textarea"
@@ -111,7 +110,7 @@
           <TheField
             :readonly="props.mode === 'view'"
             name="title.ka"
-            rules="required|ka"
+            :rules="props.mode !== 'view' && 'required|ka'"
             placeholder="ახალი ციტატა"
             lang="ქარ"
             type="textarea"
