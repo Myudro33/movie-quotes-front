@@ -12,10 +12,10 @@
         :placeholder="placeholder"
         class="mt-6 rounded-md border placeholder:text-white outline-none py-[.3rem] px-2 bg-transparent h-[5.3rem] text-white xs:text-base md:text-2xl"
         :class="[
-          !meta.valid && meta.touched
+          !meta.valid && meta.touched && props.rules
             ? 'border-1 border-[#DC3545]'
             : 'border-[#6c757d]-1',
-          meta.valid && meta.touched ? 'border-1  border-[#198754]' : '',
+          meta.valid && meta.touched && props.rules ? 'border-1  border-[#198754]' : '',
         ]"
         v-bind="field"
       >
