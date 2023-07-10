@@ -5,16 +5,23 @@ import axiosInstance from "../config/axios-config";
 export const useNotificationStore = defineStore('notificationStore', {
     state: () => ({
         modal: false,
-        notifications: []
+        notifications: [],
+        quantity:0
     }),
     actions: {
         async getNotifications() {
             const AuthStore = useAuthStore()
             const response = await axiosInstance.get(`/notifications/${AuthStore.author.email}`)
             this.notifications = response.data.notifications;
+            this.notifications.map((item)=>{
+                if(!item.seen){
+                    this.quantity++
+                }
+            })
         },
         async markAsRead(item){
             if(item.id&&!item.seen){
+                this.quantity--
                 await axiosInstance.put('/notifications',{id:item.id})
                 const notification = this.notifications.find(x=>x.id===item.id)
                 notification.seen=true
@@ -22,6 +29,7 @@ export const useNotificationStore = defineStore('notificationStore', {
                 const seen = (e) => e.seen==false;
                 const alreadySeen = this.notifications.some(seen)
                 if(alreadySeen){
+                    this.quantity = 0
                     await axiosInstance.put('/notifications',{post_author:item})
                     for (let index = 0; index < this.notifications.length; index++) {
                             this.notifications[index].seen=true

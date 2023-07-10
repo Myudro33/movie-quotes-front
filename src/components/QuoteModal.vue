@@ -286,7 +286,6 @@ const toggleComments = () => {
 };
 
 onMounted(() => {
-  console.log(props.inner, props.mode);
   MovieStore.getMovies();
   if (props.mode !== "") {
     data.image = MovieStore?.quote?.image;

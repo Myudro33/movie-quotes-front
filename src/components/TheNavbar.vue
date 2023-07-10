@@ -13,13 +13,13 @@
       <div
         v-if="AuthStore.author"
         @click="NotificationStore.modal = !NotificationStore.modal"
-        class="w-10 h-10 xs:mx-3 relative flex items-center"
+        class="w-10 h-10 xs:mx-3 relative flex items-center cursor-pointer"
       >
         <BellIcon />
         <span
-          v-if="NotificationStore.notifications.length > 0"
+          v-if="NotificationStore.quantity > 0"
           class="w-6 h-6 text-white top-0 right-1 rounded-full flex justify-center items-center absolute bg-red-500"
-          >{{ NotificationStore.notifications.length }}</span
+          >{{ NotificationStore.quantity }}</span
         >
       </div>
       <div class="xs:hidden md:flex flex items-center">

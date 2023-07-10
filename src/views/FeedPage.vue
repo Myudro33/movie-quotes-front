@@ -25,6 +25,7 @@ onMounted(() => {
     "NotificationEvent",
     (data) => {
       NotificationStore.notifications.unshift(data.notification);
+      NotificationStore.quantity++;
     }
   );
   window.Echo.channel("message").listen("PublicNotificationEvent", (data) => {

@@ -36,7 +36,7 @@
             <h1 class="text-xl font-normal">{{ item.user.username }}</h1>
             <div class="mt-2">
               <div class="flex items-center" v-if="item.type === 'comment'">
-                <CommentIcon class="w-2 h-6" />
+                <QuotesIcon class="w-6 h-6" />
                 <p class="xs:text-xs md:text-xl ml-2">
                   {{ $t("notification.commented") }}
                 </p>
@@ -52,7 +52,9 @@
           class="flex xs:flex-row-reverse xs:justify-end md:flex-col md:justify-between md:items-end"
         >
           <h1 class="md:text-xl xs:ml-2 md:ml-0 font-normal">{{ item.date }}</h1>
-          <h1 class="text-[#198754] xs:mx-1 md:mx-0 md:text-xl" v-if="!item.seen">New</h1>
+          <h1 class="text-[#198754] xs:mx-1 md:mx-0 md:text-xl" v-if="!item.seen">
+            {{ $t("notification.new") }}
+          </h1>
         </div>
       </div>
     </div>
@@ -62,8 +64,7 @@
 <script setup>
 import { avatar } from "../services/imagePrefixes";
 import { useNotificationStore } from "../stores/NotificationStore";
-import CommentIcon from "../components/icons/CommentIcon.vue";
-import HeartIcon from "../components/icons/HeartIcon.vue";
+import { QuotesIcon, HeartIcon } from "../components/icons/index.js";
 import { useAuthStore } from "../stores/AuthStore";
 const NotificationStore = useNotificationStore();
 const AuthStore = useAuthStore();

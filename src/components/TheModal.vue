@@ -7,7 +7,7 @@
     <div
       @click.stop
       name="inner"
-      class="xs:w-screen xs:h-screen md:w-[37.563rem] md:h-auto flex flex-col md:px-[7.5rem] xs:px-[2.125rem] md:py-10 bg-[#222030] items-center rounded-xl"
+      class="xs:w-screen xs:h-screen md:w-[37.563rem] md:h-auto flex flex-col md:px-[7.5rem] xs:px-[2.125rem] md:py-10 bg-[#222030] items-center md:rounded-xl"
     >
       <LoginFormVue v-if="ModalStore.inner === 'login'" />
       <RegistrationForm v-else-if="ModalStore.inner === 'register'" />
