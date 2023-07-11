@@ -93,7 +93,7 @@ export const useMovieStore = defineStore('MoviesStore', {
       router.back()
     },
     likeInteractions(quote,like,stage,data,response){
-      if(stage==='delete'){
+      if(stage){
         const moviequotes = this.movie.quotes.find(item=>item.id===quote.id)
         const filtered = moviequotes.likes.filter(item=>item.id!==like.id)
         moviequotes.likes =filtered

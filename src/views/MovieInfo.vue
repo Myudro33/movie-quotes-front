@@ -172,12 +172,19 @@ const loading = ref(true);
 const locale = computed(() => {
   return useI18n().locale.value;
 });
-const addLike = (item) => {
+const addLike = async (item) => {
   const data = {
     quote_id: item.id,
     user_id: AuthStore.author.id,
   };
-  liked(item) ? deleteLike(item, "movie") : createLike(data, item, "movie");
+  if (liked(item)) {
+    const like = item.likes.find((like) => like.author_id === AuthStore.author.id);
+    deleteLike(like);
+    MovieStore.likeInteractions(item, like, true);
+  } else {
+    const response = await createLike(data, item);
+    MovieStore.likeInteractions(item, "", false, data, response);
+  }
 };
 onMounted(async () => {
   await MovieStore.getMovie();

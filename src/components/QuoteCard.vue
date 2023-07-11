@@ -69,7 +69,9 @@ import { useI18n } from "vue-i18n";
 import { avatar, image } from "../services/imagePrefixes";
 import { createLike, deleteLike } from "../services/likeService";
 import { createComment } from "../services/commentService";
+import { useMovieStore } from "../stores/MoviesStore";
 const AuthStore = useAuthStore();
+const MovieStore = useMovieStore();
 const props = defineProps(["quote"]);
 const locale = computed(() => {
   return useI18n().locale.value;
@@ -103,6 +105,11 @@ const addComment = () => {
 };
 const addLike = async () => {
   const data = { quote_id: props.quote.id, user_id: AuthStore.author.id };
-  liked.value ? deleteLike(props.quote) : createLike(data, props.quote);
+  if (liked.value) {
+    const like = props.quote.likes.find((like) => like.author_id === AuthStore.author.id);
+    deleteLike(like);
+  } else {
+    createLike(data, props.quote);
+  }
 };
 </script>

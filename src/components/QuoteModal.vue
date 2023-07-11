@@ -319,10 +319,17 @@ const addComment = (values) => {
   };
   createComment(data, NewsStore.quote, "movie");
 };
-const addLike = () => {
+const addLike = async () => {
   const data = { quote_id: NewsStore?.quote.id, user_id: AuthStore.author.id };
-  liked.value
-    ? deleteLike(NewsStore.quote, "movie")
-    : createLike(data, NewsStore.quote, "movie");
+  if (liked.value) {
+    const like = NewsStore.quote.likes.find(
+      (like) => like.author_id === AuthStore.author.id
+    );
+    deleteLike(like);
+    MovieStore.likeInteractions(NewsStore.quote, like, true);
+  } else {
+    const response = await createLike(data, NewsStore.quote);
+    MovieStore.likeInteractions(NewsStore.quote, "", false, data, response);
+  }
 };
 </script>
