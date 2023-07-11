@@ -80,12 +80,10 @@ const change = (event) => {
   emits("change-value", event.target.value, props.name);
 };
 
-if (props.page === "profile") {
-  const { errorMessage } = useField(props.name);
-  watch(errorMessage, (error) => {
-    emits("error-value", error);
-  });
-}
+const { errorMessage } = useField(props.name);
+watch(errorMessage, (error) => {
+  emits("error-value", error);
+});
 const changeInputType = () => {
   if (localType.value === "password") {
     return (localType.value = "text");

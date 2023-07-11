@@ -56,6 +56,7 @@
             :placeholder="$t('forms.email_placeholder')"
             :style="true"
             :readonly="!googleAuthor"
+            page="profile"
           />
           <button
             v-if="googleAuthor"
@@ -107,7 +108,6 @@
               name="password"
               @change-value="change"
               :bind="getFieldInputBinds('password').value.value"
-              @update:errorMessage="errorDots"
               :label="$t('forms.password')"
               :required="true"
               :placeholder="$t('forms.password_placeholder')"
