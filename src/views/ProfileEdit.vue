@@ -32,7 +32,7 @@
             class="xs:w-full md:w-10/12"
             type="text"
             :label="$t('forms.name')"
-            name="username"
+            name="name"
             :placeholder="$t('forms.name_placeholder')"
             :style="true"
           />
@@ -44,14 +44,27 @@
             {{ $t("profile.edit") }}
           </button>
         </div>
+        <div
+          v-if="form.stage === 'username'"
+          class="w-full mt-4 flex relative xs:hidden md:flex"
+        >
+          <input-component
+            rules="required|min:3|max:15|lowercase"
+            @change-value="change"
+            class="xs:w-full md:w-10/12"
+            type="text"
+            :label="$t('forms.name')"
+            name="username"
+            :placeholder="$t('forms.new_username')"
+            :style="true"
+          />
+        </div>
         <div class="mt-4 flex relative">
           <input-component
             class="xs:w-full md:w-10/12"
-            rules="required|email"
             type="text"
-            @change-value="change"
             :bind="form.email"
-            name="email"
+            name="mail"
             :label="$t('forms.email')"
             :placeholder="$t('forms.email_placeholder')"
             :style="true"
@@ -66,6 +79,22 @@
           >
             {{ $t("profile.edit") }}
           </button>
+        </div>
+        <div
+          v-if="form.stage === 'email'"
+          class="w-full mt-4 flex relative xs:hidden md:flex"
+        >
+          <input-component
+            rules="required|email"
+            @change-value="change"
+            class="xs:w-full md:w-10/12"
+            type="text"
+            :label="$t('forms.email')"
+            name="email"
+            :readonly="!googleAuthor"
+            :placeholder="$t('forms.email_placeholder')"
+            :style="true"
+          />
         </div>
         <div v-if="googleAuthor" class="w-full mt-4 flex relative">
           <input-component
@@ -198,6 +227,7 @@ const change = (event, name) => {
   form[name] = event;
 };
 const submit = () => {
+  form.stage = "";
   AuthStore.updateUser(form, locale);
 };
 const handleFileUpload = (event) => {
