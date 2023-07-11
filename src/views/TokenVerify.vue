@@ -16,7 +16,7 @@ onMounted(async () => {
     ModalStore.inner = response;
     router.push({ name: "news" });
   } else if (params.query.email === "reset-password" && response) {
-    router.replace(`/?email=${url.query.user}&token=${url.params.token}`);
+    router.replace(`/?email=${params.query.user}&token=${params.params.token}`);
     ModalStore.inner = response;
   } else if (params.query.email === "email" && response) {
     router.push({ name: "landing" });
