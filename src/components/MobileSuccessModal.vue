@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-full h-auto bg-[#BADBCC] border border-[#BADBCC] p-4 rounded-[4px] flex justify-between items-center"
+    class="w-full h-auto bg-[#BADBCC] border border-[#BADBCC] p-4 rounded-md flex justify-between items-center"
   >
     <div class="flex">
       <svg
@@ -15,7 +15,7 @@
           fill="#0F5132"
         />
       </svg>
-      <h1 class="text-[#0F5132] mx-2">{{ $t('modal.changes_updated_successfully') }}</h1>
+      <h1 class="text-[#0F5132] mx-2">{{ $t("modal.changes_updated_successfully") }}</h1>
     </div>
     <svg
       @click="ModalStore.closeModal"
@@ -53,6 +53,6 @@
 </template>
 
 <script setup>
-import { useModalStore } from '../stores/ModalStore'
-const ModalStore = useModalStore()
+import { useModalStore } from "../stores/ModalStore";
+const ModalStore = useModalStore();
 </script>

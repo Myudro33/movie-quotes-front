@@ -2,12 +2,12 @@
   <div
     @click="closeModal"
     name="backDrop"
-    class="top-0 backdrop w-full h-[100%] absolute z-50 bg-[#00000090] flex justify-center items-center"
+    class="top-0 backdrop w-full h-full fixed z-50 bg-[#00000090] flex justify-center items-center"
   >
     <div
       @click.stop
       name="inner"
-      class="xs:w-screen xs:h-screen md:w-[601px] md:h-auto flex flex-col md:px-[120px] xs:px-[34px] md:py-10 bg-[#222030] items-center rounded-[10px]"
+      class="xs:w-screen xs:h-screen md:w-[37.563rem] md:h-auto flex flex-col md:px-[7.5rem] xs:px-[2.125rem] md:py-10 bg-[#222030] items-center md:rounded-xl"
     >
       <LoginFormVue v-if="ModalStore.inner === 'login'" />
       <RegistrationForm v-else-if="ModalStore.inner === 'register'" />
@@ -18,7 +18,7 @@
         image="send"
         :link="mailLink"
         :heading="$t('modal.check_email')"
-        :paragraph="$t('modal.check_email_paragraph')"
+        :paragraph="$t('modal.thank_you_paragraph')"
         :button="$t('modal.go_to_email')"
       />
       <InfoModal
@@ -43,7 +43,7 @@
         image="verified"
         :heading="$t('modal.thank_you')"
         :paragraph="$t('modal.account_activated')"
-        :button="$t('modal.go_to_news_feed')"
+        :button="$t('modal.log_in')"
       />
       <InfoModal
         v-else-if="ModalStore.inner === 'user-updated'"
@@ -57,39 +57,46 @@
         image="verified"
         :heading="$t('modal.success')"
         :paragraph="$t('modal.email_success_paragraph')"
-        :button="$t('modal.log_in')"
+        :button="$t('modal.go_to_news_feed')"
       />
       <InfoModal
         v-else-if="ModalStore.inner === 'password-changed'"
         image="verified"
         :heading="$t('modal.success')"
         :paragraph="$t('modal.password_success_paragraph')"
-        :button="$t('modal.go_to_news_feed')"
+        :button="$t('modal.log_in')"
+      />
+      <InfoModal
+        v-else-if="ModalStore.inner === 'link-expired'"
+        image="danger"
+        :heading="$t('modal.link_expired')"
+        :paragraph="$t('modal.link_expired_paragraph')"
+        :button="$t('modal.another_link')"
       />
     </div>
   </div>
 </template>
 
 <script setup>
-import LoginFormVue from './LoginForm.vue'
-import RegistrationForm from './RegistrationForm.vue'
-import PasswordUpdateModal from './PasswordUpdateModal.vue'
-import { useModalStore } from '../stores/ModalStore'
-import { onMounted, onBeforeUnmount } from 'vue'
-import InfoModal from './InfoModal.vue'
-import PasswordResetModal from './PasswordResetModal.vue'
-const mailLink = import.meta.env.VITE_API_GMAIL_URL
-const ModalStore = useModalStore()
+import LoginFormVue from "./LoginForm.vue";
+import RegistrationForm from "./RegistrationForm.vue";
+import PasswordUpdateModal from "./PasswordUpdateModal.vue";
+import { useModalStore } from "../stores/ModalStore";
+import { onMounted, onBeforeUnmount } from "vue";
+import InfoModal from "./InfoModal.vue";
+import PasswordResetModal from "./PasswordResetModal.vue";
+const mailLink = import.meta.env.VITE_API_GMAIL_URL;
+const ModalStore = useModalStore();
 onMounted(() => {
-  if (ModalStore.inner !== '' || ModalStore.mobile !== '') {
-    ModalStore.scroll(true)
+  if (ModalStore.inner !== "" || ModalStore.mobile !== "") {
+    ModalStore.scroll(true);
   }
-})
+});
 onBeforeUnmount(() => {
-  ModalStore.scroll(false)
-})
+  ModalStore.scroll(false);
+});
 const closeModal = () => {
-  ModalStore.closeModal()
-  ModalStore.removeQuery()
-}
+  ModalStore.closeModal();
+  ModalStore.removeQuery();
+};
 </script>

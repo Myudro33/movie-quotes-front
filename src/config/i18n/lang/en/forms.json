@@ -2,6 +2,7 @@
   "create_account": "Create an account",
   "start_journey": "Start your journey!",
   "name": "Username",
+  "new_username":"Enter new username",
   "name_placeholder": "At least 3 & max.15 lower case characters",
   "email": "Email",
   "email_placeholder": "Enter your email",

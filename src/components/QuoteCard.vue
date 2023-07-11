@@ -2,7 +2,7 @@
   <div class="w-full flex flex-col bg-[#11101A] rounded-xl md:p-6 xs:p-8 mt-6">
     <div class="flex items-center">
       <img
-        class="xs:w-10 xs:h-10 md:w-[52px] md:h-[52px] object-cover rounded-full"
+        class="xs:w-10 xs:h-10 md:w-[3.25rem] md:h-[3.25rem] object-cover rounded-full"
         :src="avatar + quote.user.avatar"
         alt="avatar"
       />
@@ -14,7 +14,7 @@
       ({{ quote.movie.year }})
     </p>
     <img
-      class="w-full md:h-[500px] xs:h-48 mt-7"
+      class="w-full md:h-[31.25rem] xs:h-48 mt-7"
       :src="image + quote.image"
       alt="quote"
     />
@@ -36,42 +36,40 @@
       @click="toggleComments"
       class="text-white my-2 font-bold"
     >
-      {{ showMoreButton ? $t("addquote.show_more") : $t("addquote.show_less") }}
+      {{ showMoreButton ? $t("add_quote.show_more") : $t("add_quote.show_less") }}
     </button>
     <Form @submit="addComment" class="flex flex-col mt-6">
       <div class="w-full flex">
         <img
-          class="xs:w-10 xs:h-10 md:w-[52px] md:h-[52px] object-cover text-white shrink-0 rounded-full"
+          class="xs:w-10 xs:h-10 md:w-[3.25rem] md:h-[3.25rem] object-cover text-white shrink-0 rounded-full"
           :src="avatar + AuthStore.author.avatar"
           alt="avatar"
         />
-        <Field rules="required" name="title" v-model="title" v-slot="{ field }">
+        <Field name="title" v-model="title" v-slot="{ field }">
           <input
             v-bind="field"
-            class="w-full text-white xs:h-10 md:h-[52px] ml-6 pl-6 outline-none bg-[#24222F] text-xl rounded-[10px]"
+            class="w-full text-white xs:h-10 md:h-[3.25rem] ml-6 pl-6 outline-none bg-[#24222F] text-xl rounded-xl"
             type="text"
             placeholder="Write a comment"
           />
         </Field>
       </div>
-      <ErrorMessage class="text-red-500 ml-20" name="title" />
     </Form>
   </div>
 </template>
 
 <script setup>
-import { Form, Field, ErrorMessage } from "vee-validate";
+import { Form, Field } from "vee-validate";
 import { useAuthStore } from "../stores/AuthStore";
-import { useNewsStore } from "../stores/NewsStore";
 import CommentIcon from "./icons/CommentIcon.vue";
 import HeartIcon from "./icons/HeartIcon.vue";
 import TheComment from "./TheComment.vue";
 import { computed, ref } from "vue";
 import { useI18n } from "vue-i18n";
-import { avatar, image } from "../services/index.js";
-import { likeService } from "../services/likeService.js";
+import { avatar, image } from "../services/imagePrefixes";
+import { createLike, deleteLike } from "../services/likeService";
+import { createComment } from "../services/commentService";
 const AuthStore = useAuthStore();
-const NewsStore = useNewsStore();
 const props = defineProps(["quote"]);
 const locale = computed(() => {
   return useI18n().locale.value;
@@ -96,20 +94,20 @@ const liked = computed(() => {
   return props.quote?.likes.some((like) => like.author_id === AuthStore.author.id);
 });
 const addComment = () => {
-  NewsStore.comment({
+  const data = {
     user_id: AuthStore.author.id,
-    quote_id: props.quote.id,
     title: title.value,
-  });
+  };
+  createComment(data, props.quote, "feed");
   title.value = "";
 };
 const addLike = async () => {
-  likeService(
-    {
-      quote_id: props.quote.id,
-      user_id: AuthStore.author.id,
-    },
-    liked
-  );
+  const data = { quote_id: props.quote.id, user_id: AuthStore.author.id };
+  if (liked.value) {
+    const like = props.quote.likes.find((like) => like.author_id === AuthStore.author.id);
+    deleteLike(like);
+  } else {
+    createLike(data, props.quote);
+  }
 };
 </script>

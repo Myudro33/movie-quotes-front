@@ -2,33 +2,45 @@ import { defineStore } from 'pinia'
 import { useAuthStore } from './AuthStore.js'
 import axiosInstance from '../config/axios-config'
 import router from '../router'
-import { useNewsStore } from './NewsStore.js'
-
 export const useMovieStore = defineStore('MoviesStore', {
   state: () => ({
     modal: '',
     movies: [],
+    filteredMovies: [],
     movie: '',
-    genres: []
+    genres: [],
   }),
   actions: {
     async getMovies() {
-      const AuthStore = useAuthStore()
       const response = await axiosInstance.get('/movies')
-      this.movies = response.data.movies.filter((movie) => movie.author.id === AuthStore.author.id)
+      this.movies = response.data.movies
+      this.filteredMovies = response.data.movies
     },
-    async addMovie(data) {
+    searchMovies(query) {
+      if(query!==''){
+
+        this.filteredMovies = this.movies.filter((movie) => {
+          const enName = movie.name.en.toLowerCase();
+          const kaName = movie.name.ka.toLowerCase();
+          return enName.includes(query) || kaName.includes(query);
+        })
+      }else{
+        this.filteredMovies=this.movies
+      }
+    },
+    async addMovie(data, genre) {
+      const AuthStore = useAuthStore()
       const formData = new FormData()
-      formData.append('user_id', data.user_id)
+      formData.append('user_id', AuthStore.author.id)
       formData.append('name', JSON.stringify({ en: data.movie_name.en, ka: data.movie_name.ka }))
       formData.append('year', data.year)
       formData.append('image', data.image)
-      formData.append('genre', JSON.stringify(data.genre))
+      formData.append('genre', JSON.stringify(genre))
       formData.append(
         'description',
         JSON.stringify({ en: data.movie_description.en, ka: data.movie_description.ka })
       )
-      formData.append('director', JSON.stringify({ en: data.director.en, ka: data.director.ka }))
+      formData.append('director', JSON.stringify({ en: data.director_name.en, ka: data.director_name.ka }))
       const response = await axiosInstance.post('/movies', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -36,52 +48,41 @@ export const useMovieStore = defineStore('MoviesStore', {
       })
       return this.movies.push(response.data.movie)
     },
-    async updateMovie(data) {
+    async updateMovie(data, image, genre) {
+      const AuthStore = useAuthStore()
       const formData = new FormData()
-      formData.append('user_id', data.user_id)
+      formData.append('user_id', AuthStore.author.id)
       formData.append('name', JSON.stringify({ en: data.movie_name.en, ka: data.movie_name.ka }))
       formData.append('year', data.year)
-      if (data.image !== this.movie.image) {
-        formData.append('image', data.image)
+      if (image !== this.movie.image) {
+        formData.append('image', image.value)
       } else {
         formData.append('image', null)
       }
-      formData.append('genre', JSON.stringify(data.genre))
+      formData.append('genre', JSON.stringify(genre))
       formData.append(
         'description',
         JSON.stringify({ en: data.movie_description.en, ka: data.movie_description.ka })
       )
-      formData.append('director', JSON.stringify({ en: data.director.en, ka: data.director.ka }))
+      formData.append('director', JSON.stringify({ en: data.director_name.en, ka: data.director_name.ka }))
       const response = await axiosInstance.post(`/movies/${this.movie.id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       })
+      const index = this.movies.findIndex(movie => movie.id === this.movie.id)
+      this.movies[index] = response.data.movie
+      this.movie = response.data.movie
       return this.movies.push(response.data.movie)
-    },
-    async addMovieQuoteLike(data) {
-      const NewsStore = useNewsStore()
-      const AuthStore = useAuthStore()
-      const quote = this.movie.quotes.find((quote) => quote.id === data.quote_id)
-      const newsPageQuote = NewsStore.quotes.find((quote) => quote.id === data.quote_id)
-      const exists = quote.likes.some((like) => like.author_id === AuthStore.author.id)
-      const like = quote.likes.find((like) => like.author_id === AuthStore.author.id)
-      if (exists) {
-        await axiosInstance.delete(`/likes/${like.id}`)
-        quote.likes = quote.likes.filter((like) => like.author_id !== like.author_id)
-        newsPageQuote.likes = newsPageQuote.likes.filter(
-          (like) => like.author_id !== like.author_id
-        )
-      } else {
-        const response = await axiosInstance.post('/likes', data)
-        quote.likes.push(response.data.like)
-        newsPageQuote.likes.push(response.data.like)
-      }
     },
     async getMovie() {
       const id = router.currentRoute.value.params.id
-      const response = await axiosInstance.get(`/movies/${id}`)
-      this.movie = response.data.movie
+      try {
+        const response = await axiosInstance.get(`/movies/${id}`)
+        this.movie = response.data.movie
+      } catch (error) {
+        error.response.status === 403 && router.push({ name: 'forbidden' })
+      }
     },
     async getGenres() {
       const response = await axiosInstance.get('/genres')
@@ -90,6 +91,20 @@ export const useMovieStore = defineStore('MoviesStore', {
     async deleteMovie() {
       await axiosInstance.delete(`/movies/${this.movie.id}`)
       router.back()
+    },
+    likeInteractions(quote,like,stage,data,response){
+      if(stage){
+        const moviequotes = this.movie.quotes.find(item=>item.id===quote.id)
+        const filtered = moviequotes.likes.filter(item=>item.id!==like.id)
+        moviequotes.likes =filtered
+      }else{
+        const Moviequotes = this.movie.quotes.find(item=>item.id===data.quote_id)
+       Moviequotes.likes.push(response.data.like)
+      }
+     },
+     addCommentOnMovieQuote(data,quote){
+      const singleQuote= this.movie.quotes.find(item=>item.id===quote.id)
+      singleQuote.comments.unshift(data)
     }
   }
 })

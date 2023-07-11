@@ -1,18 +1,18 @@
 <template>
-  <Field v-slot="{ field, meta }" rules="required" name="genre" id="genre">
+  <Field v-slot="{ field, meta }" :rules="required" name="genre" id="genre">
     <div
       @click="showItems"
       :class="[
-        !meta.valid && meta.touched ? 'border-1 border-[#DC3545]' : 'border-[#6c757d]',
+        !meta.valid && meta.touched ? 'border-1 border-[#DC3545]' : 'border-[#6c757d]-1',
         meta.valid && meta.touched ? 'border-1  border-[#198754]' : '',
       ]"
       v-bind="field"
-      class="w-full flex flex-wrap items-center gap-2 bg-[#11101A] border border-[#6C757D]-1 min-h-[48px] rounded-md"
+      class="w-full flex flex-wrap mt-5 items-center gap-2 bg-[#11101A] border border-[#6C757D]-1 min-h-[3rem] rounded-md"
     >
       <div class="flex" v-if="!props.edit">
         <div v-for="(chip, i) of chips" :key="i" class="h-auto px-1 py-2">
           <span
-            class="text-white text-[14px] ml-2 bg-[#6C757D] px-2 py-2 flex justify-between items-center min-w-[70px]"
+            class="text-white text-sm bg-[#6C757D] px-2 py-2 flex justify-between items-center min-w-[4.3rem]"
             >{{ useI18n().locale.value === "en" ? chip.name.en : chip.name.ka }}
             <button @click="removeGenre(i)">
               <ExitIcon /></button
@@ -20,9 +20,9 @@
         </div>
       </div>
 
-      <div v-else v-for="(chip, b) of editChips" :key="b" class="h-auto px-1 py-2">
+      <div v-else v-for="(chip, b) of chipsProps" :key="b" class="h-auto px-1 py-2">
         <span
-          class="text-white text-[14px] ml-2 bg-[#6C757D] px-2 py-2 flex justify-between items-center min-w-[70px]"
+          class="text-white text-sm bg-[#6C757D] px-2 py-2 flex justify-between items-center min-w-[4.3rem]"
           >{{ useI18n().locale.value === "en" ? chip.name.en : chip.name.ka }}
           <button @click="removeGenre(b)">
             <ExitIcon /></button
@@ -30,7 +30,7 @@
       </div>
       <label
         for="genre"
-        class="text-white text-[20px] pl-2"
+        class="text-white text-xl"
         v-if="chips.length < 1 && editChips.length < 1"
         >{{ $t("add_movie.genre") }}</label
       >
@@ -50,26 +50,16 @@
         class="absolute xs:bottom-0 md:bottom-[21rem] px-10 bg-[#11101A] z-[100] rounded-md flex flex-col justify-around py-3"
         v-if="items"
       >
-        <div v-if="!props.edit">
+        <div>
           <li
             @click="setGenre(genre)"
             v-for="(genre, i) of MovieStore.genres"
             :key="i"
-            class="text-white text-[20px] cursor-pointer"
+            class="text-white text-xl cursor-pointer"
           >
             {{ useI18n().locale.value === "en" ? genre.name.en : genre.name.ka }}
           </li>
         </div>
-
-        <li
-          v-else
-          @click="setGenre(genre)"
-          v-for="(genre, b) of MovieStore.genres"
-          :key="b"
-          class="text-white text-[20px] cursor-pointer"
-        >
-          {{ useI18n().locale.value === "en" ? genre.name.en : genre.name.ka }}
-        </li>
       </ul>
     </div>
   </Field>
@@ -82,12 +72,21 @@ import { Field } from "vee-validate";
 import { useI18n } from "vue-i18n";
 import { onMounted, ref, watch } from "vue";
 const MovieStore = useMovieStore();
-const props = defineProps(["edit"]);
+const props = defineProps(["edit", "propChips"]);
 const items = ref(false);
 const emit = defineEmits(["chip-update", "remove-genre"]);
-
+const chipsProps = ref(props.propChips);
 const showItems = () => {
   items.value = !items.value;
+};
+const required = () => {
+  if (props.edit && chipsProps.value.length > 0) {
+    return true;
+  } else if (!props.edit && chips.value.length > 0) {
+    return true;
+  } else {
+    return false;
+  }
 };
 const chips = ref([]);
 const editChips = ref([]);
@@ -95,7 +94,7 @@ watch(chips.value, (chip) => {
   if (!props.edit) {
     emit("chip-update", chip);
   } else {
-    emit("chip-update", editChips);
+    emit("chip-update", chipsProps);
   }
 });
 onMounted(() => {
@@ -111,20 +110,21 @@ const setGenre = (value) => {
       chips.value.push(value);
     }
   } else {
-    const exists = editChips.value.find((item) => item.id === value.id) !== undefined;
+    const exists = chipsProps.value.find((item) => item.id === value.id) !== undefined;
     if (exists) {
       return;
     } else {
-      editChips.value.push(value);
+      chipsProps.value.push(value);
     }
   }
 };
 const removeGenre = (value) => {
-  emit("remove-genre", value);
   if (!props.edit) {
-    chips.value.splice(value, 0);
+    emit("remove-genre", value, chips);
+    chips.value.splice(value, 1);
   } else {
-    editChips.value.splice(value, 0);
+    emit("remove-genre", value, chipsProps);
+    chipsProps.value.splice(value, 0);
   }
 };
 </script>

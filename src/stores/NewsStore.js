@@ -1,14 +1,17 @@
 import { defineStore } from 'pinia'
 import axiosInstance from '../config/axios-config'
-
+import { useMovieStore } from './MoviesStore'
+import { useAuthStore } from './AuthStore'
+import router from '../router'
 export const useNewsStore = defineStore('newsStore', {
   state: () => ({
     modal: '',
     quotes: [],
+    quote:"",
     currentPage: 1,
     perPage: 10,
     isLoading: true,
-    isLastPage: false
+    isLastPage: false,
   }),
   actions: {
     async getQuotes() {
@@ -45,25 +48,55 @@ export const useNewsStore = defineStore('newsStore', {
         this.getQuotes()
       }
     },
-    async addQuote(data) {
+    async addQuote(data,page) {
+      const AuthStore = useAuthStore()
+      const MovieStore = useMovieStore()
       const formData = new FormData()
-      formData.append('user_id', data.user_id)
-      formData.append('movie_id', data.movie_id)
+      formData.append('user_id', AuthStore.author.id)
+      formData.append('movie_id', page?MovieStore.movie.id:data.field)
       formData.append('title', JSON.stringify({ en: data.title.en, ka: data.title.ka }))
       formData.append('image', data.image)
-      const response = await axiosInstance.post('/quote', formData, {
+      const response = await axiosInstance.post('/quotes', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       })
-      const movie = this.movies.find((movie) => movie.id === response.data.quote.movie.id)
-      movie.quotes.unshift(response.data.quote)
+      page&&MovieStore.movie.quotes.unshift(response.data.quote)
       return this.quotes.unshift(response.data.quote)
     },
-    async comment(data) {
-      const response = await axiosInstance.post('/comments', data)
-      const quote = this.quotes.find((quote) => quote.id === response.data.comment.quote_id)
-      return quote.comments.push(response.data.comment)
-    }
+    async updateQuote(data, img) {
+      const AuthStore = useAuthStore()
+      const MovieStore = useMovieStore()
+      const NewsStore = useNewsStore()
+      const formData = new FormData()
+      formData.append('user_id', AuthStore.author.id)
+      formData.append('movie_id', MovieStore.movie.id)
+      formData.append('title', JSON.stringify({ en: data.title.en, ka: data.title.ka }))
+      img === undefined ? null : formData.append('image', img)
+      try {
+        const response = await axiosInstance.post(`/quotes/${NewsStore.quote.id}`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        })
+        const index = MovieStore.movie.quotes.findIndex(item => item.id === NewsStore.quote.id)
+        MovieStore.movie.quotes[index] = response.data.quote
+
+      } catch (error) {
+        error.response.status === 403 && router.push({ name: 'forbidden' })
+
+      }
+    },
+    async deleteQuote(id) {
+      const MovieStore = useMovieStore()
+      try {
+        await axiosInstance.delete(`/quotes/${id}`)
+        const filtered = MovieStore.movie.quotes.filter(quote => quote.id !== id)
+        return MovieStore.movie.quotes = filtered
+      } catch (error) {
+        error.response.status === 403 && router.push({ name: 'forbidden' })
+
+      }
+    },
   }
 })

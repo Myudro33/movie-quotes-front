@@ -3,7 +3,6 @@ import router from '../router/index.js'
 import { useModalStore } from './ModalStore.js'
 import axiosInstance from '../config/axios-config/index.js'
 import axios from 'axios'
-import { useI18n } from 'vue-i18n'
 
 export const useAuthStore = defineStore('authStore', {
   state: () => ({
@@ -11,7 +10,7 @@ export const useAuthStore = defineStore('authStore', {
     user: null
   }),
   actions: {
-    async login(data) {
+    async login(data,locale) {
       const ModalStore = useModalStore()
       try {
         await this.getToken()
@@ -21,21 +20,26 @@ export const useAuthStore = defineStore('authStore', {
         ModalStore.closeModal()
         this.error = ''
       } catch (error) {
-        this.error = error.response.data.message
+        if(error.response.status===401){
+          this.error = locale==='en'?'Email or password is incorrect':'იმეილი ან პაროლი არასწორია'
+        }else if(error.response.status===403){
+          this.error = locale==='en'?'You must verify your account first':'თქვენი ანგარიში გასააქტიურებელია'
+        }
+
       }
     },
-    async register(data) {
+    async register(data,locale) {
       const ModalStore = useModalStore()
       try {
         await axiosInstance.post('/register', data, {
           params: {
-            locale: useI18n().locale.value
+            locale
           }
         })
         ModalStore.openModal('registered')
         this.error = ''
       } catch (error) {
-        this.error = error.response.data.message
+        this.error = error.response.data.errors[Object.keys(error.response.data.errors)[0]][0][locale];
       }
     },
     async logout() {
@@ -68,12 +72,12 @@ export const useAuthStore = defineStore('authStore', {
         this.error = error.response.data.message
       }
     },
-    async passwordReset(email) {
+    async passwordReset(email,locale) {
       const ModalStore = useModalStore()
       try {
-        await axiosInstance.post(`/forgot-password/${email}`, {
+        await axiosInstance.post('/forgot-password',{email}, {
           params: {
-            locale: useI18n().locale.value
+            locale
           }
         })
         ModalStore.inner = 'instructions_sent'
@@ -114,13 +118,13 @@ export const useAuthStore = defineStore('authStore', {
           }
           this.error = ''
         } catch (error) {
+          alert(error)
           this.error = error.response?.data.message
         }
       }
     },
     async uploadAvatar(event) {
       const file = event.target.files[0]
-      console.log(file)
       const formData = new FormData()
       formData.append('avatar', file)
       try {
