@@ -49,7 +49,8 @@ const onSubmit = () => {
   } else if (props.button === t("modal.log_in")) {
     ModalStore.inner = "login";
   } else if (props.button === t("modal.another_link")) {
-    ModalStore.removeQuery();
+    router.replace({ name: "landing" });
+    ModalStore.closeModal();
   } else if (props.image === "verified") {
     ModalStore.removeQuery();
   } else {
