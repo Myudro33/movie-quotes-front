@@ -312,12 +312,13 @@ const onSubmit = (values) => {
   NewsStore.addQuote(values, props.inner);
   NewsStore.modal = "";
 };
-const addComment = (values) => {
+const addComment = async (values) => {
   const data = {
     user_id: AuthStore.author.id,
     title: values.title,
   };
-  createComment(data, NewsStore.quote, "movie");
+  const response = await createComment(data, NewsStore.quote, "movie");
+  MovieStore.addCommentOnMovieQuote(response.data.comment, NewsStore.quote);
 };
 const addLike = async () => {
   const data = { quote_id: NewsStore?.quote.id, user_id: AuthStore.author.id };
