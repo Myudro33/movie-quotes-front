@@ -39,7 +39,7 @@ configure({
         username: 'სახელი',
         email: 'მეილი',
         password: 'პაროლი',
-        confirmPassword:'გაიმეორეთ პაროლი',
+        password_confirmation:'გაიმეორეთ პაროლი',
         title_en: 'ციტატა',
         title_ka: 'ციტატა'
       }
