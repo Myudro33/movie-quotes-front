@@ -160,7 +160,7 @@
           </div>
         </div>
       </Form>
-      <p class="text-red-500 text-xl xs:hidden md:flex" v-if="AuthStore.error">
+      <p class="text-red-500 text-xl mt-2 xs:hidden md:flex" v-if="AuthStore.error">
         {{ AuthStore.error }}
       </p>
     </div>

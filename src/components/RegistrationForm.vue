@@ -41,7 +41,7 @@
     </div>
     <div class="mt-4">
       <input-component
-        name="confirmPassword"
+        name="password_confirmation"
         type="password"
         rules="required|confirmed:password"
         :placeholder="$t('forms.confirm_password_placeholder')"
@@ -86,7 +86,7 @@ const onSubmit = (values) => {
       username: values.username,
       email: values.email,
       password: values.password,
-      password_confirmation: values.confirmPassword,
+      password_confirmation: values.password_confirmation,
     },
     locale
   );

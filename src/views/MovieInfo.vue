@@ -101,7 +101,7 @@
             <h1 class="ml-2">{{ $t("add_quote.edit_quote") }}</h1>
           </div>
           <div
-            @click="NewsStore.deleteQuote(item.id)"
+            @click="NewsStore.deleteQuote(item.id, true)"
             class="flex items-center cursor-pointer"
           >
             <TrashIcon />
@@ -200,7 +200,6 @@ const mode = computed(() => {
 });
 const openAddQuoteModal = () => {
   ModalStore.openModal("add-quote", "inner-film-modal");
-  ModalStore.quoteModal = "";
 };
 const openMovieModal = () => {
   ModalStore.openModal("add-movie", "inner-film-modal", "movie-edit");
