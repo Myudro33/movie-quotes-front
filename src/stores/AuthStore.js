@@ -10,7 +10,7 @@ export const useAuthStore = defineStore('authStore', {
     user: null
   }),
   actions: {
-    async login(data,locale) {
+    async login(data, locale) {
       const ModalStore = useModalStore()
       try {
         await this.getToken()
@@ -20,15 +20,15 @@ export const useAuthStore = defineStore('authStore', {
         ModalStore.closeModal('news')
         this.error = ''
       } catch (error) {
-        if(error.response.status===401){
-          this.error = locale==='en'?'Email or password is incorrect':'იმეილი ან პაროლი არასწორია'
-        }else if(error.response.status===403){
-          this.error = locale==='en'?'You must verify your account first':'თქვენი ანგარიში გასააქტიურებელია'
+        if (error.response.status === 401) {
+          this.error = locale === 'en' ? 'Email or password is incorrect' : 'იმეილი ან პაროლი არასწორია'
+        } else if (error.response.status === 403) {
+          this.error = locale === 'en' ? 'You must verify your account first' : 'თქვენი ანგარიში გასააქტიურებელია'
         }
 
       }
     },
-    async register(data,locale) {
+    async register(data, locale) {
       const ModalStore = useModalStore()
       try {
         await axiosInstance.post('/register', data, {
@@ -36,7 +36,7 @@ export const useAuthStore = defineStore('authStore', {
             locale
           }
         })
-        ModalStore.openModal('registered','landing-modal')
+        ModalStore.openModal('registered', 'landing-modal')
         this.error = ''
       } catch (error) {
         this.error = error.response.data.errors[Object.keys(error.response.data.errors)[0]][0][locale];
@@ -72,25 +72,25 @@ export const useAuthStore = defineStore('authStore', {
         this.error = error.response.data.message
       }
     },
-    async passwordReset(email,locale) {
+    async passwordReset(email, locale) {
       const ModalStore = useModalStore()
       try {
-        await axiosInstance.post('/forgot-password',{email}, {
+        await axiosInstance.post('/forgot-password', { email }, {
           params: {
             locale
           }
         })
-        ModalStore.openModal('instructions_sent','landing-modal')
+        ModalStore.openModal('instructions_sent', 'landing-modal')
         this.error = ''
       } catch (error) {
-        this.error = error.response.data.message
+        this.error = error.response.data.errors[Object.keys(error.response.data.errors)[0]][0][locale];
       }
     },
     async passwordUpdate(data) {
       const ModalStore = useModalStore()
       try {
         await axiosInstance.put(`/password-update/${data.token}`, data)
-        ModalStore.openModal('password-changed','landing-modal')
+        ModalStore.openModal('password-changed', 'landing-modal')
         this.error = ''
       } catch (error) {
         this.error = error.response.data.message
@@ -101,25 +101,33 @@ export const useAuthStore = defineStore('authStore', {
       if (form.avatar !== '') {
         this.uploadAvatar(form.avatar)
       } else {
+        const data = {
+          username: this.author.username!==form.username?form.username:null,
+          email:this.author.email!==form.email?form.email:null,
+          password:form.password!==''?form.password:null,
+          password_confirmation:form.password_confirmation!==''?form.password_confirmation:null
+        }
+        if(this.areAllPropertiesNull(data)){
+          return
+        }
         try {
-          const response = await axiosInstance.post(`/update-user/${this.author.email}`, form, {
+          const response = await axiosInstance.post(`/update-user/${this.author.email}`, data, {
             params: {
               locale
             }
           })
           if (form.email !== this.author.email) {
-            return ModalStore.openModal('update-email-sent','news-modal')
+            return ModalStore.openModal('update-email-sent', 'profile-modal')
           }
           this.user = response.data.user
           if (window.innerWidth < 960) {
             ModalStore.mobile = 'updated-succesfully'
           } else {
-            ModalStore.openModal('user-updated','news-modal')
+            ModalStore.openModal('user-updated', 'profile-modal')
           }
           this.error = ''
         } catch (error) {
-          alert(error)
-          this.error = error.response?.data.message
+          this.error = error.response.data.errors[Object.keys(error.response.data.errors)[0]][0][locale];
         }
       }
     },
@@ -138,6 +146,9 @@ export const useAuthStore = defineStore('authStore', {
       } catch (error) {
         this.error = error.response.data.message
       }
+    },
+    areAllPropertiesNull(obj) {
+      return Object.values(obj).every(value => value === null);
     }
   },
   getters: {
