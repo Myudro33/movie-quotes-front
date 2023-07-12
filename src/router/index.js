@@ -44,7 +44,10 @@ const router = createRouter({
           path: '/profile',
           name: 'editprofile',
           meta: { auth: true },
-          component: () => import('../views/ProfileEdit.vue')
+          component: () => import('../views/ProfileEdit.vue'),
+          children:[
+            {path:'/profile/:modal',name:'profile-modal'}
+          ]
         },
         {
           path: '/feed/films/:id',

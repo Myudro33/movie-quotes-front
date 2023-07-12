@@ -3,6 +3,7 @@ import axiosInstance from '../config/axios-config'
 import { useMovieStore } from './MoviesStore'
 import { useAuthStore } from './AuthStore'
 import router from '../router'
+import { useModalStore } from './ModalStore'
 export const useNewsStore = defineStore('newsStore', {
   state: () => ({
     modal: '',
@@ -87,15 +88,18 @@ export const useNewsStore = defineStore('newsStore', {
 
       }
     },
-    async deleteQuote(id) {
+    async deleteQuote(id,page) {
       const MovieStore = useMovieStore()
+      const ModalStore = useModalStore()
       try {
         await axiosInstance.delete(`/quotes/${id}`)
         const filtered = MovieStore.movie.quotes.filter(quote => quote.id !== id)
+        if(!page){
+          ModalStore.closeModal()
+        }
         return MovieStore.movie.quotes = filtered
       } catch (error) {
         error.response.status === 403 && router.push({ name: 'forbidden' })
-
       }
     },
   }
