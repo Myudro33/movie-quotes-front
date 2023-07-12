@@ -18,7 +18,7 @@ configure({
         firstName: 'Name',
         email: 'Email',
         password: 'Password',
-        password_confirmation: 'Confirm password',
+        confirmPassword: 'Confirm password',
         title_en: 'Quote',
         title_ka: 'Quote'
       }
@@ -39,7 +39,7 @@ configure({
         username: 'სახელი',
         email: 'მეილი',
         password: 'პაროლი',
-        password_confirmation: 'გაიმეორეთ პაროლი',
+        confirmPassword:'გაიმეორეთ პაროლი',
         title_en: 'ციტატა',
         title_ka: 'ციტატა'
       }
