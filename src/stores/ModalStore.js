@@ -16,7 +16,7 @@ export const useModalStore = defineStore('modalStore', {
         this.inner = ''
         return
       }
-      if (router.currentRoute.value.matched.length < 3) {
+      else if (router.currentRoute.value.matched.length < 3) {
         router.push({ name: router.currentRoute.value.matched[0].name })
       } else {
         router.push({ name: router.currentRoute.value.matched[1].name })
@@ -54,15 +54,15 @@ export const useModalStore = defineStore('modalStore', {
         }, 500);
         return
       }
-      if (payload === 'add-quote' || payload === 'add-movie') {
+      else if (payload === 'add-quote' || payload === 'add-movie') {
         this.formModal = payload
         return
       }
-      if (payload !== undefined) {
+      else if (payload !== undefined) {
         this.inner = payload
         return
       }
-      if (modal) {
+      else if (modal) {
         if (modal === 'add-quote' || modal === 'add-movie') {
           this.formModal = modal
           return

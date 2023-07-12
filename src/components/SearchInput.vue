@@ -31,7 +31,7 @@
   </div>
   <div class="md:hidden w-full h-[5.375rem]">
     <button
-      @click="NewsStore.modal = 'add-quote'"
+      @click="openModal"
       :class="`bg-[#24222F] w-full text-white h-[5.375rem] text-xl font-normal flex items-center px-3`"
     >
       <PencilIcon />
@@ -43,7 +43,7 @@
     class="md:hidden w-full h-[80vh] bg-[#12101A] z-[100] top-0 absolute"
   >
     <div class="flex items-center h-16 px-8 border-b border-b-[#EFEFEF4D]">
-      <ArrowIcon class="w-10 h-10" @click="ModalStore.closeModal" />
+      <ArrowIcon class="w-10 h-10" @click="ModalStore.mobile = ''" />
       <input
         @keydown.enter="search"
         v-model="input"
