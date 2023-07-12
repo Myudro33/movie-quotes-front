@@ -27,8 +27,14 @@ export const useModalStore = defineStore('modalStore', {
       this.quoteModal=''
     },
     openModal(payload, page,val,index) {
+      if(payload!=='reset-email-verified'){
       router.push({ name: page, params: { modal: payload },query:{mode:val,quote:index} })
       this.queryBasedModal(payload)
+    }else if(payload==='reset-email-verified'){
+        const route = router.currentRoute.value
+        router.push({path:'/reset-email-verified',params:{modal:payload},query:{email:route.query.user,token:route.params.token}})
+        this.inner=payload
+    }
     },
     async queryBasedModal(payload) {
       await router.isReady()

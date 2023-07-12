@@ -21,7 +21,7 @@
       {{ button }}
     </the-button>
     <button
-      @click="ModalStore.closeModal"
+      @click="ModalStore.closeModal()"
       class="text-[#6C757D] xs:mt-3 md:mt-8"
       v-if="skip"
     >

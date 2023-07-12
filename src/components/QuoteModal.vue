@@ -307,11 +307,11 @@ const onSubmit = (values) => {
       title: values.title,
     });
     NewsStore.updateQuote(values, data.image);
-    NewsStore.modal = "";
+    ModalStore.closeModal();
     return;
   }
   NewsStore.addQuote(values, props.inner);
-  NewsStore.modal = "";
+  ModalStore.closeModal();
 };
 const addComment = async (values) => {
   const data = {

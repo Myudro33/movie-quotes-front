@@ -20,6 +20,12 @@
         :required="true"
       />
     </div>
+    <p
+      v-if="AuthStore.error && AuthStore.error !== 'Unauthenticated.'"
+      class="text-red-500 mt-2"
+    >
+      {{ AuthStore.error }}
+    </p>
     <the-button class="w-full h-[2.375rem] my-5">
       {{ $t("forms.send_instructions") }}
     </the-button>
