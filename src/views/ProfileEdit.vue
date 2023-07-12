@@ -11,7 +11,7 @@
     >
       <img
         class="w-48 h-48 object-cover rounded-full xs:mt-6 md:mt-0 md:top-36 z-10 md:absolute"
-        :src="avatar + AuthStore.author.avatar"
+        :src="AuthStore.author.avatar"
         id="avatar"
         alt="avatar"
       />
@@ -181,7 +181,6 @@ import { computed, reactive, ref } from "vue";
 import { useAuthStore } from "../stores/AuthStore";
 import { useModalStore } from "../stores/ModalStore";
 import { ArrowIcon } from "../components/icons/index.js";
-import { avatar } from "../services/imagePrefixes";
 import { useI18n } from "vue-i18n";
 const AuthStore = useAuthStore();
 const ModalStore = useModalStore();

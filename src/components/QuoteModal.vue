@@ -50,8 +50,8 @@
           "
           :image="
             props.mode !== undefined
-              ? avatar + NewsStore.quote.user?.avatar
-              : avatar + AuthStore.author.avatar
+              ? NewsStore.quote.user?.avatar
+              : AuthStore.author.avatar
           "
         />
         <Form
@@ -217,7 +217,7 @@
           <div class="w-full flex">
             <img
               class="xs:w-10 xs:h-10 md:w-[3.25rem] md:h-[3.25rem] object-cover text-white shrink-0 rounded-full"
-              :src="avatar + AuthStore.author.avatar"
+              :src="AuthStore.author.avatar"
               alt="avatar"
             />
             <Field name="title" v-model="title" v-slot="{ field }">
@@ -238,7 +238,7 @@
 <script setup>
 import TheField from "./TheField.vue";
 import TheComment from "../components/TheComment.vue";
-import { image, avatar } from "../services/imagePrefixes";
+import { image } from "../services/imagePrefixes";
 import { useMovieStore } from "../stores/MoviesStore";
 import { useAuthStore } from "../stores/AuthStore";
 import { useNewsStore } from "../stores/NewsStore";
