@@ -7,7 +7,7 @@
           class="text-[#DDCCAA] xs:text-2xl md:text-6xl text-center h-32 font-bold tracking-wider leading-10"
         ></h1>
         <the-button
-          @click="ModalStore.inner = 'register'"
+          @click="ModalStore.openModal('register', 'landing-modal')"
           class="xs:w-28 md:w-36 h-12 md:text-xl mt-6"
         >
           {{ $t("landing.get_started") }}

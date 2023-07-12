@@ -49,7 +49,7 @@
         }}</label>
       </div>
       <p
-        @click="ModalStore.openModal('forgot_password')"
+        @click="ModalStore.openModal('forgot_password', 'landing-modal')"
         class="text-[#0D6EFD] cursor-pointer underline inline-block text-sm"
       >
         {{ $t("forms.forgot_password") }}
@@ -62,7 +62,7 @@
     <p class="text-center mt-8 text-[#6C757D]">
       {{ $t("forms.dont_have_account") }}
       <span
-        @click="ModalStore.openModal('register')"
+        @click="ModalStore.openModal('register', 'landing-modal')"
         class="text-[#0D6EFD] cursor-pointer underline inline"
       >
         {{ $t("forms.sign_up") }}

@@ -1,7 +1,7 @@
 <template>
   <div class="md:flex justify-between xs:hidden">
     <button
-      @click="NewsStore.modal = 'add-quote'"
+      @click="openModal"
       :class="`bg-[#24222F] text-white rounded-xl  md:h-[3.25rem] ${
         size ? 'md:w-64 text-base ' : 'md:w-11/12'
       } xs:h-[5.375rem] text-xl font-normal flex items-center px-3`"
@@ -82,5 +82,8 @@ const search = async () => {
   } else {
     NewsStore.quotes = response.data.quotes;
   }
+};
+const openModal = () => {
+  ModalStore.openModal("add-quote", "news-modal");
 };
 </script>

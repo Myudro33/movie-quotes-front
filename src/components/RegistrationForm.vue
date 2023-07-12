@@ -62,7 +62,7 @@
     <p class="text-center mt-8 text-[#6C757D]">
       {{ $t("forms.have_account") }}
       <span
-        @click="ModalStore.openModal('login')"
+        @click="ModalStore.openModal('login', 'landing-modal')"
         class="text-[#0D6EFD] cursor-pointer underline inline"
         >{{ $t("forms.log_in") }}
       </span>

@@ -24,7 +24,7 @@
       {{ $t("forms.send_instructions") }}
     </the-button>
     <p
-      @click="ModalStore.inner = 'login'"
+      @click="ModalStore.openModal('login', 'landing-modal')"
       class="flex justify-center items-center cursor-pointer text-[#6C757D] font-normal"
     >
       <ArrowIcon /> {{ $t("forms.back_to_login") }}

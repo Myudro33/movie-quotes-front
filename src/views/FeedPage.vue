@@ -15,8 +15,10 @@ import TheSidebar from "../components/TheSidebar.vue";
 import { useNotificationStore } from "../stores/NotificationStore";
 import instantiatePusher from "../config/pusher/index";
 import { useAuthStore } from "../stores/AuthStore";
+import { useNewsStore } from "../stores/NewsStore";
 
 const NotificationStore = useNotificationStore();
+const NewsStore = useNewsStore();
 const AuthStore = useAuthStore();
 onMounted(() => {
   NotificationStore.getNotifications();

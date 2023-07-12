@@ -7,11 +7,17 @@ import { useAuthStore } from "./stores/AuthStore";
 import { computed, onMounted } from "vue";
 import ProfileMobileModal from "./components/ProfileMobileModal.vue";
 import { useI18n } from "vue-i18n";
+import { useNewsStore } from "./stores/NewsStore";
+import { useMovieStore } from "./stores/MoviesStore";
 const authStore = useAuthStore();
 const modalStore = useModalStore();
+const NewsStore = useNewsStore();
+const MovieStore = useMovieStore();
 onMounted(async () => {
-  modalStore.queryBasedModal();
+  await NewsStore.getQuotes();
+  await MovieStore.getMovies();
   await authStore.getUser();
+  modalStore.queryBasedModal();
 });
 const font = computed(() => {
   if (useI18n().locale.value === "en") {

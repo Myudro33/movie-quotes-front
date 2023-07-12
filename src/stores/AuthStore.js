@@ -17,7 +17,7 @@ export const useAuthStore = defineStore('authStore', {
         const response = await axiosInstance.post('/login', data)
         this.user = response.data.user
         router.push({ name: 'news' })
-        ModalStore.closeModal()
+        ModalStore.closeModal('news')
         this.error = ''
       } catch (error) {
         if(error.response.status===401){
@@ -36,7 +36,7 @@ export const useAuthStore = defineStore('authStore', {
             locale
           }
         })
-        ModalStore.openModal('registered')
+        ModalStore.openModal('registered','landing-modal')
         this.error = ''
       } catch (error) {
         this.error = error.response.data.errors[Object.keys(error.response.data.errors)[0]][0][locale];
@@ -80,7 +80,7 @@ export const useAuthStore = defineStore('authStore', {
             locale
           }
         })
-        ModalStore.inner = 'instructions_sent'
+        ModalStore.openModal('instructions_sent','landing-modal')
         this.error = ''
       } catch (error) {
         this.error = error.response.data.message
@@ -90,7 +90,7 @@ export const useAuthStore = defineStore('authStore', {
       const ModalStore = useModalStore()
       try {
         await axiosInstance.put(`/password-update/${data.token}`, data)
-        ModalStore.inner = 'password-changed'
+        ModalStore.openModal('password-changed','landing-modal')
         this.error = ''
       } catch (error) {
         this.error = error.response.data.message
@@ -108,13 +108,13 @@ export const useAuthStore = defineStore('authStore', {
             }
           })
           if (form.email !== this.author.email) {
-            return (ModalStore.inner = 'update-email-sent')
+            return ModalStore.openModal('update-email-sent','news-modal')
           }
           this.user = response.data.user
           if (window.innerWidth < 960) {
             ModalStore.mobile = 'updated-succesfully'
           } else {
-            ModalStore.inner = 'user-updated'
+            ModalStore.openModal('user-updated','news-modal')
           }
           this.error = ''
         } catch (error) {

@@ -10,12 +10,16 @@
 </template>
 
 <script setup>
+import { useModalStore } from "../stores/ModalStore";
 import { useMovieStore } from "../stores/MoviesStore";
 import { useNewsStore } from "../stores/NewsStore";
 const NewsStore = useNewsStore();
 const MovieStore = useMovieStore();
+const ModalStore = useModalStore();
 const closeModal = () => {
   NewsStore.modal = "";
   MovieStore.modal = "";
+  ModalStore.formModal = "";
+  ModalStore.closeModal();
 };
 </script>

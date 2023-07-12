@@ -30,7 +30,7 @@
         </button>
       </div>
       <the-button
-        @click="MovieStore.modal = 'add-movie'"
+        @click="openModal"
         class="h-[2.375rem] xs:text-xs xs:w-48 md:w-52 justify-center md:text-base flex px-3 items-center"
       >
         <PlusSquareIcon class="mr-2" /> {{ $t("add_movie.add_movie") }}
@@ -41,9 +41,11 @@
 
 <script setup>
 import { PlusSquareIcon, SearchIcon } from "../components/icons/index.js";
+import { useModalStore } from "../stores/ModalStore";
 import { useMovieStore } from "../stores/MoviesStore";
 import { ref } from "vue";
 const MovieStore = useMovieStore();
+const ModalStore = useModalStore();
 const size = ref(false);
 const input = ref("");
 const clickHandle = () => {
@@ -52,5 +54,8 @@ const clickHandle = () => {
 };
 const search = () => {
   MovieStore.searchMovies(input.value);
+};
+const openModal = () => {
+  ModalStore.openModal("add-movie", "films-modal");
 };
 </script>

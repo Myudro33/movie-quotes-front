@@ -27,13 +27,13 @@
       </div>
       <div v-if="!AuthStore.author">
         <the-button
-          @click="ModalStore.openModal('register')"
+          @click="ModalStore.openModal('register', 'landing-modal')"
           class="px-4 xs:h-8 md:h-[2.375rem] mx-4"
         >
           {{ $t("forms.sign_up") }}
         </the-button>
         <button
-          @click="ModalStore.openModal('login')"
+          @click="ModalStore.openModal('login', 'landing-modal')"
           class="xs:w-[4.5rem] xs:h-8 md:w-24 md:h-[2.375rem] border border-[#fff] text-white rounded-md"
         >
           {{ $t("forms.log_in") }}

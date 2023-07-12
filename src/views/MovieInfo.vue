@@ -1,11 +1,11 @@
 <template>
   <QuoteModal
-    v-if="NewsStore.modal === 'add-quote'"
+    v-if="ModalStore.formModal === 'add-quote'"
     :inner="true"
-    :mode="ModalStore.quoteModal"
+    :mode="mode"
     :movie="MovieStore.movie"
   />
-  <MovieModal :edit="true" v-if="MovieStore.modal === 'add-movie'" />
+  <MovieModal :edit="true" v-if="ModalStore.formModal === 'add-movie'" />
   <h1 v-if="loading" class="text-white text-3xl">{{ $t("add_quote.loading") }}</h1>
   <div v-else class="flex flex-col xs:py-10 md:pb-20">
     <h1 class="text-2xl text-white xs:hidden md:flex">
@@ -26,7 +26,7 @@
           <div
             class="bg-[#24222F] xs:hidden md:flex justify-between w-36 h-10 rounded-lg items-center px-5"
           >
-            <PenIcon class="cursor-pointer" @click="MovieStore.modal = 'add-movie'" />
+            <PenIcon class="cursor-pointer" @click="openMovieModal" />
             <hr class="border border-[#6C757D] h-5" />
             <TrashIcon @click="MovieStore.deleteMovie()" />
           </div>
@@ -161,6 +161,7 @@ import {
 import QuoteModal from "../components/QuoteModal.vue";
 import MovieModal from "../components/MovieModal.vue";
 import { useModalStore } from "../stores/ModalStore";
+import router from "../router";
 const MovieStore = useMovieStore();
 const NewsStore = useNewsStore();
 const AuthStore = useAuthStore();
@@ -189,19 +190,24 @@ const addLike = async (item) => {
 onMounted(async () => {
   await MovieStore.getMovie();
   await MovieStore.getGenres();
-  await NewsStore.getQuotes();
   loading.value = false;
 });
 const modal = (num) => {
   ModalStore.openQuoteModal(num);
 };
+const mode = computed(() => {
+  return router.currentRoute.value.query.mode;
+});
 const openAddQuoteModal = () => {
-  NewsStore.modal = "add-quote";
+  ModalStore.openModal("add-quote", "inner-film-modal");
   ModalStore.quoteModal = "";
+};
+const openMovieModal = () => {
+  ModalStore.openModal("add-movie", "inner-film-modal", "movie-edit");
 };
 const setStage = (val, index) => {
   ModalStore.quoteModal = val;
   NewsStore.quote = MovieStore.movie.quotes.find((quote) => quote.id === index);
-  NewsStore.modal = "add-quote";
+  ModalStore.openModal("add-quote", "inner-film-modal", val, index);
 };
 </script>
