@@ -23,6 +23,7 @@ jobs:
             cd apps
             cd nika-qanashvili-movie-quotes-front
             git pull
+            npm install
             npm ci
             npm run build
           EOF
