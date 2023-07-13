@@ -20,11 +20,17 @@
         :required="true"
       />
     </div>
+    <p
+      v-if="AuthStore.error && AuthStore.error !== 'Unauthenticated.'"
+      class="text-red-500 mt-2"
+    >
+      {{ AuthStore.error }}
+    </p>
     <the-button class="w-full h-[2.375rem] my-5">
       {{ $t("forms.send_instructions") }}
     </the-button>
     <p
-      @click="ModalStore.inner = 'login'"
+      @click="ModalStore.openModal('login', 'landing-modal')"
       class="flex justify-center items-center cursor-pointer text-[#6C757D] font-normal"
     >
       <ArrowIcon /> {{ $t("forms.back_to_login") }}

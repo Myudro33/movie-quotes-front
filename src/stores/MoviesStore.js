@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { useAuthStore } from './AuthStore.js'
 import axiosInstance from '../config/axios-config'
 import router from '../router'
+import { useModalStore } from './ModalStore.js'
 export const useMovieStore = defineStore('MoviesStore', {
   state: () => ({
     modal: '',
@@ -50,6 +51,7 @@ export const useMovieStore = defineStore('MoviesStore', {
     },
     async updateMovie(data, image, genre) {
       const AuthStore = useAuthStore()
+      const ModalStore = useModalStore()
       const formData = new FormData()
       formData.append('user_id', AuthStore.author.id)
       formData.append('name', JSON.stringify({ en: data.movie_name.en, ka: data.movie_name.ka }))
@@ -73,7 +75,7 @@ export const useMovieStore = defineStore('MoviesStore', {
       const index = this.movies.findIndex(movie => movie.id === this.movie.id)
       this.movies[index] = response.data.movie
       this.movie = response.data.movie
-      return this.movies.push(response.data.movie)
+      ModalStore.closeModal()
     },
     async getMovie() {
       const id = router.currentRoute.value.params.id
@@ -90,6 +92,9 @@ export const useMovieStore = defineStore('MoviesStore', {
     },
     async deleteMovie() {
       await axiosInstance.delete(`/movies/${this.movie.id}`)
+      const filtered = this.movies.filter(item=>item.id!==this.movie.id)
+      this.movies= filtered
+      this.filteredMovies = filtered
       router.back()
     },
     likeInteractions(quote,like,stage,data,response){

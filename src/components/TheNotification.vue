@@ -21,7 +21,7 @@
       <img
         :class="!item.seen && 'border-2 border-[#198754]'"
         class="rounded-full xs:hidden md:flex md:w-[4.5rem] md:h-[4.5rem] object-cover shrink-0"
-        :src="avatar + item.user.avatar"
+        :src="item.user.avatar"
         alt="avatar"
       />
       <div class="w-full h-full md:ml-6 flex justify-between xs:flex-col md:flex-row">
@@ -29,7 +29,7 @@
           <img
             :class="!item.seen && 'border-2 border-[#198754]'"
             class="rounded-full w-[3.2rem] h-[3.2rem] object-cover shrink-0 md:hidden"
-            :src="avatar + item.user.avatar"
+            :src="item.user.avatar"
             alt="avatar"
           />
           <div class="xs:ml-2 md:ml-0">
@@ -62,7 +62,6 @@
 </template>
 
 <script setup>
-import { avatar } from "../services/imagePrefixes";
 import { useNotificationStore } from "../stores/NotificationStore";
 import { QuotesIcon, HeartIcon } from "../components/icons/index.js";
 import { useAuthStore } from "../stores/AuthStore";

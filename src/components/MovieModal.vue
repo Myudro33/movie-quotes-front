@@ -1,5 +1,5 @@
 <template>
-  <ModalWrapper v-if="MovieStore.modal === 'add-movie'">
+  <ModalWrapper v-if="ModalStore.formModal === 'add-movie'">
     <div
       class="xs:w-screen md:w-[60rem] xs:pt-2 xs:pb-10 md:py-10 xs:h-screen md:h-auto bg-[#11101A] md:rounded-xl md:mt-28"
     >
@@ -8,10 +8,7 @@
       >
         <h1 class="text-2xl text-white">{{ $t("add_movie.add_movie") }}</h1>
         <hr class="border border-[#EFEFEF33] mt-6 w-full" />
-        <ExitIcon
-          @click="MovieStore.modal = ''"
-          class="absolute cursor-pointer right-10 top-2"
-        />
+        <ExitIcon @click="closeModal" class="absolute cursor-pointer right-10 top-2" />
       </div>
       <div class="w-full px-8 flex flex-col">
         <AuthorTag />
@@ -93,7 +90,7 @@
 import ModalWrapper from "./ModalWrapper.vue";
 import AuthorTag from "./AuthorTag.vue";
 import { Form, useForm } from "vee-validate";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { useMovieStore } from "../stores/MoviesStore";
 const MovieStore = useMovieStore();
 import { ExitIcon } from "./icons/index.js";
@@ -101,11 +98,13 @@ import FileUploadInput from "./FileUploadInput.vue";
 import ChipInput from "./ChipInput.vue";
 import { image } from "../services/imagePrefixes";
 import TheField from "./TheField.vue";
+import { useModalStore } from "../stores/ModalStore";
 const newImage = ref("");
 const props = defineProps(["edit"]);
 const { defineInputBinds, setValues } = useForm({
   initialValues: props.edit && MovieStore.movie,
 });
+const ModalStore = useModalStore();
 const getFile = (img) => {
   setValues({
     image: img.value,
@@ -113,6 +112,9 @@ const getFile = (img) => {
   newImage.value = img.value;
 };
 const getFieldInputBinds = (field) => defineInputBinds(field);
+onMounted(async () => {
+  console.log(await MovieStore.movie);
+});
 const addChips = (event) => {
   if (props.edit) {
     getFieldInputBinds("genre").value.value = event.value;
@@ -141,12 +143,16 @@ const onSubmit = (values) => {
   } else {
     MovieStore.updateMovie(values, newImage, getFieldInputBinds("genre").value.value);
   }
-  MovieStore.modal = "";
+  ModalStore.formModal = "";
 };
 const submit = () => {
   setValues({
     genre: getFieldInputBinds("genre").value.value,
     image: getFieldInputBinds("image").value.value,
   });
+};
+const closeModal = () => {
+  ModalStore.formModal = "";
+  ModalStore.closeModal();
 };
 </script>

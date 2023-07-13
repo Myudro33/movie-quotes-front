@@ -1,5 +1,5 @@
 <template>
-  <ModalWrapper v-if="NewsStore.modal === 'add-quote'">
+  <ModalWrapper v-if="ModalStore.formModal === 'add-quote'">
     <div
       class="xs:w-screen md:w-[60rem] xs:z-40 xs:pt-2 xs:pb-10 md:py-10 md:h-auto bg-[#11101A] md:rounded-xl md:mt-28"
     >
@@ -10,7 +10,7 @@
           class="flex absolute xs:left-4 md:left-8 md:h-5/6 top-0 justify-between xs:w-28 md:w-36 rounded-lg items-center px-5"
         >
           <PenIcon
-            @click="ModalStore.quoteModal = 'edit'"
+            @click="queryModal('edit')"
             v-if="props.mode === 'view'"
             class="cursor-pointer"
           />
@@ -25,7 +25,7 @@
             </h1>
           </div>
         </div>
-        <h1 v-if="props.mode !== ''" class="text-2xl xs:hidden md:flex text-white">
+        <h1 v-if="props.mode !== undefined" class="text-2xl xs:hidden md:flex text-white">
           {{
             props.mode === "view"
               ? $t("add_quote.view_quote")
@@ -37,19 +37,21 @@
         </h1>
         <hr class="border border-[#EFEFEF33] mt-6 w-full" />
         <ExitIcon
-          @click="NewsStore.modal = ''"
+          @click="queryModal('close')"
           class="absolute cursor-pointer right-10 xs:top-0 md:top-2"
         />
       </div>
       <div class="w-full px-8 flex flex-col">
         <AuthorTag
           :author="
-            props.mode !== '' ? NewsStore.quote.user.username : AuthStore.author.username
+            props.mode !== undefined
+              ? NewsStore.quote.user?.username
+              : AuthStore.author.username
           "
           :image="
-            props.mode !== ''
-              ? avatar + NewsStore.quote.user.avatar
-              : avatar + AuthStore.author.avatar
+            props.mode !== undefined
+              ? NewsStore.quote.user?.avatar
+              : AuthStore.author.avatar
           "
         />
         <Form
@@ -58,7 +60,7 @@
           class="flex flex-col relative"
         >
           <div
-            v-if="props.inner && props.mode !== 'view'"
+            v-if="props.inner && props.mode !== 'view' && props.mode !== 'edit'"
             class="w-full md:h-[9.8rem] flex my-3 xs:bg-[#000] md:bg-transparent xs:p-4 md:p-0 rounded-md"
           >
             <img
@@ -70,8 +72,8 @@
               <h1 class="md:text-2xl text-[#DDCCAA] md:mt-2">
                 {{
                   useI18n().locale.value === "en"
-                    ? MovieStore.movie.name.en
-                    : MovieStore.movie.name.ka
+                    ? MovieStore.movie.name?.en
+                    : MovieStore.movie.name?.ka
                 }}
                 ({{ MovieStore.movie.year }})
               </h1>
@@ -90,8 +92,8 @@
                   <p class="ml-2">
                     {{
                       useI18n().locale.value === "en"
-                        ? MovieStore.movie.director.en
-                        : MovieStore.movie.director.ka
+                        ? MovieStore.movie.director?.en
+                        : MovieStore.movie.director?.ka
                     }}
                   </p>
                 </h2>
@@ -215,7 +217,7 @@
           <div class="w-full flex">
             <img
               class="xs:w-10 xs:h-10 md:w-[3.25rem] md:h-[3.25rem] object-cover text-white shrink-0 rounded-full"
-              :src="avatar + AuthStore.author.avatar"
+              :src="AuthStore.author.avatar"
               alt="avatar"
             />
             <Field name="title" v-model="title" v-slot="{ field }">
@@ -236,7 +238,7 @@
 <script setup>
 import TheField from "./TheField.vue";
 import TheComment from "../components/TheComment.vue";
-import { image, avatar } from "../services/imagePrefixes";
+import { image } from "../services/imagePrefixes";
 import { useMovieStore } from "../stores/MoviesStore";
 import { useAuthStore } from "../stores/AuthStore";
 import { useNewsStore } from "../stores/NewsStore";
@@ -285,7 +287,6 @@ const toggleComments = () => {
 };
 
 onMounted(() => {
-  MovieStore.getMovies();
   if (props.mode !== "") {
     data.image = MovieStore?.quote?.image;
   }
@@ -306,11 +307,11 @@ const onSubmit = (values) => {
       title: values.title,
     });
     NewsStore.updateQuote(values, data.image);
-    NewsStore.modal = "";
+    ModalStore.closeModal();
     return;
   }
   NewsStore.addQuote(values, props.inner);
-  NewsStore.modal = "";
+  ModalStore.closeModal();
 };
 const addComment = async (values) => {
   const data = {
@@ -331,6 +332,13 @@ const addLike = async () => {
   } else {
     const response = await createLike(data, NewsStore.quote);
     MovieStore.likeInteractions(NewsStore.quote, "", false, data, response);
+  }
+};
+const queryModal = (val) => {
+  if (val === "edit") {
+    ModalStore.openModal("add-quote", "inner-film-modal", val, NewsStore.quote.id);
+  } else if (val === "close") {
+    ModalStore.closeModal();
   }
 };
 </script>

@@ -8,6 +8,9 @@ const router = createRouter({
       path: '/',
       name: 'landing',
       component: () => import('../views/LandingPage.vue'),
+      children:[
+        {path:'/:modal',name:'landing-modal'}
+      ],
       meta: { auth: false }
     },
     {
@@ -29,29 +32,42 @@ const router = createRouter({
       component: () => import('../views/FeedPage.vue'),
       children: [
         {
-          path: '',
+          path: '/feed/news',
           name: 'news',
           meta: { auth: true },
-          component: () => import('../views/NewsFeed.vue')
+          component: () => import('../views/NewsFeed.vue'),
+          children:[
+            {path:'/feed/news/:modal',name:'news-modal'}
+          ]
         },
         {
-          path: 'edit-profile',
+          path: '/profile',
           name: 'editprofile',
           meta: { auth: true },
-          component: () => import('../views/ProfileEdit.vue')
-        },
-        {
-          path: 'films',
-          name: 'films',
-          meta: { auth: true },
-          component: () => import('../views/MoviesList.vue')
+          component: () => import('../views/ProfileEdit.vue'),
+          children:[
+            {path:'/profile/:modal',name:'profile-modal'}
+          ]
         },
         {
           path: '/feed/films/:id',
           name: 'film',
           meta: { auth: true },
-          component: () => import('../views/MovieInfo.vue')
-        }
+          component: () => import('../views/MovieInfo.vue'),
+          children:[
+            {path:'/feed/films/inner/:id/:modal',name:'inner-film-modal'}
+          ]
+        },
+        {
+          path: 'films',
+          name: 'films',
+          meta: { auth: true },
+          component: () => import('../views/MoviesList.vue'),
+          children:[
+            {path:'/feed/films/out/:modal',name:'films-modal'}
+          ]
+        },
+        
       ]
     },
     {

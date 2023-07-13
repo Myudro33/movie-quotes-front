@@ -21,7 +21,7 @@
       {{ button }}
     </the-button>
     <button
-      @click="ModalStore.closeModal"
+      @click="ModalStore.closeModal()"
       class="text-[#6C757D] xs:mt-3 md:mt-8"
       v-if="skip"
     >
@@ -47,12 +47,10 @@ const onSubmit = () => {
     ModalStore.closeModal();
     router.push({ name: "news" });
   } else if (props.button === t("modal.log_in")) {
-    ModalStore.inner = "login";
+    ModalStore.openModal("login", "landing-modal");
   } else if (props.button === t("modal.another_link")) {
     router.replace({ name: "landing" });
     ModalStore.closeModal();
-  } else if (props.image === "verified") {
-    ModalStore.removeQuery();
   } else {
     ModalStore.closeModal();
   }

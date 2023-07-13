@@ -10,14 +10,14 @@
       <div class="flex">
         <img
           class="w-[3.75rem] h-[3.75rem] shrink-0 object-cover rounded-full"
-          :src="avatar + AuthStore.author.avatar"
+          :src="AuthStore.author.avatar"
           alt="avatar"
         />
         <div class="ml-6">
           <h1 v-if="AuthStore.author" class="text-2xl text-white font-normal">
             {{ AuthStore.author.username }}
           </h1>
-          <RouterLink to="/feed/edit-profile" class="text-[#CED4DA]">{{
+          <RouterLink :to="{ name: 'editprofile' }" class="text-[#CED4DA]">{{
             $t("feed.edit_profile")
           }}</RouterLink>
         </div>
@@ -30,15 +30,15 @@
         {{ $t("forms.log_out") }}
       </button>
     </div>
-    <RouterLink to="/feed">
+    <RouterLink :to="{ name: 'news' }">
       <div class="mt-10 px-3 flex items-center">
-        <HouseIcon :color="route.path === '/feed' ? '#E31221' : '#fff'" />
+        <HouseIcon :color="route.name === 'news' ? '#E31221' : '#fff'" />
         <h1 class="ml-11 text-2xl text-white">{{ $t("feed.news_feed") }}</h1>
       </div>
     </RouterLink>
-    <RouterLink to="/feed/films">
+    <RouterLink :to="{ name: 'films' }">
       <div class="mt-10 px-3 flex items-center">
-        <CameraIcon :color="route.path === '/feed/films' ? '#E31221' : '#fff'" />
+        <CameraIcon :color="route.name === 'films' ? '#E31221' : '#fff'" />
         <h1 class="ml-11 text-2xl text-white">{{ $t("feed.movie_list") }}</h1>
       </div>
     </RouterLink>
@@ -52,7 +52,6 @@ import { useAuthStore } from "../stores/AuthStore";
 import { useSidebarStore } from "../stores/SidebarStore";
 import LanguageSwitch from "./LanguageSwitch.vue";
 import { useRoute } from "vue-router";
-import { avatar } from "../services/imagePrefixes";
 const route = useRoute();
 const AuthStore = useAuthStore();
 const SidebarStore = useSidebarStore();

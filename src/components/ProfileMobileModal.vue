@@ -50,7 +50,7 @@
         <p v-if="AuthStore.error" class="text-red-500">{{ AuthStore.error }}</p>
       </div>
       <div class="w-full flex justify-between px-2">
-        <button class="py-2 px-4 text-xl text-[#CED4DA]" @click="ModalStore.closeModal">
+        <button class="py-2 px-4 text-xl text-[#CED4DA]" @click="ModalStore.mobile = ''">
           {{ $t("profile.cancel") }}
         </button>
         <the-button

@@ -32,7 +32,7 @@
             :class="props.edit && 'xs:hidden md:flex'"
             class="mr-3 xs:w-6 md:w-auto"
           />
-          <span class="xs:hidden md:flex md:text-xl">{{
+          <span class="xs:hidden md:flex md:text-lg">{{
             $t("add_quote.drag_drop")
           }}</span>
           <span :class="props.edit && 'xs:hidden'" class="md:hidden">{{
@@ -46,7 +46,10 @@
           >{{ $t("add_quote.choose_file") }}</label
         >
         <input @input="selectedFile" class="hidden" type="file" id="dropzoneFile" />
-        <p v-if="dropzoneFile.name" class="text-white ml-2 my-auto xs:hidden md:flex">
+        <p
+          v-if="dropzoneFile.name"
+          class="text-white ml-2 my-auto xs:hidden md:flex text-xs"
+        >
           {{ dropzoneFile.name }}
         </p>
       </div>

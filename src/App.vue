@@ -10,8 +10,8 @@ import { useI18n } from "vue-i18n";
 const authStore = useAuthStore();
 const modalStore = useModalStore();
 onMounted(async () => {
-  modalStore.queryBasedModal();
   await authStore.getUser();
+  modalStore.queryBasedModal();
 });
 const font = computed(() => {
   if (useI18n().locale.value === "en") {

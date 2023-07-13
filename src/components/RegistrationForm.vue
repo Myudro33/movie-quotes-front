@@ -41,7 +41,7 @@
     </div>
     <div class="mt-4">
       <input-component
-        name="confirmPassword"
+        name="password_confirmation"
         type="password"
         rules="required|confirmed:password"
         :placeholder="$t('forms.confirm_password_placeholder')"
@@ -62,7 +62,7 @@
     <p class="text-center mt-8 text-[#6C757D]">
       {{ $t("forms.have_account") }}
       <span
-        @click="ModalStore.openModal('login')"
+        @click="ModalStore.openModal('login', 'landing-modal')"
         class="text-[#0D6EFD] cursor-pointer underline inline"
         >{{ $t("forms.log_in") }}
       </span>
@@ -86,7 +86,7 @@ const onSubmit = (values) => {
       username: values.username,
       email: values.email,
       password: values.password,
-      password_confirmation: values.confirmPassword,
+      password_confirmation: values.password_confirmation,
     },
     locale
   );

@@ -4,7 +4,7 @@
       <ExitIcon @click="ModalStore.closeModal" />
     </div>
     <h1
-      class="xs:text-2xl md:text-4xl md:h-12 xs:mt-[2.375rem] md:mt-2 text-white text-center"
+      class="xs:text-2xl md:text-4xl md:h-24 xs:mt-[2.375rem] md:mt-2 text-white text-center"
     >
       {{ $t("forms.create_new_password") }}
     </h1>
@@ -41,7 +41,7 @@
       {{ $t("forms.reset_password") }}
     </the-button>
     <p
-      @click="ModalStore.inner = 'login'"
+      @click="ModalStore.openModal('login', 'landing-modal')"
       class="flex justify-center items-center cursor-pointer text-[#6C757D] font-normal"
     >
       <ArrowIcon /> {{ $t("forms.back_to_login") }}

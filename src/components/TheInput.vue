@@ -6,15 +6,16 @@
       :title="props.label"
     />
     <Field
+      validate-on-input
       v-model="propBind"
-      v-slot="{ field, meta }"
+      v-slot="{ field, meta, errors }"
       :rules="props.rules"
       :name="props.name"
     >
       <input
         v-bind="field"
         :type="localType"
-        @input="change"
+        @input="(event) => change(event, errors)"
         :placeholder="props.placeholder"
         class="w-full h-[2.375rem] text-lg mt-2"
         :class="
@@ -57,8 +58,8 @@
 </template>
 
 <script setup>
-import { Field, useField } from "vee-validate";
-import { ref, watch } from "vue";
+import { Field, ErrorMessage } from "vee-validate";
+import { ref } from "vue";
 import { EyeIcon, EyeIcon2, SuccessIcon, WarningIcon } from "./icons/index.js";
 const props = defineProps([
   "name",
@@ -76,14 +77,10 @@ const props = defineProps([
 const emits = defineEmits("change-value");
 const propBind = ref(props.bind);
 const localType = ref(props.type);
-const change = (event) => {
+const change = (event, error) => {
+  emits("error-value", error[0]);
   emits("change-value", event.target.value, props.name);
 };
-
-const { errorMessage } = useField(props.name);
-watch(errorMessage, (error) => {
-  emits("error-value", error);
-});
 const changeInputType = () => {
   if (localType.value === "password") {
     return (localType.value = "text");

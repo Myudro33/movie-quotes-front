@@ -97,6 +97,5 @@ onBeforeUnmount(() => {
 });
 const closeModal = () => {
   ModalStore.closeModal();
-  ModalStore.removeQuery();
 };
 </script>
