@@ -15,16 +15,10 @@ import TheSidebar from "../components/TheSidebar.vue";
 import { useNotificationStore } from "../stores/NotificationStore";
 import instantiatePusher from "../config/pusher/index";
 import { useAuthStore } from "../stores/AuthStore";
-import { useMovieStore } from "../stores/MoviesStore";
-import { useNewsStore } from "../stores/NewsStore";
 
 const NotificationStore = useNotificationStore();
-const MovieStore = useMovieStore();
 const AuthStore = useAuthStore();
-const NewsStore = useNewsStore();
 onMounted(() => {
-  MovieStore.getMovies();
-  NewsStore.getQuotes();
   NotificationStore.getNotifications();
   instantiatePusher();
   window.Echo.private(`notification.${AuthStore.author.id}`).listen(
