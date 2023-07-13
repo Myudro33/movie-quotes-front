@@ -1,57 +1,70 @@
-# nika-qanashvili-movie-quotes-front
+<div style="display:flex; align-items: center">
+  <h1 style="position:relative; top: -6px" >Movie Quotes Upgraded</h1>
+</div>
 
-This template should help get you started developing with Vue 3 in Vite.
 
-## Recommended IDE Setup
+With Movie Quotes, you can create an account and sign in to unlock a multitude of features. Share your favorite movies and their memorable quotes. The app keeps you connected and informed by providing instant notifications whenever someone likes or comments on your posts.
+#
+### Table of Contents
+* [Prerequisites](#prerequisites)
+* [Tech Stack](#tech-stack)
+* [Getting Started](#getting-started)
+* [Development](#development)
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+#
+### Prerequisites
+* <img src="https://static-00.iconduck.com/assets.00/npm-icon-512x512-qtfdrf37.png" width="35" style="position: relative; top: 4px" /> *NPM x.7 and up*
+#
+### Tech Stack
 
-## Customize configuration
+* [VueJs@3.x](https://vuejs.org/guide/introduction.html) - front-end framework
+* [Vee-validate@4.x](https://vee-validate.logaretm.com/v4/) - package for form validations
+* [Tailwind CSS](https://tailwindcss.com) - CSS library
+* [Pusher](https://pusher.com) - Real time notification package
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+#
+### Getting Started
+1\. First of all you need to clone >Movie Quotes Upgraded repository from github:
+```sh
+git clone https://github.com/RedberryInternship/nika-qanashvili-movie-quotes-front.git
+```
 
-## Project Setup
-
+2\. Next step requires you to run *npm install* in order to install all the dependencies.
 ```sh
 npm install
 ```
-
-### Compile and Hot-Reload for Development
-
+3\. Now we need to set our env file. 
 ```sh
-npm run dev
+cp .env.example .env
 ```
+And now you should provide .env file all the necessary environment variables:
 
-### Compile and Minify for Production
+#
+**App urls:**
+>VITE_API_BASE_URL=*****
 
-```sh
-npm run build
-```
+>VITE_API_SANCTUM_URL=*****
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+>VITE_API_GMAIL_URL=****
 
-```sh
-npm run test:unit
-```
+>VITE_API_IMAGE_ENDPOINT=****
 
-### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
 
-```sh
-npm run test:e2e:dev
-```
+#
+**Pusher:**
+>VITE_PUSHER_KEY=*****
 
-This runs the end-to-end tests against the Vite development server.
-It is much faster than the production build.
+>VITE_PUSHER_CLUSTER=*****
 
-But it's still recommended to test the production build with `test:e2e` before deploying (e.g. in CI environments):
+>VITE_API_BACKEND_BROADCAST_URL=****
 
-```sh
-npm run build
-npm run test:e2e
-```
+##### Now, you should be good to go!
 
-### Lint with [ESLint](https://eslint.org/)
+#
+### Development
+
+You can run Vite built-in development server by executing:
 
 ```sh
-npm run lint
+  npm run dev
 ```

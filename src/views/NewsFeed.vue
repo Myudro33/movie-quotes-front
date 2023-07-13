@@ -14,13 +14,16 @@
 
 <script setup>
 import { useNewsStore } from "../stores/NewsStore";
-import { onBeforeUnmount } from "vue";
+import { onBeforeUnmount, onMounted } from "vue";
 import QuoteCard from "../components/QuoteCard.vue";
 import SearchInput from "../components/SearchInput.vue";
 import QuoteModal from "../components/QuoteModal.vue";
 import { useModalStore } from "../stores/ModalStore";
 const NewsStore = useNewsStore();
 const ModalStore = useModalStore();
+onMounted(() => {
+  window.addEventListener("scroll", NewsStore.handleScroll);
+});
 onBeforeUnmount(() => {
   window.removeEventListener("scroll", NewsStore.handleScroll);
 });

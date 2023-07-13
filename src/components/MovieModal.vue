@@ -90,7 +90,7 @@
 import ModalWrapper from "./ModalWrapper.vue";
 import AuthorTag from "./AuthorTag.vue";
 import { Form, useForm } from "vee-validate";
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
 import { useMovieStore } from "../stores/MoviesStore";
 const MovieStore = useMovieStore();
 import { ExitIcon } from "./icons/index.js";
@@ -112,9 +112,6 @@ const getFile = (img) => {
   newImage.value = img.value;
 };
 const getFieldInputBinds = (field) => defineInputBinds(field);
-onMounted(async () => {
-  console.log(await MovieStore.movie);
-});
 const addChips = (event) => {
   if (props.edit) {
     getFieldInputBinds("genre").value.value = event.value;
