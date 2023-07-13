@@ -10,7 +10,7 @@
       <div class="flex">
         <img
           class="w-[3.75rem] h-[3.75rem] shrink-0 object-cover rounded-full"
-          :src="AuthStore.author.avatar"
+          :src="avatar(AuthStore.author)"
           alt="avatar"
         />
         <div class="ml-6">
@@ -52,6 +52,7 @@ import { useAuthStore } from "../stores/AuthStore";
 import { useSidebarStore } from "../stores/SidebarStore";
 import LanguageSwitch from "./LanguageSwitch.vue";
 import { useRoute } from "vue-router";
+import { avatar } from "../services/imagePrefixes";
 const route = useRoute();
 const AuthStore = useAuthStore();
 const SidebarStore = useSidebarStore();

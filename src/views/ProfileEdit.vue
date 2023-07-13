@@ -11,7 +11,7 @@
     >
       <img
         class="w-48 h-48 object-cover rounded-full xs:mt-6 md:mt-0 md:top-36 z-10 md:absolute"
-        :src="AuthStore.author.avatar"
+        :src="avatar(AuthStore.author)"
         id="avatar"
         alt="avatar"
       />
@@ -182,6 +182,7 @@ import { useAuthStore } from "../stores/AuthStore";
 import { useModalStore } from "../stores/ModalStore";
 import { ArrowIcon } from "../components/icons/index.js";
 import { useI18n } from "vue-i18n";
+import { avatar } from "../services/imagePrefixes";
 const AuthStore = useAuthStore();
 const ModalStore = useModalStore();
 const googleAuthor = computed(() => AuthStore.author?.google_id === null);
