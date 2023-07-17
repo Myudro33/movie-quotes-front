@@ -18,7 +18,7 @@ configure({
         firstName: 'Name',
         email: 'Email',
         password: 'Password',
-        confirmPassword: 'Confirm password',
+        password_confirmation: 'Confirm password',
         title_en: 'Quote',
         title_ka: 'Quote'
       }
