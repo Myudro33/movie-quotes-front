@@ -13,6 +13,7 @@
       :name="props.name"
     >
       <input
+        :readonly="props.readonly"
         v-bind="field"
         :type="localType"
         @input="(event) => change(event, errors)"
