@@ -14,7 +14,7 @@
           <span
             class="text-white text-sm bg-[#6C757D] px-2 py-2 flex justify-between items-center min-w-[4.3rem]"
             >{{ useI18n().locale.value === "en" ? chip.name.en : chip.name.ka }}
-            <button @click="removeGenre(i)">
+            <button type="button" @click="removeGenre(i)">
               <ExitIcon /></button
           ></span>
         </div>
@@ -24,7 +24,7 @@
         <span
           class="text-white text-sm bg-[#6C757D] px-2 py-2 flex justify-between items-center min-w-[4.3rem]"
           >{{ useI18n().locale.value === "en" ? chip.name.en : chip.name.ka }}
-          <button @click="removeGenre(b)">
+          <button type="button" @click="removeGenre(b)">
             <ExitIcon /></button
         ></span>
       </div>

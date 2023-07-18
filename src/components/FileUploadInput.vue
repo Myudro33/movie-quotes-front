@@ -105,5 +105,4 @@ const selectedFile = (e) => {
   dropzoneFile.value = e.target.files[0];
   emit("selectFile", dropzoneFile);
 };
-console.log(props.mode);
 </script>
