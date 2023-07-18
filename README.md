@@ -56,6 +56,8 @@ And now you should provide .env file all the necessary environment variables:
 
 >VITE_PUSHER_CLUSTER=*****
 
+>VITE_API_BACKEND_URL=****
+
 >VITE_API_BACKEND_BROADCAST_URL=****
 
 ##### Now, you should be good to go!

@@ -13,7 +13,7 @@ export const useAuthStore = defineStore('authStore', {
     async login(data, locale) {
       const ModalStore = useModalStore()
       try {
-        await this.getToken()
+        await axios.get(import.meta.env.VITE_API_BACKEND_URL+'/sanctum/csrf-cookie')
         const response = await axiosInstance.post('/login', data)
         this.user = response.data.user
         router.push({ name: 'news' })
