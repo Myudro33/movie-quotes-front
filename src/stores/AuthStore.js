@@ -53,12 +53,8 @@ export const useAuthStore = defineStore('authStore', {
       }
     },
     async getToken() {
-      try {
         await axios.get(import.meta.env.VITE_API_SANCTUM_URL)
         this.error = ''
-      } catch (error) {
-        this.error = error
-      }
     },
     async getUser() {
       try {

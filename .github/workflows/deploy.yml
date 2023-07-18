@@ -25,5 +25,7 @@ jobs:
             git pull
             npm install
             npm ci
+            npm i pusher-js
+            npm i laravel-echo
             npm run build
           EOF

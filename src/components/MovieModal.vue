@@ -6,7 +6,9 @@
       <div
         class="relative xs:my-5 md:my-0 w-full flex flex-col items-center justify-center"
       >
-        <h1 class="text-2xl text-white">{{ $t("add_movie.add_movie") }}</h1>
+        <h1 class="text-2xl text-white">
+          {{ props.edit ? $t("add_movie.edit_movie") : $t("add_movie.add_movie") }}
+        </h1>
         <hr class="border border-[#EFEFEF33] mt-6 w-full" />
         <ExitIcon @click="closeModal" class="absolute cursor-pointer right-10 top-2" />
       </div>
@@ -78,7 +80,7 @@
             @drop.prevent="drop"
           />
           <the-button @click="submit" type="submit" class="w-full mt-10 text-xl">
-            {{ $t("add_movie.add_movie") }}
+            {{ props.edit ? $t("add_movie.edit_movie") : $t("add_movie.add_movie") }}
           </the-button>
         </Form>
       </div>

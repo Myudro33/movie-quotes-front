@@ -18,7 +18,7 @@
         v-if="props.edit"
         :src="props.image"
         class="xs:h-28 xs:w-44 md:h-36 md:w-96"
-        alt=""
+        alt="movie"
       />
       <div :class="props.edit && 'flex-col items-center mx-auto'" class="flex">
         <h1
@@ -54,9 +54,17 @@
         </p>
       </div>
     </div>
-    <div v-else class="flex justify-center items-center">
+    <div
+      v-bind="field"
+      @dragenter.prevent="toggleActive"
+      @dragleave.prevent="toggleActive"
+      @dragover.prevent
+      @drop.prevent="toggleActive"
+      v-else
+      class="flex justify-center items-center absolute w-full opacity-50 xs:h-[20rem] md:h-[32rem] bottom-28"
+    >
       <div
-        class="text-white text-2xl absolute xs:bottom-64 md:bottom-80 w-[8.4rem] h-[7rem] text-center bg-black opacity-80 rounded-lg flex flex-col justify-center items-center"
+        class="text-white text-2xl absolute xs:bottom-28 md:bottom-44 w-[8.4rem] h-[7rem] text-center bg-black opacity-80 rounded-lg flex flex-col justify-center items-center"
       >
         <PhotoIcon />
         <label
@@ -97,4 +105,5 @@ const selectedFile = (e) => {
   dropzoneFile.value = e.target.files[0];
   emit("selectFile", dropzoneFile);
 };
+console.log(props.mode);
 </script>

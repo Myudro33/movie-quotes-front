@@ -104,7 +104,9 @@ export const useMovieStore = defineStore('MoviesStore', {
         moviequotes.likes =filtered
       }else{
         const Moviequotes = this.movie.quotes.find(item=>item.id===data.quote_id)
-       Moviequotes.likes.push(response.data.like)
+        if(!Moviequotes.likes.some((like) => like.author_id === response.data.like.author_id)){
+          Moviequotes.likes.push(response.data.like)
+        }
       }
      },
      addCommentOnMovieQuote(data,quote){
