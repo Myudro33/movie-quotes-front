@@ -64,7 +64,7 @@
     </Form>
   </div>
   <div
-    @click="ModalStore.closeModal()"
+    @click="ModalStore.mobile = ''"
     class="w-full h-screen bg-[#00000050] absolute px-4 py-32 z-30"
     v-else-if="ModalStore.mobile === 'updated-succesfully'"
   >
