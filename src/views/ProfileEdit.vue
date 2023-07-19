@@ -26,7 +26,6 @@
       <Form class="w-full">
         <div class="w-full mt-10 flex relative">
           <input-component
-            rules="required|min:3|max:15|lowercase"
             :bind="form.username"
             @change-value="change"
             class="xs:w-full md:w-10/12"
@@ -35,6 +34,7 @@
             name="name"
             :placeholder="$t('forms.name_placeholder')"
             :style="true"
+            :readonly="true"
           />
           <button
             @click="editForm('username')"
@@ -68,7 +68,7 @@
             :label="$t('forms.email')"
             :placeholder="$t('forms.email_placeholder')"
             :style="true"
-            :readonly="!googleAuthor"
+            :readonly="true"
             page="profile"
           />
           <button
@@ -99,7 +99,6 @@
         <div v-if="googleAuthor" class="w-full mt-4 flex relative">
           <input-component
             class="xs:w-full md:w-10/12"
-            rules="required|min:8|max:15|lowercase"
             type="password"
             name="fake_password"
             :bind="form.fake_password"
@@ -107,6 +106,7 @@
             :placeholder="$t('forms.password_placeholder')"
             :style="true"
             page="profile"
+            :readonly="true"
           />
           <button
             @click="editForm('password')"

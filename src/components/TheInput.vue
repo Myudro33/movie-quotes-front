@@ -35,7 +35,10 @@
               }  px-5 border-2  rounded-md outline-none`
         "
       />
-      <SuccessIcon class="absolute top-10 right-8" v-if="meta.valid && meta.touched" />
+      <SuccessIcon
+        class="absolute top-10 right-8"
+        v-if="meta.valid && meta.touched && !props.readonly"
+      />
       <WarningIcon
         class="absolute top-10 right-8"
         v-else-if="!meta.valid && meta.touched"
