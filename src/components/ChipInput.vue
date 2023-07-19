@@ -104,18 +104,10 @@ onMounted(() => {
 });
 const setGenre = (value) => {
   if (!props.edit) {
-    if (chips.value.includes(value)) {
-      return;
-    } else {
-      chips.value.push(value);
-    }
+    !chips.value.includes(value) && chips.value.push(value);
   } else {
     const exists = chipsProps.value.find((item) => item.id === value.id) !== undefined;
-    if (exists) {
-      return;
-    } else {
-      chipsProps.value.push(value);
-    }
+    !exists && chipsProps.value.push(value);
   }
 };
 const removeGenre = (value) => {
