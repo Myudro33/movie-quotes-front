@@ -28,7 +28,7 @@
           >
             <PenIcon class="cursor-pointer" @click="openMovieModal" />
             <hr class="border border-[#6C757D] h-5" />
-            <TrashIcon @click="MovieStore.deleteMovie()" />
+            <TrashIcon class="cursor-pointer" @click="MovieStore.deleteMovie()" />
           </div>
         </div>
         <div class="w-full flex mt-6 flex-wrap gap-2">

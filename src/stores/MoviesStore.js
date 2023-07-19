@@ -95,7 +95,7 @@ export const useMovieStore = defineStore('MoviesStore', {
       const filtered = this.movies.filter(item=>item.id!==this.movie.id)
       this.movies= filtered
       this.filteredMovies = filtered
-      router.back()
+      router.push({name:'films'})
     },
     likeInteractions(quote,like,stage,data,response){
       if(stage){

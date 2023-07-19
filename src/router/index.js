@@ -55,7 +55,7 @@ const router = createRouter({
           meta: { auth: true },
           component: () => import('../views/MovieInfo.vue'),
           children:[
-            {path:'/feed/films/inner/:id/:modal',name:'inner-film-modal'}
+            {path:'/feed/films/:id/inner/:modal',name:'inner-film-modal'}
           ]
         },
         {
