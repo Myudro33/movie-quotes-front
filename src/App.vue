@@ -3,7 +3,7 @@ import TheNavbar from "@/components/TheNavbar.vue";
 import TheModal from "@/components/TheModal.vue";
 import ProfileMobileModal from "@/components/ProfileMobileModal.vue";
 import { RouterView } from "vue-router";
-import { computed, onMounted } from "vue";
+import { onMounted } from "vue";
 import { useI18n } from "vue-i18n";
 import { useModalStore } from "@/stores/modal";
 import { useAuthStore } from "@/stores/auth";
@@ -13,13 +13,13 @@ onMounted(async () => {
   await authStore.getUser();
   modalStore.queryBasedModal();
 });
-const font = computed(() => {
+const font = () => {
   if (useI18n().locale.value === "en") {
     return "Eng";
   } else {
     return "Geo";
   }
-});
+};
 </script>
 
 <template>
