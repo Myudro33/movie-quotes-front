@@ -66,11 +66,11 @@
 </template>
 
 <script setup>
-import { useMovieStore } from "../stores/MoviesStore";
 import ExitIcon from "./icons/ExitIcon.vue";
 import { Field } from "vee-validate";
 import { useI18n } from "vue-i18n";
 import { onMounted, ref, watch } from "vue";
+import { useMovieStore } from "@/stores/movie";
 const MovieStore = useMovieStore();
 const props = defineProps(["edit", "propChips"]);
 const items = ref(false);

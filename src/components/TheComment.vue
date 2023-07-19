@@ -18,5 +18,5 @@
 
 <script setup>
 const props = defineProps(["comment"]);
-import { avatar } from "../services/imagePrefixes";
+import { avatar } from "@/services/imagePrefixes";
 </script>

@@ -9,17 +9,20 @@
 </template>
 
 <script setup>
-import { onBeforeUnmount, onMounted } from "vue";
 import TheNotification from "../components/TheNotification.vue";
 import TheSidebar from "../components/TheSidebar.vue";
-import { useNotificationStore } from "../stores/NotificationStore";
 import instantiatePusher from "../config/pusher/index";
-import { useAuthStore } from "../stores/AuthStore";
-import { useMovieStore } from "../stores/MoviesStore";
+import { onBeforeUnmount, onMounted } from "vue";
+import { useNotificationStore } from "@/stores/notifications";
+import { useAuthStore } from "@/stores/auth";
+import { useMovieStore } from "@/stores/movie";
+import { useNewsStore } from "../stores/news";
 const MovieStore = useMovieStore();
 const NotificationStore = useNotificationStore();
 const AuthStore = useAuthStore();
+const NewsStore = useNewsStore();
 onMounted(async () => {
+  await NewsStore.getQuotes();
   await MovieStore.getMovies();
   NotificationStore.getNotifications();
   instantiatePusher();

@@ -59,16 +59,15 @@
 </template>
 
 <script setup>
-import { Form, Field } from "vee-validate";
-import { useAuthStore } from "../stores/AuthStore";
-import CommentIcon from "./icons/CommentIcon.vue";
-import HeartIcon from "./icons/HeartIcon.vue";
 import TheComment from "./TheComment.vue";
+import { CommentIcon, HeartIcon } from "./icons/index";
+import { Form, Field } from "vee-validate";
+import { useAuthStore } from "@/stores/auth";
 import { computed, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { image, avatar } from "../services/imagePrefixes";
-import { createLike, deleteLike } from "../services/likeService";
-import { createComment } from "../services/commentService";
+import { createLike, deleteLike } from "@/services/likeService";
+import { createComment } from "@/services/commentService";
 const AuthStore = useAuthStore();
 const props = defineProps(["quote"]);
 const locale = computed(() => {

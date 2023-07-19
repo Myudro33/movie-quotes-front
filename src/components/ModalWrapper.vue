@@ -10,9 +10,9 @@
 </template>
 
 <script setup>
-import { useModalStore } from "../stores/ModalStore";
-import { useMovieStore } from "../stores/MoviesStore";
-import { useNewsStore } from "../stores/NewsStore";
+import { useModalStore } from "@/stores/modal";
+import { useMovieStore } from "@/stores/movie";
+import { useNewsStore } from "@/stores/news";
 const NewsStore = useNewsStore();
 const MovieStore = useMovieStore();
 const ModalStore = useModalStore();

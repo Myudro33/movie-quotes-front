@@ -50,10 +50,11 @@
 </template>
 
 <script setup>
-import { ArrowIcon, ExitIcon } from "../components/icons/index.js";
+import { ArrowIcon, ExitIcon } from "@/components/icons/index.js";
 import { Form } from "vee-validate";
-import { useAuthStore } from "../stores/AuthStore";
-import { useModalStore } from "../stores/ModalStore";
+import { useAuthStore } from "@/stores/auth";
+import { useModalStore } from "@/stores/modal";
+
 import router from "../router";
 const AuthStore = useAuthStore();
 const ModalStore = useModalStore();

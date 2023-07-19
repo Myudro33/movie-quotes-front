@@ -53,6 +53,6 @@
 </template>
 
 <script setup>
-import { useModalStore } from "../stores/ModalStore";
+import { useModalStore } from "@/stores/modal";
 const ModalStore = useModalStore();
 </script>

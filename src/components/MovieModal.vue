@@ -91,16 +91,16 @@
 <script setup>
 import ModalWrapper from "./ModalWrapper.vue";
 import AuthorTag from "./AuthorTag.vue";
+import TheField from "./TheField.vue";
+import ChipInput from "./ChipInput.vue";
+import FileUploadInput from "./FileUploadInput.vue";
 import { Form, useForm } from "vee-validate";
 import { ref } from "vue";
-import { useMovieStore } from "../stores/MoviesStore";
-const MovieStore = useMovieStore();
 import { ExitIcon } from "./icons/index.js";
-import FileUploadInput from "./FileUploadInput.vue";
-import ChipInput from "./ChipInput.vue";
-import { image } from "../services/imagePrefixes";
-import TheField from "./TheField.vue";
-import { useModalStore } from "../stores/ModalStore";
+import { image } from "@/services/imagePrefixes";
+import { useMovieStore } from "@/stores/movie";
+import { useModalStore } from "@/stores/modal";
+const MovieStore = useMovieStore();
 const newImage = ref("");
 const props = defineProps(["edit"]);
 const { defineInputBinds, setValues } = useForm({

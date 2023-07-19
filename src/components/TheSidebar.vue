@@ -48,11 +48,11 @@
 <script setup>
 import HouseIcon from "./icons/HouseIcon.vue";
 import CameraIcon from "./icons/CameraIcon.vue";
-import { useAuthStore } from "../stores/AuthStore";
-import { useSidebarStore } from "../stores/SidebarStore";
 import LanguageSwitch from "./LanguageSwitch.vue";
+import { useAuthStore } from "@/stores/auth";
+import { useSidebarStore } from "@/stores/sidebar";
 import { useRoute } from "vue-router";
-import { avatar } from "../services/imagePrefixes";
+import { avatar } from "@/services/imagePrefixes";
 const route = useRoute();
 const AuthStore = useAuthStore();
 const SidebarStore = useSidebarStore();

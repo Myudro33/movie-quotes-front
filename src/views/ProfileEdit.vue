@@ -178,8 +178,8 @@
 <script setup>
 import { Form, useForm } from "vee-validate";
 import { computed, reactive, ref } from "vue";
-import { useAuthStore } from "../stores/AuthStore";
-import { useModalStore } from "../stores/ModalStore";
+import { useAuthStore } from "@/stores/auth";
+import { useModalStore } from "@/stores/modal";
 import { ArrowIcon } from "../components/icons/index.js";
 import { useI18n } from "vue-i18n";
 import { avatar } from "../services/imagePrefixes";

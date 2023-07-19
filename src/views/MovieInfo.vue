@@ -142,11 +142,14 @@
 </template>
 
 <script setup>
+import QuoteModal from "../components/QuoteModal.vue";
+import MovieModal from "../components/MovieModal.vue";
 import { image } from "../services/imagePrefixes";
 import { useI18n } from "vue-i18n";
-import { useNewsStore } from "../stores/NewsStore";
-import { useAuthStore } from "../stores/AuthStore";
-import { useMovieStore } from "../stores/MoviesStore";
+import { useNewsStore } from "@/stores/news";
+import { useAuthStore } from "@/stores/auth";
+import { useMovieStore } from "@/stores/movie";
+import { useModalStore } from "@/stores/modal";
 import { onMounted, computed, ref } from "vue";
 import { deleteLike, createLike } from "../services/likeService";
 import {
@@ -158,9 +161,6 @@ import {
   HeartIcon,
   CommentIcon,
 } from "../components/icons/index.js";
-import QuoteModal from "../components/QuoteModal.vue";
-import MovieModal from "../components/MovieModal.vue";
-import { useModalStore } from "../stores/ModalStore";
 import router from "../router";
 const MovieStore = useMovieStore();
 const NewsStore = useNewsStore();

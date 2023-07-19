@@ -19,8 +19,8 @@
 </template>
 
 <script setup>
-import { image } from "../services/imagePrefixes";
-import { QuotesIcon } from "../components/icons/index.js";
+import { image } from "@/services/imagePrefixes";
+import { QuotesIcon } from "@/components/icons/index.js";
 import { useI18n } from "vue-i18n";
 const props = defineProps(["movie"]);
 </script>

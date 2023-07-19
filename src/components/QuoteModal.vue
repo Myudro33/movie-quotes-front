@@ -237,13 +237,20 @@
 
 <script setup>
 import TheField from "./TheField.vue";
-import TheComment from "../components/TheComment.vue";
-import { image, avatar } from "../services/imagePrefixes";
-import { useMovieStore } from "../stores/MoviesStore";
-import { useAuthStore } from "../stores/AuthStore";
-import { useNewsStore } from "../stores/NewsStore";
+import TheComment from "@/components/TheComment.vue";
 import ModalWrapper from "./ModalWrapper.vue";
-const ModalStore = useModalStore();
+import FileUploadInput from "./FileUploadInput.vue";
+import AuthorTag from "./AuthorTag.vue";
+import { Form, Field, ErrorMessage, useForm } from "vee-validate";
+import { reactive, onMounted, computed, ref } from "vue";
+import { createLike, deleteLike } from "../services/likeService";
+import { createComment } from "@/services/commentService";
+import { image, avatar } from "@/services/imagePrefixes";
+import { useMovieStore } from "@/stores/movie";
+import { useAuthStore } from "@/stores/auth";
+import { useNewsStore } from "@/stores/news";
+import { useModalStore } from "@/stores/modal";
+import { useI18n } from "vue-i18n";
 import {
   PenIcon,
   TrashIcon,
@@ -251,15 +258,8 @@ import {
   CameraIcon,
   CommentIcon,
   HeartIcon,
-} from "../components/icons/index.js";
-import { Form, Field, ErrorMessage, useForm } from "vee-validate";
-import { reactive, onMounted, computed, ref } from "vue";
-import { useI18n } from "vue-i18n";
-import FileUploadInput from "./FileUploadInput.vue";
-import AuthorTag from "./AuthorTag.vue";
-import { createLike, deleteLike } from "../services/likeService";
-import { createComment } from "../services/commentService";
-import { useModalStore } from "../stores/ModalStore";
+} from "@/components/icons/index.js";
+const ModalStore = useModalStore();
 const MovieStore = useMovieStore();
 const AuthStore = useAuthStore();
 const NewsStore = useNewsStore();

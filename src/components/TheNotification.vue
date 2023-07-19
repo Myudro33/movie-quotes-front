@@ -62,10 +62,10 @@
 </template>
 
 <script setup>
-import { useNotificationStore } from "../stores/NotificationStore";
-import { QuotesIcon, HeartIcon } from "../components/icons/index.js";
-import { useAuthStore } from "../stores/AuthStore";
-import { avatar } from "../services/imagePrefixes";
+import { QuotesIcon, HeartIcon } from "@/components/icons/index.js";
+import { avatar } from "@/services/imagePrefixes";
+import { useNotificationStore } from "@/stores/notifications";
+import { useAuthStore } from "@/stores/auth";
 const NotificationStore = useNotificationStore();
 const AuthStore = useAuthStore();
 const markAsRead = (item) => {

@@ -12,8 +12,8 @@
 </template>
 
 <script setup>
-import { useAuthStore } from "../stores/AuthStore";
-import { avatar } from "../services/imagePrefixes";
+import { useAuthStore } from "@/stores/auth";
+import { avatar } from "@/services/imagePrefixes";
 const AuthStore = useAuthStore();
 const props = defineProps(["image", "author"]);
 </script>

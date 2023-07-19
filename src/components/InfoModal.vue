@@ -31,8 +31,8 @@
 </template>
 
 <script setup>
-import router from "../router";
-import { useModalStore } from "../stores/ModalStore";
+import router from "@/router";
+import { useModalStore } from "@/stores/modal";
 import DangerIcon from "./icons/DangerIcon.vue";
 import SendIcon from "./icons/SendIcon.vue";
 import ExitIcon from "./icons/ExitIcon.vue";
