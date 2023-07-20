@@ -21,9 +21,7 @@ export default {
       red:{
         'error':"#DC3545"
       },
-      black:{
-        'background':"#11101A"
-      }
+      'black-background':"#11101a"
     }
    }
   },
