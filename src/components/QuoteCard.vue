@@ -98,8 +98,6 @@ const addComment = () => {
     title: title.value,
   };
   createComment(data, props.quote, "feed");
-  console.log("quote card");
-  title.value = "";
 };
 const addLike = async () => {
   const data = { quote_id: props.quote.id, user_id: AuthStore.author.id };

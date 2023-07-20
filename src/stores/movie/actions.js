@@ -1,7 +1,7 @@
-import { useAuthStore } from '../auth'
+import { useAuthStore } from '@/stores/auth'
 import axiosInstance from '@/config/axios-config'
 import router from '@/router'
-import { useModalStore } from '../modal'
+import { useModalStore } from '@/stores/modal'
 
 
 export default {
@@ -11,8 +11,7 @@ export default {
     this.filteredMovies = response.data.movies
   },
   searchMovies(query) {
-    if (query !== '') {
-
+    if (query) {
       this.filteredMovies = this.movies.filter((movie) => {
         const enName = movie.name.en.toLowerCase();
         const kaName = movie.name.ka.toLowerCase();

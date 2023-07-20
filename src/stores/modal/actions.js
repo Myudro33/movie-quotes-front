@@ -1,6 +1,6 @@
 import router from '@/router'
-import { useNewsStore } from '../news'
-import { useMovieStore } from '../movie'
+import { useNewsStore } from '@/stores/news'
+import { useMovieStore } from '@/stores/movie'
 
 
 export default {

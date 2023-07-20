@@ -1,6 +1,6 @@
 import router from '@/router/index.js'
-import { useModalStore } from '../modal'
-import { useNewsStore } from '../news'
+import { useModalStore } from '@/stores/modal'
+import { useNewsStore } from '@/stores/news'
 import axiosInstance from '@/config/axios-config/index.js'
 import axios from 'axios'
 export default {

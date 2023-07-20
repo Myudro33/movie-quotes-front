@@ -1,8 +1,8 @@
 import axiosInstance from '@/config/axios-config'
 import router from '@/router'
-import { useMovieStore } from '../movie'
-import { useAuthStore } from '../auth'
-import { useModalStore } from '../modal'
+import { useMovieStore } from '@/stores/movie'
+import { useAuthStore } from '@/stores/auth'
+import { useModalStore } from '@/stores/modal'
 export default {
   async getQuotes() {
     if (this.isLastPage) {
