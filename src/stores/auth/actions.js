@@ -113,6 +113,7 @@ export default {
           if (window.innerWidth < 960) {
             ModalStore.mobile = 'updated-succesfully'
           } else {
+          this.getUser()
             ModalStore.openModal('user-updated', 'profile-modal')
           }
           this.error = ''

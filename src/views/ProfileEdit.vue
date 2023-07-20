@@ -25,17 +25,14 @@
       />
       <Form class="w-full">
         <div class="w-full mt-10 flex relative">
-          <input-component
-            :bind="form.username"
-            @change-value="change"
-            class="xs:w-full md:w-10/12"
-            type="text"
-            :label="$t('forms.name')"
-            name="name"
-            :placeholder="$t('forms.name_placeholder')"
-            :style="true"
-            :readonly="true"
-          />
+          <label class="text-white w-full font-bold"
+            >{{ $t("forms.name") }}
+            <div
+              class="xs:w-full md:w-10/12 h-[2.375rem] font-normal text-lg mt-2 xs:border-b md:border-2 md:px-5 xs:bg-transparent md:bg-white xs:outline-none md:outline md:rounded-md xs:text-white md:text-black rounded-md`"
+            >
+              {{ AuthStore.author.username }}
+            </div>
+          </label>
           <button
             @click="editForm('username')"
             type="button"
@@ -60,17 +57,14 @@
           />
         </div>
         <div class="mt-4 flex relative">
-          <input-component
-            class="xs:w-full md:w-10/12"
-            type="text"
-            :bind="form.email"
-            name="mail"
-            :label="$t('forms.email')"
-            :placeholder="$t('forms.email_placeholder')"
-            :style="true"
-            :readonly="true"
-            page="profile"
-          />
+          <label class="text-white w-full font-bold"
+            >{{ $t("forms.email") }}
+            <div
+              class="xs:w-full md:w-10/12 h-[2.375rem] font-normal text-lg mt-2 xs:border-b md:border-2 md:px-5 xs:bg-transparent md:bg-white xs:outline-none md:outline md:rounded-md xs:text-white md:text-black rounded-md`"
+            >
+              {{ AuthStore.author.email }}
+            </div>
+          </label>
           <button
             v-if="googleAuthor"
             @click="editForm('email')"
