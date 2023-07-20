@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full flex flex-col bg-[#11101A] rounded-xl md:p-6 xs:p-8 mt-6">
+  <div class="w-full flex flex-col bg-black-background rounded-xl md:p-6 xs:p-8 mt-6">
     <div class="flex items-center">
       <img
         class="xs:w-10 xs:h-10 md:w-[3.25rem] md:h-[3.25rem] object-cover rounded-full"

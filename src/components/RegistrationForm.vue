@@ -50,7 +50,7 @@
       />
     </div>
     <p
-      class="text-red-500 my2"
+      class="text-red-500 my-2"
       v-if="AuthStore.error && AuthStore.error !== 'Unauthenticated.'"
     >
       {{ AuthStore.error }}

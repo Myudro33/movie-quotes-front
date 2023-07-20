@@ -80,10 +80,10 @@ export default {
       MovieStore.movie.quotes[index] = response.data.quote
 
     } catch (error) {
-      error.response.status === 403 && router.push({ name: 'forbidden' })
-      if (error.response.status = 413) {
+      if (error.response.status === 413) {
         alert(error.response.statusText);
       }
+      error.response.status === 403 && router.push({ name: 'forbidden' })
     }
   },
   async deleteQuote(id, page) {

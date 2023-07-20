@@ -33,7 +33,7 @@
         </div>
         <div class="w-full flex mt-6 flex-wrap gap-2">
           <div
-            class="px-3 py-2 bg-[#6C757D] text-white first:ml-0 rounded-sm font-bold"
+            class="px-3 py-2 bg-gray-950 text-white first:ml-0 rounded-sm font-bold"
             v-for="(item, index) in MovieStore.movie.genre"
             :key="index"
           >

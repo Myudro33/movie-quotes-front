@@ -1,7 +1,7 @@
 <template>
   <div class="xs:hidden md:flex md:w-96 h-full"></div>
   <div
-    :class="`md:ml-[4.375rem] xs:h-full md:h-auto xs:w-full md:w-72 xs:bg-[#11101A] md:bg-transparent xs:p-6 md:p-0  z-30 md:flex flex-col xs:${
+    :class="`md:ml-[4.375rem] xs:h-full md:h-auto xs:w-full md:w-72 xs:bg-black-background md:bg-transparent xs:p-6 md:p-0  z-30 md:flex flex-col xs:${
       SidebarStore.isHidden ? 'hidden' : 'flex'
     } xs:absolute md:fixed`"
   >

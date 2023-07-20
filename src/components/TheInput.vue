@@ -23,15 +23,15 @@
           style
             ? `xs:border-b md:border-2   ${
                 !meta.valid && meta.touched
-                  ? 'xs:border-b-red-500  md:border-red-500'
+                  ? 'xs:border-b-red-error  md:border-red-error'
                   : 'xs:border-b-gray-500 md:border-gray-500'
               } md:px-5  xs:bg-transparent md:bg-white xs:outline-none md:outline md:rounded-md xs:text-white md:text-black`
             : ` ${
                 !meta.valid && meta.touched
-                  ? 'border-1 border-[#DC3545]'
-                  : 'border-[#6c757d]-1'
+                  ? 'border-1 border-error'
+                  : 'border-gray-950-1'
               } ${
-                meta.valid && meta.touched ? 'border-1  border-[#198754]' : ''
+                meta.valid && meta.touched ? 'border-1  border-green-success' : ''
               }  px-5 border-2  rounded-md outline-none`
         "
       />

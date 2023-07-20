@@ -42,7 +42,7 @@
     </the-button>
     <p
       @click="ModalStore.openModal('login', 'landing-modal')"
-      class="flex justify-center items-center cursor-pointer text-[#6C757D] font-normal"
+      class="flex justify-center items-center cursor-pointer text-gray-950 font-normal"
     >
       <ArrowIcon /> {{ $t("forms.back_to_login") }}
     </p>

@@ -1,7 +1,7 @@
 <template>
   <ModalWrapper v-if="ModalStore.formModal === 'add-movie'">
     <div
-      class="xs:w-screen md:w-[60rem] xs:pt-2 xs:pb-10 md:py-10 xs:h-screen md:h-auto bg-[#11101A] md:rounded-xl md:mt-28"
+      class="xs:w-screen md:w-[60rem] xs:pt-2 xs:pb-10 md:py-10 xs:h-screen md:h-auto bg-black-background md:rounded-xl md:mt-28"
     >
       <div
         class="relative xs:my-5 md:my-0 w-full flex flex-col items-center justify-center"

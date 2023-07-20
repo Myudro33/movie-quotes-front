@@ -8,7 +8,7 @@
     >
       {{ $t("forms.forgot_password") }}
     </h1>
-    <p class="text-[#6C757D] mt-3 text-center">
+    <p class="text-gray-950 mt-3 text-center">
       {{ $t("forms.forgot_password_paragraph") }}
     </p>
     <div class="mt-4">

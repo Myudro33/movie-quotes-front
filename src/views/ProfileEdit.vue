@@ -7,7 +7,7 @@
       <ArrowIcon @click="$router.back()" />
     </div>
     <div
-      class="md:w-[62.3rem] xs:min-h-screen md:min-h-[43.75rem] xs:bg-[#24222F] md:bg-[#11101A] md:mt-24 md:rounded-3xl flex flex-col items-center xs:px-8 md:px-48"
+      class="md:w-[62.3rem] xs:min-h-screen md:min-h-[43.75rem] xs:bg-[#24222F] md:bg-black-background md:mt-24 md:rounded-3xl flex flex-col items-center xs:px-8 md:px-48"
     >
       <img
         class="w-48 h-48 object-cover rounded-full xs:mt-6 md:mt-0 md:top-36 z-10 md:absolute"
