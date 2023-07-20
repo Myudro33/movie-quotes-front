@@ -33,7 +33,7 @@
         </div>
         <div class="w-full flex mt-6 flex-wrap gap-2">
           <div
-            class="px-3 py-2 bg-[#6C757D] text-white first:ml-0 rounded-sm font-bold"
+            class="px-3 py-2 bg-gray-950 text-white first:ml-0 rounded-sm font-bold"
             v-for="(item, index) in MovieStore.movie.genre"
             :key="index"
           >
@@ -142,11 +142,14 @@
 </template>
 
 <script setup>
+import QuoteModal from "../components/QuoteModal.vue";
+import MovieModal from "../components/MovieModal.vue";
 import { image } from "../services/imagePrefixes";
 import { useI18n } from "vue-i18n";
-import { useNewsStore } from "../stores/NewsStore";
-import { useAuthStore } from "../stores/AuthStore";
-import { useMovieStore } from "../stores/MoviesStore";
+import { useNewsStore } from "@/stores/news";
+import { useAuthStore } from "@/stores/auth";
+import { useMovieStore } from "@/stores/movie";
+import { useModalStore } from "@/stores/modal";
 import { onMounted, computed, ref } from "vue";
 import { deleteLike, createLike } from "../services/likeService";
 import {
@@ -158,9 +161,6 @@ import {
   HeartIcon,
   CommentIcon,
 } from "../components/icons/index.js";
-import QuoteModal from "../components/QuoteModal.vue";
-import MovieModal from "../components/MovieModal.vue";
-import { useModalStore } from "../stores/ModalStore";
 import router from "../router";
 const MovieStore = useMovieStore();
 const NewsStore = useNewsStore();

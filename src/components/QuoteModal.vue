@@ -1,7 +1,7 @@
 <template>
   <ModalWrapper v-if="ModalStore.formModal === 'add-quote'">
     <div
-      class="xs:w-screen md:w-[60rem] xs:z-40 xs:pt-2 xs:pb-10 md:py-10 md:h-auto bg-[#11101A] md:rounded-xl md:mt-28"
+      class="xs:w-screen md:w-[60rem] xs:z-40 xs:pt-2 xs:pb-10 md:py-10 md:h-auto bg-black-background md:rounded-xl md:mt-28"
     >
       <div
         class="relative xs:h-16 xs:my-5 md:my-0 w-full flex flex-col items-center justify-center"
@@ -102,21 +102,21 @@
           </div>
           <TheField
             :readonly="props.mode === 'view'"
-            name="title.en"
+            name="title_en"
             :rules="props.mode !== 'view' && 'required|en'"
-            placeholder="Start create new quote"
+            :placeholder="props.inner ? 'Quote in English' : 'Start create new quote'"
             lang="Eng"
             type="textarea"
-            :bind="getFieldInputBinds('title.en').value.value"
+            :bind="getFieldInputBinds('title_en').value.value"
           />
           <TheField
             :readonly="props.mode === 'view'"
-            name="title.ka"
+            name="title_ka"
             :rules="props.mode !== 'view' && 'required|ka'"
-            placeholder="ახალი ციტატა"
+            :placeholder="props.inner ? 'ციტატა ქართულ ენაზე' : 'ახალი ციტატა'"
             lang="ქარ"
             type="textarea"
-            :bind="getFieldInputBinds('title.ka').value.value"
+            :bind="getFieldInputBinds('title_ka').value.value"
           />
 
           <FileUploadInput
@@ -237,13 +237,20 @@
 
 <script setup>
 import TheField from "./TheField.vue";
-import TheComment from "../components/TheComment.vue";
-import { image, avatar } from "../services/imagePrefixes";
-import { useMovieStore } from "../stores/MoviesStore";
-import { useAuthStore } from "../stores/AuthStore";
-import { useNewsStore } from "../stores/NewsStore";
+import TheComment from "@/components/TheComment.vue";
 import ModalWrapper from "./ModalWrapper.vue";
-const ModalStore = useModalStore();
+import FileUploadInput from "./FileUploadInput.vue";
+import AuthorTag from "./AuthorTag.vue";
+import { Form, Field, ErrorMessage, useForm } from "vee-validate";
+import { reactive, onMounted, computed, ref } from "vue";
+import { createLike, deleteLike } from "../services/likeService";
+import { createComment } from "@/services/commentService";
+import { image, avatar } from "@/services/imagePrefixes";
+import { useMovieStore } from "@/stores/movie";
+import { useAuthStore } from "@/stores/auth";
+import { useNewsStore } from "@/stores/news";
+import { useModalStore } from "@/stores/modal";
+import { useI18n } from "vue-i18n";
 import {
   PenIcon,
   TrashIcon,
@@ -251,15 +258,8 @@ import {
   CameraIcon,
   CommentIcon,
   HeartIcon,
-} from "../components/icons/index.js";
-import { Form, Field, ErrorMessage, useForm } from "vee-validate";
-import { reactive, onMounted, computed, ref } from "vue";
-import { useI18n } from "vue-i18n";
-import FileUploadInput from "./FileUploadInput.vue";
-import AuthorTag from "./AuthorTag.vue";
-import { createLike, deleteLike } from "../services/likeService";
-import { createComment } from "../services/commentService";
-import { useModalStore } from "../stores/ModalStore";
+} from "@/components/icons/index.js";
+const ModalStore = useModalStore();
 const MovieStore = useMovieStore();
 const AuthStore = useAuthStore();
 const NewsStore = useNewsStore();
@@ -319,6 +319,7 @@ const addComment = async (values) => {
     title: values.title,
   };
   const response = await createComment(data, NewsStore.quote, "movie");
+  values.title = "";
   MovieStore.addCommentOnMovieQuote(response.data.comment, NewsStore.quote);
 };
 const addLike = async () => {

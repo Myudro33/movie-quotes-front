@@ -1,16 +1,9 @@
-import { defineStore } from 'pinia'
-import router from '../router'
-import { useNewsStore } from './NewsStore'
-import { useMovieStore } from './MoviesStore'
+import router from '@/router'
+import { useNewsStore } from '@/stores/news'
+import { useMovieStore } from '@/stores/movie'
 
-export const useModalStore = defineStore('modalStore', {
-  state: () => ({
-    inner: '',
-    mobile: '',
-    quoteModal: "",
-    formModal: ""
-  }),
-  actions: {
+
+export default {
     closeModal(page) {
       if (page) {
         this.inner = ''
@@ -85,4 +78,3 @@ export const useModalStore = defineStore('modalStore', {
         this.quoteModal = num
     }
   }
-})

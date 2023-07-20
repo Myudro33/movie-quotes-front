@@ -6,7 +6,7 @@
 import { onMounted } from "vue";
 import { verify } from "../services/emailVerify";
 import router from "../router";
-import { useModalStore } from "../stores/ModalStore";
+import { useModalStore } from "@/stores/modal";
 const ModalStore = useModalStore();
 onMounted(async () => {
   const params = router.currentRoute.value;

@@ -1,7 +1,7 @@
 <template>
   <div class="xs:hidden md:flex md:w-96 h-full"></div>
   <div
-    :class="`md:ml-[4.375rem] xs:h-full md:h-auto xs:w-full md:w-72 xs:bg-[#11101A] md:bg-transparent xs:p-6 md:p-0  z-30 md:flex flex-col xs:${
+    :class="`md:ml-[4.375rem] xs:h-full md:h-auto xs:w-full md:w-72 xs:bg-black-background md:bg-transparent xs:p-6 md:p-0  z-30 md:flex flex-col xs:${
       SidebarStore.isHidden ? 'hidden' : 'flex'
     } xs:absolute md:fixed`"
   >
@@ -38,7 +38,7 @@
     </RouterLink>
     <RouterLink :to="{ name: 'films' }">
       <div class="mt-10 px-3 flex items-center">
-        <CameraIcon :color="route.name === 'films' ? '#E31221' : '#fff'" />
+        <CameraIcon :color="route.path.includes('films') ? '#E31221' : '#fff'" />
         <h1 class="ml-11 text-2xl text-white">{{ $t("feed.movie_list") }}</h1>
       </div>
     </RouterLink>
@@ -48,11 +48,11 @@
 <script setup>
 import HouseIcon from "./icons/HouseIcon.vue";
 import CameraIcon from "./icons/CameraIcon.vue";
-import { useAuthStore } from "../stores/AuthStore";
-import { useSidebarStore } from "../stores/SidebarStore";
 import LanguageSwitch from "./LanguageSwitch.vue";
+import { useAuthStore } from "@/stores/auth";
+import { useSidebarStore } from "@/stores/sidebar";
 import { useRoute } from "vue-router";
-import { avatar } from "../services/imagePrefixes";
+import { avatar } from "@/services/imagePrefixes";
 const route = useRoute();
 const AuthStore = useAuthStore();
 const SidebarStore = useSidebarStore();

@@ -99,12 +99,12 @@
 </template>
 
 <script setup>
+import MobileSuccessModal from "./MobileSuccessModal.vue";
 import ArrowIcon from "./icons/ArrowIcon.vue";
 import { Form } from "vee-validate";
-import { useModalStore } from "../stores/ModalStore";
-import { useAuthStore } from "../stores/AuthStore";
+import { useModalStore } from "@/stores/modal";
+import { useAuthStore } from "@/stores/auth";
 import { reactive, onMounted, onBeforeUnmount, ref } from "vue";
-import MobileSuccessModal from "./MobileSuccessModal.vue";
 const ModalStore = useModalStore();
 const AuthStore = useAuthStore();
 const back = ref("");

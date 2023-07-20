@@ -60,11 +60,11 @@
 
 <script setup>
 import LanguageSwitch from "./LanguageSwitch.vue";
-import { useModalStore } from "../stores/ModalStore";
-import { useAuthStore } from "../stores/AuthStore";
-import { useSidebarStore } from "../stores/SidebarStore";
+import { useModalStore } from "@/stores/modal";
+import { useAuthStore } from "@/stores/auth";
+import { useSidebarStore } from "@/stores/sidebar";
 import { HamburgerIcon, SearchIcon, BellIcon } from "./icons/index.js";
-import { useNotificationStore } from "../stores/NotificationStore";
+import { useNotificationStore } from "@/stores/notifications";
 import router from "../router";
 const NotificationStore = useNotificationStore();
 const ModalStore = useModalStore();

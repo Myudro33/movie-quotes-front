@@ -40,9 +40,9 @@
 </template>
 
 <script setup>
-import { PlusSquareIcon, SearchIcon } from "../components/icons/index.js";
-import { useModalStore } from "../stores/ModalStore";
-import { useMovieStore } from "../stores/MoviesStore";
+import { PlusSquareIcon, SearchIcon } from "@/components/icons/index.js";
+import { useModalStore } from "@/stores/modal";
+import { useMovieStore } from "@/stores/movie";
 import { ref } from "vue";
 const MovieStore = useMovieStore();
 const ModalStore = useModalStore();

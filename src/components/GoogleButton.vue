@@ -10,7 +10,7 @@
 </template>
 
 <script setup>
-import axiosInstance from "../config/axios-config";
+import axiosInstance from "@/config/axios-config";
 import GoogleIcon from "./icons/GoogleIcon.vue";
 const props = defineProps(["type"]);
 const loginwithGoogle = () => {

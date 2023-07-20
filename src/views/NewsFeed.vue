@@ -13,12 +13,12 @@
 </template>
 
 <script setup>
-import { useNewsStore } from "../stores/NewsStore";
-import { onBeforeUnmount, onMounted } from "vue";
-import QuoteCard from "../components/QuoteCard.vue";
-import SearchInput from "../components/SearchInput.vue";
 import QuoteModal from "../components/QuoteModal.vue";
-import { useModalStore } from "../stores/ModalStore";
+import SearchInput from "../components/SearchInput.vue";
+import QuoteCard from "../components/QuoteCard.vue";
+import { onBeforeUnmount, onMounted } from "vue";
+import { useNewsStore } from "@/stores/news";
+import { useModalStore } from "@/stores/modal";
 const NewsStore = useNewsStore();
 const ModalStore = useModalStore();
 onMounted(() => {

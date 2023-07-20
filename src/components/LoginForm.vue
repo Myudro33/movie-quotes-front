@@ -72,15 +72,15 @@
 </template>
 
 <script setup>
+import GoogleButton from "@/components/GoogleButton.vue";
 import { Form } from "vee-validate";
-import { useAuthStore } from "../stores/AuthStore";
-import { useModalStore } from "../stores/ModalStore";
-import { ExitIcon } from "../components/icons/index.js";
 import { ref } from "vue";
+import { useI18n } from "vue-i18n";
+import { ExitIcon } from "@/components/icons/index.js";
+import { useAuthStore } from "@/stores/auth";
+import { useModalStore } from "@/stores/modal";
 const ModalStore = useModalStore();
 const AuthStore = useAuthStore();
-import GoogleButton from "../components/GoogleButton.vue";
-import { useI18n } from "vue-i18n";
 const remember = ref(false);
 const locale = useI18n().locale.value;
 const onSubmit = (values) => {

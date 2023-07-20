@@ -63,10 +63,10 @@
 import SearchIcon from "./icons/SearchIcon.vue";
 import PencilIcon from "./icons/PencilIcon.vue";
 import ArrowIcon from "./icons/ArrowIcon.vue";
-import { useModalStore } from "../stores/ModalStore";
-import { useNewsStore } from "../stores/NewsStore";
+import { useModalStore } from "@/stores/modal";
+import { useNewsStore } from "@/stores/news";
 import { ref } from "vue";
-import axiosInstance from "../config/axios-config";
+import axiosInstance from "@/config/axios-config";
 const ModalStore = useModalStore();
 const NewsStore = useNewsStore();
 const input = ref("");

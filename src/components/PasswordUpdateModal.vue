@@ -8,7 +8,7 @@
     >
       {{ $t("forms.forgot_password") }}
     </h1>
-    <p class="text-[#6C757D] mt-3 text-center">
+    <p class="text-gray-950 mt-3 text-center">
       {{ $t("forms.forgot_password_paragraph") }}
     </p>
     <div class="mt-4">
@@ -39,10 +39,10 @@
 </template>
 
 <script setup>
-import { ExitIcon, ArrowIcon } from "../components/icons/index.js";
+import { ExitIcon, ArrowIcon } from "@/components/icons/index.js";
 import { Form } from "vee-validate";
-import { useModalStore } from "../stores/ModalStore";
-import { useAuthStore } from "../stores/AuthStore";
+import { useModalStore } from "@/stores/modal";
+import { useAuthStore } from "@/stores/auth";
 import { useI18n } from "vue-i18n";
 const locale = useI18n().locale.value;
 const ModalStore = useModalStore();

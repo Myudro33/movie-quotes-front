@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full flex flex-col bg-[#11101A] rounded-xl md:p-6 xs:p-8 mt-6">
+  <div class="w-full flex flex-col bg-black-background rounded-xl md:p-6 xs:p-8 mt-6">
     <div class="flex items-center">
       <img
         class="xs:w-10 xs:h-10 md:w-[3.25rem] md:h-[3.25rem] object-cover rounded-full"
@@ -59,16 +59,15 @@
 </template>
 
 <script setup>
-import { Form, Field } from "vee-validate";
-import { useAuthStore } from "../stores/AuthStore";
-import CommentIcon from "./icons/CommentIcon.vue";
-import HeartIcon from "./icons/HeartIcon.vue";
 import TheComment from "./TheComment.vue";
+import { CommentIcon, HeartIcon } from "./icons/index";
+import { Form, Field } from "vee-validate";
+import { useAuthStore } from "@/stores/auth";
 import { computed, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { image, avatar } from "../services/imagePrefixes";
-import { createLike, deleteLike } from "../services/likeService";
-import { createComment } from "../services/commentService";
+import { createLike, deleteLike } from "@/services/likeService";
+import { createComment } from "@/services/commentService";
 const AuthStore = useAuthStore();
 const props = defineProps(["quote"]);
 const locale = computed(() => {
@@ -99,7 +98,6 @@ const addComment = () => {
     title: title.value,
   };
   createComment(data, props.quote, "feed");
-  title.value = "";
 };
 const addLike = async () => {
   const data = { quote_id: props.quote.id, user_id: AuthStore.author.id };

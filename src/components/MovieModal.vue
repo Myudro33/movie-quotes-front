@@ -1,7 +1,7 @@
 <template>
   <ModalWrapper v-if="ModalStore.formModal === 'add-movie'">
     <div
-      class="xs:w-screen md:w-[60rem] xs:pt-2 xs:pb-10 md:py-10 xs:h-screen md:h-auto bg-[#11101A] md:rounded-xl md:mt-28"
+      class="xs:w-screen md:w-[60rem] xs:pt-2 xs:pb-10 md:py-10 xs:h-screen md:h-auto bg-black-background md:rounded-xl md:mt-28"
     >
       <div
         class="relative xs:my-5 md:my-0 w-full flex flex-col items-center justify-center"
@@ -16,14 +16,14 @@
         <AuthorTag />
         <Form @submit="onSubmit" enctype="multipart/form-data" class="flex flex-col">
           <TheField
-            name="movie_name.en"
+            name="movie_name_en"
             rules="required|min:3|max:50|en"
             placeholder="Movie name"
             lang="Eng"
             :bind="getFieldInputBinds('name.en').value.value"
           />
           <TheField
-            name="movie_name.ka"
+            name="movie_name_ka"
             rules="required|min:3|max:50|ka"
             placeholder="ფილმის სახელი"
             lang="ქარ"
@@ -43,21 +43,21 @@
             :bind="getFieldInputBinds('year').value.value"
           />
           <TheField
-            name="director_name.en"
+            name="director_name_en"
             rules="required|min:3|max:50|en"
             placeholder="Director"
             lang="Eng"
             :bind="getFieldInputBinds('director.en').value.value"
           />
           <TheField
-            name="director_name.ka"
+            name="director_name_ka"
             rules="required|min:3|max:50|ka"
             placeholder="რეჟისორი"
             lang="ქარ"
             :bind="getFieldInputBinds('director.ka').value.value"
           />
           <TheField
-            name="movie_description.en"
+            name="movie_description_en"
             rules="required|en"
             placeholder="Movie description"
             lang="Eng"
@@ -65,7 +65,7 @@
             :bind="getFieldInputBinds('description.en').value.value"
           />
           <TheField
-            name="movie_description.ka"
+            name="movie_description_ka"
             rules="required|ka"
             placeholder="ფილმის აღწერა"
             lang="ქარ"
@@ -91,16 +91,16 @@
 <script setup>
 import ModalWrapper from "./ModalWrapper.vue";
 import AuthorTag from "./AuthorTag.vue";
+import TheField from "./TheField.vue";
+import ChipInput from "./ChipInput.vue";
+import FileUploadInput from "./FileUploadInput.vue";
 import { Form, useForm } from "vee-validate";
 import { ref } from "vue";
-import { useMovieStore } from "../stores/MoviesStore";
-const MovieStore = useMovieStore();
 import { ExitIcon } from "./icons/index.js";
-import FileUploadInput from "./FileUploadInput.vue";
-import ChipInput from "./ChipInput.vue";
-import { image } from "../services/imagePrefixes";
-import TheField from "./TheField.vue";
-import { useModalStore } from "../stores/ModalStore";
+import { image } from "@/services/imagePrefixes";
+import { useMovieStore } from "@/stores/movie";
+import { useModalStore } from "@/stores/modal";
+const MovieStore = useMovieStore();
 const newImage = ref("");
 const props = defineProps(["edit"]);
 const { defineInputBinds, setValues } = useForm({

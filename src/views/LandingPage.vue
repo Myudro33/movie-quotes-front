@@ -20,6 +20,6 @@
 
 <script setup>
 import LandingParallax from "../components/LandingParallax.vue";
-import { useModalStore } from "../stores/ModalStore";
+import { useModalStore } from "@/stores/modal";
 const ModalStore = useModalStore();
 </script>

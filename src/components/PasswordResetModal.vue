@@ -42,7 +42,7 @@
     </the-button>
     <p
       @click="ModalStore.openModal('login', 'landing-modal')"
-      class="flex justify-center items-center cursor-pointer text-[#6C757D] font-normal"
+      class="flex justify-center items-center cursor-pointer text-gray-950 font-normal"
     >
       <ArrowIcon /> {{ $t("forms.back_to_login") }}
     </p>
@@ -50,10 +50,11 @@
 </template>
 
 <script setup>
-import { ArrowIcon, ExitIcon } from "../components/icons/index.js";
+import { ArrowIcon, ExitIcon } from "@/components/icons/index.js";
 import { Form } from "vee-validate";
-import { useAuthStore } from "../stores/AuthStore";
-import { useModalStore } from "../stores/ModalStore";
+import { useAuthStore } from "@/stores/auth";
+import { useModalStore } from "@/stores/modal";
+
 import router from "../router";
 const AuthStore = useAuthStore();
 const ModalStore = useModalStore();

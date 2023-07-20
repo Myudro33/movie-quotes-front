@@ -50,7 +50,7 @@
       />
     </div>
     <p
-      class="text-red-500 my2"
+      class="text-red-500 my-2"
       v-if="AuthStore.error && AuthStore.error !== 'Unauthenticated.'"
     >
       {{ AuthStore.error }}
@@ -72,10 +72,10 @@
 
 <script setup>
 import { Form } from "vee-validate";
-import { useModalStore } from "../stores/ModalStore";
-import { useAuthStore } from "../stores/AuthStore";
 import { useI18n } from "vue-i18n";
-import { ExitIcon } from "../components/icons/index.js";
+import { ExitIcon } from "@/components/icons/index.js";
+import { useModalStore } from "@/stores/modal";
+import { useAuthStore } from "@/stores/auth";
 const ModalStore = useModalStore();
 const AuthStore = useAuthStore();
 import GoogleButton from "./GoogleButton.vue";

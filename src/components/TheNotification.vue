@@ -19,7 +19,7 @@
       class="mt-4 w-full md:h-[7.7rem] cursor-pointer flex xs:flex-col md:flex-row items-center xs:p-3 md:p-6 border border-[#6C757D80] rounded-lg"
     >
       <img
-        :class="!item.seen && 'border-2 border-[#198754]'"
+        :class="!item.seen && 'border-2 border-green-success'"
         class="rounded-full xs:hidden md:flex md:w-[4.5rem] md:h-[4.5rem] object-cover shrink-0"
         :src="avatar(item.user)"
         alt="avatar"
@@ -27,7 +27,7 @@
       <div class="w-full h-full md:ml-6 flex justify-between xs:flex-col md:flex-row">
         <div class="flex flex-row py-1">
           <img
-            :class="!item.seen && 'border-2 border-[#198754]'"
+            :class="!item.seen && 'border-2 border-green-success'"
             class="rounded-full w-[3.2rem] h-[3.2rem] object-cover shrink-0 md:hidden"
             :src="avatar(item.user)"
             alt="avatar"
@@ -62,10 +62,10 @@
 </template>
 
 <script setup>
-import { useNotificationStore } from "../stores/NotificationStore";
-import { QuotesIcon, HeartIcon } from "../components/icons/index.js";
-import { useAuthStore } from "../stores/AuthStore";
-import { avatar } from "../services/imagePrefixes";
+import { QuotesIcon, HeartIcon } from "@/components/icons/index.js";
+import { avatar } from "@/services/imagePrefixes";
+import { useNotificationStore } from "@/stores/notifications";
+import { useAuthStore } from "@/stores/auth";
 const NotificationStore = useNotificationStore();
 const AuthStore = useAuthStore();
 const markAsRead = (item) => {

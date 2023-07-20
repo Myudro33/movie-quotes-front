@@ -81,7 +81,7 @@
 import LoginFormVue from "./LoginForm.vue";
 import RegistrationForm from "./RegistrationForm.vue";
 import PasswordUpdateModal from "./PasswordUpdateModal.vue";
-import { useModalStore } from "../stores/ModalStore";
+import { useModalStore } from "@/stores/modal";
 import { onMounted, onBeforeUnmount } from "vue";
 import InfoModal from "./InfoModal.vue";
 import PasswordResetModal from "./PasswordResetModal.vue";

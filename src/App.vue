@@ -1,28 +1,25 @@
 <script setup>
+import TheNavbar from "@/components/TheNavbar.vue";
+import TheModal from "@/components/TheModal.vue";
+import ProfileMobileModal from "@/components/ProfileMobileModal.vue";
 import { RouterView } from "vue-router";
-import TheNavbar from "./components/TheNavbar.vue";
-import TheModal from "./components/TheModal.vue";
-import { useModalStore } from "./stores/ModalStore";
-import { useAuthStore } from "./stores/AuthStore";
-import { computed, onMounted } from "vue";
-import ProfileMobileModal from "./components/ProfileMobileModal.vue";
+import { onMounted } from "vue";
 import { useI18n } from "vue-i18n";
-import { useNewsStore } from "./stores/NewsStore";
+import { useModalStore } from "@/stores/modal";
+import { useAuthStore } from "@/stores/auth";
 const authStore = useAuthStore();
 const modalStore = useModalStore();
-const NewsStore = useNewsStore();
 onMounted(async () => {
   await authStore.getUser();
-  await NewsStore.getQuotes();
   modalStore.queryBasedModal();
 });
-const font = computed(() => {
+const font = () => {
   if (useI18n().locale.value === "en") {
     return "Eng";
   } else {
     return "Geo";
   }
-});
+};
 </script>
 
 <template>

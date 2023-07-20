@@ -1,15 +1,9 @@
-import { defineStore } from 'pinia'
-import router from '../router/index.js'
-import { useModalStore } from './ModalStore.js'
-import axiosInstance from '../config/axios-config/index.js'
+import router from '@/router/index.js'
+import { useModalStore } from '@/stores/modal'
+import { useNewsStore } from '@/stores/news'
+import axiosInstance from '@/config/axios-config/index.js'
 import axios from 'axios'
-
-export const useAuthStore = defineStore('authStore', {
-  state: () => ({
-    error: '',
-    user: null
-  }),
-  actions: {
+export default {
     async login(data, locale) {
       const ModalStore = useModalStore()
       try {
@@ -119,6 +113,7 @@ export const useAuthStore = defineStore('authStore', {
           if (window.innerWidth < 960) {
             ModalStore.mobile = 'updated-succesfully'
           } else {
+          this.getUser()
             ModalStore.openModal('user-updated', 'profile-modal')
           }
           this.error = ''
@@ -128,6 +123,7 @@ export const useAuthStore = defineStore('authStore', {
       }
     },
     async uploadAvatar(event) {
+      const NewsStore = useNewsStore()
       const file = event.target.files[0]
       const formData = new FormData()
       formData.append('avatar', file)
@@ -138,6 +134,11 @@ export const useAuthStore = defineStore('authStore', {
           }
         })
         this.author.avatar = response.data.avatar
+        for(let i =0;i<NewsStore.quotes.length;i++){
+          if(NewsStore.quotes[i].user.id===this.user.id){
+            NewsStore.quotes[i].user.avatar=response.data.avatar
+          }
+        }
         this.error = ''
       } catch (error) {
         this.error = error.response.data.message
@@ -146,8 +147,4 @@ export const useAuthStore = defineStore('authStore', {
     areAllPropertiesNull(obj) {
       return Object.values(obj).every(value => value === null);
     }
-  },
-  getters: {
-    author: (state) => state.user
   }
-})

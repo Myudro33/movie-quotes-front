@@ -9,8 +9,8 @@
       @drop.prevent="toggleActive"
       :class="[
         active ? 'border-2 border-dashed bg-[#41b88380]' : 'border border-[#6c757d]-1',
-        !meta.valid && meta.touched ? 'border-1 border-[#DC3545]' : 'border-[#6c757d]-1',
-        meta.valid && meta.touched ? 'border-1  border-[#198754]' : '',
+        !meta.valid && meta.touched ? 'border-1 border-red-error' : 'border-[#6c757d]-1',
+        meta.valid && meta.touched ? 'border-1  border-green-success' : '',
       ]"
       class="w-full flex items-center py-[1.313rem] px-[1.125rem] mt-[1.375rem] text-white rounded-sm xs:justify-between md:justify-start"
     >

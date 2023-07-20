@@ -12,9 +12,9 @@
 import MovieModal from "../components/MovieModal.vue";
 import MovieCard from "../components/MovieCard.vue";
 import MovieListHeading from "../components/MovieListHeading.vue";
-import { useMovieStore } from "../stores/MoviesStore";
+import { useMovieStore } from "@/stores/movie";
 import { onBeforeUnmount, onMounted } from "vue";
-import { useModalStore } from "../stores/ModalStore";
+import { useModalStore } from "@/stores/modal";
 const ModalStore = useModalStore();
 const MovieStore = useMovieStore();
 onMounted(() => {

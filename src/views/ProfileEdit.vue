@@ -7,7 +7,7 @@
       <ArrowIcon @click="$router.back()" />
     </div>
     <div
-      class="md:w-[62.3rem] xs:min-h-screen md:min-h-[43.75rem] xs:bg-[#24222F] md:bg-[#11101A] md:mt-24 md:rounded-3xl flex flex-col items-center xs:px-8 md:px-48"
+      class="md:w-[62.3rem] xs:min-h-screen md:min-h-[43.75rem] xs:bg-[#24222F] md:bg-black-background md:mt-24 md:rounded-3xl flex flex-col items-center xs:px-8 md:px-48"
     >
       <img
         class="w-48 h-48 object-cover rounded-full xs:mt-6 md:mt-0 md:top-36 z-10 md:absolute"
@@ -25,17 +25,14 @@
       />
       <Form class="w-full">
         <div class="w-full mt-10 flex relative">
-          <input-component
-            rules="required|min:3|max:15|lowercase"
-            :bind="form.username"
-            @change-value="change"
-            class="xs:w-full md:w-10/12"
-            type="text"
-            :label="$t('forms.name')"
-            name="name"
-            :placeholder="$t('forms.name_placeholder')"
-            :style="true"
-          />
+          <label class="text-white w-full font-bold"
+            >{{ $t("forms.name") }}
+            <div
+              class="xs:w-full md:w-10/12 h-[2.375rem] font-normal text-lg mt-2 xs:border-b md:border-2 md:px-5 xs:bg-transparent md:bg-white xs:outline-none md:outline md:rounded-md xs:text-white md:text-black rounded-md`"
+            >
+              {{ AuthStore.author.username }}
+            </div>
+          </label>
           <button
             @click="editForm('username')"
             type="button"
@@ -60,17 +57,14 @@
           />
         </div>
         <div class="mt-4 flex relative">
-          <input-component
-            class="xs:w-full md:w-10/12"
-            type="text"
-            :bind="form.email"
-            name="mail"
-            :label="$t('forms.email')"
-            :placeholder="$t('forms.email_placeholder')"
-            :style="true"
-            :readonly="!googleAuthor"
-            page="profile"
-          />
+          <label class="text-white w-full font-bold"
+            >{{ $t("forms.email") }}
+            <div
+              class="xs:w-full md:w-10/12 h-[2.375rem] font-normal text-lg mt-2 xs:border-b md:border-2 md:px-5 xs:bg-transparent md:bg-white xs:outline-none md:outline md:rounded-md xs:text-white md:text-black rounded-md`"
+            >
+              {{ AuthStore.author.email }}
+            </div>
+          </label>
           <button
             v-if="googleAuthor"
             @click="editForm('email')"
@@ -99,7 +93,6 @@
         <div v-if="googleAuthor" class="w-full mt-4 flex relative">
           <input-component
             class="xs:w-full md:w-10/12"
-            rules="required|min:8|max:15|lowercase"
             type="password"
             name="fake_password"
             :bind="form.fake_password"
@@ -107,6 +100,7 @@
             :placeholder="$t('forms.password_placeholder')"
             :style="true"
             page="profile"
+            :readonly="true"
           />
           <button
             @click="editForm('password')"
@@ -178,8 +172,8 @@
 <script setup>
 import { Form, useForm } from "vee-validate";
 import { computed, reactive, ref } from "vue";
-import { useAuthStore } from "../stores/AuthStore";
-import { useModalStore } from "../stores/ModalStore";
+import { useAuthStore } from "@/stores/auth";
+import { useModalStore } from "@/stores/modal";
 import { ArrowIcon } from "../components/icons/index.js";
 import { useI18n } from "vue-i18n";
 import { avatar } from "../services/imagePrefixes";
