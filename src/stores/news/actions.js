@@ -95,6 +95,8 @@ export default {
       if (!page) {
         ModalStore.closeModal()
       }
+      const movie = MovieStore.movies.find(item=>item.id===MovieStore.movie.id)
+      movie.quotes=filtered
       return MovieStore.movie.quotes = filtered
     } catch (error) {
       error.response.status === 403 && router.push({ name: 'forbidden' })
