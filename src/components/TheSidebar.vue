@@ -38,7 +38,7 @@
     </RouterLink>
     <RouterLink :to="{ name: 'films' }">
       <div class="mt-10 px-3 flex items-center">
-        <CameraIcon :color="route.name === 'films' ? '#E31221' : '#fff'" />
+        <CameraIcon :color="route.path.includes('films') ? '#E31221' : '#fff'" />
         <h1 class="ml-11 text-2xl text-white">{{ $t("feed.movie_list") }}</h1>
       </div>
     </RouterLink>
@@ -54,6 +54,7 @@ import { useSidebarStore } from "@/stores/sidebar";
 import { useRoute } from "vue-router";
 import { avatar } from "@/services/imagePrefixes";
 const route = useRoute();
+console.log(route);
 const AuthStore = useAuthStore();
 const SidebarStore = useSidebarStore();
 </script>
