@@ -1,5 +1,6 @@
 import router from '@/router/index.js'
 import { useModalStore } from '../modal'
+import { useNewsStore } from '../news'
 import axiosInstance from '@/config/axios-config/index.js'
 import axios from 'axios'
 export default {
@@ -121,6 +122,7 @@ export default {
       }
     },
     async uploadAvatar(event) {
+      const NewsStore = useNewsStore()
       const file = event.target.files[0]
       const formData = new FormData()
       formData.append('avatar', file)
@@ -131,6 +133,11 @@ export default {
           }
         })
         this.author.avatar = response.data.avatar
+        for(let i =0;i<NewsStore.quotes.length;i++){
+          if(NewsStore.quotes[i].user.id===this.user.id){
+            NewsStore.quotes[i].user.avatar=response.data.avatar
+          }
+        }
         this.error = ''
       } catch (error) {
         this.error = error.response.data.message
