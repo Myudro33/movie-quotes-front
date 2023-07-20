@@ -23,7 +23,6 @@ export default {
     }
   },
   async addMovie(data, genre) {
-    console.log(data);
     const AuthStore = useAuthStore()
     const formData = new FormData()
     formData.append('user_id', AuthStore.author.id)

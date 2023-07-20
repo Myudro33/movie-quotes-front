@@ -54,7 +54,6 @@ import { useSidebarStore } from "@/stores/sidebar";
 import { useRoute } from "vue-router";
 import { avatar } from "@/services/imagePrefixes";
 const route = useRoute();
-console.log(route);
 const AuthStore = useAuthStore();
 const SidebarStore = useSidebarStore();
 </script>

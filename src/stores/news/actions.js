@@ -53,6 +53,9 @@ export default {
         }
       })
       page && MovieStore.movie.quotes.unshift(response.data.quote)
+      const movieId = page?MovieStore.movie.id:data.field
+      const movie = MovieStore.movies.find((item)=>item.id===movieId)
+      movie.quotes.unshift(response.data.quote)
       return this.quotes.unshift(response.data.quote)
     } catch (error) {
       alert(error.response.statusText);
