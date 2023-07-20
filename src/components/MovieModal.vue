@@ -16,14 +16,14 @@
         <AuthorTag />
         <Form @submit="onSubmit" enctype="multipart/form-data" class="flex flex-col">
           <TheField
-            name="movie_name.en"
+            name="movie_name_en"
             rules="required|min:3|max:50|en"
             placeholder="Movie name"
             lang="Eng"
             :bind="getFieldInputBinds('name.en').value.value"
           />
           <TheField
-            name="movie_name.ka"
+            name="movie_name_ka"
             rules="required|min:3|max:50|ka"
             placeholder="ფილმის სახელი"
             lang="ქარ"
@@ -43,21 +43,21 @@
             :bind="getFieldInputBinds('year').value.value"
           />
           <TheField
-            name="director_name.en"
+            name="director_name_en"
             rules="required|min:3|max:50|en"
             placeholder="Director"
             lang="Eng"
             :bind="getFieldInputBinds('director.en').value.value"
           />
           <TheField
-            name="director_name.ka"
+            name="director_name_ka"
             rules="required|min:3|max:50|ka"
             placeholder="რეჟისორი"
             lang="ქარ"
             :bind="getFieldInputBinds('director.ka').value.value"
           />
           <TheField
-            name="movie_description.en"
+            name="movie_description_en"
             rules="required|en"
             placeholder="Movie description"
             lang="Eng"
@@ -65,7 +65,7 @@
             :bind="getFieldInputBinds('description.en').value.value"
           />
           <TheField
-            name="movie_description.ka"
+            name="movie_description_ka"
             rules="required|ka"
             placeholder="ფილმის აღწერა"
             lang="ქარ"

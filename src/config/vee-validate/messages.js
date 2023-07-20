@@ -20,7 +20,14 @@ configure({
         password: 'Password',
         password_confirmation: 'Confirm password',
         title_en: 'Quote',
-        title_ka: 'Quote'
+        title_ka: 'Quote',
+        movie_name_en:"Movie name en",
+        movie_name_ka:"Movie name ka",
+        year:"Year",
+        director_name_en:"Director name en",
+        director_name_ka:"Director name ka",
+        movie_description_en:"Movie description en",
+        movie_description_ka:"Movie description ka",
       }
     },
     ka: {
@@ -41,7 +48,14 @@ configure({
         password: 'პაროლი',
         password_confirmation:'გაიმეორეთ პაროლი',
         title_en: 'ციტატა',
-        title_ka: 'ციტატა'
+        title_ka: 'ციტატა',
+        movie_name_en:"ფილმის სახელი ინგ",
+        movie_name_ka:"ფილმის სახელი ქარ",
+        year:"წელი",
+        director_name_en:"რეჟისორის სახელი ინგ.",
+        director_name_ka:"რეჟისორის სახელი ქარ.",
+        movie_description_en:"ფილმის აღწერა ინგ.",
+        movie_description_ka:"ფილმის აღწერა ქარ.",
       }
     }
   })

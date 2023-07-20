@@ -34,12 +34,13 @@
         ]"
       />
     </Field>
+    <ErrorMessage class="text-red-500 mt-1" :name="props.name" />
     <p class="text-white absolute right-5 top-8 md:text-xl">{{ props.lang }}</p>
   </div>
 </template>
 
 <script setup>
-import { Field } from "vee-validate";
+import { Field, ErrorMessage } from "vee-validate";
 import { ref } from "vue";
 const props = defineProps([
   "name",

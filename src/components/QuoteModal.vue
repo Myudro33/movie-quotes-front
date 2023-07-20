@@ -102,21 +102,21 @@
           </div>
           <TheField
             :readonly="props.mode === 'view'"
-            name="title.en"
+            name="title_en"
             :rules="props.mode !== 'view' && 'required|en'"
-            placeholder="Start create new quote"
+            :placeholder="props.inner ? 'Quote in English' : 'Start create new quote'"
             lang="Eng"
             type="textarea"
-            :bind="getFieldInputBinds('title.en').value.value"
+            :bind="getFieldInputBinds('title_en').value.value"
           />
           <TheField
             :readonly="props.mode === 'view'"
-            name="title.ka"
+            name="title_ka"
             :rules="props.mode !== 'view' && 'required|ka'"
-            placeholder="ახალი ციტატა"
+            :placeholder="props.inner ? 'ციტატა ქართულ ენაზე' : 'ახალი ციტატა'"
             lang="ქარ"
             type="textarea"
-            :bind="getFieldInputBinds('title.ka').value.value"
+            :bind="getFieldInputBinds('title_ka').value.value"
           />
 
           <FileUploadInput
