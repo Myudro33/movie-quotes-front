@@ -98,6 +98,7 @@ const addComment = () => {
     title: title.value,
   };
   createComment(data, props.quote, "feed");
+  console.log("quote card");
   title.value = "";
 };
 const addLike = async () => {

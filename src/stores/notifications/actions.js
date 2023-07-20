@@ -33,7 +33,9 @@ export default {
         const NewsStore = useNewsStore()
         const quote = NewsStore.quotes.find(quote => quote.id === data.notification.quote_id)
         if (data.notification.title) {
-            quote.comments.unshift(data.notification)
+            if(data.notification.author.id!==quote.user.id){
+                quote.comments.unshift(data.notification)
+            }
         } else {
             if (data.type) {
                 if (!quote.likes.some((like) => like.author_id === data.notification.author_id)) {

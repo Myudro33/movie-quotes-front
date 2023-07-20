@@ -319,6 +319,7 @@ const addComment = async (values) => {
     title: values.title,
   };
   const response = await createComment(data, NewsStore.quote, "movie");
+  values.title = "";
   MovieStore.addCommentOnMovieQuote(response.data.comment, NewsStore.quote);
 };
 const addLike = async () => {
